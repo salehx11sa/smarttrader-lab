@@ -1,15 +1,18 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.2",
- "at": "2026-10-07T21:37:28.256Z",
- "cmd": "lab-status",
+ "at": "2026-10-07T23:15:25.126Z",
+ "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-07",
  "daysElapsed": 1,
  "trading": true,
  "halt": false,
- "entryGates": null,
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
  "flags": [],
  "players": [
   {
@@ -42,7 +45,7 @@
    "id": "T1",
    "name": "الصبور",
    "equityClose": 13000,
-   "equityNow": 13000,
+   "equityNow": 13003.78,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -68,11 +71,11 @@
    "id": "O1",
    "name": "الليلي",
    "equityClose": 12999.28,
-   "equityNow": 12998.4,
+   "equityNow": 12999.28,
    "totalReturnPct": -0.006,
    "maxDrawdownPct": 0.01,
    "drawdownPct": 0.01,
-   "tradesClosed": 0,
+   "tradesClosed": 1,
    "killed": null,
    "vsRefPct": -0.006,
    "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد"
@@ -94,11 +97,11 @@
    "id": "LEARN",
    "name": "المتعلّم",
    "equityClose": 12999.96,
-   "equityNow": 12999.85,
+   "equityNow": 12999.96,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
-   "tradesClosed": 0,
+   "tradesClosed": 1,
    "killed": null,
    "vsRefPct": 0,
    "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد"
@@ -137,7 +140,38 @@
    }
   ]
  },
- "shadows": null,
+ "shadows": [
+  {
+   "id": "S1-h5",
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  {
+   "id": "S1-h15",
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  {
+   "id": "T1-sma8",
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  {
+   "id": "T1-sma12",
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  {
+   "id": "CHEAP-rsi5",
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  }
+ ],
  "recon": {
   "ok": true,
   "labMismatch": {}
@@ -146,7 +180,7 @@
   "proven": true,
   "settledCash": 89328.12
  },
- "crossesTotal": 0,
+ "crossesTotal": 2,
  "crossLedger": {
   "ok": true,
   "state": "valid"
