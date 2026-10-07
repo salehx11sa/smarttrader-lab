@@ -1,0 +1,135 @@
+# SmartTrader PAPER LAB 0.1 — مختبر ورقي: 7 لاعبين في حساب Alpaca ورقي واحد (المستودع المقترح: salehx11sa/smarttrader-lab)
+# لا أوامر إلا إذا ضبط صالح بنفسه متغير المستودع TRADING_ENABLED=true وRUNNER_MODE=lab. الافتراضي: lab-status (قراءة فقط، تشغيل جاف).
+# المفاتيح: Secrets → APCA_API_KEY_ID و APCA_API_SECRET_KEY (مفاتيح الحساب الورقي فقط). لا عنوان حي في المحرّك.
+# GitHub قد يؤخر التشغيل المجدول 5–7 ساعات: كل لاعب مصمم ليتحمل التأخر (أمر واحد لليوم، والمتأخر يتخطى الدخول ويُبقي الحماية).
+name: smarttrader-lab
+on:
+  schedule:
+    # (1) خانات الليل lab-overnight — أوامر الافتتاح opg لكل اللاعبين. النافذة 16:15→09:15 نيويورك؛ يكفي أن تبدأ واحدة قبل 09:15.
+    #     21:23 UTC = 17:23 صيفًا / 16:23 شتاءً • 23:41 UTC = 19:41 / 18:41 • 01:53 UTC = 21:53 / 20:53 (الليلة السابقة)
+    #     03:19 UTC = 23:19 / 22:19 • 10:07 UTC = 06:07 / 05:07 • 13:41 UTC شتاءً = 08:41 (ليل) وصيفًا = 09:41 (حماية)
+    - cron: '23 21 * * 1-5'
+    - cron: '41 23 * * 1-5'
+    - cron: '53 1 * * 1-5'
+    - cron: '19 3 * * 1-5'
+    - cron: '7 10 * * 1-5'
+    # (2) خانات الحماية والمطابقة lab-postopen بعد الافتتاح: وقف GTC لكل مركز أسهم، وإلغاء أوامر الافتتاح غير المكتملة.
+    - cron: '41 13 * * 1-5'
+    - cron: '11 14 * * 1-5'
+    - cron: '41 14 * * 1-5'
+    # (3) خانات الإغلاق cls لليلي O1 (وقرينه في المتعلّم): الشراء عند الإغلاق. الحد 15 دقيقة قبل الإغلاق (12:45 في أيام الإغلاق المبكر).
+    #     15:13 UTC = 11:13 صيفًا / 10:13 شتاءً • 16:47 = 12:47 / 11:47 • 18:29 = 14:29 / 13:29 • 19:11 = 15:11 / 14:11
+    #     تأخر بعد الحد ⇒ الليلي يتخطى تلك الليلة (لا شراء متأخر).
+    - cron: '13 15 * * 1-5'
+    - cron: '47 16 * * 1-5'
+    - cron: '29 18 * * 1-5'
+    - cron: '11 19 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      command:
+        description: 'lab-status (قراءة فقط) | lab-overnight | lab-postopen | lab-clear-flags (بعد مراجعة الأعلام)'
+        required: true
+        default: 'lab-status'
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: smarttrader-lab
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Pick command
+        id: cmd
+        run: echo "c=$(bash runner/lab_pick.sh "${{ github.event.inputs.command }}" "${{ vars.RUNNER_MODE }}" "$(TZ=America/New_York date +%H%M)")" >> $GITHUB_OUTPUT
+      - name: Preflight
+        env:
+          APCA_API_KEY_ID: ${{ secrets.APCA_API_KEY_ID }}
+          APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
+          TRADING_ENABLED: ${{ vars.TRADING_ENABLED }}
+          ENTRIES_ENABLED: ${{ vars.ENTRIES_ENABLED }}
+          RUNNER_MODE: ${{ vars.RUNNER_MODE }}
+          HALT: ${{ vars.HALT }}
+          RUNNER_PATH: github-actions
+          RUNNER_CMD: ${{ steps.cmd.outputs.c }}
+        run: node runner/lab_preflight.cjs
+      - name: State guard
+        # الحارس نفسه من المنفّذ المقبول (7.2.19-dev) بلا تعديل؛ يقرأ سجل تشغيلات هذا الـworkflow (STATE_GUARD_WORKFLOW).
+        timeout-minutes: 3
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          STATE_GUARD_WORKFLOW: smarttrader-lab.yml
+          STATE_GUARD_REQUEST_MS: '10000'
+          STATE_GUARD_BUDGET_MS: '90000'
+        run: node runner/state_guard.cjs
+      - name: Run
+        id: run
+        env:
+          APCA_API_KEY_ID: ${{ secrets.APCA_API_KEY_ID }}
+          APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
+          TRADING_ENABLED: ${{ vars.TRADING_ENABLED }}
+          ENTRIES_ENABLED: ${{ vars.ENTRIES_ENABLED }}
+          RUNNER_MODE: ${{ vars.RUNNER_MODE }}
+          FLAG_CLEAR_NOTE: ${{ github.actor }}
+          RUNNER_PATH: github-actions
+          HALT: ${{ vars.HALT }}
+          GH_EVENT_SCHEDULE: ${{ github.event.schedule }}
+        run: node runner/lab.cjs ${{ steps.cmd.outputs.c }}
+      - name: Save report
+        if: always()
+        env:
+          RUN_OUTCOME: ${{ steps.run.outcome }}
+          CMD_C: ${{ steps.cmd.outputs.c }}
+        run: |
+          set -u
+          # ANCHOR-BEGIN (يُختبر حرفيًا في runner/test/runner_tests_save_cash.cjs وrunner_tests_save03.cjs)
+          # 7.2.15-dev (DEV-SAVE-03): المرساة لا تقول «مكتمل» إلا بإثبات إيجابي من verifySave في runner.cjs (المصدر الوحيد للقاعدة):
+          #   إيصال هذا التشغيل والمحاولة + تقريره موجود ببصمته ويحمل رقم التشغيل + سجل runs.json الأخير له يطابق (لأوامر التسجيل)
+          #   + آخر زوج سجل/تقرير سليم أو حادثته محسومة + لا حادثة حفظ مفتوحة + خطوة Run نجحت (أو فشلت برمز 1/2 مع زوج مثبت).
+          #   غير ذلك، أو تعذر تشغيل الفحص نفسه ⇒ incomplete=true وpairVerified=false (فشل مغلق). anchorSchema=2 يجعل state_guard يشترط pairVerified=true.
+          anchor(){
+            A="$(node -e "const R=require('./runner/runner.cjs');const e=process.env;const v=R.verifySave('runner/state','runner/reports',{runId:e.GITHUB_RUN_ID||'local',runAttempt:e.GITHUB_RUN_ATTEMPT||'1',cmd:e.CMD_C||'',runOutcome:e.RUN_OUTCOME||'unknown',now:Date.now()});process.stdout.write(JSON.stringify({runId:e.GITHUB_RUN_ID||'local',runNumber:+e.GITHUB_RUN_NUMBER||0,runAttempt:+e.GITHUB_RUN_ATTEMPT||1,at:new Date().toISOString().replace(/\.\d+Z$/,'Z'),cmd:e.CMD_C||'',runOutcome:e.RUN_OUTCOME||'unknown',incomplete:v.incomplete!==false,openSaveIncidents:v.openSaveIncidents,pairVerified:v.pairVerified===true,anchorSchema:2,runnerExit:v.runnerExit,lastPair:v.lastPair&&v.lastPair.status,problems:v.problems.slice(0,8)}))" 2>/dev/null)" || A=""
+            case "$A" in '{'*'"anchorSchema":2'*'}') ;; *) A="$(printf '{"runId":"%s","runNumber":%s,"runAttempt":%s,"at":"%s","cmd":"%s","runOutcome":"%s","incomplete":true,"openSaveIncidents":1,"pairVerified":false,"anchorSchema":2,"problems":["تعذر تشغيل فحص الاكتمال"]}' "${GITHUB_RUN_ID:-local}" "${GITHUB_RUN_NUMBER:-0}" "${GITHUB_RUN_ATTEMPT:-1}" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${CMD_C:-}" "${RUN_OUTCOME:-unknown}")";; esac
+            case "$A" in *'"incomplete":false'*'"pairVerified":true'*) ;; *) echo "::error::الحفظ غير مكتمل أو غير مثبت (سجل التشغيل/التقرير/الإيصال أو حادثة حفظ) — المرساة incomplete=true؛ لا دخول حتى يراجعها صالح ويشغّل clear-flags";; esac
+            printf '%s\n' "$A" > runner/state/last-saved.json
+          }
+          # ANCHOR-END
+          fail(){ echo "::error::حفظ الحالة فشل: $1 — أعلام التوقف قد لا تصل إلى التشغيل التالي؛ state_guard سيستعيدها من artifact هذا التشغيل أو يوقف الدخول"; exit 1; }
+          git config user.name "smarttrader-lab"; git config user.email "lab@users.noreply.github.com"
+          mkdir -p runner/state runner/reports runner/lab-reports
+          git add -A runner/reports runner/state runner/lab-reports || fail "git add"
+          if git diff --cached --quiet; then echo "لا تغييرات للحفظ"; else
+            git commit -q -m "lab report ${{ steps.cmd.outputs.c }} [skip ci]" || fail "git commit"
+          fi
+          br="$(git rev-parse --abbrev-ref HEAD)" || fail "تحديد الفرع"
+          ok=0; for i in 1 2 3; do
+            if git pull -q --rebase origin "$br"; then
+              anchor || fail "كتابة المرساة"
+              git add runner/state/last-saved.json || fail "git add (المرساة)"
+              if ! git diff --cached --quiet; then git commit -q -m "lab anchor [skip ci]" || fail "git commit (المرساة)"; fi
+              if git push -q origin "HEAD:$br"; then ok=1; break; fi
+            else git rebase --abort >/dev/null 2>&1 || true; fi
+            sleep 5; done
+          [ "$ok" = "1" ] || fail "دمج أو دفع بعد 3 محاولات (تعارض في الحالة أو المستودع غير متاح)"
+          git fetch -q origin "$br" || fail "git fetch للتحقق"
+          git diff --quiet HEAD "origin/$br" -- runner/state || fail "state في المستودع البعيد لا يطابق المحلي بعد الدفع"
+          [ -z "$(git status --porcelain -- runner/state)" ] || fail "تغييرات في state لم تُقيَّد"
+          echo "✓ حُفظت الحالة: $(git rev-parse --short HEAD)"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            runner/reports
+            runner/state
+            runner/lab-reports
+          retention-days: 90
