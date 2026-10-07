@@ -1,0 +1,156 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.2",
+ "rulesVersion": "lab-0.1",
+ "at": "2026-10-07T21:37:27.435Z",
+ "cmd": "lab-status",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [],
+ "warnings": [],
+ "errors": [],
+ "orders": [],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "37690699313",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "schedule",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "8",
+  "githubSchedule": "47 16 * * 1-5",
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-07T21:37:27.435Z"
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "89328.12",
+  "equity": "100085.04",
+  "clock": {
+   "is_open": false,
+   "next_close": "2026-10-08T16:00:00-04:00",
+   "next_open": "2026-10-08T09:30:00-04:00",
+   "timestamp": "2026-10-07T17:37:27.71710243-04:00"
+  }
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 0,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 0,
+   "head": "genesis"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "crossLedgerInitial": {
+  "ok": true,
+  "state": "valid",
+  "rows": 0,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 0,
+   "head": "genesis"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "feedUsed": "sip",
+ "recon": {
+  "rows": [
+   {
+    "sym": "AMD",
+    "lab": 0,
+    "baseline": 1,
+    "broker": 1,
+    "diff": 0
+   },
+   {
+    "sym": "CAT",
+    "lab": 0,
+    "baseline": 1,
+    "broker": 1,
+    "diff": 0
+   },
+   {
+    "sym": "MSFT",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NVDA",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "SPY",
+    "lab": 9,
+    "baseline": 0,
+    "broker": 9,
+    "diff": 0
+   }
+  ],
+  "ok": true,
+  "labMismatch": {},
+  "unexplainedForeign": [],
+  "baselineDrift": []
+ },
+ "foreignActivity": {
+  "ordersToday": [],
+  "openBuys": [],
+  "fillsToday": [],
+  "unknownFillsToday": [],
+  "any": false
+ },
+ "settlement": {
+  "proven": true,
+  "settledCash": 89328.12,
+  "cash": 89328.12,
+  "unsettledProceeds": 0,
+  "reasons": [],
+  "pendingReserveAll": 0
+ },
+ "protection": [],
+ "protectionLatency": [],
+ "labStatus": {
+  "lastCompletedDay": "2026-10-07",
+  "dailyWritten": []
+ }
+}
