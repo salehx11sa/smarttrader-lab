@@ -1,0 +1,10 @@
+{
+ "labVersion": "lab-0.1",
+ "frozenAt": "2026-10-07",
+ "note": "بصمات ملفات القواعد. المحرّك يرفض أي دخول إن تغيّر ملف منها (نسخة لاعب جديدة).",
+ "files": {
+  "lab_strats.cjs": "2ed34ccba94a80b48eaf7f56e17a3145d10ffe3d70a42daf60606bac944e5701",
+  "daily_strat.js": "cf89c13f7c9f2ba229c017850f996ccac6c0fb4682a3f5793de08fb511e2243f",
+  "caps.cjs": "474ed556a03915f299981ca4e79e49967ddac54a0a302cf6edc8a3820fa84ce9"
+ }
+}

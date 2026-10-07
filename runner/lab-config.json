@@ -1,0 +1,18 @@
+{
+ "_note": "إعداد تشغيل المختبر الورقي (ليس القواعد — القواعد مجمّدة في lab_strats.cjs). labStart يحدده صالح قبل البدء (null = لا تداول).",
+ "labStart": "2026-10-07",
+ "labMonths": 3,
+ "approvedPath": "github-actions",
+ "foreignBaseline": {
+  "AMD": 1,
+  "CAT": 1,
+  "MSFT": 3,
+  "NVDA": 3
+ },
+ "universeFiles": {
+  "U-LIQ": "universe-U-LIQ.json",
+  "U-LOW": "universe-U-LOW.json"
+ },
+ "minUniverse": 50,
+ "freezeFile": "lab-freeze.json"
+}
