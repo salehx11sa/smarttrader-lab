@@ -7,8 +7,11 @@
      • استمرارية الحالة (state_guard ⇒ continuity.json) • حوادث الحفظ وزوج السجل/التقرير (من runner.cjs كما هو) • الأعلام
      • النقد المسوّى مثبت على مستوى الحساب (caps.proveSettledCash) ولكل دفتر (نقده − بيوعه غير المسوّاة) • caps.checkEntry لكل دخول
      • المراكز القديمة (AMD/CAT/MSFT/NVDA) ووقفاتها لا تُمس أبدًا: حزام في طبقة الطلبات
-   الأوامر: lab-overnight (16:15→09:15 نيويورك: أوامر الافتتاح opg لكل اللاعبين) • lab-postopen (أثناء الجلسة: حماية بوقف GTC، ومطابقة،
-            وأوامر الإغلاق cls للّيلي) • lab-status (قراءة فقط) • lab-clear-flags */
+   الأوامر: lab-overnight (19:05→09:15 نيويورك: أوامر الافتتاح opg لكل اللاعبين؛ من 16:15 حتى 19:05 معاينة خطة بلا إرسال) • lab-postopen (أثناء الجلسة: حماية بوقف GTC، ومطابقة،
+            وأوامر الإغلاق cls للّيلي) • lab-status (قراءة فقط) • lab-clear-flags
+   lab-0.2 (مراجعة 7.2.19-LAB-D1): OPG-WINDOW-01 (نافذة OPG تبدأ 19:05 — Alpaca ترفض OPG بين 09:28 و19:00)، LAB-PROTECT-01 (خطة وقف محفوظة وموقّعة قبل الدخول،
+            ومسار حماية لا يعتمد على الشموع، ووقف احتياطي fail-safe مُعلَم، ومعالجة رفض الوقف، وزمن التعبئة→الوقف)، LAB-CROSS-01 (سجل التقاطعات دفتر أساسي:
+            مخطط صارم + سلسلة بصمات + مرساة + كتابة ذرية + نسخة احتياطية موثقة؛ تلفه أو فقده بعد الاستخدام ⇒ لا أوامر مبنية على ملكية الدفاتر). لا تغيير في أي قاعدة تداول. */
 'use strict';
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const ST = require('./lab_strats.cjs');
@@ -16,9 +19,19 @@ const DS = require('./daily_strat.js');
 const CAPS = require('./caps.cjs');
 const RL = require('./runner.cjs'); /* مكتبة فقط: scanSaveIncidents/lastRunPair/pairCovered/verifySave/nyParts — نسخة مطابقة حرفيًا لـ7.2.19-dev */
 const PAPER = 'https://paper-api.alpaca.markets', DATA = 'https://data.alpaca.markets';
-const VERSION = 'lab-0.1';
-/* النوافذ بتوقيت نيويورك. حدود Alpaca الفعلية لأوامر opg (قرابة 09:28) وcls (قرابة 15:50) غير متحقق منها — حدودنا أبكر للاحتياط. */
-const WIN = Object.freeze({ overnightStartHm: 16 * 60 + 15, overnightCutoffHm: 9 * 60 + 15, clsStartHm: 9 * 60 + 35, clsCutoffBeforeCloseMin: 15, opgCleanupHm: 9 * 60 + 35, alpacaCutoffsVerified: false });
+const VERSION = 'lab-0.2';
+/* النوافذ بتوقيت نيويورك (OPG-WINDOW-01). وثائق Alpaca (Orders at Alpaca / Time in Force):
+   «OPG submitted after 9:28am but before 7:00pm ET will be rejected; after 7:00pm queued for the next day's opening auction» و«CLS after 3:50pm but before 7:00pm rejected».
+   ⇒ إرسال OPG من 19:05 حتى 09:15 فقط (هامش 5 دقائق بعد 19:00 و13 دقيقة قبل 09:28)، وأي وقت يقع بين 09:16 و19:04 في أي يوم (ومنها عطلة نهاية الأسبوع) خارج النافذة.
+   من 16:15 إلى 19:05 في يوم التداول السابق: معاينة خطة فقط (لا إرسال ولا حفظ نيات). CLS: حتى min(الإغلاق − 15 دقيقة، 15:45) — أبكر من 15:50 ومن حد الأيام القصيرة.
+   الحدود موثقة من الوثائق الرسمية ومطبقة في الوسيط الوهمي؛ لم تُختبر على حساب حي. */
+const ALPACA = Object.freeze({ opgRejectFromHm: 9 * 60 + 28, opgRejectToHm: 19 * 60, clsRejectFromHm: 15 * 60 + 50, clsRejectToHm: 19 * 60, source: 'https://docs.alpaca.markets/us/docs/orders-at-alpaca' });
+const WIN = Object.freeze({ overnightStartHm: 19 * 60 + 5, overnightCutoffHm: 9 * 60 + 15, planFromHm: 16 * 60 + 15, clsStartHm: 9 * 60 + 35, clsCutoffBeforeCloseMin: 15, clsCutoffMaxHm: 15 * 60 + 45, opgCleanupHm: 9 * 60 + 35,
+  opgBeltFromHm: 9 * 60 + 26, alpaca: ALPACA, alpacaCutoffsVerified: 'docs (not live-tested)' });
+/* هل وقت اليوم (بالدقائق) داخل نافذة إرسال OPG؟ (مستقل عن التقويم؛ التقويم يحدد يوم الهدف) */
+const opgTimeOk = hm => hm >= WIN.overnightStartHm || hm <= WIN.overnightCutoffHm;
+/* الوقف الاحتياطي (LAB-PROTECT-01): يُستعمل فقط إذا تعذر حساب وقف القاعدة من الشموع ومن الخطة المحفوظة — انحراف تنفيذي مُعلَم يحتاج قبول المراجع */
+const FAILSAFE_STOP_PCT = 10;
 const TERMINAL = new Set(['canceled', 'expired', 'rejected', 'filled', 'replaced', 'done_for_day']);
 const ACTIVE_STOP = new Set(['new', 'accepted']);
 /* نسخة سريعة من nyParts في المنفّذ (المنسّق مخزّن مؤقتًا؛ النتيجة نفسها) */
@@ -58,6 +71,7 @@ function mkLab(env, io) {
   const BASELINE = Object.freeze(Object.assign({}, cfg.foreignBaseline || {}));
   const LAB_END = labEndOf(cfg);
   let READONLY = false; let ENTRY_BLOCK = null; /* سبب منع الشراء في هذا التشغيل (حزام إضافي في طبقة الطلبات) */
+  let OWN_BLOCK = null; /* LAB-CROSS-01: سجل التقاطعات غير مثبت ⇒ لا أوامر مبنية على ملكية الدفاتر (لا شراء ولا بيع ولا إلغاء وقف)؛ يُسمح فقط بوضع وقف حماية لمركز أسهم وبخروج الحماية */
   const LAB_ORDER_IDS = new Map(); /* id ⇒ أمر للمختبر (للإلغاء فقط) */
   const report = { tool: 'SmartTrader-PaperLab', version: VERSION, rulesVersion: ST.LAB_VERSION, at: new Date(now()).toISOString(), cmd: io.cmd || null, trading: TRADING, entries: ENTRIES, halt: HALT,
     runnerMode: env.RUNNER_MODE || null, labStart: cfg.labStart, labEnd: LAB_END, approvedPath: { approved: cfg.approvedPath, thisRun: RUN_PATH || null, ok: PATH_OK },
@@ -80,7 +94,118 @@ function mkLab(env, io) {
     return F; }
   function raise(kind, id, detail) { if (READONLY || !TRADING) { report.warnings.push('علم (لم يُحفظ — تشغيل جاف/قراءة): ' + kind + ' ' + id); return; }
     const F = readFlags(); if (F.active.some(f => f.id === id) || F.cleared.some(f => f.id === id)) return; F.active.push({ id, kind, at: new Date(now()).toISOString(), detail }); writeState('flags.json', F); }
-  function readCrosses() { const a = readState('lab-crosses.json', []); const m = new Map(); for (const x of Array.isArray(a) ? a : []) if (x && x.id && x.buyer && x.seller && x.qty > 0) m.set(x.id, x); return [...m.values()].sort((a, b) => a.id < b.id ? -1 : 1); }
+  /* قراءة صارمة: الخطأ لا يتحول إلى قيمة افتراضية */
+  function readStrictState(name) { const f = path.join(STATE_DIR, name); if (!fs.existsSync(f)) return { exists: false, ok: true, value: undefined };
+    let t; try { t = fs.readFileSync(f, 'utf8'); } catch (e) { return { exists: true, ok: false, error: e.message }; }
+    try { return { exists: true, ok: true, value: JSON.parse(t), text: t }; } catch (e) { return { exists: true, ok: false, error: e.message, text: t }; } }
+  /* كتابة ذرية: ملف مؤقت + fsync + rename، ثم قراءة وتحقق مطابقة البايتات */
+  function atomicWrite(name, text) { if (READONLY) throw new Error('وضع القراءة فقط: لا كتابة ' + name);
+    if (io.failWrite && io.failWrite(name)) throw new Error('فشل كتابة (محقون للاختبار): ' + name);
+    fs.mkdirSync(STATE_DIR, { recursive: true }); const f = path.join(STATE_DIR, name); const tmp = path.join(STATE_DIR, '.' + name + '.tmp-' + process.pid + '-' + crypto.randomBytes(4).toString('hex'));
+    try { const fd = fs.openSync(tmp, 'w'); try { fs.writeSync(fd, text); fs.fsyncSync(fd); } finally { fs.closeSync(fd); } fs.renameSync(tmp, f); }
+    catch (e) { try { fs.unlinkSync(tmp); } catch (x) {} throw e; }
+    if (fs.readFileSync(f, 'utf8') !== text) throw new Error('تحقق الكتابة فشل: ' + name); return sha256(Buffer.from(text)); }
+  function keepEvidence(name, tag) { if (READONLY || !TRADING) return null; try { const src = path.join(STATE_DIR, name); if (!fs.existsSync(src)) return null; const d = path.join(STATE_DIR, 'evidence'); fs.mkdirSync(d, { recursive: true });
+      const out = path.join(d, name.replace(/\.json$/, '') + '-' + tag + '-' + new Date(now()).toISOString().replace(/[:.]/g, '-') + '.corrupt'); fs.copyFileSync(src, out); return path.relative(STATE_DIR, out); } catch (e) { return null; } }
+
+  /* ---------- سجل التقاطعات الداخلية (LAB-CROSS-01): دفتر أساسي لا يُستنتج من الوسيط ----------
+     الملف lab-crosses.json مصفوفة صفوف بسلسلة بصمات (prev ⇒ h)، ونسخة مطابقة lab-crosses.bak.json، ومرساة lab-crosses.anchor.json (العدد + بصمة آخر صف + بصمة الملف).
+     أي خطأ قراءة أو صف غير صالح أو سلسلة مكسورة أو تراجع عن المرساة أو تقاطع مذكور في النيات وغائب عن السجل ⇒ السجل غير مثبت (لا يُعامل كفارغ). */
+  const CROSS = Object.freeze({ file: 'lab-crosses.json', bak: 'lab-crosses.bak.json', anchor: 'lab-crosses.anchor.json' });
+  const BOOK_BY_ID = Object.fromEntries(ST.BOOKS.map(b => [b.id, b]));
+  const CROSS_KEYS = ['id', 'date', 'symbol', 'qty', 'buyer', 'seller', 'refPx', 'createdAt', 'runId', 'note'];
+  const crossCore = x => ({ id: x.id, date: x.date, symbol: x.symbol, qty: x.qty, buyer: x.buyer, seller: x.seller, refPx: x.refPx, createdAt: x.createdAt, runId: x.runId == null ? null : x.runId, note: x.note == null ? null : x.note });
+  const crossHash = (prev, x) => sha256(Buffer.from(prev + '\n' + JSON.stringify(crossCore(x))));
+  function crossRowErr(x, chained) {
+    if (!x || typeof x !== 'object' || Array.isArray(x)) return 'صف ليس كائنًا';
+    const allowed = new Set(chained ? CROSS_KEYS.concat(['prev', 'h']) : CROSS_KEYS); for (const k of Object.keys(x)) if (!allowed.has(k)) return 'حقل غير معروف: ' + k;
+    const m = /^x-(\d{8})-([A-Z]{1,6})-(\d{1,4})$/.exec(String(x.id || '')); if (typeof x.id !== 'string' || !m) return 'معرّف غير صالح: ' + String(x.id);
+    if (typeof x.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(x.date) || isNaN(Date.parse(x.date + 'T12:00:00Z')) || ymd(x.date) !== m[1]) return x.id + ': تاريخ غير صالح';
+    if (!ST.ETF_SYMBOLS.includes(x.symbol) || m[2] !== x.symbol) return x.id + ': رمز غير صالح';
+    if (!(Number.isInteger(x.qty) && x.qty >= 1 && x.qty <= 1e6)) return x.id + ': كمية غير صالحة';
+    const bb = BOOK_BY_ID[x.buyer], sb = BOOK_BY_ID[x.seller]; if (!bb || !sb || x.buyer === x.seller) return x.id + ': دفتر غير صالح';
+    if (!['ref', 't1', 'tm1', 'o1'].includes(bb.kind) || !['t1', 'tm1', 'o1'].includes(sb.kind)) return x.id + ': نوع دفتر لا يتداول الصناديق';
+    if (!(typeof x.refPx === 'number' && isFinite(x.refPx) && x.refPx > 0)) return x.id + ': سعر مرجعي غير صالح';
+    if (typeof x.createdAt !== 'string' || isNaN(Date.parse(x.createdAt))) return x.id + ': createdAt غير صالح';
+    if (!(x.runId == null || typeof x.runId === 'string')) return x.id + ': runId غير صالح'; if (!(x.note == null || typeof x.note === 'string')) return x.id + ': note غير صالح';
+    if (chained && !(typeof x.prev === 'string' && typeof x.h === 'string' && /^[0-9a-f]{64}$/.test(x.h))) return x.id + ': بصمة غير صالحة';
+    return null; }
+  function validateCrossArray(a) {
+    if (!Array.isArray(a)) return { ok: false, why: 'السجل ليس مصفوفة' }; if (!a.length) return { ok: true, rows: [], format: 'chain', head: 'genesis' };
+    const nh = a.filter(x => x && typeof x === 'object' && 'h' in x).length; if (nh && nh !== a.length) return { ok: false, why: 'صفوف مختلطة (بعضها بلا بصمة)' };
+    const chained = nh === a.length; const ids = new Set(); let prev = 'genesis';
+    for (let i = 0; i < a.length; i++) { const x = a[i]; const e = crossRowErr(x, chained); if (e) return { ok: false, why: 'صف ' + (i + 1) + ': ' + e };
+      if (ids.has(x.id)) return { ok: false, why: 'معرّف مكرر: ' + x.id }; ids.add(x.id);
+      if (chained) { if (x.prev !== prev) return { ok: false, why: 'سلسلة البصمات مكسورة عند الصف ' + (i + 1) + ' (' + x.id + ')' }; if (crossHash(prev, x) !== x.h) return { ok: false, why: 'بصمة الصف ' + (i + 1) + ' لا تطابق محتواه (' + x.id + ')' }; prev = x.h; } }
+    return { ok: true, rows: a, format: chained ? 'chain' : 'legacy', head: chained ? prev : null }; }
+  const anchorValid = A => !!A && typeof A === 'object' && A.v === 1 && Number.isInteger(A.count) && A.count >= 0 && typeof A.head === 'string' && typeof A.rowsSha === 'string';
+  function anchorAccepts(L, A) { if (!A) return true; if (A.count === 0) return true; if (L.format !== 'chain') return false; if (A.count > L.rows.length) return false;
+    if (L.rows[A.count - 1].h !== A.head) return false; if (A.count === L.rows.length && sha256(Buffer.from(JSON.stringify(L.rows))) !== A.rowsSha) return false; return true; }
+  /* النيات (lab-intents.json): التقاطعات المخططة تُكتب فيها قبل السجل ⇒ كل معرّف مذكور هنا يجب أن يكون في السجل */
+  function intentsInfo() { const r = readStrictState('lab-intents.json'); if (!r.exists) return { ok: true, exists: false, ids: [], targets: new Set(), reset: false };
+    if (!r.ok || !r.value || typeof r.value !== 'object' || Array.isArray(r.value)) return { ok: false, exists: true, why: 'lab-intents.json غير صالح' };
+    const ids = new Set(), targets = new Set(); for (const [t, recs] of Object.entries(r.value)) { if (t === '_reset') continue; if (!Array.isArray(recs)) return { ok: false, exists: true, why: 'lab-intents.json: ' + t + ' ليس مصفوفة' }; targets.add(t);
+      for (const rec of recs) { if (!rec || typeof rec !== 'object') return { ok: false, exists: true, why: 'lab-intents.json: سجل غير صالح' }; for (const id of (rec.crosses || [])) ids.add(String(id)); } }
+    return { ok: true, exists: true, ids: [...ids], targets, reset: !!r.value._reset, value: r.value }; }
+  function chainRows(rows) { const out = []; let prev = 'genesis'; for (const x of rows) { const c = crossCore(x); const h = crossHash(prev, c); out.push(Object.assign({}, c, { prev, h })); prev = h; } return out; }
+  function writeCrossLedger(rows, why) { const out = chainRows(rows); const text = JSON.stringify(out, null, 1);
+    atomicWrite(CROSS.file, text); atomicWrite(CROSS.bak, text);
+    const back = validateCrossArray(JSON.parse(fs.readFileSync(path.join(STATE_DIR, CROSS.file), 'utf8'))); if (!back.ok || back.rows.length !== out.length) throw new Error('تحقق سجل التقاطعات بعد الكتابة فشل');
+    const A = { v: 1, kind: 'lab-cross-anchor', count: out.length, head: out.length ? out[out.length - 1].h : 'genesis', rowsSha: sha256(Buffer.from(JSON.stringify(out))), at: new Date(now()).toISOString(), why: why || null, version: VERSION };
+    atomicWrite(CROSS.anchor, JSON.stringify(A, null, 1)); return out; }
+  /* تحميل السجل وإثباته. يرجع {ok, state, rows, why, proof}. ok=false ⇒ لا أوامر مبنية على ملكية الدفاتر */
+  function loadCrossLedger(B) {
+    const P = readStrictState(CROSS.file), K = readStrictState(CROSS.bak), A0 = readStrictState(CROSS.anchor); const IR = intentsInfo();
+    const R = { ok: false, state: null, rows: [], why: null, format: null, needsWrite: false, proof: null, files: { ledger: P.exists, backup: K.exists, anchor: A0.exists }, intentsOk: IR.ok };
+    let A = null; if (A0.exists) { if (!A0.ok || !anchorValid(A0.value)) { R.state = 'anchor-corrupt'; R.why = 'مرساة سجل التقاطعات تالفة (' + CROSS.anchor + ')'; R.evidence = keepEvidence(CROSS.anchor, 'anchor'); return R; } A = A0.value; R.anchor = { count: A.count, head: A.head.slice(0, 12) }; }
+    const accept = v => { const L = validateCrossArray(v); if (!L.ok) return { ok: false, why: L.why };
+      if (!anchorAccepts(L, A)) return { ok: false, why: 'لا يطابق المرساة (المرساة ' + A.count + ' صفًا، الملف ' + L.rows.length + ')' };
+      if (IR.ok) { const ids = new Set(L.rows.map(x => x.id)); const miss = IR.ids.filter(id => !ids.has(id)); if (miss.length) return { ok: false, why: 'تقاطعات مسجلة في النيات وغائبة عن السجل: ' + miss.slice(0, 5).join('، ') }; }
+      return { ok: true, L }; };
+    if (P.exists) { const a = P.ok ? accept(P.value) : { ok: false, why: 'JSON غير صالح (' + String(P.error).slice(0, 80) + ')' };
+      if (a.ok) { R.ok = true; R.rows = a.L.rows; R.format = a.L.format; R.state = a.L.format === 'legacy' ? 'legacy-valid' : 'valid'; R.needsWrite = a.L.format !== 'chain' || !A || A.count !== a.L.rows.length || !K.exists;
+        if (!IR.ok) R.warn = 'lab-intents.json غير مقروء — لم يُطابق السجل بالنيات (السلسلة والمرساة سليمتان)'; return R; }
+      R.primaryWhy = a.why; }
+    /* الأساسي مفقود أو مرفوض ⇒ النسخة الاحتياطية الموثقة فقط إن طابقت المرساة تمامًا */
+    if (K.exists && K.ok && A) { const b = accept(K.value); if (b.ok && b.L.format === 'chain' && A.count === b.L.rows.length) {
+        R.ok = true; R.rows = b.L.rows; R.format = 'chain'; R.state = 'restored'; R.restoredFrom = CROSS.bak; R.why = 'استُعيد السجل من النسخة الاحتياطية الموثقة (' + (P.exists ? 'الأساسي تالف: ' + R.primaryWhy : 'الأساسي مفقود') + ')';
+        if (P.exists) R.evidence = keepEvidence(CROSS.file, 'primary'); R.needsWrite = true; return R; }
+      R.backupWhy = b.ok ? 'النسخة الاحتياطية لا تطابق المرساة تمامًا' : b.why; }
+    if (P.exists) { R.state = 'corrupt'; R.why = 'سجل التقاطعات تالف: ' + R.primaryWhy + (R.backupWhy ? ' • النسخة الاحتياطية: ' + R.backupWhy : ''); R.evidence = keepEvidence(CROSS.file, 'primary'); return R; }
+    /* الملف مفقود: هل البداية النظيفة مثبتة؟ */
+    if (A || K.exists) { R.state = 'missing-after-use'; R.why = 'سجل التقاطعات مفقود بعد استخدامه (المرساة أو النسخة الاحتياطية موجودة)' + (R.backupWhy ? ' • ' + R.backupWhy : ''); return R; }
+    if (!IR.ok) { R.state = 'unprovable'; R.why = 'سجل التقاطعات مفقود، وملف النيات تالف — لا يمكن إثبات غياب التقاطعات'; return R; }
+    if (IR.ids.length) { R.state = 'missing-after-use'; R.why = 'سجل التقاطعات مفقود والنيات تذكر تقاطعات: ' + IR.ids.slice(0, 5).join('، '); return R; }
+    const etf = B.lab.filter(o => ST.ETF_SYMBOLS.includes(o.symbol) && !o._parentCid); const etfFilled = etf.filter(o => (+o.filled_qty || 0) > 0);
+    const etfFills = B.fills.filter(f => ST.ETF_SYMBOLS.includes(f.symbol) && B.lab.some(o => o.id === f.order_id));
+    if (!etfFilled.length && !etfFills.length) { R.ok = true; R.state = 'clean-start'; R.proof = 'لا تعبئة لأي دفتر مختبر في SPY/VOO منذ البداية (سجل الوسيط كامل) ⇒ لم يملك أي دفتر صندوقًا ⇒ لا بائع ⇒ لا تقاطع ممكن'; R.needsWrite = true; return R; }
+    /* إثبات النيات (لترحيل حالة lab-0.1 فقط: لا مرساة ولا نسخة): كل أمر افتتاح لصندوق له سجل نية ليومه، ولا نية تذكر تقاطعًا، ولا تشغيل ليلي «blocked» قديم */
+    const runs = readStrictState('runs.json'); const blockedRun = runs.ok && Array.isArray(runs.value) ? runs.value.some(r => r && r.cmd === 'lab-overnight' && r.labStatus === 'blocked') : true;
+    const tgts = [...new Set(etf.filter(o => o.time_in_force === 'opg').map(o => targetOfCid(o.client_order_id)).filter(Boolean))]; const uncovered = tgts.filter(t => !IR.targets.has(t));
+    if (IR.exists && !IR.reset && !blockedRun && !uncovered.length) { R.ok = true; R.state = 'clean-start'; R.proof = 'لا مرساة ولا نسخة (حالة lab-0.1)، وسجل النيات سليم ويغطي كل أيام أوامر افتتاح الصناديق (' + tgts.length + ') ولا يذكر أي تقاطع، ولا تشغيل ليلي تعثر بعد كتابة التقاطع'; R.needsWrite = true; return R; }
+    R.state = 'unprovable'; R.why = 'سجل التقاطعات مفقود وتوجد تعبئات صناديق للمختبر، ولا دليل كافٍ على غياب التقاطعات' + (uncovered.length ? ' (أيام بلا نية: ' + uncovered.slice(0, 5).join('، ') + ')' : '') + (blockedRun ? ' (تشغيل ليلي متعثر أو runs.json غير مقروء)' : '') + (!IR.exists ? ' (لا ملف نيات)' : '') + (IR.reset ? ' (ملف النيات أُعيد إنشاؤه)' : '');
+    return R; }
+
+  /* ---------- خطط الوقف المحفوظة (LAB-PROTECT-01) ----------
+     قبل إرسال أي دخول أسهم: تُحفظ مدخلات الوقف (ATR يوم الإشارة، والمضاعف 3، والسعر المرجعي، والوقف المخطط) مربوطة بـcid/الدفتر/الرمز/يوم التنفيذ، وبصمة sha256.
+     عند غياب الشموع: الوقف = ST.stopFor(متوسط التعبئة الفعلي، ATR المحفوظ، 3) — الصيغة نفسها التي يستعملها مسار الشموع. */
+  const planCore = x => ({ v: x.v, cid: x.cid, book: x.book, sym: x.sym, target: x.target, signalDate: x.signalDate, ref: x.ref, atr: x.atr, mult: x.mult, plannedStop: x.plannedStop });
+  const planHash = x => sha256(Buffer.from(JSON.stringify(planCore(x))));
+  function mkStopPlan(cid, it, target) { const p = { v: 1, cid, book: it.book, sym: it.sym, target, signalDate: it.signalDate, ref: it.ref, atr: it.atr, mult: 3, plannedStop: it.stop, createdAt: new Date(now()).toISOString(), runId: env.GITHUB_RUN_ID || null };
+    p.h = planHash(p); return p; }
+  function planErr(p, cid, book, sym, entryDate) { if (!p || typeof p !== 'object') return 'خطة غير صالحة'; if (p.v !== 1 || p.h !== planHash(p)) return 'بصمة الخطة لا تطابق محتواها';
+    if (p.cid !== cid || p.book !== book || p.sym !== sym) return 'الخطة غير مربوطة بهذا الأمر'; const b = ST.bookOfCid(cid); if (!b || b.id !== book) return 'بادئة الأمر لا تطابق الدفتر';
+    if (p.target !== targetOfCid(cid) || (entryDate && p.target !== entryDate)) return 'يوم التنفيذ لا يطابق'; if (!(typeof p.atr === 'number' && isFinite(p.atr) && p.atr > 0) || p.mult !== 3) return 'مدخلات الوقف غير صالحة'; return null; }
+  let PLANS = null; /* {cid: plan} من lab-stop-plans.json ثم من النيات */
+  function stopPlans() { if (PLANS) return PLANS; PLANS = { byCid: {}, problems: [] };
+    const r = readStrictState('lab-stop-plans.json'); if (r.exists && (!r.ok || !r.value || typeof r.value.plans !== 'object')) PLANS.problems.push('lab-stop-plans.json تالف');
+    else if (r.exists) for (const [c, p] of Object.entries(r.value.plans || {})) PLANS.byCid[c] = p;
+    const I = intentsInfo(); if (I.ok && I.value) for (const [t, recs] of Object.entries(I.value)) { if (!Array.isArray(recs)) continue; for (const rec of recs) for (const it of (rec && rec.intents) || []) if (it && it.stopPlan && it.stopPlan.cid && !PLANS.byCid[it.stopPlan.cid]) PLANS.byCid[it.stopPlan.cid] = it.stopPlan; }
+    return PLANS; }
+  function writeStopPlans(list) { if (!list.length) return; const r = readStrictState('lab-stop-plans.json'); let cur = {};
+    if (r.exists && r.ok && r.value && typeof r.value.plans === 'object') cur = r.value.plans; else if (r.exists) { const ev = keepEvidence('lab-stop-plans.json', 'plans'); report.warnings.push('lab-stop-plans.json تالف — نُسخ إلى الأدلة (' + ev + ') وبدأ ملف جديد'); }
+    const cutoff = nyParts(now() - 120 * 864e5).date; const out = {}; for (const [c, p] of Object.entries(cur)) if (p && p.target >= cutoff) out[c] = p; for (const p of list) if (!out[p.cid]) out[p.cid] = p;
+    atomicWrite('lab-stop-plans.json', JSON.stringify({ v: 1, note: 'خطط الوقف قبل الدخول (LAB-PROTECT-01): الوقف = متوسط التعبئة − mult×ATR يوم الإشارة؛ h = sha256 للحقول الأساسية', plans: out }, null, 1)); PLANS = null; }
 
   /* ---------- طبقة الطلبات + الأحزمة ---------- */
   async function req(method, url, body, opt) {
@@ -108,6 +233,8 @@ function mkLab(env, io) {
       const b = body || {}; const cid = String(b.client_order_id || ''); const book = ST.bookOfCid(cid); const side = String(b.side || '').toLowerCase(); const sym = String(b.symbol || '');
       if (!book) throw new Error('أمر بلا بادئة مختبر (' + (cid || 'بلا معرّف') + ') — رُفض قبل الإرسال');
       if (Object.prototype.hasOwnProperty.call(BASELINE, sym)) throw new Error('الرمز ' + sym + ' من المراكز القديمة — المختبر لا يلمسه أبدًا');
+      const protective = side === 'sell' && !ST.ETF_SYMBOLS.includes(sym) && ((b.type === 'stop' && b.time_in_force === 'gtc') || (b.type === 'market' && b.time_in_force === 'day' && /-X\d+$/.test(cid)));
+      if (OWN_BLOCK && !protective) throw new Error('سجل التقاطعات غير مثبت (' + OWN_BLOCK + ') — لا أوامر مبنية على ملكية الدفاتر؛ رُفض ' + side + ' ' + sym);
       if (b.order_class || b.stop_loss || b.take_profit || b.extended_hours) throw new Error('شكل أمر غير مسموح في المختبر (order_class/extended)');
       if (side === 'buy') {
         if (ENTRY_LOCK) throw new Error('قفل دخول من بوابة الجدولة: ' + ENTRY_LOCK + ' — رُفض شراء ' + sym);
@@ -120,13 +247,18 @@ function mkLab(env, io) {
       else if (kind === 't1' || kind === 'tm1') { if (sym !== 'SPY' || type !== 'market' || tif !== 'opg') throw new Error(book.id + ': SPY بأمر افتتاح opg فقط'); }
       else if (kind === 'o1') { if (sym !== 'SPY' || type !== 'market' || !((side === 'buy' && tif === 'cls') || (side === 'sell' && tif === 'opg'))) throw new Error(book.id + ': شراء cls وبيع opg لـSPY فقط'); }
       else if (kind === 'rsi2') { if (ST.ETF_SYMBOLS.includes(sym)) throw new Error(book.id + ': لا صناديق في دفتر الأسهم');
-        const okShape = (type === 'market' && tif === 'opg') || (side === 'sell' && type === 'stop' && tif === 'gtc' && +b.stop_price > 0); if (!okShape) throw new Error(book.id + ': شكل أمر غير مسموح ' + type + '/' + tif); }
+        const okShape = (type === 'market' && tif === 'opg') || (side === 'sell' && type === 'stop' && tif === 'gtc' && +b.stop_price > 0) || (side === 'sell' && type === 'market' && tif === 'day' && /-X\d+$/.test(cid)); if (!okShape) throw new Error(book.id + ': شكل أمر غير مسموح ' + type + '/' + tif); }
       else throw new Error('نوع دفتر غير معروف');
       if (!(Number.isInteger(+b.qty) && +b.qty >= 1)) throw new Error('كمية غير صحيحة');
+      /* OPG-WINDOW-01: حزام زمني — Alpaca ترفض OPG بين 09:28 و19:00 وCLS بين 15:50 و19:00 (نيويورك) */
+      const hm = nyParts(now()).hm;
+      if (tif === 'opg' && hm >= WIN.opgBeltFromHm && hm < WIN.overnightStartHm) throw new Error('نافذة OPG: Alpaca ترفض أوامر الافتتاح بين 09:28 و19:00 نيويورك — رُفض ' + sym + ' قبل الإرسال');
+      if (tif === 'cls' && hm > WIN.clsCutoffMaxHm && hm < WIN.overnightStartHm) throw new Error('نافذة CLS: بعد 15:45 نيويورك (Alpaca ترفض من 15:50) — رُفض ' + sym + ' قبل الإرسال');
       return;
     }
     if (method === 'DELETE' && /^\/v2\/orders\/[^/]+$/.test(url)) { const id = url.split('/').pop(); const o = LAB_ORDER_IDS.get(id);
-      if (!o) throw new Error('إلغاء أمر ليس للمختبر (' + id + ') — رُفض قبل الإرسال'); if (Object.prototype.hasOwnProperty.call(BASELINE, o.symbol)) throw new Error('أمر على مركز قديم — لا يُلغى'); return; }
+      if (!o) throw new Error('إلغاء أمر ليس للمختبر (' + id + ') — رُفض قبل الإرسال'); if (Object.prototype.hasOwnProperty.call(BASELINE, o.symbol)) throw new Error('أمر على مركز قديم — لا يُلغى');
+      if (OWN_BLOCK && o.side === 'sell' && (o.type === 'stop' || o.type === 'stop_limit')) throw new Error('سجل التقاطعات غير مثبت — الوقفات القائمة تبقى ولا تُلغى (' + o.symbol + ')'); return; }
     throw new Error('طلب تعديل غير مسموح في المختبر: ' + method + ' ' + url);
   }
 
@@ -271,6 +403,7 @@ function mkLab(env, io) {
     if (ctx.foreign.any) why.push('نشاط أجنبي اليوم على الحساب (' + [...new Set([...ctx.foreign.ordersToday, ...ctx.foreign.openBuys, ...ctx.foreign.fillsToday].map(x => x.symbol))].slice(0, 8).join('، ') + ')');
     if (!ctx.settle.proven) why.push('النقد المسوّى للحساب غير مثبت: ' + (ctx.settle.reasons || []).join('، '));
     if (ctx.unprotected.length) why.push('مراكز أسهم بلا حماية مؤكدة: ' + ctx.unprotected.join('، '));
+    if (ctx.crossLedger && !ctx.crossLedger.ok) why.push('سجل التقاطعات غير مثبت (' + ctx.crossLedger.state + '): ' + ctx.crossLedger.why);
     const fz = freezeCheck(); report.freeze = fz; if (!fz.ok) why.push('التجميد: ' + (fz.why || 'غير متحقق'));
     return why;
   }
@@ -282,31 +415,70 @@ function mkLab(env, io) {
     const I = DS.ind(b); const atr = I.atr14[b.length - 1]; if (!(atr > 0)) return null; const v = ST.stopFor(p.cost / p.qty, atr, 3); return v > 0 ? v : null; }
   function bookOpen(B, kid, sym) { return B.lab.filter(o => o._book === kid && o.symbol === sym && !TERMINAL.has(o.status)); }
   const isStop = o => o.side === 'sell' && (o.type === 'stop' || o.type === 'stop_limit');
+  const roundStop = v => +(v.toFixed(v < 1 ? 4 : 2));
+  /* مصدر سعر الوقف بالترتيب: (1) الشموع (القاعدة كما هي) (2) الخطة المحفوظة الموقّعة قبل الدخول (3) وقف احتياطي fail-safe مُعلَم = متوسط التعبئة × (1 − 10%) */
+  function stopSourceOf(B, k, sym, p) { const avg = p.cost / p.qty; if (!(avg > 0)) return { want: null, source: null, why: 'متوسط تكلفة غير صالح' };
+    const w = stopTargetOf(B, k, sym, p); if (w != null) return { want: w, source: 'bars' };
+    const cids = [...new Set(k.fills.filter(f => f.sym === sym && f.side === 'buy' && f.kind === 'fill' && f.t >= (p.entryTs || 0) && f.cid).map(f => f.cid))];
+    const PL = stopPlans(); const errs = [];
+    for (const cid of cids) { const pl = PL.byCid[cid]; if (!pl) { errs.push(cid + ': لا خطة محفوظة'); continue; } const e = planErr(pl, cid, k.id, sym, p.entryDate); if (e) { errs.push(cid + ': ' + e); continue; }
+      const v = ST.stopFor(avg, pl.atr, pl.mult); if (v > 0) return { want: v, source: 'plan', planCid: cid, planH: pl.h.slice(0, 12) }; errs.push(cid + ': وقف الخطة ≤ 0'); }
+    const fs0 = roundStop(avg * (1 - FAILSAFE_STOP_PCT / 100)); return { want: fs0 > 0 ? fs0 : null, source: 'failsafe', why: 'الشموع غير متاحة ولا خطة وقف صالحة' + (errs.length ? ' (' + errs.join(' • ') + ')' : ''), planInvalid: errs.some(e => !/لا خطة محفوظة/.test(e)) }; }
   function protectionState(B, books) { const out = []; for (const k of Object.values(books)) { if (k.kind !== 'rsi2') continue;
       for (const [sym, p] of Object.entries(k.pos)) { if (!(p.qty > 1e-9)) continue; const open = bookOpen(B, k.id, sym); const exiting = open.some(o => o.side === 'sell' && o.type === 'market');
-        const stops = open.filter(isStop); const want = stopTargetOf(B, k, sym, p); const rem = o => (+o.qty) - (+o.filled_qty || 0);
-        const confirmed = stops.length === 1 && ACTIVE_STOP.has(stops[0].status) && stops[0].time_in_force === 'gtc' && Math.abs(rem(stops[0]) - p.qty) < 1e-6 && +stops[0].stop_price > 0 && (want == null || Math.abs(+stops[0].stop_price - want) / want <= 0.005);
-        out.push({ book: k.id, sym, qty: p.qty, want, exiting, confirmed, stops: stops.map(o => ({ id: o.id, status: o.status, qty: +o.qty, stop: +o.stop_price, tif: o.time_in_force })), pendingBuy: open.some(o => o.side === 'buy') }); } }
+        const stops = open.filter(isStop); const S = stopSourceOf(B, k, sym, p); const want = S.want; const rem = o => (+o.qty) - (+o.filled_qty || 0);
+        /* سعر الوقف القائم يُقارن بالقاعدة فقط حين تُحسب من الشموع؛ مع الخطة أو الاحتياطي يكفي وقف نشط واحد بالكمية الصحيحة (لا استبدال أثناء انقطاع البيانات) */
+        const confirmed = stops.length === 1 && ACTIVE_STOP.has(stops[0].status) && stops[0].time_in_force === 'gtc' && Math.abs(rem(stops[0]) - p.qty) < 1e-6 && +stops[0].stop_price > 0 && (S.source !== 'bars' || Math.abs(+stops[0].stop_price - want) / want <= 0.005);
+        const lots = k.fills.filter(f => f.sym === sym && f.side === 'buy' && f.t >= (p.entryTs || 0)); const fillMs = lots.length ? Math.max(...lots.map(f => f.t)) : null;
+        const stopMs = confirmed ? Date.parse(stops[0].submitted_at || stops[0].created_at || '') : NaN;
+        out.push({ book: k.id, sym, qty: p.qty, want, source: S.source, sourceWhy: S.why || null, planCid: S.planCid || null, planInvalid: !!S.planInvalid, exiting, confirmed, stops: stops.map(o => ({ id: o.id, status: o.status, qty: +o.qty, stop: +o.stop_price, tif: o.time_in_force })), pendingBuy: open.some(o => o.side === 'buy'),
+          fillAt: fillMs ? new Date(fillMs).toISOString() : null, stopAt: isFinite(stopMs) ? new Date(stopMs).toISOString() : null,
+          fillToStopSec: fillMs && isFinite(stopMs) ? Math.max(0, Math.round((stopMs - fillMs) / 1000)) : null, unprotectedSec: !confirmed && fillMs ? Math.max(0, Math.round((now() - fillMs) / 1000)) : null }); } }
     return out; }
+  function latencyOf(P) { return (P || []).map(x => ({ book: x.book, sym: x.sym, confirmed: x.confirmed, source: x.source, fillAt: x.fillAt, stopAt: x.stopAt, fillToStopSec: x.fillToStopSec, unprotectedSec: x.unprotectedSec })); }
   async function cancelConfirmed(id) { try { await req('DELETE', '/v2/orders/' + id); } catch (e) { if (e.status !== 404 && e.status !== 422) return { resolved: false, why: e.message }; }
     if (!TRADING) return { resolved: true, dry: true };
     for (let k = 0; k < 5; k++) { let st = null; try { st = await req('GET', '/v2/orders/' + id); } catch (e) { if (e.status === 404) return { resolved: true, status: 'not_found' }; }
       if (st && TERMINAL.has(st.status)) return { resolved: true, status: st.status, filled: +st.filled_qty || 0 }; await sleep(1000); }
     return { resolved: false, why: 'لم يُحسم الإلغاء' }; }
-  async function protect(B, books) { const P = protectionState(B, books); report.protection = P; let changed = false;
+  async function protect(B, books) { const P = protectionState(B, books); report.protection = P; report.protectionLatency = latencyOf(P); let changed = false;
     for (const x of P) { if (x.confirmed || x.exiting || x.pendingBuy) continue;
-      if (x.want == null) { report.errors.push(x.book + ' ' + x.sym + ': لا يمكن حساب الوقف (شموع يوم الإشارة ناقصة) — الحماية غير مؤكدة'); continue; }
+      if (x.want == null) { report.errors.push(x.book + ' ' + x.sym + ': لا يمكن حساب أي وقف (' + (x.sourceWhy || 'متوسط التكلفة') + ') — الحماية غير مؤكدة'); raise('lab-protect-missing', 'labpm-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'مركز بلا وقف ممكن الحساب', sym: x.sym }); continue; }
+      if (x.source === 'plan') report.warnings.push(x.book + ' ' + x.sym + ': الشموع غير متاحة — الوقف من الخطة المحفوظة الموقّعة (' + x.planCid + ')');
+      if (x.source === 'failsafe') { report.warnings.push(x.book + ' ' + x.sym + ': وقف احتياطي fail-safe عند ' + x.want + ' (متوسط التعبئة − ' + FAILSAFE_STOP_PCT + '%) — ' + x.sourceWhy);
+        (report.failsafeStops = report.failsafeStops || []).push({ book: x.book, sym: x.sym, qty: x.qty, stop: x.want, why: x.sourceWhy });
+        raise('lab-protect-failsafe', 'labfs-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'وُضع وقف احتياطي (متوسط التعبئة − ' + FAILSAFE_STOP_PCT + '%) لأن وقف القاعدة لم يُحسب: لا شموع ولا خطة صالحة — لا دخول جديد حتى يراجعه صالح', sym: x.sym, stop: x.want, why: x.sourceWhy });
+        if (x.planInvalid) raise('lab-stop-plan-invalid', 'labsp-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'خطة وقف محفوظة فشلت في التحقق (بصمة/ربط)', why: x.sourceWhy }); }
+      if (OWN_BLOCK && x.stops.length) { report.warnings.push(x.book + ' ' + x.sym + ': سجل التقاطعات غير مثبت — الوقف القائم يبقى كما هو (لا إلغاء ولا استبدال)'); continue; }
       let ok = true; for (const s of x.stops) { const c = await cancelConfirmed(s.id); if (!c.resolved) { ok = false; report.errors.push(x.book + ' ' + x.sym + ': إلغاء وقف قديم لم يُحسم — لا وقف جديد منعًا للتداخل'); } }
       if (!ok) continue; const k = books[x.book]; const base = k.prefix + ymd(B.n.date) + '-' + x.sym + '-P';
       const n = B.lab.filter(o => String(o.client_order_id || '').startsWith(base)).length + 1;
       try { const r = await req('POST', '/v2/orders', { symbol: x.sym, qty: String(Math.round(x.qty)), side: 'sell', type: 'stop', stop_price: String(x.want), time_in_force: 'gtc', client_order_id: base + n });
-        report.steps.push('حماية: وقف GTC ' + x.book + ' ' + x.sym + ' × ' + x.qty + ' عند ' + x.want); changed = changed || !(r && r.__dry); }
-      catch (e) { report.errors.push(x.book + ' ' + x.sym + ': تعذر وضع الوقف: ' + e.message); } }
+        report.steps.push('حماية: وقف GTC ' + x.book + ' ' + x.sym + ' × ' + x.qty + ' عند ' + x.want + ' (' + x.source + ')'); changed = changed || !(r && r.__dry); }
+      catch (e) { report.errors.push(x.book + ' ' + x.sym + ': تعذر وضع الوقف: ' + e.message); if (await stopRejected(B, books, x, e)) changed = true; } }
     return changed; }
+  /* رفض الوقف: إن كان السعر الحالي عند الوقف أو تحته ⇒ الوقف «ضُرب» فعليًا ⇒ خروج حماية بأمر سوق day أثناء الجلسة (معرّف -X)؛ غير ذلك ⇒ علم يوقف الدخول، وإعادة المحاولة في كل تشغيل */
+  async function stopRejected(B, books, x, e) { if (e.status === 403 && /wash/i.test(e.message)) return false; if (!(e.status >= 400 && e.status < 500)) return false;
+    const px = +B.px[x.sym] || 0; const k = books[x.book];
+    if (px > 0 && px <= x.want && B.clock && B.clock.is_open) { const base = k.prefix + ymd(B.n.date) + '-' + x.sym + '-X'; const n = B.lab.filter(o => String(o.client_order_id || '').startsWith(base)).length + 1;
+      try { const r = await req('POST', '/v2/orders', { symbol: x.sym, qty: String(Math.round(x.qty)), side: 'sell', type: 'market', time_in_force: 'day', client_order_id: base + n });
+        report.steps.push('خروج حماية: رُفض الوقف والسعر ' + px + ' ≤ الوقف ' + x.want + ' ⇒ بيع سوق ' + x.book + ' ' + x.sym + ' × ' + x.qty);
+        raise('lab-protect-breach', 'labpb-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'رُفض وضع الوقف لأن السعر تحته — خرج المختبر بأمر سوق (خروج حماية)', px, stop: x.want }); return !(r && r.__dry); }
+      catch (e2) { report.errors.push(x.book + ' ' + x.sym + ': تعذر خروج الحماية: ' + e2.message); } }
+    raise('lab-protect-stop-rejected', 'labsr-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'الوسيط رفض وقف الحماية — المركز غير محمي حتى يراجعه صالح (تُعاد المحاولة في كل تشغيل)', err: String(e.message).slice(0, 160), px, stop: x.want });
+    return false; }
 
   /* ---------- السياق المشترك لكل تشغيل ---------- */
   async function context(B) {
-    const crosses = readCrosses(); const heldSyms = new Set(); const ev0 = events(B, crosses, x => ({ px: +x.refPx, provisional: true }));
+    const XL = loadCrossLedger(B); report.crossLedger = { ok: XL.ok, state: XL.state, rows: XL.rows.length, format: XL.format, why: XL.why, proof: XL.proof, files: XL.files, anchor: XL.anchor || null, evidence: XL.evidence || null, warn: XL.warn || null };
+    if (XL.warn) report.warnings.push(XL.warn); if (!report.crossLedgerInitial) report.crossLedgerInitial = report.crossLedger;
+    if (XL.ok && XL.needsWrite && TRADING && !READONLY) { try { writeCrossLedger(XL.rows, XL.state); report.crossLedger.written = XL.state === 'restored' ? 'restored' : (XL.state === 'clean-start' ? 'genesis' : 'migrated-or-refreshed');
+        if (XL.state === 'restored') report.warnings.push('سجل التقاطعات: ' + XL.why); }
+      catch (e) { XL.ok = false; XL.state = 'write-failed'; XL.why = 'تعذرت كتابة سجل التقاطعات (' + e.message + ')'; report.crossLedger.ok = false; report.crossLedger.state = XL.state; report.crossLedger.why = XL.why; } }
+    if (!XL.ok) { OWN_BLOCK = XL.state; ENTRY_BLOCK = ENTRY_BLOCK || ('سجل التقاطعات: ' + XL.state);
+      report.errors.push('سجل التقاطعات غير مثبت (' + XL.state + '): ' + XL.why + ' — لا شراء ولا بيع مبني على ملكية الدفاتر؛ الوقفات القائمة باقية، والمراكز القديمة لا تُمس');
+      raise('lab-cross-ledger', 'labx-' + XL.state + '-' + B.n.date, { note: 'سجل التقاطعات الداخلية مفقود أو تالف أو غير مثبت بعد استخدامه. أُوقف كل شراء وكل بيع يعتمد على ملكية الدفاتر حتى تُستعاد نسخة صحيحة من git أو artifact (تتحقق منها السلسلة والمرساة). الوقفات القائمة باقية.', state: XL.state, why: XL.why, files: XL.files, evidence: XL.evidence || null }); }
+    const crosses = XL.ok ? XL.rows : []; const heldSyms = new Set(); const ev0 = events(B, crosses, x => ({ px: +x.refPx, provisional: true }));
     for (const e of ev0) heldSyms.add(e.sym); for (const o of B.lab) heldSyms.add(o.symbol);
     try { await getBars([...heldSyms, 'SPY', 'VOO'], daysAgo(430)); } catch (e) { report.warnings.push('تعذر جلب شموع المراكز: ' + e.message); }
     const ev = events(B, crosses, crossPx); const books = ledgerAt(ev, null);
@@ -316,7 +488,7 @@ function mkLab(env, io) {
     if (recon.baselineDrift.length) report.warnings.push('المراكز القديمة تغيّرت لدى الوسيط (لا تُمس): ' + recon.baselineDrift.join('، '));
     if (!recon.ok && TRADING) raise('lab-recon-mismatch', 'labrecon-' + B.n.date + '-' + Object.keys(recon.labMismatch).sort().join('_'), recon.labMismatch);
     const P = protectionState(B, books); const unprotected = P.filter(x => !x.confirmed && !x.exiting && !x.pendingBuy).map(x => x.book + ':' + x.sym);
-    return { crosses, ev, books, recon, foreign, settle, unprotected };
+    return { crosses, crossLedger: XL, ev, books, recon, foreign, settle, unprotected };
   }
   function playersView(B, ctx, upto) {
     const H = history(ctx.ev, B.cal, upto); const out = {};
@@ -400,7 +572,7 @@ function mkLab(env, io) {
         const excl = new Set([...Object.keys(BASELINE), ...ST.ETF_SYMBOLS, ...ctx.recon.unexplainedForeign, ...openSellSyms, ...exitSyms, ...Object.keys(k.pos).filter(s => k.pos[s].qty > 1e-9)]);
         const b = budgetOf(k); if (!(b.eq > 0)) continue;
         for (const c of U.cands) { if (slots <= 0) break; if (excl.has(c.sym) || pendingBuy(c.sym)) continue; const z = ST.rsiSize(spec, b.eq, c.close, c.atr, spendable(k, b.alloc)); if (z.qty < 1) continue;
-          const before = intents.length; addEntry(k, c.sym, z.qty, c.close, 'RSI(2)=' + c.rsi2 + ' < ' + spec.rsiMax, spec, { stop: z.stop }); if (intents.length > before) slots--; }
+          const before = intents.length; addEntry(k, c.sym, z.qty, c.close, 'RSI(2)=' + c.rsi2 + ' < ' + spec.rsiMax, spec, { stop: z.stop, atr: c.atr, signalDate: prev }); if (intents.length > before) slots--; }
         continue; } }
     return { intents, H, view, L };
   }
@@ -411,6 +583,7 @@ function mkLab(env, io) {
       let k = 0; for (const b of buys) for (const s of sells) { if (b.qty <= 0 || s.qty <= 0) continue; const q = Math.min(b.qty, s.qty); b.qty -= q; s.qty -= q; k++;
         created.push({ id: 'x-' + ymd(target) + '-' + sym + '-' + k, date: target, symbol: sym, qty: q, buyer: b.book, seller: s.book, refPx: s.ref || b.ref, createdAt: new Date(now()).toISOString(), runId: env.GITHUB_RUN_ID || null, note: 'مطابقة داخلية بسعر افتتاح ' + target + ' الرسمي (مؤقتًا بالسعر المرجعي حتى تتوفر الشمعة)' }); } }
     return { intents: out.filter(i => i.qty > 0), created }; }
+  function cidOf(k, dateKey, it) { const base = k.prefix + ymd(dateKey) + '-' + it.sym + '-' + (it.side === 'buy' ? 'B' : 'S'); return it.side === 'buy' ? base + '-r' + Math.round(it.ref * 100) : base; }
   async function sendIntents(B, ctx, intents, dateKey, tifDefault) {
     const res = []; const openOpp = (sym, side) => B.orders.some(o => o.symbol === sym && !TERMINAL.has(o.status) && o.side !== side);
     for (const it of intents.filter(i => i.side === 'sell').concat(intents.filter(i => i.side === 'buy'))) {
@@ -421,7 +594,7 @@ function mkLab(env, io) {
       if (it.side === 'sell' && B.orders.some(o => o.symbol === it.sym && !TERMINAL.has(o.status) && o.side === 'buy')) { res.push({ book: it.book, sym: it.sym, side: 'sell', status: 'wash-guard-exit-wait' }); report.errors.push(it.book + ' ' + it.sym + ': خروج مؤجل — أمر شراء قائم للرمز نفسه (يُعاد في التشغيل التالي)'); continue; }
       if (it.needsStopCancel) { let ok = true; for (const s of bookOpen(B, it.book, it.sym).filter(isStop)) { const c = await cancelConfirmed(s.id); if (!c.resolved) ok = false; else s.status = c.status || 'canceled'; }
         if (!ok) { res.push({ book: it.book, sym: it.sym, side: 'sell', status: 'stop-cancel-unresolved' }); report.errors.push(it.book + ' ' + it.sym + ': إلغاء الوقف لم يُحسم — لا بيع (الوقف باقٍ)'); continue; } }
-      const cid = it.side === 'buy' ? base + '-r' + Math.round(it.ref * 100) : base;
+      const cid = cidOf(k, dateKey, it);
       const body = { symbol: it.sym, qty: String(it.qty), side: it.side, type: 'market', time_in_force: it.tif || tifDefault, client_order_id: cid };
       try { const r = await req('POST', '/v2/orders', body); res.push({ book: it.book, sym: it.sym, side: it.side, qty: it.qty, cid, status: r && r.__dry ? 'dry-run' : 'submitted', id: r && r.id }); if (!(r && r.__dry)) B.orders.push(Object.assign({}, r || {}, { symbol: it.sym, side: it.side, status: (r && r.status) || 'accepted' })); }
       catch (e) { if (e.status === 422 && /unique/i.test(e.message)) res.push({ book: it.book, sym: it.sym, side: it.side, cid, status: 'verified-duplicate' }); else { res.push({ book: it.book, sym: it.sym, side: it.side, cid, status: 'submit-failed', err: e.message }); report.errors.push(it.book + ' ' + it.sym + ': تعذر الإرسال: ' + e.message); } } }
@@ -429,12 +602,15 @@ function mkLab(env, io) {
 
   /* ---------- الأوامر ---------- */
   function overnightWindow(B) { const n = B.n; const hh = m => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
-    const R = { nyNow: n.date + ' ' + hh(n.hm), target: null, prev: null, inWindow: false, late: false, why: null, note: 'حد 09:15 متحفظ؛ حد Alpaca لأوامر opg قرابة 09:28 — يحتاج تحققًا' };
+    const R = { nyNow: n.date + ' ' + hh(n.hm), target: null, prev: null, inWindow: false, late: false, preWindow: false, why: null, sendFrom: null, sendUntil: null,
+      note: 'إرسال OPG من 19:05 حتى 09:15 نيويورك فقط: Alpaca ترفض OPG بين 09:28 و19:00 وتصف ما بعد 19:00 لمزاد الافتتاح التالي (الوثائق الرسمية)' };
     const t = B.clock && B.clock.next_open ? nyParts(Date.parse(B.clock.next_open)).date : null; if (!t) { R.why = 'next_open غير معروف'; return R; }
     if (!B.cal.includes(t)) { R.why = 'يوم الافتتاح التالي غير موجود في التقويم'; return R; } const prev = ST.prevTradingDay(B.cal, t); if (!prev) { R.why = 'لا يوم تداول سابق'; return R; }
-    R.target = t; R.prev = prev; if (B.clock.is_open) { R.why = 'السوق مفتوح'; return R; }
-    if (n.date < prev || (n.date === prev && n.hm < WIN.overnightStartHm)) { R.why = 'قبل 16:15 من ' + prev; return R; }
+    R.target = t; R.prev = prev; R.sendFrom = prev + ' ' + hh(WIN.overnightStartHm); R.sendUntil = t + ' ' + hh(WIN.overnightCutoffHm); if (B.clock.is_open) { R.why = 'السوق مفتوح'; return R; }
+    if (n.date < prev || (n.date === prev && n.hm < WIN.overnightStartHm)) { R.preWindow = n.date === prev && n.hm >= WIN.planFromHm;
+      R.why = R.preWindow ? 'بين 16:15 و19:05 من ' + prev + ' — Alpaca ترفض أوامر OPG حتى 19:00؛ معاينة الخطة فقط بلا إرسال (الإرسال من 19:05)' : 'قبل 19:05 من ' + prev; return R; }
     if (n.date > t || (n.date === t && n.hm > WIN.overnightCutoffHm)) { R.late = true; R.why = 'بعد 09:15 من ' + t + ' — فات وقت أوامر الافتتاح'; return R; }
+    if (!opgTimeOk(n.hm)) { R.why = 'ساعات رفض OPG لدى Alpaca (09:28–19:00) في ' + n.date + ' (بين ' + prev + ' و' + t + ') — الإرسال من 19:05'; return R; }
     R.inWindow = true; return R; }
   async function universesFor(prev) { const U = {}; for (const [name, spec] of [['U-LIQ', ST.S1_SPEC], ['U-LOW', ST.CHEAP_SPEC]]) {
       try { const syms = universe(name).filter(s => !(s in BASELINE) && !ST.ETF_SYMBOLS.includes(s)); const start = new Date(Math.min(now(), cfg.labStart ? Date.parse(cfg.labStart) : now()) - spec.barsDays * 864e5).toISOString().slice(0, 10);
@@ -444,18 +620,30 @@ function mkLab(env, io) {
   async function overnight() {
     const B = await loadBroker(); report.account = acctView(B);
     const W = overnightWindow(B); report.window = W; let ctx = await context(B);
+    if (!ctx.crossLedger.ok) { report.status = 'blocked-cross-ledger'; report.steps.push('lab-overnight: سجل التقاطعات غير مثبت — لا أوامر (حماية ومطابقة فقط، والوقفات القائمة باقية)');
+      await protect(B, ctx.books); await writeReports(B, ctx, null); return report; }
     if (!W.inWindow) { report.steps.push('lab-overnight: لا أوامر افتتاح (' + W.why + ')؛ حماية ومطابقة فقط'); report.status = W.late ? 'late' : 'outside-window';
+      if (W.preWindow) { try { ctx.universes = await universesFor(W.prev); const gw = globalEntryGates(B, ctx, W.target); const pl = await planOvernight(B, ctx, W, gw); const X = crossIntents(pl.intents, W.target, ctx.crosses);
+          report.planPreview = { target: W.target, sendFrom: W.sendFrom, entryGates: { ok: !gw.length, why: gw }, intents: X.intents, crosses: X.created, note: 'معاينة فقط: لم يُرسل أي أمر ولم تُحفظ نيات ولا تقاطعات' }; }
+        catch (e) { report.warnings.push('تعذرت معاينة الخطة: ' + e.message); } }
       await protect(B, ctx.books); await writeReports(B, ctx, null); return report; }
     ctx.universes = await universesFor(W.prev);
     report.universes = Object.fromEntries(Object.entries(ctx.universes).map(([k, v]) => [k, { ok: v.ok, stats: v.stats, top: (v.cands || []).slice(0, 8), error: v.error }]));
     const gatesWhy = globalEntryGates(B, ctx, W.target); report.entryGates = { ok: !gatesWhy.length, why: gatesWhy }; if (gatesWhy.length) ENTRY_BLOCK = gatesWhy[0];
     const plan = await planOvernight(B, ctx, W, gatesWhy);
     const X = crossIntents(plan.intents, W.target, ctx.crosses); report.intents = X.intents; report.crossesCreated = X.created;
-    /* نية مكتوبة قبل الإرسال: التقاطعات تُحفظ أولًا (هي حالة داخلية لا يراها الوسيط) */
-    if (TRADING && !READONLY) { try { if (X.created.length) writeState('lab-crosses.json', ctx.crosses.concat(X.created));
-        const I = readState('lab-intents.json', {}); I[W.target] = (I[W.target] || []).concat([{ at: new Date(now()).toISOString(), runId: env.GITHUB_RUN_ID || null, intents: X.intents, crosses: X.created.map(x => x.id) }]);
-        const keys = Object.keys(I).sort().slice(-60); const I2 = {}; keys.forEach(k => I2[k] = I[k]); writeState('lab-intents.json', I2); }
-      catch (e) { report.errors.push('تعذر حفظ النيات/التقاطعات قبل الإرسال: ' + e.message + ' — لا أوامر'); report.status = 'blocked'; await writeReports(B, ctx, plan); return report; } }
+    /* خطط الوقف لكل دخول أسهم (LAB-PROTECT-01): مربوطة بالمعرّف الثابت الذي سيُرسل */
+    const plans = []; for (const it of X.intents) { const bk = BOOK_BY_ID[it.book]; if (it.side !== 'buy' || !bk || bk.kind !== 'rsi2' || !(it.atr > 0)) continue; it.stopPlan = mkStopPlan(cidOf(ctx.books[it.book], W.target, it), it, W.target); plans.push(it.stopPlan); }
+    /* الحفظ قبل الإرسال بالترتيب: (1) النية مع معرّفات التقاطعات المخططة وخطط الوقف (2) خطط الوقف (3) سجل التقاطعات + نسخته + مرساته. أي فشل ⇒ لا أوامر.
+       ترتيب (1) قبل (3): إن فشلت كتابة السجل بقي معرّف التقاطع في النيات ⇒ التشغيل التالي يرى السجل ناقصًا فيغلق (لا يُعامل كفارغ). */
+    if (TRADING && !READONLY) { try { const IR = readStrictState('lab-intents.json'); let I = {};
+        if (IR.exists && IR.ok && IR.value && typeof IR.value === 'object' && !Array.isArray(IR.value)) I = IR.value;
+        else if (IR.exists) { const ev = keepEvidence('lab-intents.json', 'intents'); I = { _reset: { at: new Date(now()).toISOString(), evidence: ev } }; report.warnings.push('lab-intents.json تالف — نُسخ إلى الأدلة وبدأ ملف جديد'); }
+        I[W.target] = (Array.isArray(I[W.target]) ? I[W.target] : []).concat([{ at: new Date(now()).toISOString(), runId: env.GITHUB_RUN_ID || null, runStartedAt: report.runEnv.startedAt, intents: X.intents, crosses: X.created.map(x => x.id) }]);
+        const keys = Object.keys(I).filter(k => k !== '_reset').sort().slice(-400); const I2 = {}; if (I._reset) I2._reset = I._reset; keys.forEach(k => I2[k] = I[k]); atomicWrite('lab-intents.json', JSON.stringify(I2, null, 1));
+        writeStopPlans(plans);
+        if (X.created.length) { const out = writeCrossLedger(ctx.crosses.concat(X.created), 'append'); report.crossLedger.rows = out.length; } }
+      catch (e) { report.errors.push('تعذر حفظ النيات/خطط الوقف/التقاطعات قبل الإرسال: ' + e.message + ' — لا أوامر'); report.status = 'blocked'; await writeReports(B, ctx, plan); return report; } }
     else if (X.created.length) report.warnings.push('تشغيل جاف: التقاطعات لم تُحفظ');
     report.sent = await sendIntents(B, ctx, X.intents, W.target, 'opg');
     report.status = 'planned'; report.steps.push('lab-overnight: ' + report.sent.length + ' أمر/تحقق، ' + X.created.length + ' تقاطع داخلي، ليوم ' + W.target);
@@ -464,17 +652,18 @@ function mkLab(env, io) {
     return report;
   }
   function clsWindow(B) { const n = B.n; const ci = B.calInfo[n.date]; if (!ci || !B.clock.is_open) return { inWindow: false, why: !ci ? 'ليس يوم تداول' : 'السوق مغلق' };
-    const [ch, cm] = String(ci.close || '16:00').split(':').map(Number); const cutoff = ch * 60 + cm - WIN.clsCutoffBeforeCloseMin;
+    const [ch, cm] = String(ci.close || '16:00').split(':').map(Number); const cutoff = Math.min(ch * 60 + cm - WIN.clsCutoffBeforeCloseMin, WIN.clsCutoffMaxHm); /* ≤ 15:45 دائمًا (Alpaca ترفض CLS من 15:50)، وفي الأيام القصيرة الإغلاق − 15 */
     if (n.hm < WIN.clsStartHm) return { inWindow: false, why: 'قبل 09:35' }; if (n.hm > cutoff) return { inWindow: false, late: true, why: 'بعد حد أوامر الإغلاق (' + Math.floor(cutoff / 60) + ':' + String(cutoff % 60).padStart(2, '0') + ') — تُتخطى الليلة' };
-    return { inWindow: true, cutoffHm: cutoff, close: ci.close }; }
+    return { inWindow: true, cutoffHm: cutoff, close: ci.close, alpacaClsRejectFrom: '15:50' }; }
   async function postopen() {
     let B = await loadBroker(); report.account = acctView(B); let ctx = await context(B);
     /* أوامر الافتتاح التي لم تُعبأ بعد 09:35 ⇒ إلغاء مؤكد (الجزئي يُحمى بعده) */
     if (B.clock.is_open && B.n.hm >= WIN.opgCleanupHm) { let any = false; for (const o of B.lab.filter(o => !TERMINAL.has(o.status) && o.time_in_force === 'opg')) { any = true; const c = await cancelConfirmed(o.id); report.steps.push('إلغاء أمر افتتاح لم يكتمل: ' + o.client_order_id + ' (' + (c.status || (c.resolved ? 'ok' : 'غير محسوم')) + ')'); if (!c.resolved) report.errors.push(o.client_order_id + ': إلغاء لم يُحسم'); }
       if (any && TRADING) { B = await loadBroker(); ctx = await context(B); } }
-    if (await protect(B, ctx.books) && TRADING) { B = await loadBroker(); ctx = await context(B); report.protectionAfter = protectionState(B, ctx.books); }
+    if (await protect(B, ctx.books) && TRADING) { B = await loadBroker(); ctx = await context(B); report.protectionAfter = protectionState(B, ctx.books); report.protectionLatency = latencyOf(report.protectionAfter); }
     const CW = clsWindow(B); report.clsWindow = CW;
-    if (CW.inWindow) { const gatesWhy = globalEntryGates(B, ctx, B.n.date); report.entryGates = { ok: !gatesWhy.length, why: gatesWhy }; if (gatesWhy.length) ENTRY_BLOCK = gatesWhy[0];
+    if (!ctx.crossLedger.ok) { report.status = 'blocked-cross-ledger'; report.steps.push('lab-postopen: سجل التقاطعات غير مثبت — لا أوامر إغلاق ولا بيع مبني على الملكية'); }
+    else if (CW.inWindow) { const gatesWhy = globalEntryGates(B, ctx, B.n.date); report.entryGates = { ok: !gatesWhy.length, why: gatesWhy }; if (gatesWhy.length) ENTRY_BLOCK = gatesWhy[0];
       const { H, view } = playersView(B, ctx, ST.prevTradingDay(B.cal, B.n.date)); const L = learnState(B, H, B.n.date); report.learn = { weights: L.weights, budgets: L.budgets };
       const ref = closeOnOrBefore('SPY', ST.prevTradingDay(B.cal, B.n.date)); const intents = []; let acctRoom = (ctx.settle.proven ? ctx.settle.settledCash : 0) - (ctx.settle.pendingReserveAll || 0);
       for (const def of ST.BOOKS.filter(b => b.kind === 'o1')) { const k = ctx.books[def.id]; const pid = def.player; const S = playerSettlement(ctx.books, pid, B.cal, B.n.date, B);
@@ -494,7 +683,7 @@ function mkLab(env, io) {
     if (TRADING && (report.sent || []).some(s => s.status === 'submitted')) { B = await loadBroker(); ctx = await context(B); }
     await writeReports(B, ctx, null); return report;
   }
-  async function status() { READONLY = true; const B = await loadBroker(); report.account = acctView(B); const ctx = await context(B); report.protection = protectionState(B, ctx.books); await writeReports(B, ctx, null, true); return report; }
+  async function status() { READONLY = true; const B = await loadBroker(); report.account = acctView(B); const ctx = await context(B); report.protection = protectionState(B, ctx.books); report.protectionLatency = latencyOf(report.protection); await writeReports(B, ctx, null, true); return report; }
   function acctView(B) { return { paper: String(B.acc.account_number || '').startsWith('PA'), masked: '****' + String(B.acc.account_number || '').slice(-4), status: B.acc.status, cash: B.acc.cash, equity: B.acc.equity, clock: B.clock }; }
   function clearFlags(note) { const F = readFlags(); const at = new Date(now()).toISOString(); const by = note || env.FLAG_CLEAR_NOTE || 'manual';
     for (const f of F.active) F.cleared.push(Object.assign({}, f, { clearedAt: at, clearedBy: by })); const n = F.active.length; F.active = []; writeState('flags.json', F, true);
@@ -508,6 +697,8 @@ function mkLab(env, io) {
       return { sym: f.sym, side: f.side, qty: f.qty, price: f.px, cid: f.cid, kind: f.kind, tif, expectedRef: exp, slipVsRefPct: exp ? +((f.px / exp - 1) * 100).toFixed(3) : null, auctionPrice: auction, slipVsAuctionPct: auction ? +((f.px / auction - 1) * 100).toFixed(3) : null, provisional: f.provisional || undefined }; }); }
   async function writeReports(B, ctx, plan, readOnly) {
     try {
+      if (ctx.crossLedger && !ctx.crossLedger.ok) { const prevS = readJson(path.join(LABREP, 'lab-status.json')) || {}; wj(path.join(LABREP, 'lab-status.json'), Object.assign({}, prevS, { tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), cmd: io.cmd || null,
+          crossLedger: { ok: false, state: ctx.crossLedger.state, why: ctx.crossLedger.why }, note: 'سجل التقاطعات غير مثبت — التقارير اليومية موقوفة (ملكية الدفاتر غير مؤكدة)، ولا شراء ولا بيع مبني على الملكية. الوقفات القائمة باقية.', flags: readFlags().active.map(f => ({ id: f.id, kind: f.kind, at: f.at })) })); return; }
       if (!cfg.labStart) { wj(path.join(LABREP, 'lab-status.json'), { tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), labStart: null, note: 'المختبر لم يبدأ بعد (labStart غير محدد) — لا تداول', trading: TRADING, halt: HALT }); return; }
       const lastDay = ST.sortedDates(B.cal).filter(d => d < B.n.date || (d === B.n.date && B.n.hm >= 16 * 60 + 15)).pop();
       if (!lastDay || lastDay < cfg.labStart) { wj(path.join(LABREP, 'lab-status.json'), { tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), labStart: cfg.labStart, labEnd: LAB_END, note: 'لم يكتمل أي يوم تداول في المختبر بعد', trading: TRADING }); return; }
@@ -541,7 +732,7 @@ function mkLab(env, io) {
       const status = { tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), cmd: io.cmd || null, labStart: cfg.labStart, labEnd: LAB_END, lastCompletedDay: lastDay, daysElapsed: days.length, trading: TRADING, halt: HALT,
         entryGates: report.entryGates || null, flags: readFlags().active.map(f => ({ id: f.id, kind: f.kind, at: f.at })), players, ref: { totalReturnPct: refRet == null ? null : +(refRet * 100).toFixed(3), maxDrawdownPct: refDD.maxDrawdownPct },
         learn: { weights: Lw.weights, budgets: Lw.budgets, history: Lw.history }, shadows: shadows ? shadows.map(s => ({ id: s.id, totalReturnPct: s.totalReturnPct, maxDrawdownPct: s.maxDrawdownPct, tradesClosed: s.tradesClosed, error: s.error })) : (readJson(path.join(LABREP, 'lab-status.json')) || {}).shadows || null,
-        recon: { ok: ctx.recon.ok, labMismatch: ctx.recon.labMismatch }, settlement: { proven: ctx.settle.proven, settledCash: ctx.settle.settledCash }, crossesTotal: ctx.crosses.length,
+        recon: { ok: ctx.recon.ok, labMismatch: ctx.recon.labMismatch }, settlement: { proven: ctx.settle.proven, settledCash: ctx.settle.settledCash }, crossesTotal: ctx.crosses.length, crossLedger: { ok: true, state: ctx.crossLedger ? ctx.crossLedger.state : null }, protectionLatency: report.protectionLatency || null,
         successRule: 'النجاح = عائد كلي أعلى من الحكَم + أقصى هبوط ليس أسوأ من الحكَم + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند ' + LAB_END + ' فقط.' };
       wj(path.join(LABREP, 'lab-status.json'), status); report.labStatus = { lastCompletedDay: lastDay, dailyWritten: written };
       /* الملاحظة الأسبوعية: عند آخر يوم تداول في الأسبوع */
@@ -584,7 +775,7 @@ function mkLab(env, io) {
 }
 
 const COMMANDS = { 'lab-overnight': 'overnight', 'lab-postopen': 'postopen', 'lab-status': 'status', 'lab-clear-flags': 'clearFlags' };
-module.exports = { mkLab, VERSION, WIN, COMMANDS, nyMs, isoWeek, refOfCid, targetOfCid, labEndOf };
+module.exports = { mkLab, VERSION, WIN, ALPACA, FAILSAFE_STOP_PCT, opgTimeOk, COMMANDS, nyMs, isoWeek, refOfCid, targetOfCid, labEndOf };
 if (require.main === module) {
   (async () => { const cmd = process.argv[2] || 'lab-status'; const dir = __dirname;
     if (!COMMANDS[cmd]) { console.error('الأوامر: ' + Object.keys(COMMANDS).join(' | ')); process.exit(2); }
