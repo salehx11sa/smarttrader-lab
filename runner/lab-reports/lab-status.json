@@ -1,9 +1,9 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.1",
- "at": "2026-10-07T13:30:17.168Z",
+ "at": "2026-10-07T17:11:23.111Z",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "note": "لم يكتمل أي يوم تداول في المختبر بعد",
- "trading": false
+ "trading": true
 }
