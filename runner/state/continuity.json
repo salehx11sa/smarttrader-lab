@@ -1,0 +1,14 @@
+{
+ "tool": "state_guard 7.2.19-dev",
+ "runId": "37628966663",
+ "runNumber": 1,
+ "runAttempt": 1,
+ "at": "2026-10-07T13:30:16.002Z",
+ "anchor": null,
+ "checked": [],
+ "lost": [],
+ "recovered": [],
+ "unresolved": [],
+ "ok": true,
+ "reason": "لا تشغيل سابق فقد حالته"
+}
