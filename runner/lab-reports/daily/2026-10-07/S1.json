@@ -1,0 +1,23 @@
+{
+ "player": "S1",
+ "name": "السريع",
+ "date": "2026-10-07",
+ "labVersion": "lab-0.2",
+ "startEquity": 13000,
+ "equity": 13000,
+ "cash": 13000,
+ "dayPnl": 0,
+ "totalPnl": 0,
+ "totalReturnPct": 0,
+ "drawdownPct": 0,
+ "maxDrawdownPct": 0,
+ "positions": [],
+ "orders": [],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

@@ -1,9 +1,156 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.2",
- "at": "2026-10-07T20:08:06.617Z",
+ "at": "2026-10-07T20:35:07.188Z",
+ "cmd": "lab-status",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
- "note": "لم يكتمل أي يوم تداول في المختبر بعد",
- "trading": true
+ "lastCompletedDay": "2026-10-07",
+ "daysElapsed": 1,
+ "trading": true,
+ "halt": false,
+ "entryGates": null,
+ "flags": [],
+ "players": [
+  {
+   "id": "REF",
+   "name": "الحَكَم",
+   "equityClose": 13000,
+   "equityNow": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "drawdownPct": 0,
+   "tradesClosed": 0,
+   "killed": null,
+   "vsRefPct": 0,
+   "verdictSoFar": "المرجع"
+  },
+  {
+   "id": "S1",
+   "name": "السريع",
+   "equityClose": 13000,
+   "equityNow": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "drawdownPct": 0,
+   "tradesClosed": 0,
+   "killed": null,
+   "vsRefPct": 0,
+   "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد"
+  },
+  {
+   "id": "T1",
+   "name": "الصبور",
+   "equityClose": 13000,
+   "equityNow": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "drawdownPct": 0,
+   "tradesClosed": 0,
+   "killed": null,
+   "vsRefPct": 0,
+   "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد"
+  },
+  {
+   "id": "TM1",
+   "name": "الموسمي",
+   "equityClose": 13000,
+   "equityNow": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "drawdownPct": 0,
+   "tradesClosed": 0,
+   "killed": null,
+   "vsRefPct": 0,
+   "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد"
+  },
+  {
+   "id": "O1",
+   "name": "الليلي",
+   "equityClose": 12999.28,
+   "equityNow": 12997.04,
+   "totalReturnPct": -0.006,
+   "maxDrawdownPct": 0.01,
+   "drawdownPct": 0.01,
+   "tradesClosed": 0,
+   "killed": null,
+   "vsRefPct": -0.006,
+   "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد"
+  },
+  {
+   "id": "CHEAP",
+   "name": "الرخيص",
+   "equityClose": 13000,
+   "equityNow": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "drawdownPct": 0,
+   "tradesClosed": 0,
+   "killed": null,
+   "vsRefPct": 0,
+   "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد"
+  },
+  {
+   "id": "LEARN",
+   "name": "المتعلّم",
+   "equityClose": 12999.96,
+   "equityNow": 12999.68,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "drawdownPct": 0,
+   "tradesClosed": 0,
+   "killed": null,
+   "vsRefPct": 0,
+   "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد"
+  }
+ ],
+ "ref": {
+  "totalReturnPct": 0,
+  "maxDrawdownPct": 0
+ },
+ "learn": {
+  "weights": {
+   "S1": 0.2,
+   "T1": 0.2,
+   "TM1": 0.2,
+   "O1": 0.2,
+   "CHEAP": 0.2
+  },
+  "budgets": {
+   "S1": 2600,
+   "T1": 2600,
+   "TM1": 2600,
+   "O1": 2600,
+   "CHEAP": 2600
+  },
+  "history": [
+   {
+    "from": "2026-10-07",
+    "weights": {
+     "S1": 0.2,
+     "T1": 0.2,
+     "TM1": 0.2,
+     "O1": 0.2,
+     "CHEAP": 0.2
+    },
+    "reason": "البداية: أوزان متساوية"
+   }
+  ]
+ },
+ "shadows": null,
+ "recon": {
+  "ok": true,
+  "labMismatch": {}
+ },
+ "settlement": {
+  "proven": true,
+  "settledCash": 89328.12
+ },
+ "crossesTotal": 0,
+ "crossLedger": {
+  "ok": true,
+  "state": "valid"
+ },
+ "protectionLatency": [],
+ "successRule": "النجاح = عائد كلي أعلى من الحكَم + أقصى هبوط ليس أسوأ من الحكَم + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }

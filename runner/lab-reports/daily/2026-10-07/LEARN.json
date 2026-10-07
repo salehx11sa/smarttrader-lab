@@ -1,0 +1,73 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-07",
+ "labVersion": "lab-0.2",
+ "startEquity": 13000,
+ "equity": 12999.96,
+ "cash": 12222.74,
+ "dayPnl": -0.04,
+ "totalPnl": -0.04,
+ "totalReturnPct": 0,
+ "drawdownPct": 0,
+ "maxDrawdownPct": 0,
+ "positions": [
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "qty": 1,
+   "avgCost": 777.26,
+   "close": 777.22,
+   "value": 777.22,
+   "entryDate": "2026-10-07"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-o1-20261007-SPY-B-r77909",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "cls",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 777.26,
+   "cid": "ln1-o1-20261007-SPY-B-r77909",
+   "kind": "fill",
+   "tif": "cls",
+   "expectedRef": 779.09,
+   "slipVsRefPct": -0.235,
+   "auctionPrice": 777.22,
+   "slipVsAuctionPct": 0.005
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}

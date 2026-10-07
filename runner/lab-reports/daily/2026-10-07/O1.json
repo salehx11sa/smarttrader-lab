@@ -1,0 +1,59 @@
+{
+ "player": "O1",
+ "name": "الليلي",
+ "date": "2026-10-07",
+ "labVersion": "lab-0.2",
+ "startEquity": 13000,
+ "equity": 12999.28,
+ "cash": 6781.52,
+ "dayPnl": -0.72,
+ "totalPnl": -0.72,
+ "totalReturnPct": -0.006,
+ "drawdownPct": 0.01,
+ "maxDrawdownPct": 0.01,
+ "positions": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "qty": 8,
+   "avgCost": 777.31,
+   "close": 777.22,
+   "value": 6217.76,
+   "entryDate": "2026-10-07"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "o1-20261007-SPY-B-r77909",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "cls",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 8,
+   "price": 777.31,
+   "cid": "o1-20261007-SPY-B-r77909",
+   "kind": "fill",
+   "tif": "cls",
+   "expectedRef": 779.09,
+   "slipVsRefPct": -0.228,
+   "auctionPrice": 777.22,
+   "slipVsAuctionPct": 0.012
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}
