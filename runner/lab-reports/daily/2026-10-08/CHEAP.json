@@ -1,0 +1,134 @@
+{
+ "player": "CHEAP",
+ "name": "الرخيص",
+ "date": "2026-10-08",
+ "labVersion": "lab-0.2",
+ "startEquity": 13000,
+ "equity": 13001,
+ "cash": 12245.56,
+ "dayPnl": 1,
+ "totalPnl": 1,
+ "totalReturnPct": 0.008,
+ "drawdownPct": 0,
+ "maxDrawdownPct": 0,
+ "positions": [
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "qty": 93,
+   "avgCost": 1.74,
+   "close": 1.715,
+   "value": 159.5,
+   "entryDate": "2026-10-08"
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "qty": 83,
+   "avgCost": 7.14,
+   "close": 7.18,
+   "value": 595.94,
+   "entryDate": "2026-10-08"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ch1-20261008-NXH-B-r178",
+   "sym": "NXH",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 172,
+   "filled": 93,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261008-MFA-B-r715",
+   "sym": "MFA",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 216,
+   "filled": 83,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261008-ALLO-B-r143",
+   "sym": "ALLO",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 520,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261008-LAC-B-r241",
+   "sym": "LAC",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 333,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261008-NXH-P1",
+   "sym": "NXH",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 93,
+   "filled": 0,
+   "status": "new",
+   "stop": 0.9886
+  },
+  {
+   "cid": "ch1-20261008-MFA-P1",
+   "sym": "MFA",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 83,
+   "filled": 0,
+   "status": "new",
+   "stop": 6.53
+  }
+ ],
+ "fills": [
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "side": "buy",
+   "qty": 93,
+   "price": 1.74,
+   "cid": "ch1-20261008-NXH-B-r178",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 1.78,
+   "slipVsRefPct": -2.247,
+   "auctionPrice": 1.75,
+   "slipVsAuctionPct": -0.571
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "side": "buy",
+   "qty": 83,
+   "price": 7.14,
+   "cid": "ch1-20261008-MFA-B-r715",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 7.15,
+   "slipVsRefPct": -0.14,
+   "auctionPrice": 7.11,
+   "slipVsAuctionPct": 0.422
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

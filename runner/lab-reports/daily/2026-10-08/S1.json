@@ -1,0 +1,100 @@
+{
+ "player": "S1",
+ "name": "السريع",
+ "date": "2026-10-08",
+ "labVersion": "lab-0.2",
+ "startEquity": 13000,
+ "equity": 13005.76,
+ "cash": 12812.8,
+ "dayPnl": 5.76,
+ "totalPnl": 5.76,
+ "totalReturnPct": 0.044,
+ "drawdownPct": 0,
+ "maxDrawdownPct": 0,
+ "positions": [
+  {
+   "book": "S1",
+   "sym": "HELP",
+   "qty": 18,
+   "avgCost": 10.4,
+   "close": 10.72,
+   "value": 192.96,
+   "entryDate": "2026-10-08"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "s1-20261008-NUAI-B-r553",
+   "sym": "NUAI",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 76,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261008-PFG-B-r10873",
+   "sym": "PFG",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 18,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261008-DFTX-B-r3509",
+   "sym": "DFTX",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 21,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261008-HELP-B-r1051",
+   "sym": "HELP",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 52,
+   "filled": 18,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261008-HELP-P1",
+   "sym": "HELP",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 18,
+   "filled": 0,
+   "status": "new",
+   "stop": 7.91
+  }
+ ],
+ "fills": [
+  {
+   "book": "S1",
+   "sym": "HELP",
+   "side": "buy",
+   "qty": 18,
+   "price": 10.4,
+   "cid": "s1-20261008-HELP-B-r1051",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 10.51,
+   "slipVsRefPct": -1.047,
+   "auctionPrice": 10.5,
+   "slipVsAuctionPct": -0.952
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

@@ -1,0 +1,87 @@
+{
+ "player": "T1",
+ "name": "الصبور",
+ "date": "2026-10-08",
+ "labVersion": "lab-0.2",
+ "startEquity": 13000,
+ "equity": 12986.77,
+ "cash": 1377.82,
+ "dayPnl": -13.23,
+ "totalPnl": -13.23,
+ "totalReturnPct": -0.102,
+ "drawdownPct": 0.1,
+ "maxDrawdownPct": 0.1,
+ "positions": [
+  {
+   "book": "T1",
+   "sym": "SPY",
+   "qty": 15,
+   "avgCost": 774.812,
+   "close": 773.93,
+   "value": 11608.95,
+   "entryDate": "2026-10-08"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "t1-20261008-SPY-B-r77722",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 7,
+   "filled": 6,
+   "status": "expired"
+  }
+ ],
+ "fills": [
+  {
+   "book": "T1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 774.86,
+   "cid": null,
+   "kind": "cross",
+   "tif": "cross",
+   "expectedRef": 777.22,
+   "slipVsRefPct": -0.304,
+   "auctionPrice": 774.86,
+   "slipVsAuctionPct": 0
+  },
+  {
+   "book": "T1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 8,
+   "price": 774.86,
+   "cid": null,
+   "kind": "cross",
+   "tif": "cross",
+   "expectedRef": 777.22,
+   "slipVsRefPct": -0.304,
+   "auctionPrice": 774.86,
+   "slipVsAuctionPct": 0
+  },
+  {
+   "book": "T1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 6,
+   "price": 774.74,
+   "cid": "t1-20261008-SPY-B-r77722",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 777.22,
+   "slipVsRefPct": -0.319,
+   "auctionPrice": 774.86,
+   "slipVsAuctionPct": -0.015
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

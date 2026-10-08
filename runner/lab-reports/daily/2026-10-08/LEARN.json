@@ -1,0 +1,177 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-08",
+ "labVersion": "lab-0.2",
+ "startEquity": 13000,
+ "equity": 12997.74,
+ "cash": 12223.81,
+ "dayPnl": -2.22,
+ "totalPnl": -2.26,
+ "totalReturnPct": -0.017,
+ "drawdownPct": 0.02,
+ "maxDrawdownPct": 0.02,
+ "positions": [
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "qty": 1,
+   "avgCost": 773.79,
+   "close": 773.93,
+   "value": 773.93,
+   "entryDate": "2026-10-08"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-s1-20261008-PFG-B-r10873",
+   "sym": "PFG",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 3,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261008-DFTX-B-r3509",
+   "sym": "DFTX",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 4,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261008-MFA-B-r715",
+   "sym": "MFA",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 43,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261008-LAC-B-r241",
+   "sym": "LAC",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 66,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261008-NXH-B-r178",
+   "sym": "NXH",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 34,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261008-ALLO-B-r143",
+   "sym": "ALLO",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 104,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261008-NUAI-B-r553",
+   "sym": "NUAI",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 15,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261008-HELP-B-r1051",
+   "sym": "HELP",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 10,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-t1-20261008-SPY-B-r77722",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 3,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-o1-20261008-SPY-B-r77722",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "cls",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 1,
+   "price": 774.86,
+   "cid": null,
+   "kind": "cross",
+   "tif": "cross",
+   "expectedRef": 777.22,
+   "slipVsRefPct": -0.304,
+   "auctionPrice": 774.86,
+   "slipVsAuctionPct": 0
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 773.79,
+   "cid": "ln1-o1-20261008-SPY-B-r77722",
+   "kind": "fill",
+   "tif": "cls",
+   "expectedRef": 777.22,
+   "slipVsRefPct": -0.441,
+   "auctionPrice": 773.93,
+   "slipVsAuctionPct": -0.018
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 1,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}
