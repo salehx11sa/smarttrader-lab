@@ -1,4 +1,4 @@
-# SmartTrader PAPER LAB 0.2 — مختبر ورقي: 7 لاعبين في حساب Alpaca ورقي واحد (المستودع المقترح: salehx11sa/smarttrader-lab)
+# SmartTrader PAPER LAB 0.4 — مختبر ورقي: 7 لاعبين في حساب Alpaca ورقي واحد (المستودع المقترح: salehx11sa/smarttrader-lab)
 # لا أوامر إلا إذا ضبط صالح بنفسه متغير المستودع TRADING_ENABLED=true وRUNNER_MODE=lab. الافتراضي: lab-status (قراءة فقط، تشغيل جاف).
 # المفاتيح: Secrets → APCA_API_KEY_ID و APCA_API_SECRET_KEY (مفاتيح الحساب الورقي فقط). لا عنوان حي في المحرّك.
 # GitHub قد يؤخر التشغيل المجدول 5–7 ساعات: كل لاعب مصمم ليتحمل التأخر (أمر واحد لليوم، والمتأخر يتخطى الدخول ويُبقي الحماية).
@@ -28,18 +28,26 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        description: 'lab-status (قراءة فقط) | lab-overnight | lab-postopen | lab-clear-flags (بعد مراجعة الأعلام)'
+        # lab-0.3 (LAB-PROTECT-02): lab-protect = حلقة حماية فقط 09:25–09:50 نيويورك (حتى 20 دقيقة) يطلقها مُطلق Cloudflare عند 09:28؛ لا خانة cron جديدة.
+        description: 'lab-status (قراءة فقط) | lab-overnight | lab-postopen | lab-protect (حماية فقط 09:25–09:50) | lab-clear-flags (بعد مراجعة الأعلام)'
         required: true
         default: 'lab-status'
 permissions:
   contents: write
   actions: read
+# التزامن: تشغيل واحد في كل مرة، ولا إلغاء للجاري (lab-protect الطويل لا يُقطع). تنبيه GitHub: يبقى «معلّق» واحد فقط في المجموعة —
+# إطلاق جديد أثناء الانتظار يحل محل المعلّق السابق (مثلًا lab-postopen 09:36 ثم 09:41 ⇒ يبقى الأخير ويعمل بعد انتهاء lab-protect).
+# lab-0.4 (ملاحظة المراجع عن التزامن): المجموعة واحدة عمدًا — lab-protect وlab-postopen يكتبان ملفات الحالة نفسها (runs.json والأعلام وlab-protect-blocks.json
+# وlab-protect-sla.json) ويحفظانها بـgit push؛ مجموعتان منفصلتان تعنيان كاتبَين متزامنين وتعارض حفظ. البديل المقبول: lab-protect ينتهي مبكرًا متى حُسم كل شيء (~09:31 عادةً).
+# أسوأ حالة: مركز بلا حسم (خروج مقبول غير معبأ، أو وقف لا يُؤكَّد) ⇒ lab-protect يبقى حتى الموعد (09:48 عند البدء 09:28، وحده الأقصى 09:50) ثم يرفع
+# protection-failed وprotection-sla-breach؛ lab-postopen الاحتياطي (09:36، ويحل محله 09:41) يعمل بعده نحو 09:49–09:52 ويعيد المحاولة للمتبقي فقط.
 concurrency:
   group: smarttrader-lab
   cancel-in-progress: false
 jobs:
   run:
     runs-on: ubuntu-latest
+    # 30 دقيقة: lab-protect حتى 20 دقيقة + الحارس (≤3) + الحفظ — يتسع لـ~25 دقيقة
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
