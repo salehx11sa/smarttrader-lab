@@ -1,0 +1,646 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.2",
+ "rulesVersion": "lab-0.1",
+ "at": "2026-10-08T21:23:24.920Z",
+ "cmd": "lab-overnight",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "lab-overnight: لا أوامر افتتاح (بين 16:15 و19:05 من 2026-10-08 — Alpaca ترفض أوامر OPG حتى 19:00؛ معاينة الخطة فقط بلا إرسال (الإرسال من 19:05))؛ حماية ومطابقة فقط"
+ ],
+ "warnings": [],
+ "errors": [],
+ "orders": [],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [
+  {
+   "book": "REF",
+   "why": "بوابات الدخول: نشاط أجنبي اليوم على الحساب (CAT)"
+  },
+  {
+   "book": "S1",
+   "why": "بوابات الدخول: نشاط أجنبي اليوم على الحساب (CAT)"
+  },
+  {
+   "book": "CHEAP",
+   "why": "بوابات الدخول: نشاط أجنبي اليوم على الحساب (CAT)"
+  },
+  {
+   "book": "LEARN.S1",
+   "why": "بوابات الدخول: نشاط أجنبي اليوم على الحساب (CAT)"
+  },
+  {
+   "book": "LEARN.T1",
+   "why": "بوابات الدخول: نشاط أجنبي اليوم على الحساب (CAT)"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "why": "بوابات الدخول: نشاط أجنبي اليوم على الحساب (CAT)"
+  }
+ ],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "37846398518",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "28",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-08T21:23:24.920Z"
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "77572.5",
+  "equity": "99975.04",
+  "clock": {
+   "is_open": false,
+   "next_close": "2026-10-09T16:00:00-04:00",
+   "next_open": "2026-10-09T09:30:00-04:00",
+   "timestamp": "2026-10-08T17:23:25.215441813-04:00"
+  }
+ },
+ "window": {
+  "nyNow": "2026-10-08 17:23",
+  "target": "2026-10-09",
+  "prev": "2026-10-08",
+  "inWindow": false,
+  "late": false,
+  "preWindow": true,
+  "why": "بين 16:15 و19:05 من 2026-10-08 — Alpaca ترفض أوامر OPG حتى 19:00؛ معاينة الخطة فقط بلا إرسال (الإرسال من 19:05)",
+  "sendFrom": "2026-10-08 19:05",
+  "sendUntil": "2026-10-09 09:15",
+  "note": "إرسال OPG من 19:05 حتى 09:15 نيويورك فقط: Alpaca ترفض OPG بين 09:28 و19:00 وتصف ما بعد 19:00 لمزاد الافتتاح التالي (الوثائق الرسمية)"
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 2,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 2,
+   "head": "f1e31ecb0039"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "crossLedgerInitial": {
+  "ok": true,
+  "state": "valid",
+  "rows": 2,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 2,
+   "head": "f1e31ecb0039"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "feedUsed": "sip",
+ "recon": {
+  "rows": [
+   {
+    "sym": "AMD",
+    "lab": 0,
+    "baseline": 1,
+    "broker": 1,
+    "diff": 0
+   },
+   {
+    "sym": "HELP",
+    "lab": 18,
+    "baseline": 0,
+    "broker": 18,
+    "diff": 0
+   },
+   {
+    "sym": "MFA",
+    "lab": 83,
+    "baseline": 0,
+    "broker": 83,
+    "diff": 0
+   },
+   {
+    "sym": "MSFT",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NVDA",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NXH",
+    "lab": 93,
+    "baseline": 0,
+    "broker": 93,
+    "diff": 0
+   },
+   {
+    "sym": "SPY",
+    "lab": 24,
+    "baseline": 0,
+    "broker": 24,
+    "diff": 0
+   }
+  ],
+  "ok": true,
+  "labMismatch": {},
+  "unexplainedForeign": [],
+  "baselineDrift": []
+ },
+ "foreignActivity": {
+  "ordersToday": [],
+  "openBuys": [],
+  "fillsToday": [
+   {
+    "id": "20261008125242506::f187bcd3-0e79-4a52-8ca1-8cd96ba7fb20",
+    "symbol": "CAT",
+    "side": "sell",
+    "qty": 1
+   }
+  ],
+  "unknownFillsToday": [],
+  "any": true
+ },
+ "settlement": {
+  "proven": true,
+  "settledCash": 76774.48,
+  "cash": 77572.5,
+  "unsettledProceeds": 798.02,
+  "reasons": [],
+  "pendingReserveAll": 0
+ },
+ "status": "outside-window",
+ "continuity": {
+  "tool": "state_guard 7.2.19-dev",
+  "runId": "37846398518",
+  "runNumber": 28,
+  "runAttempt": 1,
+  "at": "2026-10-08T21:23:23.827Z",
+  "anchor": {
+   "runId": "37841249599",
+   "runNumber": 27,
+   "runAttempt": 1,
+   "at": "2026-10-08T20:41:06Z",
+   "cmd": "lab-status",
+   "runOutcome": "success",
+   "incomplete": false,
+   "openSaveIncidents": 0,
+   "pairVerified": true,
+   "anchorSchema": 2,
+   "runnerExit": 0,
+   "lastPair": "ok",
+   "problems": []
+  },
+  "checked": [],
+  "lost": [],
+  "recovered": [],
+  "unresolved": [],
+  "ok": true,
+  "reason": "لا تشغيل سابق فقد حالته"
+ },
+ "saveIncidents": {
+  "open": [],
+  "errors": []
+ },
+ "runPair": {
+  "status": "ok",
+  "problems": []
+ },
+ "freeze": {
+  "ok": true,
+  "changed": [],
+  "labVersion": "lab-0.1",
+  "why": null
+ },
+ "players": {
+  "REF": {
+   "equityNow": 13000,
+   "killed": null,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  "S1": {
+   "equityNow": 13004.5,
+   "killed": null,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  "T1": {
+   "equityNow": 12987.97,
+   "killed": null,
+   "maxDrawdownPct": 0.1,
+   "tradesClosed": 0
+  },
+  "TM1": {
+   "equityNow": 13000,
+   "killed": null,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  "O1": {
+   "equityNow": 12982.72,
+   "killed": null,
+   "maxDrawdownPct": 0.14,
+   "tradesClosed": 1
+  },
+  "CHEAP": {
+   "equityNow": 12997.31,
+   "killed": null,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  "LEARN": {
+   "equityNow": 12997.82,
+   "killed": null,
+   "maxDrawdownPct": 0.02,
+   "tradesClosed": 1
+  }
+ },
+ "learn": {
+  "weights": {
+   "S1": 0.2,
+   "T1": 0.2,
+   "TM1": 0.2,
+   "O1": 0.2,
+   "CHEAP": 0.2
+  },
+  "budgets": {
+   "S1": 2600,
+   "T1": 2600,
+   "TM1": 2600,
+   "O1": 2600,
+   "CHEAP": 2600
+  },
+  "equityBase": 13000
+ },
+ "playerCash": {
+  "REF": {
+   "cash": 13000,
+   "unsettledProceeds": 0,
+   "settledCash": 13000,
+   "pendingReserve": 0,
+   "spendable": 13000,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 13000,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "S1": {
+   "cash": 12812.8,
+   "unsettledProceeds": 0,
+   "settledCash": 12812.8,
+   "pendingReserve": 0,
+   "spendable": 12812.8,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 12812.8,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "T1": {
+   "cash": 1377.82,
+   "unsettledProceeds": 0,
+   "settledCash": 1377.82,
+   "pendingReserve": 0,
+   "spendable": 1377.82,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 1377.82,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "TM1": {
+   "cash": 13000,
+   "unsettledProceeds": 0,
+   "settledCash": 13000,
+   "pendingReserve": 0,
+   "spendable": 13000,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 13000,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "O1": {
+   "cash": 6790.64,
+   "unsettledProceeds": 6198.88,
+   "settledCash": 591.76,
+   "pendingReserve": 0,
+   "spendable": 591.76,
+   "unknownPending": [],
+   "unsettled": [
+    {
+     "sym": "SPY",
+     "tradeDate": "2026-10-08",
+     "settleDate": "2026-10-09",
+     "proceeds": 6198.88
+    }
+   ],
+   "proof": {
+    "proven": true,
+    "settledCash": 591.76,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "CHEAP": {
+   "cash": 12245.56,
+   "unsettledProceeds": 0,
+   "settledCash": 12245.56,
+   "pendingReserve": 0,
+   "spendable": 12245.56,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 12245.56,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "LEARN": {
+   "cash": 12223.81,
+   "unsettledProceeds": 774.86,
+   "settledCash": 11448.95,
+   "pendingReserve": 0,
+   "spendable": 11448.95,
+   "unknownPending": [],
+   "unsettled": [
+    {
+     "sym": "SPY",
+     "tradeDate": "2026-10-08",
+     "settleDate": "2026-10-09",
+     "proceeds": 774.86
+    }
+   ],
+   "proof": {
+    "proven": true,
+    "settledCash": 11448.95,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  }
+ },
+ "t1": {
+  "T1": {
+   "decision": "in",
+   "close": 762.63,
+   "sma": 720.884,
+   "months": 10,
+   "monthEnd": "2026-09-30",
+   "monthsUsed": [
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09"
+   ]
+  },
+  "LEARN.T1": {
+   "decision": "in",
+   "close": 762.63,
+   "sma": 720.884,
+   "months": 10,
+   "monthEnd": "2026-09-30",
+   "monthsUsed": [
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09"
+   ]
+  }
+ },
+ "tm1": {
+  "TM1": {
+   "buyDay": false,
+   "lastUnknown": false,
+   "tradingDayOfMonth": 7
+  },
+  "LEARN.TM1": {
+   "buyDay": false,
+   "lastUnknown": false,
+   "tradingDayOfMonth": 7
+  }
+ },
+ "planPreview": {
+  "target": "2026-10-09",
+  "sendFrom": "2026-10-08 19:05",
+  "entryGates": {
+   "ok": false,
+   "why": [
+    "نشاط أجنبي اليوم على الحساب (CAT)"
+   ]
+  },
+  "intents": [
+   {
+    "book": "O1",
+    "sym": "SPY",
+    "side": "sell",
+    "qty": 8,
+    "ref": 773.93,
+    "reason": "O1: بيع عند الافتتاح",
+    "tif": "opg",
+    "exit": true
+   },
+   {
+    "book": "LEARN.O1",
+    "sym": "SPY",
+    "side": "sell",
+    "qty": 1,
+    "ref": 773.93,
+    "reason": "O1: بيع عند الافتتاح",
+    "tif": "opg",
+    "exit": true
+   }
+  ],
+  "crosses": [],
+  "note": "معاينة فقط: لم يُرسل أي أمر ولم تُحفظ نيات ولا تقاطعات"
+ },
+ "protection": [
+  {
+   "book": "S1",
+   "sym": "HELP",
+   "qty": 18,
+   "want": 7.91,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "stops": [
+    {
+     "id": "5a453f18-b0fd-4301-843b-e53aec7b76f3",
+     "status": "new",
+     "qty": 18,
+     "stop": 7.91,
+     "tif": "gtc"
+    }
+   ],
+   "pendingBuy": false,
+   "fillAt": "2026-10-08T13:30:26.752Z",
+   "stopAt": "2026-10-08T13:41:26.713Z",
+   "fillToStopSec": 660,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "qty": 93,
+   "want": 0.9886,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "stops": [
+    {
+     "id": "69e71ec8-7ab6-4922-8611-3318bfe8d3bb",
+     "status": "new",
+     "qty": 93,
+     "stop": 0.9886,
+     "tif": "gtc"
+    }
+   ],
+   "pendingBuy": false,
+   "fillAt": "2026-10-08T13:30:10.980Z",
+   "stopAt": "2026-10-08T13:41:26.943Z",
+   "fillToStopSec": 676,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "qty": 83,
+   "want": 6.53,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "stops": [
+    {
+     "id": "cce86488-8f16-402a-a904-5954cc0f2370",
+     "status": "new",
+     "qty": 83,
+     "stop": 6.53,
+     "tif": "gtc"
+    }
+   ],
+   "pendingBuy": false,
+   "fillAt": "2026-10-08T13:30:20.099Z",
+   "stopAt": "2026-10-08T13:41:27.027Z",
+   "fillToStopSec": 667,
+   "unprotectedSec": null
+  }
+ ],
+ "protectionLatency": [
+  {
+   "book": "S1",
+   "sym": "HELP",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-08T13:30:26.752Z",
+   "stopAt": "2026-10-08T13:41:26.713Z",
+   "fillToStopSec": 660,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-08T13:30:10.980Z",
+   "stopAt": "2026-10-08T13:41:26.943Z",
+   "fillToStopSec": 676,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-08T13:30:20.099Z",
+   "stopAt": "2026-10-08T13:41:27.027Z",
+   "fillToStopSec": 667,
+   "unprotectedSec": null
+  }
+ ],
+ "labStatus": {
+  "lastCompletedDay": "2026-10-08",
+  "dailyWritten": [
+   "2026-10-08"
+  ]
+ }
+}

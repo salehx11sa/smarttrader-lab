@@ -1,0 +1,81 @@
+{
+ "date": "2026-10-08",
+ "note": "لاعبو ظل افتراضيون: لا أوامر أبدًا. محاكاة من الشموع بلا تسوية ولا انزلاق ولا رسوم (متفائلة).",
+ "shadows": [
+  {
+   "id": "S1-h5",
+   "base": "S1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 12972.4,
+   "totalReturnPct": -0.212,
+   "maxDrawdownPct": 0.212,
+   "tradesClosed": 0,
+   "openPositions": [
+    "NUAI",
+    "HELP",
+    "PFG",
+    "DFTX"
+   ],
+   "trades": []
+  },
+  {
+   "id": "S1-h15",
+   "base": "S1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 12972.4,
+   "totalReturnPct": -0.212,
+   "maxDrawdownPct": 0.212,
+   "tradesClosed": 0,
+   "openPositions": [
+    "NUAI",
+    "HELP",
+    "PFG",
+    "DFTX"
+   ],
+   "trades": []
+  },
+  {
+   "id": "T1-sma8",
+   "base": "T1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0,
+   "openPositions": [],
+   "trades": []
+  },
+  {
+   "id": "T1-sma12",
+   "base": "T1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0,
+   "openPositions": [],
+   "trades": []
+  },
+  {
+   "id": "CHEAP-rsi5",
+   "base": "CHEAP",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 12978.1,
+   "totalReturnPct": -0.168,
+   "maxDrawdownPct": 0.168,
+   "tradesClosed": 0,
+   "openPositions": [
+    "NXH",
+    "ALLO",
+    "LAC",
+    "MFA"
+   ],
+   "trades": []
+  }
+ ]
+}
