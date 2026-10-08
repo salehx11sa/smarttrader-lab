@@ -11,7 +11,15 @@
             وأوامر الإغلاق cls للّيلي) • lab-status (قراءة فقط) • lab-clear-flags
    lab-0.2 (مراجعة 7.2.19-LAB-D1): OPG-WINDOW-01 (نافذة OPG تبدأ 19:05 — Alpaca ترفض OPG بين 09:28 و19:00)، LAB-PROTECT-01 (خطة وقف محفوظة وموقّعة قبل الدخول،
             ومسار حماية لا يعتمد على الشموع، ووقف احتياطي fail-safe مُعلَم، ومعالجة رفض الوقف، وزمن التعبئة→الوقف)، LAB-CROSS-01 (سجل التقاطعات دفتر أساسي:
-            مخطط صارم + سلسلة بصمات + مرساة + كتابة ذرية + نسخة احتياطية موثقة؛ تلفه أو فقده بعد الاستخدام ⇒ لا أوامر مبنية على ملكية الدفاتر). لا تغيير في أي قاعدة تداول. */
+            مخطط صارم + سلسلة بصمات + مرساة + كتابة ذرية + نسخة احتياطية موثقة؛ تلفه أو فقده بعد الاستخدام ⇒ لا أوامر مبنية على ملكية الدفاتر). لا تغيير في أي قاعدة تداول.
+   lab-0.3 (يوم المختبر الأول 8 أكتوبر 2026: 660–676 ثانية بلا وقف بعد تعبئة الافتتاح، والحَكَم بلا تعبئة): LAB-PROTECT-02 — أمر lab-protect (09:25–09:50 نيويورك):
+            حلقة حماية فقط كل 15 ثانية حتى يؤكد الوسيط وقف كل مركز (الحالة new/accepted/held والكمية تغطي المركز)، مع قياس لكل تعبئة (التعبئة ⇒ إرسال الوقف ⇒ تأكيد الوسيط)،
+            و3 محاولات بفواصل لكل رمز ثم علم protection-failed:<الدفتر>:<الرمز> يمنع الدخول الجديد لذلك الرمز في ذلك الدفتر فقط، ولا شراء ولا OPG ولا CLS ولا إلغاء أوامر افتتاح.
+            LAB-REF-01 — تعليق حكم «يتفوق/لا يتفوق على الحكَم» ما دام الحَكَم غير مستثمر بالكامل، ومرجع افتراضي حسابي REF-H (لا أوامر أبدًا) يُعرض منفصلًا. لا تغيير في أي قاعدة تداول.
+   lab-0.4 (مراجعة LAB-PROTECT-03): خروج الحماية بأمر سوق (قرار صالح كما هو) يبقى exit-pending حتى تُعبأ كميته ويزول المركز — لا «complete» قبل ذلك؛ يُتتبع كل أمر خروج
+            (الحالة والتعبئات والمتبقي)، والرفض أو الإلغاء أو التعبئة الجزئية ⇒ يُعالج المتبقي فقط بعد خصم المتبقي في أوامر الخروج المفتوحة (لا بيع مزدوج)، والموعد مع كمية غير محمية ⇒
+            علم protection-failed:<الدفتر>:<الرمز> ونتيجة failed. المسار نفسه في lab-postopen. وتعليق انتقائي مكتوب ومفعّل: protection-sla-breach (60 ثانية هدف، 90 حد أعلى من تعبئة الوسيط
+            حتى وقف مؤكد أو خروج معبأ) يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى lab-clear-flags. التأكيد: new/held فقط (accepted أثناء الجلسة = قيد التأكيد). لا تغيير في أي قاعدة تداول. */
 'use strict';
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const ST = require('./lab_strats.cjs');
@@ -19,7 +27,7 @@ const DS = require('./daily_strat.js');
 const CAPS = require('./caps.cjs');
 const RL = require('./runner.cjs'); /* مكتبة فقط: scanSaveIncidents/lastRunPair/pairCovered/verifySave/nyParts — نسخة مطابقة حرفيًا لـ7.2.19-dev */
 const PAPER = 'https://paper-api.alpaca.markets', DATA = 'https://data.alpaca.markets';
-const VERSION = 'lab-0.2';
+const VERSION = 'lab-0.4';
 /* النوافذ بتوقيت نيويورك (OPG-WINDOW-01). وثائق Alpaca (Orders at Alpaca / Time in Force):
    «OPG submitted after 9:28am but before 7:00pm ET will be rejected; after 7:00pm queued for the next day's opening auction» و«CLS after 3:50pm but before 7:00pm rejected».
    ⇒ إرسال OPG من 19:05 حتى 09:15 فقط (هامش 5 دقائق بعد 19:00 و13 دقيقة قبل 09:28)، وأي وقت يقع بين 09:16 و19:04 في أي يوم (ومنها عطلة نهاية الأسبوع) خارج النافذة.
@@ -27,13 +35,29 @@ const VERSION = 'lab-0.2';
    الحدود موثقة من الوثائق الرسمية ومطبقة في الوسيط الوهمي؛ لم تُختبر على حساب حي. */
 const ALPACA = Object.freeze({ opgRejectFromHm: 9 * 60 + 28, opgRejectToHm: 19 * 60, clsRejectFromHm: 15 * 60 + 50, clsRejectToHm: 19 * 60, source: 'https://docs.alpaca.markets/us/docs/orders-at-alpaca' });
 const WIN = Object.freeze({ overnightStartHm: 19 * 60 + 5, overnightCutoffHm: 9 * 60 + 15, planFromHm: 16 * 60 + 15, clsStartHm: 9 * 60 + 35, clsCutoffBeforeCloseMin: 15, clsCutoffMaxHm: 15 * 60 + 45, opgCleanupHm: 9 * 60 + 35,
-  opgBeltFromHm: 9 * 60 + 26, alpaca: ALPACA, alpacaCutoffsVerified: 'docs (not live-tested)' });
+  opgBeltFromHm: 9 * 60 + 26, alpaca: ALPACA, alpacaCutoffsVerified: 'docs (not live-tested)',
+  /* lab-0.3 (LAB-PROTECT-02): نافذة أمر الحماية lab-protect بتوقيت نيويورك في أيام التداول، ومدته القصوى، وفاصل التحديث، وعدد المحاولات لكل رمز وفواصلها */
+  protectFromHm: 9 * 60 + 25, protectToHm: 9 * 60 + 50, protectMaxMs: 20 * 60000, protectTickMs: 15000, protectMaxAttempts: 3, protectBackoffMs: Object.freeze([5000, 15000]) });
 /* هل وقت اليوم (بالدقائق) داخل نافذة إرسال OPG؟ (مستقل عن التقويم؛ التقويم يحدد يوم الهدف) */
 const opgTimeOk = hm => hm >= WIN.overnightStartHm || hm <= WIN.overnightCutoffHm;
 /* الوقف الاحتياطي (LAB-PROTECT-01): يُستعمل فقط إذا تعذر حساب وقف القاعدة من الشموع ومن الخطة المحفوظة — انحراف تنفيذي مُعلَم يحتاج قبول المراجع */
 const FAILSAFE_STOP_PCT = 10;
 const TERMINAL = new Set(['canceled', 'expired', 'rejected', 'filled', 'replaced', 'done_for_day']);
-const ACTIVE_STOP = new Set(['new', 'accepted']);
+/* حالات الوقف (وثائق Alpaca «Order Lifecycle»): new = استُلم ووُجّه إلى منصات التنفيذ • held = استُلم وينتظر شرطًا/أمرًا آخر لدى الوسيط • accepted = استُلم ولم يُوجَّه بعد
+   (يحدث خارج الجلسة، أو لحظيًا قبل التوجيه أثناءها) • pending_new = استُلم ولم يُقبل بعد.
+   lab-0.4 (اختيار محافظ بطلب المراجع): «مؤكد» = new أو held فقط. accepted أثناء الجلسة = «قيد التأكيد» (يُنتظر ولا يُلغى ولا يُكرر، ولا يُحسب ضمن زمن التأكيد)،
+   وخارج الجلسة (السوق مغلق) = مؤكد لأنه أقصى حالة ممكنة قبل الافتتاح (لا توجيه ليلًا)، ويصير new عند الافتتاح. حالات الوقف قيد القبول لا تُلغى ولا تُكرر */
+const ACTIVE_STOP = new Set(['new', 'held']);
+const PENDING_STOP = new Set(['pending_new', 'accepted', 'accepted_for_bidding', 'pending_replace']);
+const stopConfirmedStatus = (st, isOpen) => ACTIVE_STOP.has(st) || (st === 'accepted' && !isOpen);
+/* lab-0.4: خروج الحماية = بيع سوق day بمعرّف -X (يرسله المحرّك فقط حين يُرفض الوقف والسعر تحته) */
+const isProtExit = o => !!o && o.side === 'sell' && o.type === 'market' && o.time_in_force === 'day' && /-X\d+$/.test(String(o.client_order_id || ''));
+/* lab-0.4: معيار الحماية والتعليق الانتقائي (protection-sla-breach) — الدفاتر الأربعة التي تحتاج وقفًا فقط */
+const SLA = Object.freeze({ targetSec: 60, upperSec: 90, flagId: 'protection-sla-breach', file: 'lab-protect-sla.json', books: Object.freeze(['S1', 'CHEAP', 'LEARN.S1', 'LEARN.CHEAP']) });
+/* LAB-REF-01: حكم اللاعب مقابل الحَكَم (دالة نقية). الحَكَم غير مستثمر بالكامل ⇒ الحكم معلّق لكل اللاعبين (المقارنة مشوهة لا خاسرة ولا رابحة) */
+const REF_SUSPENDED = 'المقارنة معلّقة: الحَكَم غير مستثمر بالكامل';
+function labVerdict(o) { if (!o.active) return 'المرجع'; if (!o.refFull) return REF_SUSPENDED; if (o.ret == null || o.refRet == null) return 'غير معروف';
+  if (o.tradesClosed < 20) return 'صفقات أقل من 20 — لا حكم بعد'; return o.ret > o.refRet && o.maxDrawdownPct <= o.refMaxDrawdownPct ? 'يتفوق على الحكَم حتى الآن' : 'لا يتفوق على الحكَم حتى الآن'; }
 /* نسخة سريعة من nyParts في المنفّذ (المنسّق مخزّن مؤقتًا؛ النتيجة نفسها) */
 const NYF = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
 const NYC = new Map();
@@ -73,6 +97,7 @@ function mkLab(env, io) {
   let READONLY = false; let ENTRY_BLOCK = null; /* سبب منع الشراء في هذا التشغيل (حزام إضافي في طبقة الطلبات) */
   let OWN_BLOCK = null; /* LAB-CROSS-01: سجل التقاطعات غير مثبت ⇒ لا أوامر مبنية على ملكية الدفاتر (لا شراء ولا بيع ولا إلغاء وقف)؛ يُسمح فقط بوضع وقف حماية لمركز أسهم وبخروج الحماية */
   const LAB_ORDER_IDS = new Map(); /* id ⇒ أمر للمختبر (للإلغاء فقط) */
+  let PROTECT_ONLY = false; /* lab-0.3 (LAB-PROTECT-02): أمر lab-protect — حزام في طبقة الطلبات: وقف بيع GTC أو خروج حماية -X فقط، وإلغاء وقف بيع للمختبر فقط */
   const report = { tool: 'SmartTrader-PaperLab', version: VERSION, rulesVersion: ST.LAB_VERSION, at: new Date(now()).toISOString(), cmd: io.cmd || null, trading: TRADING, entries: ENTRIES, halt: HALT,
     runnerMode: env.RUNNER_MODE || null, labStart: cfg.labStart, labEnd: LAB_END, approvedPath: { approved: cfg.approvedPath, thisRun: RUN_PATH || null, ok: PATH_OK },
     steps: [], warnings: [], errors: [], orders: [], wouldSend: [], intents: [], crossesCreated: [], skipped: [],
@@ -235,6 +260,7 @@ function mkLab(env, io) {
       if (Object.prototype.hasOwnProperty.call(BASELINE, sym)) throw new Error('الرمز ' + sym + ' من المراكز القديمة — المختبر لا يلمسه أبدًا');
       const protective = side === 'sell' && !ST.ETF_SYMBOLS.includes(sym) && ((b.type === 'stop' && b.time_in_force === 'gtc') || (b.type === 'market' && b.time_in_force === 'day' && /-X\d+$/.test(cid)));
       if (OWN_BLOCK && !protective) throw new Error('سجل التقاطعات غير مثبت (' + OWN_BLOCK + ') — لا أوامر مبنية على ملكية الدفاتر؛ رُفض ' + side + ' ' + sym);
+      if (PROTECT_ONLY && !protective) throw new Error('lab-protect: حماية فقط — لا شراء ولا افتتاح ولا إغلاق ولا بيع غير الحماية؛ رُفض ' + side + ' ' + sym + ' ' + (b.type || '') + '/' + (b.time_in_force || ''));
       if (b.order_class || b.stop_loss || b.take_profit || b.extended_hours) throw new Error('شكل أمر غير مسموح في المختبر (order_class/extended)');
       if (side === 'buy') {
         if (ENTRY_LOCK) throw new Error('قفل دخول من بوابة الجدولة: ' + ENTRY_LOCK + ' — رُفض شراء ' + sym);
@@ -258,7 +284,8 @@ function mkLab(env, io) {
     }
     if (method === 'DELETE' && /^\/v2\/orders\/[^/]+$/.test(url)) { const id = url.split('/').pop(); const o = LAB_ORDER_IDS.get(id);
       if (!o) throw new Error('إلغاء أمر ليس للمختبر (' + id + ') — رُفض قبل الإرسال'); if (Object.prototype.hasOwnProperty.call(BASELINE, o.symbol)) throw new Error('أمر على مركز قديم — لا يُلغى');
-      if (OWN_BLOCK && o.side === 'sell' && (o.type === 'stop' || o.type === 'stop_limit')) throw new Error('سجل التقاطعات غير مثبت — الوقفات القائمة تبقى ولا تُلغى (' + o.symbol + ')'); return; }
+      if (OWN_BLOCK && o.side === 'sell' && (o.type === 'stop' || o.type === 'stop_limit')) throw new Error('سجل التقاطعات غير مثبت — الوقفات القائمة تبقى ولا تُلغى (' + o.symbol + ')');
+      if (PROTECT_ONLY && !(o.side === 'sell' && (o.type === 'stop' || o.type === 'stop_limit'))) throw new Error('lab-protect: لا يُلغى إلا وقف بيع للمختبر (لا إلغاء لأوامر الافتتاح أو الشراء) — رُفض ' + o.client_order_id); return; }
     throw new Error('طلب تعديل غير مسموح في المختبر: ' + method + ' ' + url);
   }
 
@@ -424,25 +451,42 @@ function mkLab(env, io) {
     for (const cid of cids) { const pl = PL.byCid[cid]; if (!pl) { errs.push(cid + ': لا خطة محفوظة'); continue; } const e = planErr(pl, cid, k.id, sym, p.entryDate); if (e) { errs.push(cid + ': ' + e); continue; }
       const v = ST.stopFor(avg, pl.atr, pl.mult); if (v > 0) return { want: v, source: 'plan', planCid: cid, planH: pl.h.slice(0, 12) }; errs.push(cid + ': وقف الخطة ≤ 0'); }
     const fs0 = roundStop(avg * (1 - FAILSAFE_STOP_PCT / 100)); return { want: fs0 > 0 ? fs0 : null, source: 'failsafe', why: 'الشموع غير متاحة ولا خطة وقف صالحة' + (errs.length ? ' (' + errs.join(' • ') + ')' : ''), planInvalid: errs.some(e => !/لا خطة محفوظة/.test(e)) }; }
-  function protectionState(B, books) { const out = []; for (const k of Object.values(books)) { if (k.kind !== 'rsi2') continue;
-      for (const [sym, p] of Object.entries(k.pos)) { if (!(p.qty > 1e-9)) continue; const open = bookOpen(B, k.id, sym); const exiting = open.some(o => o.side === 'sell' && o.type === 'market');
+  /* lab-0.4 (LAB-PROTECT-03): أوامر خروج الحماية لهذا الدفتر/الرمز — المفتوحة لدى الوسيط، وما أُرسل في هذا التشغيل ولم يظهر بعد في قائمة الوسيط (يُحسب بكامل كميته: لا بيع مزدوج) */
+  const XSENT = new Map(); /* id ⇒ {book, sym, qty, cid, at} لكل خروج حماية أُرسل فعلًا في هذا التشغيل */
+  function exitInfo(B, kid, sym, open) { const ids = new Set(B.lab.map(o => o.id));
+    const list = open.filter(isProtExit).map(o => ({ id: o.id, cid: o.client_order_id, status: o.status, qty: +o.qty, filled: +o.filled_qty || 0, rem: Math.max(0, +o.qty - (+o.filled_qty || 0)), submittedAt: o.submitted_at || null }));
+    for (const [id, x] of XSENT) if (x.book === kid && x.sym === sym && !ids.has(id)) list.push({ id, cid: x.cid, status: 'sent-unlisted', qty: x.qty, filled: 0, rem: x.qty, submittedAt: x.at });
+    return list; }
+  function protectionState(B, books) { const out = []; const isOpen = !!(B.clock && B.clock.is_open); for (const k of Object.values(books)) { if (k.kind !== 'rsi2') continue;
+      for (const [sym, p] of Object.entries(k.pos)) { if (!(p.qty > 1e-9)) continue; const open = bookOpen(B, k.id, sym);
+        /* exiting = خروج قاعدة (بيع سوق opg/cls) قائم — كما كان؛ خروج الحماية -X لا يُعد «خروجًا منتهيًا»: يُتتبع حتى تُعبأ كميته (exitPending) */
+        const exiting = open.some(o => o.side === 'sell' && o.type === 'market' && !isProtExit(o));
+        const exits = exitInfo(B, k.id, sym, open); const exitRem = +exits.reduce((a, e) => a + e.rem, 0).toFixed(6); const need = Math.max(0, +(p.qty - exitRem).toFixed(6)); const exitPending = exitRem > 1e-9;
         const stops = open.filter(isStop); const S = stopSourceOf(B, k, sym, p); const want = S.want; const rem = o => (+o.qty) - (+o.filled_qty || 0);
-        /* سعر الوقف القائم يُقارن بالقاعدة فقط حين تُحسب من الشموع؛ مع الخطة أو الاحتياطي يكفي وقف نشط واحد بالكمية الصحيحة (لا استبدال أثناء انقطاع البيانات) */
-        const confirmed = stops.length === 1 && ACTIVE_STOP.has(stops[0].status) && stops[0].time_in_force === 'gtc' && Math.abs(rem(stops[0]) - p.qty) < 1e-6 && +stops[0].stop_price > 0 && (S.source !== 'bars' || Math.abs(+stops[0].stop_price - want) / want <= 0.005);
+        /* سعر الوقف القائم يُقارن بالقاعدة فقط حين تُحسب من الشموع؛ مع الخطة أو الاحتياطي يكفي وقف نشط واحد بالكمية الصحيحة (لا استبدال أثناء انقطاع البيانات).
+           lab-0.4: الكمية الصحيحة = المركز ناقص المتبقي في أوامر خروج الحماية المفتوحة (need)؛ بلا خروج مفتوح need = المركز كله كما كان */
+        const confirmed = need > 1e-9 && stops.length === 1 && stopConfirmedStatus(stops[0].status, isOpen) && stops[0].time_in_force === 'gtc' && Math.abs(rem(stops[0]) - need) < 1e-6 && +stops[0].stop_price > 0 && (S.source !== 'bars' || Math.abs(+stops[0].stop_price - want) / want <= 0.005);
         const lots = k.fills.filter(f => f.sym === sym && f.side === 'buy' && f.t >= (p.entryTs || 0)); const fillMs = lots.length ? Math.max(...lots.map(f => f.t)) : null;
         const stopMs = confirmed ? Date.parse(stops[0].submitted_at || stops[0].created_at || '') : NaN;
-        out.push({ book: k.id, sym, qty: p.qty, want, source: S.source, sourceWhy: S.why || null, planCid: S.planCid || null, planInvalid: !!S.planInvalid, exiting, confirmed, stops: stops.map(o => ({ id: o.id, status: o.status, qty: +o.qty, stop: +o.stop_price, tif: o.time_in_force })), pendingBuy: open.some(o => o.side === 'buy'),
+        /* lab-0.3: وقف قيد القبول لدى الوسيط بالكمية الصحيحة ⇒ يُنتظر تأكيده (لا إلغاء ولا تكرار) */
+        const awaiting = !confirmed && need > 1e-9 && stops.length === 1 && (PENDING_STOP.has(stops[0].status) && !stopConfirmedStatus(stops[0].status, isOpen)) && Math.abs(rem(stops[0]) - need) < 1e-6;
+        out.push({ book: k.id, sym, qty: p.qty, need, exitPending, exitRemaining: exitRem, exits, want, source: S.source, sourceWhy: S.why || null, planCid: S.planCid || null, planInvalid: !!S.planInvalid, exiting, confirmed, awaiting, stops: stops.map(o => ({ id: o.id, status: o.status, qty: +o.qty, stop: +o.stop_price, tif: o.time_in_force, submittedAt: o.submitted_at || o.created_at || null })), pendingBuy: open.some(o => o.side === 'buy'),
+          lots: lots.map(f => ({ t: f.t, qty: f.qty, cid: f.cid || null })),
           fillAt: fillMs ? new Date(fillMs).toISOString() : null, stopAt: isFinite(stopMs) ? new Date(stopMs).toISOString() : null,
           fillToStopSec: fillMs && isFinite(stopMs) ? Math.max(0, Math.round((stopMs - fillMs) / 1000)) : null, unprotectedSec: !confirmed && fillMs ? Math.max(0, Math.round((now() - fillMs) / 1000)) : null }); } }
     return out; }
-  function latencyOf(P) { return (P || []).map(x => ({ book: x.book, sym: x.sym, confirmed: x.confirmed, source: x.source, fillAt: x.fillAt, stopAt: x.stopAt, fillToStopSec: x.fillToStopSec, unprotectedSec: x.unprotectedSec })); }
+  function latencyOf(P) { return (P || []).map(x => ({ book: x.book, sym: x.sym, confirmed: x.confirmed, source: x.source, fillAt: x.fillAt, stopAt: x.stopAt, fillToStopSec: x.fillToStopSec, unprotectedSec: x.unprotectedSec,
+    exitPending: !!x.exitPending, exitRemaining: x.exitRemaining || 0, need: x.need })); }
   async function cancelConfirmed(id) { try { await req('DELETE', '/v2/orders/' + id); } catch (e) { if (e.status !== 404 && e.status !== 422) return { resolved: false, why: e.message }; }
     if (!TRADING) return { resolved: true, dry: true };
     for (let k = 0; k < 5; k++) { let st = null; try { st = await req('GET', '/v2/orders/' + id); } catch (e) { if (e.status === 404) return { resolved: true, status: 'not_found' }; }
       if (st && TERMINAL.has(st.status)) return { resolved: true, status: st.status, filled: +st.filled_qty || 0 }; await sleep(1000); }
     return { resolved: false, why: 'لم يُحسم الإلغاء' }; }
-  async function protect(B, books) { const P = protectionState(B, books); report.protection = P; report.protectionLatency = latencyOf(P); let changed = false;
-    for (const x of P) { if (x.confirmed || x.exiting || x.pendingBuy) continue;
+  /* opt (lab-0.3، يمرره lab-protect فقط): partial ⇒ يحمي الكمية المعبأة ولو بقي أمر الشراء مفتوحًا • skip(x) ⇒ تخطٍّ (فاصل المحاولة أو انتهاء المحاولات)
+     • onResult(x, r) ⇒ نتيجة كل محاولة {ok|wash|failed|breach} • noRejectFlag ⇒ رفض الوقف لا يرفع العلم العام (الحلقة تعدّ المحاولات وترفع علم الرمز) */
+  async function protect(B, books, opt) { opt = opt || {}; const P = protectionState(B, books); report.protection = P; report.protectionLatency = latencyOf(P); let changed = false;
+    /* lab-0.4: خروج حماية مفتوح يغطي المركز كله (need = 0) ⇒ انتظار تعبئته (لا وقف ولا خروج جديد)؛ وإن غطى بعضه فقط ⇒ يُعالج المتبقي need وحده */
+    for (const x of P) { if (x.confirmed || x.exiting || x.awaiting || (x.exitPending && !(x.need > 1e-9)) || (x.pendingBuy && !opt.partial)) continue; if (opt.skip && opt.skip(x)) continue;
       if (x.want == null) { report.errors.push(x.book + ' ' + x.sym + ': لا يمكن حساب أي وقف (' + (x.sourceWhy || 'متوسط التكلفة') + ') — الحماية غير مؤكدة'); raise('lab-protect-missing', 'labpm-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'مركز بلا وقف ممكن الحساب', sym: x.sym }); continue; }
       if (x.source === 'plan') report.warnings.push(x.book + ' ' + x.sym + ': الشموع غير متاحة — الوقف من الخطة المحفوظة الموقّعة (' + x.planCid + ')');
       if (x.source === 'failsafe') { report.warnings.push(x.book + ' ' + x.sym + ': وقف احتياطي fail-safe عند ' + x.want + ' (متوسط التعبئة − ' + FAILSAFE_STOP_PCT + '%) — ' + x.sourceWhy);
@@ -450,22 +494,31 @@ function mkLab(env, io) {
         raise('lab-protect-failsafe', 'labfs-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'وُضع وقف احتياطي (متوسط التعبئة − ' + FAILSAFE_STOP_PCT + '%) لأن وقف القاعدة لم يُحسب: لا شموع ولا خطة صالحة — لا دخول جديد حتى يراجعه صالح', sym: x.sym, stop: x.want, why: x.sourceWhy });
         if (x.planInvalid) raise('lab-stop-plan-invalid', 'labsp-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'خطة وقف محفوظة فشلت في التحقق (بصمة/ربط)', why: x.sourceWhy }); }
       if (OWN_BLOCK && x.stops.length) { report.warnings.push(x.book + ' ' + x.sym + ': سجل التقاطعات غير مثبت — الوقف القائم يبقى كما هو (لا إلغاء ولا استبدال)'); continue; }
-      let ok = true; for (const s of x.stops) { const c = await cancelConfirmed(s.id); if (!c.resolved) { ok = false; report.errors.push(x.book + ' ' + x.sym + ': إلغاء وقف قديم لم يُحسم — لا وقف جديد منعًا للتداخل'); } }
-      if (!ok) continue; const k = books[x.book]; const base = k.prefix + ymd(B.n.date) + '-' + x.sym + '-P';
-      const n = B.lab.filter(o => String(o.client_order_id || '').startsWith(base)).length + 1;
-      try { const r = await req('POST', '/v2/orders', { symbol: x.sym, qty: String(Math.round(x.qty)), side: 'sell', type: 'stop', stop_price: String(x.want), time_in_force: 'gtc', client_order_id: base + n });
-        report.steps.push('حماية: وقف GTC ' + x.book + ' ' + x.sym + ' × ' + x.qty + ' عند ' + x.want + ' (' + x.source + ')'); changed = changed || !(r && r.__dry); }
-      catch (e) { report.errors.push(x.book + ' ' + x.sym + ': تعذر وضع الوقف: ' + e.message); if (await stopRejected(B, books, x, e)) changed = true; } }
+      let ok = true; for (const s of x.stops) { const c = await cancelConfirmed(s.id); if (!c.resolved) { ok = false; report.errors.push(x.book + ' ' + x.sym + ': إلغاء وقف قديم لم يُحسم — لا وقف جديد منعًا للتداخل'); } else changed = changed || !c.dry; }
+      if (!ok) { if (opt.onResult) opt.onResult(x, { failed: true, why: 'إلغاء وقف قديم لم يُحسم' }); continue; } const k = books[x.book]; const base = k.prefix + ymd(B.n.date) + '-' + x.sym + '-P';
+      /* المعرّف: يُعدّ ما أُرسل في هذا التشغيل أيضًا (محاولة مرفوضة لا تظهر في سجل الوسيط) حتى لا يتكرر معرّف */
+      const n = Math.max(B.lab.filter(o => String(o.client_order_id || '').startsWith(base)).length, report.orders.concat(report.wouldSend).filter(o => o.body && String(o.body.client_order_id || '').startsWith(base)).length, (PCID[base] || 0)) + 1; PCID[base] = n;
+      try { const r = await req('POST', '/v2/orders', { symbol: x.sym, qty: String(Math.round(x.need)), side: 'sell', type: 'stop', stop_price: String(x.want), time_in_force: 'gtc', client_order_id: base + n });
+        report.steps.push('حماية: وقف GTC ' + x.book + ' ' + x.sym + ' × ' + x.need + (x.exitPending ? ' (المتبقي بعد خروج مفتوح ' + x.exitRemaining + ')' : '') + ' عند ' + x.want + ' (' + x.source + ')'); changed = changed || !(r && r.__dry);
+        if (opt.onResult) opt.onResult(x, { ok: true, id: r && r.id, status: r && r.status, cid: base + n, dry: !!(r && r.__dry) }); }
+      catch (e) { const wash = e.status === 403 && /wash/i.test(e.message);
+        report.errors.push(x.book + ' ' + x.sym + ': تعذر وضع الوقف: ' + e.message); const br = await stopRejected(B, books, x, e, opt); if (br && !br.dry) changed = true;
+        if (opt.onResult) opt.onResult(x, wash ? { wash: true, why: e.message } : br ? Object.assign({ breach: true, why: e.message }, br) : { failed: true, why: e.message, status: e.status || null }); } }
     return changed; }
-  /* رفض الوقف: إن كان السعر الحالي عند الوقف أو تحته ⇒ الوقف «ضُرب» فعليًا ⇒ خروج حماية بأمر سوق day أثناء الجلسة (معرّف -X)؛ غير ذلك ⇒ علم يوقف الدخول، وإعادة المحاولة في كل تشغيل */
-  async function stopRejected(B, books, x, e) { if (e.status === 403 && /wash/i.test(e.message)) return false; if (!(e.status >= 400 && e.status < 500)) return false;
-    const px = +B.px[x.sym] || 0; const k = books[x.book];
-    if (px > 0 && px <= x.want && B.clock && B.clock.is_open) { const base = k.prefix + ymd(B.n.date) + '-' + x.sym + '-X'; const n = B.lab.filter(o => String(o.client_order_id || '').startsWith(base)).length + 1;
-      try { const r = await req('POST', '/v2/orders', { symbol: x.sym, qty: String(Math.round(x.qty)), side: 'sell', type: 'market', time_in_force: 'day', client_order_id: base + n });
-        report.steps.push('خروج حماية: رُفض الوقف والسعر ' + px + ' ≤ الوقف ' + x.want + ' ⇒ بيع سوق ' + x.book + ' ' + x.sym + ' × ' + x.qty);
-        raise('lab-protect-breach', 'labpb-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'رُفض وضع الوقف لأن السعر تحته — خرج المختبر بأمر سوق (خروج حماية)', px, stop: x.want }); return !(r && r.__dry); }
+  const PCID = {};
+  /* رفض الوقف: إن كان السعر الحالي عند الوقف أو تحته ⇒ الوقف «ضُرب» فعليًا ⇒ خروج حماية بأمر سوق day أثناء الجلسة (معرّف -X)؛ غير ذلك ⇒ علم يوقف الدخول، وإعادة المحاولة في كل تشغيل.
+     lab-0.4: كمية الخروج = need (المركز ناقص المتبقي في أوامر الخروج المفتوحة وما أُرسل في هذا التشغيل) ⇒ لا بيع مزدوج؛ ويُرجع وصف أمر الخروج ليُتتبع حتى التعبئة */
+  async function stopRejected(B, books, x, e, opt) { if (e.status === 403 && /wash/i.test(e.message)) return false; if (!(e.status >= 400 && e.status < 500)) return false;
+    const px = +B.px[x.sym] || 0; const k = books[x.book]; const q = Math.round(x.need != null ? x.need : x.qty);
+    if (px > 0 && px <= x.want && B.clock && B.clock.is_open && q >= 1) { const base = k.prefix + ymd(B.n.date) + '-' + x.sym + '-X';
+      const n = Math.max(B.lab.filter(o => String(o.client_order_id || '').startsWith(base)).length, [...XSENT.values()].filter(v => String(v.cid).startsWith(base)).length, report.wouldSend.filter(o => o.body && String(o.body.client_order_id || '').startsWith(base)).length, PCID[base] || 0) + 1; PCID[base] = n;
+      try { const r = await req('POST', '/v2/orders', { symbol: x.sym, qty: String(q), side: 'sell', type: 'market', time_in_force: 'day', client_order_id: base + n });
+        const dry = !!(r && r.__dry); if (!dry && r && r.id) XSENT.set(r.id, { book: x.book, sym: x.sym, qty: q, cid: base + n, at: new Date(now()).toISOString() });
+        report.steps.push('خروج حماية: رُفض الوقف والسعر ' + px + ' ≤ الوقف ' + x.want + ' ⇒ بيع سوق ' + x.book + ' ' + x.sym + ' × ' + q + (q !== Math.round(x.qty) ? ' (المتبقي من ' + x.qty + ')' : '') + ' — الحالة ' + ((r && r.status) || '?') + ' (يُتتبع حتى التعبئة)');
+        raise('lab-protect-breach', 'labpb-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'رُفض وضع الوقف لأن السعر تحته — خرج المختبر بأمر سوق (خروج حماية)', px, stop: x.want });
+        return { exit: true, dry, id: r && r.id || null, cid: base + n, qty: q, status: (r && r.status) || null }; }
       catch (e2) { report.errors.push(x.book + ' ' + x.sym + ': تعذر خروج الحماية: ' + e2.message); } }
-    raise('lab-protect-stop-rejected', 'labsr-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'الوسيط رفض وقف الحماية — المركز غير محمي حتى يراجعه صالح (تُعاد المحاولة في كل تشغيل)', err: String(e.message).slice(0, 160), px, stop: x.want });
+    if (!(opt && opt.noRejectFlag)) raise('lab-protect-stop-rejected', 'labsr-' + B.n.date + '-' + x.book + '-' + x.sym, { note: 'الوسيط رفض وقف الحماية — المركز غير محمي حتى يراجعه صالح (تُعاد المحاولة في كل تشغيل)', err: String(e.message).slice(0, 160), px, stop: x.want });
     return false; }
 
   /* ---------- السياق المشترك لكل تشغيل ---------- */
@@ -522,6 +575,8 @@ function mkLab(env, io) {
     const spent = {}; for (const p of ST.PLAYERS) spent[p.id] = 0; const placed = {}; for (const b of ST.BOOKS) placed[b.id] = [];
     const openSellSyms = new Set(B.orders.filter(o => o.side === 'sell' && !TERMINAL.has(o.status)).map(o => o.symbol));
     const exitSyms = new Set();
+    const PB = protectBlocks(); if (PB.corrupt) report.warnings.push(PBLOCK + ' تالف — لا دخول أسهم حتى يُراجع (فشل مغلق)'); report.protectBlocks = PB.active.map(b => b.id);
+    report.protectSla = slaView(); /* lab-0.4: protection-sla-breach يمنع الدخول الجديد للدفاتر الأربعة فقط */
     /* إمكانية الدخول لكل دفتر */
     function canEnter(k) { const pid = k.player; if (!entriesOK) return 'بوابات الدخول: ' + gatesWhy.join(' • '); const v = view[pid];
       if (v.killed) return 'مفتاح القتل (−15%) منذ ' + v.killed.date; if (v.equityNow == null) return 'حقوق اللاعب غير محسوبة (سعر ناقص)';
@@ -534,6 +589,10 @@ function mkLab(env, io) {
         s = Math.min(s, alloc - exp); }
       return Math.max(0, s); }
     function addEntry(k, sym, qty, ref, reason, spec, extra) {
+      /* lab-0.3 (LAB-PROTECT-02): فشل تأكيد الحماية لهذا الرمز في هذا الدفتر ⇒ لا دخول جديد له فقط (بقية الرموز والدفاتر كما هي) */
+      if (PB.set.has(k.id + '|' + sym)) return skip(k.id, sym + ': protection-failed:' + k.id + ':' + sym + ' — دخول جديد ممنوع لهذا الرمز في هذا الدفتر حتى يراجعه صالح');
+      if (PB.corrupt && k.kind === 'rsi2') return skip(k.id, sym + ': ' + PBLOCK + ' تالف — لا دخول أسهم');
+      { const sb = slaBlocked(k.id); if (sb) return skip(k.id, sym + ': ' + sb + ' — دخول OPG الجديد معلّق لهذا الدفتر (S1/CHEAP/LEARN.S1/LEARN.CHEAP فقط)'); }
       if (qty < 1) return skip(k.id, sym + ': الكمية 0 (' + reason + ')');
       const alloc = budgetOf(k).alloc; const buf = 1 + ST.GAP_BUFFER_PCT / 100;
       /* checkEntry يخصم حجز أوامر هذا الدفتر المعلقة (السابقة ونيات هذا التشغيل) مرة واحدة — فيُعاد إليه النقد قبل حجزها حتى لا يُخصم مرتين */
@@ -566,6 +625,8 @@ function mkLab(env, io) {
           if (x.unknown) { report.warnings.push(k.id + ' ' + sym + ': تعذر تقييم الخروج — ' + x.why); continue; }
           if (x.exit) { intents.push({ book: k.id, sym, side: 'sell', qty: p.qty, ref: closeOnOrBefore(sym, prev), reason: (x.reason === 'cond' ? 'خروج شرطي (الإغلاق فوق متوسط 5)' : 'خروج زمني بعد ' + x.held + ' أيام'), tif: 'opg', exit: true, needsStopCancel: true }); exitSyms.add(sym); } }
         if (why) { skip(k.id, why); continue; }
+        /* lab-0.4: التعليق الانتقائي — بعد تقييم الخروج (الخروج والحماية مستمران)، ولا دخول جديد لهذا الدفتر */
+        { const sb = slaBlocked(k.id); if (sb) { skip(k.id, sb + ' — دخول OPG الجديد معلّق لهذا الدفتر حتى lab-clear-flags (الحماية والخروج مستمران)'); continue; } }
         const nHeld = Object.values(k.pos).filter(p => p.qty > 1e-9).length; const nPend = new Set(B.lab.filter(o => o._book === k.id && o.side === 'buy' && !TERMINAL.has(o.status)).map(o => o.symbol)).size;
         let slots = spec.maxPositions - nHeld - nPend; if (slots <= 0) continue;
         const U = ctx.universes && ctx.universes[spec.universe]; if (!U || !U.ok) { skip(k.id, 'بيانات الكون ' + spec.universe + ' غير صالحة/قديمة — لا دخول'); continue; }
@@ -651,6 +712,30 @@ function mkLab(env, io) {
     else { await protect(B, ctx.books); await writeReports(B, ctx, plan); }
     return report;
   }
+  /* lab-0.4 (LAB-PROTECT-03): مسار الحماية في lab-postopen — روتين protect نفسه، ثم تتبع خروج الحماية حتى التعبئة:
+     • خروج مقبول غير معبأ ⇒ انتظار قصير (حتى 4 × 5 ثوانٍ) مع تحديث الوسيط • رُفض أو أُلغي أو عُبئ جزئيًا ⇒ يُعالج المتبقي فقط (protect يخصم المتبقي في الخروج المفتوح)، حتى 3 جولات
+     • النهاية: مركز له خروج حماية اليوم وما زال بلا وقف مؤكد أو خروجه غير معبأ ⇒ علم protection-failed:<الدفتر>:<الرمز> ونتيجة failed في report.protectPass
+     • ثم تقييم معيار الحماية (protection-sla-breach) لتعبئات اليوم في الدفاتر الأربعة */
+  async function postopenProtect(B, ctx) {
+    const PP = report.protectPass = { status: null, rounds: 0, exits: [], failed: [], note: 'خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية' };
+    const exitBs = () => { const s = new Set(); for (const o of B.lab) if (isProtExit(o) && targetOfCid(o.client_order_id) === B.n.date) s.add(o._book + '|' + o.symbol);
+      for (const v of XSENT.values()) s.add(v.book + '|' + v.sym); return s; };
+    let changed = await protect(B, ctx.books); PP.rounds = 1;
+    if (changed && TRADING) { B = await loadBroker(); ctx = await context(B); }
+    for (let round = 0; TRADING && round < 3; round++) { let P = protectionState(B, ctx.books);
+      for (let i = 0; i < 4 && P.some(x => x.exitPending); i++) { await sleep(5000); B = await loadBroker(); ctx = await context(B); P = protectionState(B, ctx.books); }
+      const xb = exitBs(); const redo = P.filter(x => xb.has(x.book + '|' + x.sym) && !x.confirmed && !x.exiting && !x.awaiting && !x.exitPending);
+      if (!redo.length) break; report.steps.push('lab-postopen: المتبقي بعد خروج الحماية (' + redo.map(x => x.book + ':' + x.sym + ' × ' + x.need).join('، ') + ') ⇒ يُعالج المتبقي فقط');
+      PP.rounds++; if (await protect(B, ctx.books)) { B = await loadBroker(); ctx = await context(B); } else break; }
+    const P = protectionState(B, ctx.books); report.protectionAfter = P; report.protectionLatency = latencyOf(P); const xb = exitBs();
+    PP.exits = B.lab.filter(o => isProtExit(o) && xb.has(o._book + '|' + o.symbol)).map(o => ({ book: o._book, sym: o.symbol, id: o.id, cid: o.client_order_id, qty: +o.qty, filled: +o.filled_qty || 0, status: o.status }));
+    for (const x of P) { if (!xb.has(x.book + '|' + x.sym) || x.confirmed || x.exiting) continue; if (!TRADING) continue;
+      const why = x.exitPending ? 'خروج الحماية مقبول ولم يُعبأ بعد (المتبقي ' + x.exitRemaining + ' سهم من ' + x.qty + ')' : 'المتبقي بعد خروج الحماية (' + x.need + ' سهم) بلا وقف مؤكد';
+      const id = addProtectBlock(B, x, { attempts: PP.rounds, why, lastError: null }); PP.failed.push({ id, book: x.book, sym: x.sym, qty: x.qty, exitRemaining: x.exitRemaining, need: x.need, status: 'failed', why });
+      report.errors.push(id + ' — ' + why + ' (lab-postopen): يُمنع الدخول الجديد لـ' + x.sym + ' في الدفتر ' + x.book + ' فقط؛ يُعاد في التشغيل التالي'); }
+    PP.status = PP.failed.length ? 'failed' : (P.some(x => !x.confirmed && !x.exiting) ? 'incomplete' : 'complete');
+    if (TRADING) slaApply(slaSnapshot(B, ctx.books, P), 'lab-postopen'); else report.protectSla = slaView();
+    return { B, ctx }; }
   function clsWindow(B) { const n = B.n; const ci = B.calInfo[n.date]; if (!ci || !B.clock.is_open) return { inWindow: false, why: !ci ? 'ليس يوم تداول' : 'السوق مغلق' };
     const [ch, cm] = String(ci.close || '16:00').split(':').map(Number); const cutoff = Math.min(ch * 60 + cm - WIN.clsCutoffBeforeCloseMin, WIN.clsCutoffMaxHm); /* ≤ 15:45 دائمًا (Alpaca ترفض CLS من 15:50)، وفي الأيام القصيرة الإغلاق − 15 */
     if (n.hm < WIN.clsStartHm) return { inWindow: false, why: 'قبل 09:35' }; if (n.hm > cutoff) return { inWindow: false, late: true, why: 'بعد حد أوامر الإغلاق (' + Math.floor(cutoff / 60) + ':' + String(cutoff % 60).padStart(2, '0') + ') — تُتخطى الليلة' };
@@ -660,7 +745,7 @@ function mkLab(env, io) {
     /* أوامر الافتتاح التي لم تُعبأ بعد 09:35 ⇒ إلغاء مؤكد (الجزئي يُحمى بعده) */
     if (B.clock.is_open && B.n.hm >= WIN.opgCleanupHm) { let any = false; for (const o of B.lab.filter(o => !TERMINAL.has(o.status) && o.time_in_force === 'opg')) { any = true; const c = await cancelConfirmed(o.id); report.steps.push('إلغاء أمر افتتاح لم يكتمل: ' + o.client_order_id + ' (' + (c.status || (c.resolved ? 'ok' : 'غير محسوم')) + ')'); if (!c.resolved) report.errors.push(o.client_order_id + ': إلغاء لم يُحسم'); }
       if (any && TRADING) { B = await loadBroker(); ctx = await context(B); } }
-    if (await protect(B, ctx.books) && TRADING) { B = await loadBroker(); ctx = await context(B); report.protectionAfter = protectionState(B, ctx.books); report.protectionLatency = latencyOf(report.protectionAfter); }
+    ({ B, ctx } = await postopenProtect(B, ctx));
     const CW = clsWindow(B); report.clsWindow = CW;
     if (!ctx.crossLedger.ok) { report.status = 'blocked-cross-ledger'; report.steps.push('lab-postopen: سجل التقاطعات غير مثبت — لا أوامر إغلاق ولا بيع مبني على الملكية'); }
     else if (CW.inWindow) { const gatesWhy = globalEntryGates(B, ctx, B.n.date); report.entryGates = { ok: !gatesWhy.length, why: gatesWhy }; if (gatesWhy.length) ENTRY_BLOCK = gatesWhy[0];
@@ -683,10 +768,181 @@ function mkLab(env, io) {
     if (TRADING && (report.sent || []).some(s => s.status === 'submitted')) { B = await loadBroker(); ctx = await context(B); }
     await writeReports(B, ctx, null); return report;
   }
+  /* ---------- lab-protect (lab-0.3، LAB-PROTECT-02): حلقة حماية فقط حول الافتتاح ----------
+     الدليل (8 أكتوبر 2026): تعبئات OPG في 13:30:10–13:30:26 UTC، والوقفات في 13:41:26 ⇒ 660–676 ثانية بلا حماية. الإصلاح تنفيذي فقط:
+     • يعمل 09:25–09:50 نيويورك في يوم تداول (وإلا outside-window بلا أوامر) • كل 15 ثانية: تحديث أوامر الوسيط ومراكزه وتعبئاته ⇒ روتين الحماية نفسه لدفاتر المختبر
+     • القياس لكل تعبئة: fillAt ⇒ stopSubmittedAt ⇒ stopConfirmedAt (الوسيط: new/accepted/held والكمية تغطي المركز) • التعبئة الجزئية: تُحمى الكمية المعبأة، وتعبئة لاحقة ⇒ استبدال الوقف بالكمية الكاملة
+     • 3 محاولات لكل رمز بفواصل (5 ثم 15 ثانية) ثم علم protection-failed:<الدفتر>:<الرمز> يمنع الدخول الجديد لذلك الرمز في ذلك الدفتر فقط (الحماية مستمرة في التشغيلات التالية)
+     • لا شراء ولا OPG ولا CLS ولا إلغاء أوامر افتتاح ولا كتابة لسجل التقاطعات ولا للتسوية ولا للنيات (حزام PROTECT_ONLY في طبقة الطلبات)
+     • ينتهي حين يكون السوق مفتوحًا وكل أوامر افتتاح اليوم منتهية وكل مركز محمي مؤكد (أو فشل نهائيًا)، أو عند 09:50، أو بعد 20 دقيقة */
+  const PBLOCK = 'lab-protect-blocks.json';
+  function readProtectBlocks() { const r = readStrictState(PBLOCK); if (!r.exists) return { v: 1, active: [], cleared: [] };
+    if (!r.ok || !r.value || !Array.isArray(r.value.active) || !Array.isArray(r.value.cleared)) return { v: 1, active: [], cleared: [], corrupt: true };
+    return r.value; }
+  /* منع الدخول لرمز/دفتر: ملف مستقل عن flags.json (العلم العام يوقف كل الدخول؛ هذا يوقف الرمز في الدفتر فقط). ملف تالف ⇒ لا دخول أسهم (فشل مغلق) */
+  function protectBlocks() { const F = readProtectBlocks(); return { corrupt: !!F.corrupt, set: new Set(F.active.map(b => b.book + '|' + b.sym)), active: F.active }; }
+  function addProtectBlock(B, x, info) { const id = 'protection-failed:' + x.book + ':' + x.sym;
+    if (!(report.flags = report.flags || []).includes(id)) report.flags.push(id);
+    if (READONLY || !TRADING) { report.warnings.push('علم (لم يُحفظ — تشغيل جاف/قراءة): ' + id); return id; }
+    const F = readProtectBlocks(); if (F.corrupt) { keepEvidence(PBLOCK, 'blocks'); F.active = []; F.cleared = []; delete F.corrupt; }
+    if (!F.active.some(b => b.id === id)) F.active.push({ id, kind: 'protection-failed', book: x.book, sym: x.sym, date: B.n.date, at: new Date(now()).toISOString(), attempts: info.attempts, why: info.why, lastError: String(info.lastError || '').slice(0, 200),
+      note: 'تعذر تأكيد وقف الحماية — يُمنع الدخول الجديد لهذا الرمز في هذا الدفتر فقط حتى يراجعه صالح (lab-clear-flags). حماية المراكز القائمة مستمرة.' });
+    writeState(PBLOCK, F); return id; }
+  async function protectLoop() {
+    PROTECT_ONLY = true; ENTRY_BLOCK = 'lab-protect: حماية فقط';
+    const t0 = now(); const iso = t => new Date(t).toISOString(); const sec = (a, b) => Math.max(0, Math.round((b - a) / 1000));
+    const PR = report.protectRun = { v: 1, startedAt: iso(t0), endedAt: null, status: null, ticks: 0, brokerErrors: 0,
+      window: { fromNy: '09:25', toNy: '09:50', maxMin: WIN.protectMaxMs / 60000, tickSec: WIN.protectTickMs / 1000, maxAttempts: WIN.protectMaxAttempts, backoffSec: WIN.protectBackoffMs.map(x => x / 1000) },
+      standard: { targetSec: 60, upperSec: 90, note: 'من التعبئة حتى تأكيد الوسيط للوقف في الظروف العادية؛ لا يشمل تأخر بدء تشغيل GitHub' }, fills: [], failed: [] };
+    const warnOnce = w => { if (!report.warnings.includes(w)) report.warnings.push(w); };
+    let B = await loadBroker(); report.account = acctView(B);
+    const ci = B.calInfo[B.n.date];
+    if (!ci || B.n.hm < WIN.protectFromHm || B.n.hm > WIN.protectToHm) { PR.status = report.status = 'outside-window'; PR.why = !ci ? 'ليس يوم تداول (' + B.n.date + ')' : 'خارج نافذة lab-protect (09:25–09:50 نيويورك)';
+      report.steps.push('lab-protect: لا أوامر — ' + PR.why); PR.endedAt = iso(now()); return report; }
+    const deadline = Math.min(t0 + WIN.protectMaxMs, nyMs(B.n.date, WIN.protectToHm)); PR.deadline = iso(deadline);
+    /* سجل التقاطعات: قراءة وإثبات مرة واحدة بلا كتابة (لا يتغير أثناء النافذة؛ التقاطعات يكتبها lab-overnight فقط) */
+    const XL = loadCrossLedger(B); report.crossLedger = { ok: XL.ok, state: XL.state, rows: XL.rows.length, why: XL.why, readOnly: true };
+    if (!XL.ok) { OWN_BLOCK = XL.state; report.errors.push('سجل التقاطعات غير مثبت (' + XL.state + '): ' + XL.why + ' — حماية بوقف فقط، والوقفات القائمة باقية');
+      raise('lab-cross-ledger', 'labx-' + XL.state + '-' + B.n.date, { note: 'سجل التقاطعات غير مثبت (اكتُشف في lab-protect) — لا أوامر مبنية على ملكية الدفاتر', state: XL.state, why: XL.why }); }
+    const crosses = XL.ok ? XL.rows : [];
+    async function booksOf(B) { const syms = new Set(['SPY', 'VOO']); for (const o of B.lab) syms.add(o.symbol); for (const e of events(B, crosses, x => ({ px: +x.refPx, provisional: true }))) syms.add(e.sym);
+      try { await getBars([...syms], daysAgo(430)); } catch (e) { warnOnce('تعذر جلب شموع المراكز: ' + e.message + ' — الوقف من خطة الوقف المحفوظة (أو الاحتياطي)'); }
+      return ledgerAt(events(B, crosses, crossPx), null); }
+    const REC = new Map(); const ATT = {}; const FAILED = new Map(); const EXITS = []; const bsOf = x => x.book + '|' + x.sym;
+    const isX = c => /-X\d+$/.test(String(c || ''));
+    /* القياس لكل تعبئة شراء (lot): حتى وقف مؤكد يغطي المركز (resolvedBy=stop) أو خروج حماية معبأ يزيل المركز (resolvedBy=protective-exit)؛ وتعبئات الخروج الجزئية تُسجل بزياداتها.
+       ما بقي معلقًا أو فشل يبقى في المقام (fillsToday) ولا يُحذف */
+    function observe(P, B, books) { const t = now();
+      for (const x of P) { let cum = 0;
+        for (const f of x.lots) { cum += f.qty; const key = bsOf(x) + '|' + f.t + '|' + cum; let r = REC.get(key);
+          if (!r) { r = { book: x.book, sym: x.sym, cid: f.cid, fillAt: iso(f.t), fillQty: f.qty, coverQty: cum, today: nyParts(f.t).date === B.n.date, seenAt: iso(t), stopSubmittedAt: null, stopConfirmedAt: null,
+              stopId: null, stopStatus: null, stopQty: null, source: null, fillToSubmitSec: null, fillToConfirmSec: null, attempts: 0, washWaits: 0, result: 'pending',
+              exitSubmittedAt: null, exitIds: [], exitFills: [], exitFilledQty: 0, resolvedAt: null, resolvedBy: null, fillToResolveSec: null, _t: f.t }; REC.set(key, r); }
+          if (!r.stopConfirmedAt && !r.resolvedAt && x.confirmed) { const s0 = x.stops[0]; r.stopConfirmedAt = iso(t); r.stopId = s0.id; r.stopStatus = s0.status; r.stopQty = s0.qty; r.source = x.source;
+            if (!r.stopSubmittedAt) { r.stopSubmittedAt = s0.submittedAt || null; r.preexistingStop = true; } r.fillToConfirmSec = sec(f.t, t); if (r.stopSubmittedAt) r.fillToSubmitSec = sec(f.t, Date.parse(r.stopSubmittedAt)); r.result = 'confirmed';
+            r.resolvedAt = r.stopConfirmedAt; r.resolvedBy = 'stop'; r.fillToResolveSec = r.fillToConfirmSec; } }
+        if (x.exitPending) for (const r of REC.values()) if (r.book === x.book && r.sym === x.sym && !r.resolvedAt && r.result !== 'failed') r.result = 'exit-pending'; }
+      /* تعبئات خروج الحماية (بزياداتها) وزوال المركز: وقت الحسم = وقت آخر تعبئة بيع لدى الوسيط */
+      for (const r of REC.values()) { if (r.resolvedAt) continue; const k = books[r.book]; if (!k) continue;
+        const sells = k.fills.filter(f => f.sym === r.sym && f.side === 'sell' && f.t >= r._t); const xs = sells.filter(f => isX(f.cid));
+        for (const f of xs) { const fk = f.t + '|' + f.qty + '|' + f.cid; if (!r.exitFills.some(e => e._k === fk)) { r.exitFills.push({ _k: fk, at: iso(f.t), qty: f.qty, cid: f.cid, px: f.px }); r.exitFilledQty = +(r.exitFilledQty + f.qty).toFixed(6); } }
+        const pos = k.pos[r.sym]; if (!(pos && pos.qty > 1e-9) && sells.length) { const last = Math.max(...sells.map(f => f.t)); r.resolvedAt = iso(last); r.fillToResolveSec = sec(r._t, last);
+          r.resolvedBy = xs.length ? 'protective-exit' : 'sell'; r.result = xs.length ? 'protective-exit' : 'closed'; } } }
+    function failNow(x, why, lastError) { const bs = bsOf(x); if (FAILED.has(bs)) return; const A = ATT[bs] || { n: 0, errors: [] };
+      const id = addProtectBlock(B, x, { attempts: A.n, why, lastError: lastError || (A.errors || []).slice(-1)[0] || null }); FAILED.set(bs, id);
+      PR.failed.push({ id, book: x.book, sym: x.sym, attempts: A.n, exits: A.exits || 0, qty: x.qty, exitRemaining: x.exitRemaining || 0, need: x.need, status: 'failed', why });
+      for (const r of REC.values()) if (r.book === x.book && r.sym === x.sym && !r.resolvedAt) r.result = 'failed';
+      report.errors.push(id + ' — ' + why + ': يُمنع الدخول الجديد لـ' + x.sym + ' في الدفتر ' + x.book + ' فقط، والمركز يبقى في قائمة الحماية للتشغيلات التالية'); return id; }
+    function onResult(x, res) { const t = now(); const bs = bsOf(x); const A = ATT[bs] = ATT[bs] || { n: 0, wash: 0, lastAt: 0, errors: [], exits: 0 }; const recs = [...REC.values()].filter(r => r.book === x.book && r.sym === x.sym && !r.resolvedAt);
+      if (res.ok) { for (const r of recs) { r.stopSubmittedAt = iso(t); r.fillToSubmitSec = sec(r._t, t); r.source = x.source; } A.n = 0; A.washSig = null; return; }
+      if (res.wash) { A.wash++; A.washSig = washSig(x); for (const r of recs) r.washWaits++; warnOnce(x.book + ' ' + x.sym + ': أمر الشراء ما زال مفتوحًا (تعبئة جزئية) — الوسيط يرفض الوقف المعاكس؛ يُعاد عند انتهاء أمر الشراء'); return; }
+      /* lab-0.4: خروج الحماية أُرسل ⇒ exit-pending (لا «منتهٍ»): يُتتبع حتى تُعبأ كميته ويزول المركز */
+      if (res.breach) { A.exits++; A.n = 0; EXITS.push({ book: x.book, sym: x.sym, id: res.id || null, cid: res.cid || null, qty: res.qty, positionQty: x.qty, statusAtSubmit: res.status || null, at: iso(t), dry: !!res.dry });
+        for (const r of recs) { r.result = 'exit-pending'; if (!r.exitSubmittedAt) r.exitSubmittedAt = iso(t); if (res.id) r.exitIds.push(res.id); } return; }
+      A.n++; A.lastAt = t; A.errors.push(String(res.why || '').slice(0, 160)); for (const r of recs) r.attempts++;
+      if (A.n >= WIN.protectMaxAttempts) failNow(x, 'رفض/فشل وضع الوقف أو خروج الحماية ' + A.n + ' مرات', res.why); }
+    /* رفض wash (أمر شراء للرمز نفسه ما زال مفتوحًا في الحساب — من هذا الدفتر أو غيره): لا يُعاد الوقف إلا حين تتغير الكمية المعبأة أو أوامر الشراء المفتوحة للرمز */
+    const washSig = x => x.qty + '|' + B.orders.filter(o => o.symbol === x.sym && o.side === 'buy' && !TERMINAL.has(o.status)).map(o => o.id + ':' + o.status + ':' + (+o.filled_qty || 0)).sort().join(',');
+    function skip(x) { const bs = bsOf(x); if (FAILED.has(bs)) return true; const A = ATT[bs];
+      /* lab-0.4: أوامر خروج حماية متتالية رُفضت أو أُلغيت وما زال هناك متبقٍ ⇒ فشل واضح بعد الحد (لا إغراق للوسيط بأوامر بيع) */
+      if (A && A.exits >= WIN.protectMaxAttempts && !x.exitPending) { failNow(x, 'خروج الحماية لم يُزل المركز بعد ' + A.exits + ' أوامر خروج (رُفضت أو أُلغيت أو عُبئت جزئيًا) — المتبقي ' + x.need + ' سهم'); return true; }
+      if (A && A.washSig && A.washSig === washSig(x)) return true; if (!A || !A.n) return false; return now() - A.lastAt < WIN.protectBackoffMs[Math.min(A.n, WIN.protectBackoffMs.length) - 1]; }
+    function nextWait() { let w = WIN.protectTickMs; for (const A of Object.values(ATT)) if (A.n > 0 && A.n < WIN.protectMaxAttempts) { const due = A.lastAt + WIN.protectBackoffMs[Math.min(A.n, WIN.protectBackoffMs.length) - 1] - now(); w = Math.min(w, Math.max(1000, due)); }
+      return Math.max(1000, Math.min(w, deadline - now())); }
+    let books = null, P = [], burst = 0, status = null;
+    for (;;) { PR.ticks++;
+      books = await booksOf(B); P = protectionState(B, books); observe(P, B, books);
+      const opgOpen = B.lab.filter(o => o.time_in_force === 'opg' && !TERMINAL.has(o.status) && targetOfCid(o.client_order_id) === B.n.date);
+      /* lab-0.4: خروج الحماية المعلق (exitPending) يبقى في «المعلّق» حتى تُعبأ كميته ويزول المركز — لا «complete» قبل ذلك */
+      const pending = P.filter(x => !x.confirmed && !x.exiting);
+      if (B.clock && B.clock.is_open && !opgOpen.length && pending.every(x => FAILED.has(bsOf(x)))) { status = pending.length ? 'failed' : 'complete'; break; }
+      if (now() >= deadline) { status = 'deadline'; break; }
+      let changed = false; if (pending.some(x => !FAILED.has(bsOf(x)))) { try { changed = await protect(B, books, { partial: true, noRejectFlag: true, skip, onResult }); } catch (e) { report.errors.push('lab-protect: ' + e.message); } }
+      /* تشغيل جاف: لا يصل أي وقف إلى الوسيط فلا تأكيد ممكن ⇒ تمريرة واحدة تُسجّل ما كان سيُرسل ثم ينتهي */
+      if (!TRADING && pending.length && B.clock && B.clock.is_open) { status = 'dry-run'; break; }
+      if (!changed || burst >= 2) { burst = 0; await sleep(nextWait()); } else burst++;
+      try { B = await loadBroker(); } catch (e) { PR.brokerErrors++; report.errors.push('lab-protect: تعذر تحديث حالة الوسيط: ' + e.message); if (PR.brokerErrors >= 5) { status = 'broker-error'; break; } await sleep(nextWait()); } }
+    /* النهاية: أي مركز بلا وقف مؤكد أو بخروج حماية غير معبأ ⇒ مسار فشل واضح (علم الرمز/الدفتر + خطأ في التقرير + نتيجة failed)؛ الحماية تبقى على lab-postopen التالي */
+    const left = status === 'dry-run' ? [] : P.filter(x => !x.confirmed && !x.exiting && !FAILED.has(bsOf(x)));
+    for (const x of left) { const A = ATT[bsOf(x)] || { n: 0, wash: 0, errors: [] };
+      const why = x.exitPending ? 'خروج الحماية لم يُعبأ قبل نهاية النافذة (المتبقي ' + x.exitRemaining + ' سهم من ' + x.qty + ' في أوامر خروج مقبولة غير معبأة)'
+        : x.awaiting ? 'الوسيط لم يؤكد الوقف قبل نهاية النافذة' : (A.wash ? 'أمر الشراء بقي مفتوحًا حتى نهاية النافذة (رفض wash)' : (A.exits ? 'المتبقي بعد خروج الحماية (' + x.need + ' سهم) بلا وقف مؤكد قبل نهاية النافذة' : 'لم يُؤكد وقف قبل نهاية النافذة'));
+      failNow(x, why + ' (' + status + ')'); }
+    const recs = [...REC.values()].map(r => { const o = Object.assign({}, r); delete o._t; o.exitFills = (r.exitFills || []).map(e => ({ at: e.at, qty: e.qty, cid: e.cid, px: e.px })); return o; });
+    const today = recs.filter(r => r.today); const conf = today.filter(r => r.fillToConfirmSec != null); const res = today.filter(r => r.fillToResolveSec != null);
+    PR.fills = recs; PR.status = status; PR.endedAt = iso(now());
+    PR.exits = EXITS.map(e => { const o = B.lab.find(z => z.id === e.id); return Object.assign({}, e, { status: o ? o.status : (e.dry ? 'dry' : 'unlisted'), filledQty: o ? (+o.filled_qty || 0) : 0 }); });
+    /* النتيجة الصريحة: failed إن بقي أي مركز بلا حماية أو بخروج غير معبأ؛ complete فقط إن حُسم كل شيء (وقف مؤكد أو خروج معبأ) */
+    PR.outcome = status === 'dry-run' ? 'dry-run' : (PR.failed.length ? 'failed' : (status === 'complete' ? 'complete' : (P.some(x => !x.confirmed && !x.exiting) ? 'failed' : status)));
+    PR.summary = { fillsToday: today.length, confirmed: conf.length, protectiveExits: today.filter(r => r.resolvedBy === 'protective-exit').length, resolved: res.length, unresolved: today.length - res.length,
+      maxFillToConfirmSec: conf.length ? Math.max(...conf.map(r => r.fillToConfirmSec)) : null, maxFillToResolveSec: res.length ? Math.max(...res.map(r => r.fillToResolveSec)) : null,
+      withinTarget: res.filter(r => r.fillToResolveSec <= PR.standard.targetSec).length, withinUpper: res.filter(r => r.fillToResolveSec <= PR.standard.upperSec).length, failed: PR.failed.map(f => f.id),
+      note: 'المقام = كل تعبئات اليوم؛ المعلّق والفاشل يبقيان فيه' };
+    report.protection = P; report.protectionLatency = recs.map(r => ({ book: r.book, sym: r.sym, confirmed: !!r.stopConfirmedAt, source: r.source, fillAt: r.fillAt, fillQty: r.fillQty, coverQty: r.coverQty, stopSubmittedAt: r.stopSubmittedAt,
+      stopConfirmedAt: r.stopConfirmedAt, stopAt: r.stopSubmittedAt, fillToSubmitSec: r.fillToSubmitSec, fillToConfirmSec: r.fillToConfirmSec, fillToStopSec: r.fillToConfirmSec, attempts: r.attempts, result: r.result, today: r.today,
+      exitSubmittedAt: r.exitSubmittedAt, exitFills: r.exitFills, exitFilledQty: r.exitFilledQty, resolvedAt: r.resolvedAt, resolvedBy: r.resolvedBy, fillToResolveSec: r.fillToResolveSec }));
+    report.status = status; report.steps.push('lab-protect: ' + status + ' (النتيجة ' + PR.outcome + ') بعد ' + PR.ticks + ' دورة — تعبئات اليوم ' + today.length + '، محسومة ' + res.length + ' (وقف مؤكد ' + conf.length + '، خروج معبأ ' + PR.summary.protectiveExits + ')' + (res.length ? ' (أقصى ' + PR.summary.maxFillToResolveSec + ' ث)' : '') + (PR.failed.length ? '، فشل: ' + PR.failed.map(f => f.id).join('، ') : ''));
+    if (status !== 'dry-run' && TRADING) slaApply(slaFromRecs(recs), 'lab-protect'); else report.protectSla = slaView();
+    report.warnings = [...new Set(report.warnings)]; report.errors = [...new Set(report.errors)];
+    try { const f = path.join(LABREP, 'lab-status.json'); const prev = readJson(f) || { tool: 'SmartTrader-PaperLab-Status', version: VERSION };
+      wj(f, Object.assign({}, prev, { protect: protectStatusOf(PR), protectBlocks: protectBlocks().active.map(b => ({ id: b.id, book: b.book, sym: b.sym, date: b.date, why: b.why })), protectSla: slaView(), protectAt: PR.endedAt })); }
+    catch (e) { report.warnings.push('تعذرت كتابة حالة الحماية في lab-status.json: ' + e.message); }
+    return report; }
+  function protectStatusOf(PR) { return PR ? { at: PR.endedAt, status: PR.status, outcome: PR.outcome || null, runId: env.GITHUB_RUN_ID || null, summary: PR.summary || null, standard: PR.standard, exits: PR.exits || [], failed: PR.failed || [],
+    latency: (PR.fills || []).map(r => ({ book: r.book, sym: r.sym, fillAt: r.fillAt, fillQty: r.fillQty, stopSubmittedAt: r.stopSubmittedAt, stopConfirmedAt: r.stopConfirmedAt, fillToConfirmSec: r.fillToConfirmSec, source: r.source, result: r.result, today: r.today,
+      exitSubmittedAt: r.exitSubmittedAt, exitFills: r.exitFills, resolvedAt: r.resolvedAt, resolvedBy: r.resolvedBy, fillToResolveSec: r.fillToResolveSec })) } : null; }
+  /* ---------- lab-0.4: معيار الحماية والتعليق الانتقائي protection-sla-breach ----------
+     القياس لكل تعبئة شراء في S1 وCHEAP وLEARN.S1 وLEARN.CHEAP: من وقت التعبئة لدى الوسيط حتى (أ) وقف مؤكد (new/held) يغطي المركز أو (ب) خروج حماية معبأ يزيل المركز.
+     يشمل تأخر GitHub والبدء (يُقاس من وقت التعبئة لا من بدء التشغيل). الهدف 60 ثانية، والحد الأعلى 90.
+     أي تعبئة > 90 ثانية، أو بقيت معلقة بعد 90 ثانية، أو فشلت ⇒ علم دائم protection-sla-breach في state/lab-protect-sla.json يمنع دخول OPG الجديد لهذه الدفاتر الأربعة فقط
+     في الليالي التالية؛ الحماية والخروج والإدارة مستمرة، وبقية الدفاتر (REF وT1 وTM1 وO1 وLEARN.T1 وLEARN.TM1 وLEARN.O1) لا تتأثر. يُرفع فقط بـlab-clear-flags. مفعّل افتراضيًا
+     (protectSlaSuspend=false في lab-config.json يعطّل المنع ويُبقي القياس والتقرير). كل تعبئة تُقيَّم مرة واحدة (أول مقيِّم نهائي يُحفظ: lab-protect ثم lab-postopen) فلا يعود العلم بعد رفعه للتعبئة نفسها. */
+  const SLA_ON = cfg.protectSlaSuspend !== false; const SLA_SET = new Set(SLA.books);
+  function slaRead() { const r = readStrictState(SLA.file); if (!r.exists) return { v: 1, active: [], cleared: [], lots: {} };
+    if (!r.ok || !r.value || !Array.isArray(r.value.active) || !Array.isArray(r.value.cleared) || typeof r.value.lots !== 'object' || !r.value.lots) return { v: 1, active: [], cleared: [], lots: {}, corrupt: true };
+    return r.value; }
+  function slaView() { const F = slaRead(); return { enabled: SLA_ON, flag: SLA.flagId, active: F.active.length > 0, corrupt: !!F.corrupt, blocksNewEntriesFor: SLA_ON && (F.active.length || F.corrupt) ? SLA.books.slice() : [], books: SLA.books.slice(),
+    targetSec: SLA.targetSec, upperSec: SLA.upperSec, since: F.active.length ? F.active[0].at : null, cases: F.active.length ? (F.active[0].cases || []).slice(-20) : [],
+    note: 'protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط.' }; }
+  function slaBlocked(bookId) { if (!SLA_ON || !SLA_SET.has(bookId)) return null; const F = slaRead(); if (F.corrupt) return SLA.file + ' تالف — لا دخول جديد لهذا الدفتر (فشل مغلق)'; if (F.active.length) return SLA.flagId + ' منذ ' + F.active[0].at; return null; }
+  const slaCase = (book, sym, t, resolvedMs, by, result, source) => { const s = resolvedMs != null ? Math.max(0, Math.round((resolvedMs - t) / 1000)) : null; const age = Math.max(0, Math.round((now() - t) / 1000));
+    const breach = result === 'failed' || (s != null ? s > SLA.upperSec : age > SLA.upperSec); const final = result === 'failed' || s != null || age > SLA.upperSec;
+    return { key: book + '|' + sym + '|' + t, book, sym, date: nyParts(t).date, fillAt: new Date(t).toISOString(), resolvedAt: resolvedMs != null ? new Date(resolvedMs).toISOString() : null, sec: s, ageSec: s == null ? age : null, by: by || null, result, breach, final, source }; };
+  function slaFromRecs(recs) { const out = []; for (const r of recs) { if (!r.today || !SLA_SET.has(r.book)) continue; const t = Date.parse(r.fillAt);
+      out.push(slaCase(r.book, r.sym, t, r.resolvedAt ? Date.parse(r.resolvedAt) : null, r.resolvedBy, r.resolvedAt ? 'resolved' : (r.result === 'failed' ? 'failed' : 'unresolved'), 'lab-protect')); } return out; }
+  /* lab-postopen: لقطة لكل تعبئة شراء اليوم (محافظة: وقت إرسال الوقف المؤكد الحالي، أو آخر تعبئة بيع أزالت المركز) — لا تُستعمل لتعبئة قيّمها lab-protect */
+  function slaSnapshot(B, books, P) { const out = []; for (const id of SLA.books) { const k = books[id]; if (!k) continue;
+      for (const f of k.fills.filter(f => f.side === 'buy' && f.kind === 'fill' && f.date === B.n.date)) { const x = P.find(y => y.book === id && y.sym === f.sym); const held = k.pos[f.sym] && k.pos[f.sym].qty > 1e-9;
+        if (held && x && x.confirmed && x.stopAt) out.push(slaCase(id, f.sym, f.t, Math.max(f.t, Date.parse(x.stopAt)), 'stop', 'resolved', 'lab-postopen'));
+        else if (!held) { const sells = k.fills.filter(s => s.sym === f.sym && s.side === 'sell' && s.t >= f.t); out.push(sells.length ? slaCase(id, f.sym, f.t, Math.max(...sells.map(s => s.t)), sells.some(s => /-X\d+$/.test(String(s.cid || ''))) ? 'protective-exit' : 'sell', 'resolved', 'lab-postopen') : slaCase(id, f.sym, f.t, null, null, 'unresolved', 'lab-postopen')); }
+        else out.push(slaCase(id, f.sym, f.t, null, null, 'unresolved', 'lab-postopen')); } }
+    return out; }
+  function slaApply(cases, source) { const F = slaRead(); const fresh = []; const lots = F.corrupt ? {} : F.lots;
+    for (const c of cases) { if (!c.final || lots[c.key]) continue; lots[c.key] = { date: c.date, sec: c.sec, ageSec: c.ageSec, by: c.by, result: c.result, breach: c.breach, source: c.source, at: new Date(now()).toISOString() }; if (c.breach) fresh.push(c); }
+    report.protectSla = Object.assign(slaView(), { evaluated: cases.map(c => { const o = Object.assign({}, c); delete o.key; return o; }), newBreaches: fresh.map(c => c.book + ':' + c.sym + ' ' + (c.sec != null ? c.sec + 'ث' : (c.result === 'failed' ? 'فشل' : 'معلّق ' + c.ageSec + 'ث'))) });
+    if (READONLY || !TRADING) return;
+    if (F.corrupt) { keepEvidence(SLA.file, 'sla'); }
+    const cutoff = nyParts(now() - 30 * 864e5).date; const lots2 = {}; for (const [k, v] of Object.entries(lots)) if (v && v.date >= cutoff) lots2[k] = v;
+    const out = { v: 1, active: F.corrupt ? [] : F.active, cleared: F.corrupt ? [] : F.cleared, lots: lots2 };
+    if (fresh.length && SLA_ON) { const cs = fresh.map(c => ({ book: c.book, sym: c.sym, fillAt: c.fillAt, resolvedAt: c.resolvedAt, sec: c.sec, ageSec: c.ageSec, result: c.result, by: c.by, source: c.source }));
+      if (out.active.length) out.active[0].cases = (out.active[0].cases || []).concat(cs).slice(-100);
+      else out.active.push({ id: SLA.flagId, kind: SLA.flagId, at: new Date(now()).toISOString(), date: B_DATE(), books: SLA.books.slice(), cases: cs, source,
+        note: 'تعبئة في دفاتر الأسهم تجاوزت 90 ثانية حتى الحماية المؤكدة أو بقيت معلقة/فشلت — يُمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى مراجعة صالح (lab-clear-flags). الحماية والخروج مستمران.' });
+      report.errors.push(SLA.flagId + ' — ' + fresh.length + ' تعبئة خارج معيار الحماية (' + report.protectSla.newBreaches.join('، ') + '): يُمنع دخول OPG الجديد لـ' + SLA.books.join(' و') + ' فقط في الليالي التالية حتى lab-clear-flags');
+      }
+    else if (fresh.length) report.warnings.push(SLA.flagId + ' (المنع معطّل بالإعداد protectSlaSuspend=false): ' + report.protectSla.newBreaches.join('، '));
+    writeState(SLA.file, out); report.protectSla = Object.assign(slaView(), { evaluated: report.protectSla.evaluated, newBreaches: report.protectSla.newBreaches }); }
+  const B_DATE = () => nyParts(now()).date;
   async function status() { READONLY = true; const B = await loadBroker(); report.account = acctView(B); const ctx = await context(B); report.protection = protectionState(B, ctx.books); report.protectionLatency = latencyOf(report.protection); await writeReports(B, ctx, null, true); return report; }
   function acctView(B) { return { paper: String(B.acc.account_number || '').startsWith('PA'), masked: '****' + String(B.acc.account_number || '').slice(-4), status: B.acc.status, cash: B.acc.cash, equity: B.acc.equity, clock: B.clock }; }
   function clearFlags(note) { const F = readFlags(); const at = new Date(now()).toISOString(); const by = note || env.FLAG_CLEAR_NOTE || 'manual';
     for (const f of F.active) F.cleared.push(Object.assign({}, f, { clearedAt: at, clearedBy: by })); const n = F.active.length; F.active = []; writeState('flags.json', F, true);
+    /* lab-0.3: أعلام protection-failed (منع رمز/دفتر) تُرفع مع الأعلام بعد مراجعة صالح */
+    const PBf = readProtectBlocks(); if (PBf.active.length || PBf.corrupt) { if (PBf.corrupt) { keepEvidence(PBLOCK, 'blocks'); PBf.active = []; PBf.cleared = []; delete PBf.corrupt; }
+      const m = PBf.active.length; for (const b of PBf.active) PBf.cleared.push(Object.assign({}, b, { clearedAt: at, clearedBy: by })); PBf.active = []; writeState(PBLOCK, PBf, true); report.steps.push('رُفعت ' + m + ' أعلام protection-failed'); }
+    /* lab-0.4: علم protection-sla-breach (تعليق الدفاتر الأربعة) يُرفع هنا فقط؛ قياسات التعبئات المحفوظة تبقى فلا يعود العلم للتعبئات نفسها */
+    const SF = slaRead(); if (SF.active.length || SF.corrupt) { if (SF.corrupt) { keepEvidence(SLA.file, 'sla'); SF.active = []; SF.cleared = []; SF.lots = {}; delete SF.corrupt; }
+      const m = SF.active.length; for (const b of SF.active) SF.cleared.push(Object.assign({}, b, { clearedAt: at, clearedBy: by })); SF.active = []; writeState(SLA.file, SF, true); report.steps.push('رُفع علم ' + SLA.flagId + ' (' + m + ')'); }
     const SI = RL.scanSaveIncidents(STATE_DIR, REPORTS_DIR, { now: now() }); for (const x of SI.open) { fs.mkdirSync(path.join(STATE_DIR, 'evidence'), { recursive: true }); fs.writeFileSync(path.join(STATE_DIR, 'evidence', 'save-incident-' + x.id + '.resolved.json'), JSON.stringify({ incidentId: x.id, resolvedAt: at, by, note: 'حسم يدوي عبر lab-clear-flags' }, null, 1)); }
     report.steps.push('رُفعت ' + n + ' أعلام، وحُسمت ' + SI.open.length + ' حوادث حفظ'); return report; }
 
@@ -699,9 +955,11 @@ function mkLab(env, io) {
     try {
       if (ctx.crossLedger && !ctx.crossLedger.ok) { const prevS = readJson(path.join(LABREP, 'lab-status.json')) || {}; wj(path.join(LABREP, 'lab-status.json'), Object.assign({}, prevS, { tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), cmd: io.cmd || null,
           crossLedger: { ok: false, state: ctx.crossLedger.state, why: ctx.crossLedger.why }, note: 'سجل التقاطعات غير مثبت — التقارير اليومية موقوفة (ملكية الدفاتر غير مؤكدة)، ولا شراء ولا بيع مبني على الملكية. الوقفات القائمة باقية.', flags: readFlags().active.map(f => ({ id: f.id, kind: f.kind, at: f.at })) })); return; }
-      if (!cfg.labStart) { wj(path.join(LABREP, 'lab-status.json'), { tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), labStart: null, note: 'المختبر لم يبدأ بعد (labStart غير محدد) — لا تداول', trading: TRADING, halt: HALT }); return; }
+      /* lab-0.4: حقول الحماية تُكتب في كل فروع lab-status (ومنها «لم يكتمل يوم بعد» في يوم المختبر الأول) */
+      const protF = () => ({ protect: protectStatusOf(report.protectRun) || (readJson(path.join(LABREP, 'lab-status.json')) || {}).protect || null, protectBlocks: protectBlocks().active.map(b => ({ id: b.id, book: b.book, sym: b.sym, date: b.date, why: b.why })), protectSla: slaView(), protectPass: report.protectPass || null });
+      if (!cfg.labStart) { wj(path.join(LABREP, 'lab-status.json'), Object.assign({ tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), labStart: null, note: 'المختبر لم يبدأ بعد (labStart غير محدد) — لا تداول', trading: TRADING, halt: HALT }, protF())); return; }
       const lastDay = ST.sortedDates(B.cal).filter(d => d < B.n.date || (d === B.n.date && B.n.hm >= 16 * 60 + 15)).pop();
-      if (!lastDay || lastDay < cfg.labStart) { wj(path.join(LABREP, 'lab-status.json'), { tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), labStart: cfg.labStart, labEnd: LAB_END, note: 'لم يكتمل أي يوم تداول في المختبر بعد', trading: TRADING }); return; }
+      if (!lastDay || lastDay < cfg.labStart) { wj(path.join(LABREP, 'lab-status.json'), Object.assign({ tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), labStart: cfg.labStart, labEnd: LAB_END, note: 'لم يكتمل أي يوم تداول في المختبر بعد', trading: TRADING }, protF())); return; }
       const syms = new Set(['SPY', 'VOO']); for (const e of ctx.ev) syms.add(e.sym); try { await getBars([...syms], daysAgo(430)); } catch (e) {}
       const ev = events(B, ctx.crosses, crossPx); const { H, view } = playersView(B, Object.assign({}, ctx, { ev }), lastDay);
       const days = H.REF.map(x => x.date); const refSeries = H.REF; const refDD = ddStats(refSeries, ST.BUDGET);
@@ -725,23 +983,49 @@ function mkLab(env, io) {
         wj(path.join(LABREP, 'shadows', lastDay + '.json'), { date: lastDay, note: 'لاعبو ظل افتراضيون: لا أوامر أبدًا. محاكاة من الشموع بلا تسوية ولا انزلاق ولا رسوم (متفائلة).', shadows }); }
       /* الحالة المجمعة للوحة */
       const refE = view.REF.series.length ? view.REF.series[view.REF.series.length - 1].equity : null; const refRet = refE != null ? refE / ST.BUDGET - 1 : null;
+      /* LAB-REF-01: نتيجة الحَكَم الفعلية تبقى كما هي؛ والحكم مقابله معلّق ما دام غير مستثمر بالكامل. REF-H مرجع افتراضي حسابي منفصل (لا أوامر ولا يحل محل الحَكَم) */
+      const RI = refInvestment(B, ctx.books); const RH = refHypo(B, lastDay); const refHRet = RH.omitted ? null : RH.totalReturnPct / 100;
       const players = ST.PLAYERS.map(p => { const v = view[p.id]; const last = v.series.length ? v.series[v.series.length - 1] : null; const ret = last && last.equity != null ? last.equity / p.budget - 1 : null;
-        const active = p.id !== 'REF'; const verdict = !active ? 'المرجع' : (ret == null || refRet == null) ? 'غير معروف' : (v.tradesClosed < 20 ? 'صفقات أقل من 20 — لا حكم بعد' : (ret > refRet && v.maxDrawdownPct <= refDD.maxDrawdownPct ? 'يتفوق على الحكَم حتى الآن' : 'لا يتفوق على الحكَم حتى الآن'));
-        return { id: p.id, name: p.name, equityClose: last ? last.equity : null, equityNow: v.equityNow, totalReturnPct: ret == null ? null : +(ret * 100).toFixed(3), maxDrawdownPct: v.maxDrawdownPct, drawdownPct: v.drawdownPct, tradesClosed: v.tradesClosed, killed: v.killed, vsRefPct: ret != null && refRet != null ? +((ret - refRet) * 100).toFixed(3) : null, verdictSoFar: verdict }; });
+        const active = p.id !== 'REF'; const verdict = labVerdict({ active, refFull: RI.full, ret, refRet, tradesClosed: v.tradesClosed, maxDrawdownPct: v.maxDrawdownPct, refMaxDrawdownPct: refDD.maxDrawdownPct });
+        return { id: p.id, name: p.name, equityClose: last ? last.equity : null, equityNow: v.equityNow, totalReturnPct: ret == null ? null : +(ret * 100).toFixed(3), maxDrawdownPct: v.maxDrawdownPct, drawdownPct: v.drawdownPct, tradesClosed: v.tradesClosed, killed: v.killed,
+          vsRefPct: RI.full && ret != null && refRet != null ? +((ret - refRet) * 100).toFixed(3) : null, verdictSoFar: verdict, comparisonSuspended: active && !RI.full }; });
+      if (!RH.omitted) RH.vsPlayersPct = Object.fromEntries(players.filter(p => p.id !== 'REF').map(p => [p.id, p.totalReturnPct == null ? null : +(p.totalReturnPct - RH.totalReturnPct).toFixed(3)]));
       const Lw = learnState(B, H, ST.sortedDates(B.cal).find(x => x > lastDay) || lastDay);
       const status = { tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), cmd: io.cmd || null, labStart: cfg.labStart, labEnd: LAB_END, lastCompletedDay: lastDay, daysElapsed: days.length, trading: TRADING, halt: HALT,
-        entryGates: report.entryGates || null, flags: readFlags().active.map(f => ({ id: f.id, kind: f.kind, at: f.at })), players, ref: { totalReturnPct: refRet == null ? null : +(refRet * 100).toFixed(3), maxDrawdownPct: refDD.maxDrawdownPct },
+        entryGates: report.entryGates || null, flags: readFlags().active.map(f => ({ id: f.id, kind: f.kind, at: f.at })), players, ref: { totalReturnPct: refRet == null ? null : +(refRet * 100).toFixed(3), maxDrawdownPct: refDD.maxDrawdownPct, investment: RI, comparison: RI.full ? 'active' : 'suspended', note: RI.full ? null : REF_SUSPENDED + ' — ' + RI.why },
+        refH: RH,
         learn: { weights: Lw.weights, budgets: Lw.budgets, history: Lw.history }, shadows: shadows ? shadows.map(s => ({ id: s.id, totalReturnPct: s.totalReturnPct, maxDrawdownPct: s.maxDrawdownPct, tradesClosed: s.tradesClosed, error: s.error })) : (readJson(path.join(LABREP, 'lab-status.json')) || {}).shadows || null,
         recon: { ok: ctx.recon.ok, labMismatch: ctx.recon.labMismatch }, settlement: { proven: ctx.settle.proven, settledCash: ctx.settle.settledCash }, crossesTotal: ctx.crosses.length, crossLedger: { ok: true, state: ctx.crossLedger ? ctx.crossLedger.state : null }, protectionLatency: report.protectionLatency || null,
+        ...protF(),
         successRule: 'النجاح = عائد كلي أعلى من الحكَم + أقصى هبوط ليس أسوأ من الحكَم + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند ' + LAB_END + ' فقط.' };
       wj(path.join(LABREP, 'lab-status.json'), status); report.labStatus = { lastCompletedDay: lastDay, dailyWritten: written };
       /* الملاحظة الأسبوعية: عند آخر يوم تداول في الأسبوع */
       const nextTd = ST.sortedDates(B.cal).find(x => x > lastDay); if (nextTd && isoWeek(nextTd) !== isoWeek(lastDay)) { const wk = isoWeek(lastDay); const wkDays = days.filter(d => isoWeek(d) === wk);
-        for (const p of ST.PLAYERS) { const f = path.join(LABREP, 'weekly', wk, p.id + '.md'); if (fs.existsSync(f) && readOnly) continue; fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, weeklyNote(p, wk, wkDays, view[p.id], refSeries, ev, B)); } report.weeklyWritten = wk; }
+        for (const p of ST.PLAYERS) { const f = path.join(LABREP, 'weekly', wk, p.id + '.md'); if (fs.existsSync(f) && readOnly) continue; fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, weeklyNote(p, wk, wkDays, view[p.id], refSeries, ev, B, { RI, RH })); } report.weeklyWritten = wk; }
     } catch (e) { report.errors.push('تعذرت كتابة تقارير المختبر: ' + e.message); }
   }
   function readJson(f) { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { return null; } }
-  function weeklyNote(p, wk, wkDays, v, refSeries, ev, B) {
+  /* LAB-REF-01: هل الحَكَم مستثمر بالكامل؟ يوم الاستثمار = أول تعبئة/تقاطع شراء VOO له؛ الكمية المقصودة = أوامر شرائه ليوم التنفيذ ذاك + ما طوبق داخليًا فيه.
+     لا أوامر ⇒ none • أمر معلق بلا تعبئة ⇒ pending • معبأ أقل من المقصود أو أمر شراء ما زال مفتوحًا ⇒ partial • غير ذلك ⇒ full */
+  function refInvestment(B, books) { const k = books.REF; const p = k && k.pos.VOO; const held = p && p.qty > 1e-9 ? p.qty : 0;
+    const ev = k ? k.fills.filter(f => f.side === 'buy' && f.sym === 'VOO') : []; const orders = B.lab.filter(o => o._book === 'REF' && o.side === 'buy'); const openBuy = orders.filter(o => !TERMINAL.has(o.status));
+    if (!ev.length) return { full: false, state: openBuy.length ? 'pending' : 'none', heldQty: 0, intendedQty: openBuy.length ? openBuy.reduce((a, o) => a + (+o.qty), 0) : null, investDate: null,
+      why: 'الحَكَم لم يُعبأ بعد (' + (orders.length ? 'أوامره: ' + orders.map(o => o.client_order_id + '/' + o.status).slice(-3).join('، ') : 'لا أوامر شراء') + ')' };
+    const d0 = ev[0].date; const intended = orders.filter(o => targetOfCid(o.client_order_id) === d0).reduce((a, o) => a + (+o.qty), 0) + ev.filter(f => f.kind === 'cross' && f.date === d0).reduce((a, f) => a + f.qty, 0);
+    const full = held >= 1 && held + 1e-9 >= intended && !openBuy.length;
+    return { full, state: full ? 'full' : 'partial', heldQty: held, intendedQty: intended, investDate: d0, why: full ? null : 'الحَكَم معبأ جزئيًا: ' + held + ' من ' + intended + ' سهم VOO' + (openBuy.length ? ' (أمر شراء مفتوح)' : '') }; }
+  /* REF-H (افتراضي، حسابي فقط): 13,000 مستثمرة بالكامل في VOO بسعر الافتتاح الرسمي لأول يوم تداول في المختبر، بالكمية التي يحسبها الحَكَم نفسه (إغلاق اليوم السابق × 1.03، أسهم كاملة)،
+     بلا رسوم ولا انزلاق مثل حساب الحَكَم من التعبئة. من شموع VOO التي جلبها المحرّك؛ غيابها ⇒ يُحذف مع السبب. لا أوامر أبدًا، ولا يدخل في أي حكم رسمي. */
+  function refHypo(B, lastDay) { const base = { id: 'REF-H', label: 'REF-H (افتراضي، حسابي فقط)', hypothetical: true, noOrders: true, replacesRef: false,
+      note: 'مرجع مساعد افتراضي: لا يرسل أوامر ولا يحل محل الحَكَم ولا يدخل في حكم «يتفوق/لا يتفوق». 13,000 دولار في VOO بافتتاح أول يوم تداول للمختبر، بقاعدة كمية الحَكَم نفسها.' };
+    const d0 = ST.sortedDates(B.cal).find(d => d >= cfg.labStart); if (!d0 || d0 > lastDay) return Object.assign(base, { omitted: true, why: 'لم يكتمل أول يوم تداول في المختبر' });
+    const b0 = barOn('VOO', d0); const prev = ST.prevTradingDay(B.cal, d0); const ref = prev ? closeOnOrBefore('VOO', prev) : null;
+    if (!b0 || !(b0.o > 0) || !(ref > 0)) return Object.assign(base, { omitted: true, startDate: d0, why: 'شمعة VOO لافتتاح ' + d0 + ' أو إغلاق ' + prev + ' غير متاحة من الشموع التي جلبها المحرّك' });
+    const qty = ST.wholeBudgetQty(ST.BUDGET, ref); const cash = ST.BUDGET - qty * b0.o; const series = [];
+    for (const d of B.cal.filter(d => d >= d0 && d <= lastDay)) { const c = closeOnOrBefore('VOO', d); if (!(c > 0)) return Object.assign(base, { omitted: true, startDate: d0, why: 'إغلاق VOO ناقص في ' + d }); series.push({ date: d, equity: r2(cash + qty * c) }); }
+    const last = series[series.length - 1].equity; const dd = ddStats(series, ST.BUDGET);
+    return Object.assign(base, { omitted: false, startDate: d0, lastDay, openPx: b0.o, refPx: ref, qty, cash: r2(cash), equity: last, totalReturnPct: +((last / ST.BUDGET - 1) * 100).toFixed(3), maxDrawdownPct: dd.maxDrawdownPct }); }
+  function weeklyNote(p, wk, wkDays, v, refSeries, ev, B, cmp) { cmp = cmp || {}; const RI = cmp.RI || { full: true }, RH = cmp.RH || null;
     const s = v.series; const first = s.find(x => x.date === wkDays[0]); const iFirst = s.indexOf(first); const startE = iFirst > 0 ? s[iFirst - 1].equity : p.budget; const last = s.find(x => x.date === wkDays[wkDays.length - 1]);
     const wkEv = ev.filter(e => ST.BOOKS.find(b => b.id === e.book && b.player === p.id) && wkDays.includes(nyParts(e.t).date));
     const buys = wkEv.filter(e => e.side === 'buy'), sells = wkEv.filter(e => e.side === 'sell'); const fmt = x => x == null ? '—' : Number(x).toLocaleString('en-US', { maximumFractionDigits: 2 });
@@ -751,6 +1035,8 @@ function mkLab(env, io) {
     if (buys.length) L.push('- عمليات الشراء: ' + buys.length + ' (' + [...new Set(buys.map(e => e.sym))].join('، ') + ').'); if (sells.length) L.push('- عمليات البيع: ' + sells.length + ' (' + [...new Set(sells.map(e => e.sym))].join('، ') + ').');
     const cr = wkEv.filter(e => e.kind === 'cross'); if (cr.length) L.push('- عمليات تمت داخليًا مع لاعب آخر: ' + cr.length + ' (الرمز نفسه في الافتتاح نفسه، بسعر الافتتاح الرسمي).');
     L.push(''); L.push('## النتيجة'); L.push('- قيمة المحفظة: ' + fmt(startE) + ' ← ' + fmt(last && last.equity) + ' دولار.'); L.push('- منذ البداية: ' + (ret == null ? '—' : ret.toFixed(2) + '%') + '، والحكَم: ' + (refRet == null ? '—' : refRet.toFixed(2) + '%') + '.');
+    if (!RI.full) L.push(p.id === 'REF' ? '- الحَكَم غير مستثمر بالكامل: ' + RI.why + '. نتيجته الفعلية تبقى كما هي.' : '- **' + REF_SUSPENDED + '** (' + RI.why + ') — لا حكم «يتفوق/لا يتفوق» حتى يكتمل استثماره.');
+    if (RH) L.push(RH.omitted ? '- المرجع الافتراضي REF-H غير معروض: ' + RH.why + '.' : '- مرجع افتراضي ' + RH.label + ': ' + RH.totalReturnPct.toFixed(2) + '% (حسابي فقط — لا أوامر، ولا يحل محل الحَكَم).');
     L.push('- أكبر هبوط حتى الآن: ' + v.maxDrawdownPct + '%. الصفقات المغلقة: ' + v.tradesClosed + '.'); L.push('');
     L.push('## ما الذي تغيّر'); if (v.killed) L.push('- **توقف عن الشراء** منذ ' + v.killed.date + ' لأن خسارته بلغت 15%.'); else L.push('- لا تغيير في القواعد (القواعد مجمّدة).');
     L.push(''); L.push('_ملاحظة: هذا حساب ورقي. التعبئة الورقية متفائلة، والنتيجة لا تعني ربحًا حقيقيًا._'); return L.join('\n') + '\n'; }
@@ -771,11 +1057,11 @@ function mkLab(env, io) {
     catch (e) { const er = new Error('تعذر كتابة إيصال الحفظ: ' + e.message); er.code = 'SAVE_RECEIPT_FAILED'; er.reportFile = name; throw er; }
     return f; }
 
-  return { overnight, postopen, status, clearFlags: async () => clearFlags(io.flagNote), report, saveReport, setExitCode, _req: req, cfg, readState };
+  return { overnight, postopen, protectLoop, status, clearFlags: async () => clearFlags(io.flagNote), report, saveReport, setExitCode, _req: req, cfg, readState };
 }
 
-const COMMANDS = { 'lab-overnight': 'overnight', 'lab-postopen': 'postopen', 'lab-status': 'status', 'lab-clear-flags': 'clearFlags' };
-module.exports = { mkLab, VERSION, WIN, ALPACA, FAILSAFE_STOP_PCT, opgTimeOk, COMMANDS, nyMs, isoWeek, refOfCid, targetOfCid, labEndOf };
+const COMMANDS = { 'lab-overnight': 'overnight', 'lab-postopen': 'postopen', 'lab-protect': 'protectLoop', 'lab-status': 'status', 'lab-clear-flags': 'clearFlags' };
+module.exports = { mkLab, VERSION, WIN, ALPACA, FAILSAFE_STOP_PCT, opgTimeOk, COMMANDS, nyMs, isoWeek, refOfCid, targetOfCid, labEndOf, labVerdict, REF_SUSPENDED, ACTIVE_STOP };
 if (require.main === module) {
   (async () => { const cmd = process.argv[2] || 'lab-status'; const dir = __dirname;
     if (!COMMANDS[cmd]) { console.error('الأوامر: ' + Object.keys(COMMANDS).join(' | ')); process.exit(2); }

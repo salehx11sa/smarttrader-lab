@@ -14,5 +14,7 @@
   "U-LOW": "universe-U-LOW.json"
  },
  "minUniverse": 50,
- "freezeFile": "lab-freeze.json"
+ "freezeFile": "lab-freeze.json",
+ "protectSlaSuspend": true,
+ "_noteProtectSla": "lab-0.4: protection-sla-breach — أي تعبئة في S1/CHEAP/LEARN.S1/LEARN.CHEAP تتجاوز 90 ثانية حتى وقف مؤكد (new/held) أو خروج معبأ، أو تبقى معلقة/تفشل ⇒ يُمنع دخول OPG الجديد لهذه الدفاتر الأربعة فقط حتى lab-clear-flags. false = قياس وتقرير بلا منع."
 }
