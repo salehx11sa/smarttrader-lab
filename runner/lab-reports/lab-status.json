@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.2",
- "at": "2026-10-08T19:51:21.070Z",
+ "at": "2026-10-08T20:06:12.474Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -29,7 +29,7 @@
    "id": "S1",
    "name": "السريع",
    "equityClose": 13000,
-   "equityNow": 13005.22,
+   "equityNow": 13005.76,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -42,7 +42,7 @@
    "id": "T1",
    "name": "الصبور",
    "equityClose": 13000,
-   "equityNow": 12982.57,
+   "equityNow": 12989.21,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -68,7 +68,7 @@
    "id": "O1",
    "name": "الليلي",
    "equityClose": 12999.28,
-   "equityNow": 12980.4,
+   "equityNow": 12983.38,
    "totalReturnPct": -0.006,
    "maxDrawdownPct": 0.01,
    "drawdownPct": 0.01,
@@ -81,7 +81,7 @@
    "id": "CHEAP",
    "name": "الرخيص",
    "equityClose": 13000,
-   "equityNow": 13003.02,
+   "equityNow": 13001.46,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -94,7 +94,7 @@
    "id": "LEARN",
    "name": "المتعلّم",
    "equityClose": 12999.96,
-   "equityNow": 12997.6,
+   "equityNow": 12997.9,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -175,7 +175,7 @@
  },
  "settlement": {
   "proven": true,
-  "settledCash": 83738.03
+  "settledCash": 76774.48
  },
  "crossesTotal": 2,
  "crossLedger": {
