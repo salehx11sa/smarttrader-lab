@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.2",
- "at": "2026-10-08T02:53:11.181Z",
+ "at": "2026-10-08T08:03:48.676Z",
  "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -45,7 +45,7 @@
    "id": "T1",
    "name": "الصبور",
    "equityClose": 13000,
-   "equityNow": 13000.27,
+   "equityNow": 12978.31,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -178,7 +178,7 @@
  },
  "settlement": {
   "proven": true,
-  "settledCash": 89328.12
+  "settledCash": 89328.11
  },
  "crossesTotal": 2,
  "crossLedger": {
