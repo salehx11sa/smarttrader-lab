@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.2",
- "at": "2026-10-08T08:03:48.676Z",
+ "at": "2026-10-08T10:07:48.078Z",
  "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -45,7 +45,7 @@
    "id": "T1",
    "name": "الصبور",
    "equityClose": 13000,
-   "equityNow": 12978.31,
+   "equityNow": 12972.82,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
