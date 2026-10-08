@@ -1,0 +1,367 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.2",
+ "rulesVersion": "lab-0.1",
+ "at": "2026-10-08T14:11:25.414Z",
+ "cmd": "lab-postopen",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [],
+ "warnings": [],
+ "errors": [],
+ "orders": [],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [
+  {
+   "book": "O1",
+   "why": "O1: ما زال يملك SPY أو أمرًا معلقًا — لا شراء الليلة"
+  },
+  {
+   "book": "LEARN.O1",
+   "why": "O1: ما زال يملك SPY أو أمرًا معلقًا — لا شراء الليلة"
+  }
+ ],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "37790395359",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "17",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-08T14:11:25.414Z"
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "83738.03",
+  "equity": "100075.75",
+  "clock": {
+   "is_open": true,
+   "next_close": "2026-10-08T16:00:00-04:00",
+   "next_open": "2026-10-09T09:30:00-04:00",
+   "timestamp": "2026-10-08T10:11:29.196738183-04:00"
+  }
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 2,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 2,
+   "head": "f1e31ecb0039"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "crossLedgerInitial": {
+  "ok": true,
+  "state": "valid",
+  "rows": 2,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 2,
+   "head": "f1e31ecb0039"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "feedUsed": "sip",
+ "recon": {
+  "rows": [
+   {
+    "sym": "AMD",
+    "lab": 0,
+    "baseline": 1,
+    "broker": 1,
+    "diff": 0
+   },
+   {
+    "sym": "CAT",
+    "lab": 0,
+    "baseline": 1,
+    "broker": 1,
+    "diff": 0
+   },
+   {
+    "sym": "HELP",
+    "lab": 18,
+    "baseline": 0,
+    "broker": 18,
+    "diff": 0
+   },
+   {
+    "sym": "MFA",
+    "lab": 83,
+    "baseline": 0,
+    "broker": 83,
+    "diff": 0
+   },
+   {
+    "sym": "MSFT",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NVDA",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NXH",
+    "lab": 93,
+    "baseline": 0,
+    "broker": 93,
+    "diff": 0
+   },
+   {
+    "sym": "SPY",
+    "lab": 15,
+    "baseline": 0,
+    "broker": 15,
+    "diff": 0
+   }
+  ],
+  "ok": true,
+  "labMismatch": {},
+  "unexplainedForeign": [],
+  "baselineDrift": []
+ },
+ "foreignActivity": {
+  "ordersToday": [],
+  "openBuys": [],
+  "fillsToday": [],
+  "unknownFillsToday": [],
+  "any": false
+ },
+ "settlement": {
+  "proven": true,
+  "settledCash": 83738.03,
+  "cash": 83738.03,
+  "unsettledProceeds": 0,
+  "reasons": [],
+  "pendingReserveAll": 7204.83
+ },
+ "protection": [
+  {
+   "book": "S1",
+   "sym": "HELP",
+   "qty": 18,
+   "want": 7.91,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "stops": [
+    {
+     "id": "5a453f18-b0fd-4301-843b-e53aec7b76f3",
+     "status": "new",
+     "qty": 18,
+     "stop": 7.91,
+     "tif": "gtc"
+    }
+   ],
+   "pendingBuy": false,
+   "fillAt": "2026-10-08T13:30:26.752Z",
+   "stopAt": "2026-10-08T13:41:26.713Z",
+   "fillToStopSec": 660,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "qty": 93,
+   "want": 0.9886,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "stops": [
+    {
+     "id": "69e71ec8-7ab6-4922-8611-3318bfe8d3bb",
+     "status": "new",
+     "qty": 93,
+     "stop": 0.9886,
+     "tif": "gtc"
+    }
+   ],
+   "pendingBuy": false,
+   "fillAt": "2026-10-08T13:30:10.980Z",
+   "stopAt": "2026-10-08T13:41:26.943Z",
+   "fillToStopSec": 676,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "qty": 83,
+   "want": 6.53,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "stops": [
+    {
+     "id": "cce86488-8f16-402a-a904-5954cc0f2370",
+     "status": "new",
+     "qty": 83,
+     "stop": 6.53,
+     "tif": "gtc"
+    }
+   ],
+   "pendingBuy": false,
+   "fillAt": "2026-10-08T13:30:20.099Z",
+   "stopAt": "2026-10-08T13:41:27.027Z",
+   "fillToStopSec": 667,
+   "unprotectedSec": null
+  }
+ ],
+ "protectionLatency": [
+  {
+   "book": "S1",
+   "sym": "HELP",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-08T13:30:26.752Z",
+   "stopAt": "2026-10-08T13:41:26.713Z",
+   "fillToStopSec": 660,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-08T13:30:10.980Z",
+   "stopAt": "2026-10-08T13:41:26.943Z",
+   "fillToStopSec": 676,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-08T13:30:20.099Z",
+   "stopAt": "2026-10-08T13:41:27.027Z",
+   "fillToStopSec": 667,
+   "unprotectedSec": null
+  }
+ ],
+ "clsWindow": {
+  "inWindow": true,
+  "cutoffHm": 945,
+  "close": "16:00",
+  "alpacaClsRejectFrom": "15:50"
+ },
+ "continuity": {
+  "tool": "state_guard 7.2.19-dev",
+  "runId": "37790395359",
+  "runNumber": 17,
+  "runAttempt": 1,
+  "at": "2026-10-08T14:11:24.220Z",
+  "anchor": {
+   "runId": "37786315250",
+   "runNumber": 16,
+   "runAttempt": 1,
+   "at": "2026-10-08T13:41:28Z",
+   "cmd": "lab-postopen",
+   "runOutcome": "success",
+   "incomplete": false,
+   "openSaveIncidents": 0,
+   "pairVerified": true,
+   "anchorSchema": 2,
+   "runnerExit": 0,
+   "lastPair": "ok",
+   "problems": []
+  },
+  "checked": [],
+  "lost": [],
+  "recovered": [],
+  "unresolved": [],
+  "ok": true,
+  "reason": "لا تشغيل سابق فقد حالته"
+ },
+ "saveIncidents": {
+  "open": [],
+  "errors": []
+ },
+ "runPair": {
+  "status": "ok",
+  "problems": []
+ },
+ "freeze": {
+  "ok": true,
+  "changed": [],
+  "labVersion": "lab-0.1",
+  "why": null
+ },
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
+ "learn": {
+  "weights": {
+   "S1": 0.2,
+   "T1": 0.2,
+   "TM1": 0.2,
+   "O1": 0.2,
+   "CHEAP": 0.2
+  },
+  "budgets": {
+   "S1": 2600,
+   "T1": 2600,
+   "TM1": 2600,
+   "O1": 2600,
+   "CHEAP": 2600
+  }
+ },
+ "sent": [],
+ "labStatus": {
+  "lastCompletedDay": "2026-10-07",
+  "dailyWritten": [
+   "2026-10-07"
+  ]
+ }
+}
