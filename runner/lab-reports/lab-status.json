@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.2",
- "at": "2026-10-08T19:24:29.048Z",
+ "at": "2026-10-08T19:51:21.070Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -9,12 +9,7 @@
  "daysElapsed": 1,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": false,
-  "why": [
-   "نشاط أجنبي اليوم على الحساب (CAT)"
-  ]
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -34,7 +29,7 @@
    "id": "S1",
    "name": "السريع",
    "equityClose": 13000,
-   "equityNow": 13005.94,
+   "equityNow": 13005.22,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -47,7 +42,7 @@
    "id": "T1",
    "name": "الصبور",
    "equityClose": 13000,
-   "equityNow": 12985.27,
+   "equityNow": 12982.57,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -86,7 +81,7 @@
    "id": "CHEAP",
    "name": "الرخيص",
    "equityClose": 13000,
-   "equityNow": 13000.38,
+   "equityNow": 13003.02,
    "totalReturnPct": 0,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
