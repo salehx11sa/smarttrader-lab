@@ -1,0 +1,34 @@
+{
+ "player": "REF",
+ "name": "الحَكَم",
+ "date": "2026-10-09",
+ "labVersion": "lab-0.7",
+ "startEquity": 13000,
+ "equity": 13000,
+ "cash": 13000,
+ "dayPnl": 0,
+ "totalPnl": 0,
+ "totalReturnPct": 0,
+ "drawdownPct": 0,
+ "maxDrawdownPct": 0,
+ "positions": [],
+ "orders": [
+  {
+   "cid": "ref1-20261009-VOO-B-r71128",
+   "sym": "VOO",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 17,
+   "filled": 0,
+   "status": "expired"
+  }
+ ],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

@@ -1,0 +1,133 @@
+{
+ "player": "S1",
+ "name": "السريع",
+ "date": "2026-10-09",
+ "labVersion": "lab-0.7",
+ "startEquity": 13000,
+ "equity": 13058.32,
+ "cash": 11823.91,
+ "dayPnl": 52.56,
+ "totalPnl": 58.32,
+ "totalReturnPct": 0.449,
+ "drawdownPct": 0,
+ "maxDrawdownPct": 0,
+ "positions": [
+  {
+   "book": "S1",
+   "sym": "HELP",
+   "qty": 18,
+   "avgCost": 10.4,
+   "close": 11.8,
+   "value": 212.4,
+   "entryDate": "2026-10-08"
+  },
+  {
+   "book": "S1",
+   "sym": "DFTX",
+   "qty": 21,
+   "avgCost": 35,
+   "close": 36.9,
+   "value": 774.9,
+   "entryDate": "2026-10-09"
+  },
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "qty": 3,
+   "avgCost": 84.63,
+   "close": 82.37,
+   "value": 247.11,
+   "entryDate": "2026-10-09"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "s1-20261009-BBNX-B-r1743",
+   "sym": "BBNX",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 34,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261009-DFTX-B-r3418",
+   "sym": "DFTX",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 21,
+   "filled": 21,
+   "status": "filled"
+  },
+  {
+   "cid": "s1-20261009-DNTH-B-r8243",
+   "sym": "DNTH",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 9,
+   "filled": 3,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261009-DFTX-P2",
+   "sym": "DFTX",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 21,
+   "filled": 0,
+   "status": "new",
+   "stop": 29.02
+  },
+  {
+   "cid": "s1-20261009-DNTH-P2",
+   "sym": "DNTH",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 3,
+   "filled": 0,
+   "status": "new",
+   "stop": 71.27
+  }
+ ],
+ "fills": [
+  {
+   "book": "S1",
+   "sym": "DFTX",
+   "side": "buy",
+   "qty": 21,
+   "price": 35,
+   "cid": "s1-20261009-DFTX-B-r3418",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 34.18,
+   "slipVsRefPct": 2.399,
+   "auctionPrice": 34.85,
+   "slipVsAuctionPct": 0.43
+  },
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "side": "buy",
+   "qty": 3,
+   "price": 84.63,
+   "cid": "s1-20261009-DNTH-B-r8243",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 82.43,
+   "slipVsRefPct": 2.669,
+   "auctionPrice": 82.36,
+   "slipVsAuctionPct": 2.756
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

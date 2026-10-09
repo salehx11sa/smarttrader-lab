@@ -1,0 +1,241 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-09",
+ "labVersion": "lab-0.7",
+ "startEquity": 13000,
+ "equity": 12996.59,
+ "cash": 11867,
+ "dayPnl": -1.15,
+ "totalPnl": -3.41,
+ "totalReturnPct": -0.026,
+ "drawdownPct": 0.03,
+ "maxDrawdownPct": 0.03,
+ "positions": [
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "qty": 1,
+   "avgCost": 84.63,
+   "close": 82.37,
+   "value": 82.37,
+   "entryDate": "2026-10-09"
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "qty": 1,
+   "avgCost": 773.79,
+   "close": 778.57,
+   "value": 778.57,
+   "entryDate": "2026-10-08"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "qty": 51,
+   "avgCost": 2.38,
+   "close": 2.35,
+   "value": 119.85,
+   "entryDate": "2026-10-09"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "qty": 20,
+   "avgCost": 7.54,
+   "close": 7.44,
+   "value": 148.8,
+   "entryDate": "2026-10-09"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-o1-20261009-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261009-BBNX-B-r1743",
+   "sym": "BBNX",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 6,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261009-DFTX-B-r3418",
+   "sym": "DFTX",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 4,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261009-DNTH-B-r8243",
+   "sym": "DNTH",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-s1-20261009-ABCL-B-r1202",
+   "sym": "ABCL",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 10,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261009-ALLO-B-r140",
+   "sym": "ALLO",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 104,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261009-LAC-B-r236",
+   "sym": "LAC",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 68,
+   "filled": 51,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261009-QUBT-B-r745",
+   "sym": "QUBT",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 20,
+   "filled": 20,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-ch1-20261009-NUAI-B-r483",
+   "sym": "NUAI",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 14,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261009-QUBT-P1",
+   "sym": "QUBT",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 20,
+   "filled": 0,
+   "status": "new",
+   "stop": 6.3
+  },
+  {
+   "cid": "ln1-s1-20261009-DNTH-P3",
+   "sym": "DNTH",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 1,
+   "filled": 0,
+   "status": "new",
+   "stop": 71.27
+  },
+  {
+   "cid": "ln1-ch1-20261009-LAC-P3",
+   "sym": "LAC",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 51,
+   "filled": 0,
+   "status": "new",
+   "stop": 2
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "side": "buy",
+   "qty": 1,
+   "price": 84.63,
+   "cid": "ln1-s1-20261009-DNTH-B-r8243",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 82.43,
+   "slipVsRefPct": 2.669,
+   "auctionPrice": 82.36,
+   "slipVsAuctionPct": 2.756
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "side": "buy",
+   "qty": 51,
+   "price": 2.38,
+   "cid": "ln1-ch1-20261009-LAC-B-r236",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 2.36,
+   "slipVsRefPct": 0.847,
+   "auctionPrice": 2.39,
+   "slipVsAuctionPct": -0.418
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "side": "buy",
+   "qty": 20,
+   "price": 7.54,
+   "cid": "ln1-ch1-20261009-QUBT-B-r745",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 7.45,
+   "slipVsRefPct": 1.208,
+   "auctionPrice": 7.565,
+   "slipVsAuctionPct": -0.33
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 1,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}

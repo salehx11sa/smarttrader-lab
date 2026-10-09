@@ -1,0 +1,63 @@
+{
+ "player": "CHEAP",
+ "name": "الرخيص",
+ "date": "2026-10-09",
+ "labVersion": "lab-0.7",
+ "startEquity": 13000,
+ "equity": 12973.77,
+ "cash": 12245.56,
+ "dayPnl": -27.23,
+ "totalPnl": -26.23,
+ "totalReturnPct": -0.202,
+ "drawdownPct": 0.21,
+ "maxDrawdownPct": 0.21,
+ "positions": [
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "qty": 93,
+   "avgCost": 1.74,
+   "close": 1.69,
+   "value": 157.17,
+   "entryDate": "2026-10-08"
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "qty": 83,
+   "avgCost": 7.14,
+   "close": 6.88,
+   "value": 571.04,
+   "entryDate": "2026-10-08"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ch1-20261009-ALLO-B-r140",
+   "sym": "ALLO",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 520,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261009-LAC-B-r236",
+   "sym": "LAC",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 342,
+   "filled": 0,
+   "status": "expired"
+  }
+ ],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}
