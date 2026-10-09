@@ -1,0 +1,118 @@
+{
+ "v": 1,
+ "active": [
+  {
+   "id": "protection-sla-breach",
+   "kind": "protection-sla-breach",
+   "at": "2026-10-09T13:32:34.016Z",
+   "date": "2026-10-09",
+   "books": [
+    "S1",
+    "CHEAP",
+    "LEARN.S1",
+    "LEARN.CHEAP"
+   ],
+   "cases": [
+    {
+     "book": "S1",
+     "sym": "DFTX",
+     "fillAt": "2026-10-09T13:30:08.476Z",
+     "resolvedAt": "2026-10-09T13:32:02.402Z",
+     "sec": 114,
+     "ageSec": null,
+     "result": "resolved",
+     "by": "stop",
+     "source": "lab-protect"
+    },
+    {
+     "book": "LEARN.S1",
+     "sym": "DNTH",
+     "fillAt": "2026-10-09T13:30:04.778Z",
+     "resolvedAt": "2026-10-09T13:32:34.015Z",
+     "sec": 149,
+     "ageSec": null,
+     "result": "resolved",
+     "by": "stop",
+     "source": "lab-protect"
+    },
+    {
+     "book": "S1",
+     "sym": "DNTH",
+     "fillAt": "2026-10-09T13:30:16.338Z",
+     "resolvedAt": "2026-10-09T13:32:34.015Z",
+     "sec": 138,
+     "ageSec": null,
+     "result": "resolved",
+     "by": "stop",
+     "source": "lab-protect"
+    },
+    {
+     "book": "LEARN.CHEAP",
+     "sym": "LAC",
+     "fillAt": "2026-10-09T13:30:13.956Z",
+     "resolvedAt": "2026-10-09T13:32:34.015Z",
+     "sec": 140,
+     "ageSec": null,
+     "result": "resolved",
+     "by": "stop",
+     "source": "lab-protect"
+    }
+   ],
+   "source": "lab-protect",
+   "note": "تعبئة في دفاتر الأسهم تجاوزت 90 ثانية حتى الحماية المؤكدة أو بقيت معلقة/فشلت — يُمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى مراجعة صالح (lab-clear-flags). الحماية والخروج مستمران."
+  }
+ ],
+ "cleared": [],
+ "lots": {
+  "S1|DFTX|1791552608476": {
+   "date": "2026-10-09",
+   "sec": 114,
+   "ageSec": null,
+   "by": "stop",
+   "result": "resolved",
+   "breach": true,
+   "source": "lab-protect",
+   "at": "2026-10-09T13:32:34.016Z"
+  },
+  "LEARN.S1|DNTH|1791552604778": {
+   "date": "2026-10-09",
+   "sec": 149,
+   "ageSec": null,
+   "by": "stop",
+   "result": "resolved",
+   "breach": true,
+   "source": "lab-protect",
+   "at": "2026-10-09T13:32:34.016Z"
+  },
+  "S1|DNTH|1791552616338": {
+   "date": "2026-10-09",
+   "sec": 138,
+   "ageSec": null,
+   "by": "stop",
+   "result": "resolved",
+   "breach": true,
+   "source": "lab-protect",
+   "at": "2026-10-09T13:32:34.016Z"
+  },
+  "LEARN.CHEAP|LAC|1791552613956": {
+   "date": "2026-10-09",
+   "sec": 140,
+   "ageSec": null,
+   "by": "stop",
+   "result": "resolved",
+   "breach": true,
+   "source": "lab-protect",
+   "at": "2026-10-09T13:32:34.016Z"
+  },
+  "LEARN.CHEAP|QUBT|1791552629284": {
+   "date": "2026-10-09",
+   "sec": 31,
+   "ageSec": null,
+   "by": "stop",
+   "result": "resolved",
+   "breach": false,
+   "source": "lab-protect",
+   "at": "2026-10-09T13:32:34.016Z"
+  }
+ }
+}
