@@ -1,15 +1,18 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.7",
- "at": "2026-10-09T15:04:47.118Z",
- "cmd": "lab-status",
+ "at": "2026-10-09T15:14:10.076Z",
+ "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-08",
  "daysElapsed": 2,
  "trading": true,
  "halt": false,
- "entryGates": null,
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
  "flags": [],
  "players": [
   {
@@ -30,7 +33,7 @@
    "id": "S1",
    "name": "السريع",
    "equityClose": 13005.76,
-   "equityNow": 13042.87,
+   "equityNow": 13042.39,
    "totalReturnPct": 0.044,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -44,7 +47,7 @@
    "id": "T1",
    "name": "الصبور",
    "equityClose": 12986.77,
-   "equityNow": 13038.82,
+   "equityNow": 13035.67,
    "totalReturnPct": -0.102,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0.1,
@@ -72,7 +75,7 @@
    "id": "O1",
    "name": "الليلي",
    "equityClose": 12982.08,
-   "equityNow": 13009.84,
+   "equityNow": 13008.16,
    "totalReturnPct": -0.138,
    "maxDrawdownPct": 0.14,
    "drawdownPct": 0.14,
@@ -86,7 +89,7 @@
    "id": "CHEAP",
    "name": "الرخيص",
    "equityClose": 13001,
-   "equityNow": 12977.87,
+   "equityNow": 12977.54,
    "totalReturnPct": 0.008,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -100,7 +103,7 @@
    "id": "LEARN",
    "name": "المتعلّم",
    "equityClose": 12997.74,
-   "equityNow": 12997.14,
+   "equityNow": 12995.77,
    "totalReturnPct": -0.017,
    "maxDrawdownPct": 0.02,
    "drawdownPct": 0.02,
@@ -507,14 +510,9 @@
  "protectSla": {
   "enabled": true,
   "flag": "protection-sla-breach",
-  "active": true,
+  "active": false,
   "corrupt": false,
-  "blocksNewEntriesFor": [
-   "S1",
-   "CHEAP",
-   "LEARN.S1",
-   "LEARN.CHEAP"
-  ],
+  "blocksNewEntriesFor": [],
   "books": [
    "S1",
    "CHEAP",
@@ -523,55 +521,16 @@
   ],
   "targetSec": 60,
   "upperSec": 90,
-  "since": "2026-10-09T13:32:34.016Z",
-  "cases": [
-   {
-    "book": "S1",
-    "sym": "DFTX",
-    "fillAt": "2026-10-09T13:30:08.476Z",
-    "resolvedAt": "2026-10-09T13:32:02.402Z",
-    "sec": 114,
-    "ageSec": null,
-    "result": "resolved",
-    "by": "stop",
-    "source": "lab-protect"
-   },
-   {
-    "book": "LEARN.S1",
-    "sym": "DNTH",
-    "fillAt": "2026-10-09T13:30:04.778Z",
-    "resolvedAt": "2026-10-09T13:32:34.015Z",
-    "sec": 149,
-    "ageSec": null,
-    "result": "resolved",
-    "by": "stop",
-    "source": "lab-protect"
-   },
-   {
-    "book": "S1",
-    "sym": "DNTH",
-    "fillAt": "2026-10-09T13:30:16.338Z",
-    "resolvedAt": "2026-10-09T13:32:34.015Z",
-    "sec": 138,
-    "ageSec": null,
-    "result": "resolved",
-    "by": "stop",
-    "source": "lab-protect"
-   },
-   {
-    "book": "LEARN.CHEAP",
-    "sym": "LAC",
-    "fillAt": "2026-10-09T13:30:13.956Z",
-    "resolvedAt": "2026-10-09T13:32:34.015Z",
-    "sec": 140,
-    "ageSec": null,
-    "result": "resolved",
-    "by": "stop",
-    "source": "lab-protect"
-   }
-  ],
+  "since": null,
+  "cases": [],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
- "protectPass": null,
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
  "successRule": "النجاح = عائد كلي أعلى من الحكَم + أقصى هبوط ليس أسوأ من الحكَم + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }
