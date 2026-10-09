@@ -27,7 +27,7 @@ const DS = require('./daily_strat.js');
 const CAPS = require('./caps.cjs');
 const RL = require('./runner.cjs'); /* مكتبة فقط: scanSaveIncidents/lastRunPair/pairCovered/verifySave/nyParts — نسخة مطابقة حرفيًا لـ7.2.19-dev */
 const PAPER = 'https://paper-api.alpaca.markets', DATA = 'https://data.alpaca.markets';
-const VERSION = 'lab-0.4';
+const VERSION = 'lab-0.5';
 /* النوافذ بتوقيت نيويورك (OPG-WINDOW-01). وثائق Alpaca (Orders at Alpaca / Time in Force):
    «OPG submitted after 9:28am but before 7:00pm ET will be rejected; after 7:00pm queued for the next day's opening auction» و«CLS after 3:50pm but before 7:00pm rejected».
    ⇒ إرسال OPG من 19:05 حتى 09:15 فقط (هامش 5 دقائق بعد 19:00 و13 دقيقة قبل 09:28)، وأي وقت يقع بين 09:16 و19:04 في أي يوم (ومنها عطلة نهاية الأسبوع) خارج النافذة.
@@ -356,11 +356,13 @@ function mkLab(env, io) {
   /* ---------- المطابقة والنشاط الأجنبي ---------- */
   function reconcile(B, books) {
     const labQty = {}; for (const k of Object.values(books)) for (const [s, p] of Object.entries(k.pos)) labQty[s] = (labQty[s] || 0) + p.qty;
-    const syms = new Set([...Object.keys(labQty), ...Object.keys(B.brokerPos)]); const rows = []; const labMismatch = {}; const unexplained = []; const baselineDrift = [];
+    /* LAB-BASELINE-01 (0.5): مفاتيح الخط الأساسي ضمن الاتحاد، فاختفاء مركز قديم كليًا (بيع وقفه لدى الوسيط) يظهر نقصًا لا يُسقط.
+       النقص في رمز لا يملكه المختبر ولا له أوامر مختبر ⇒ baselineDrift + baselineDeficit (تحذير، ليس فرق ملكية المختبر). القاعدة 7 كما هي. */
+    const syms = new Set([...Object.keys(labQty), ...Object.keys(B.brokerPos), ...Object.keys(BASELINE)]); const rows = []; const labMismatch = {}; const unexplained = []; const baselineDrift = []; const baselineDeficit = [];
     for (const s of [...syms].sort()) { const lab = +(labQty[s] || 0).toFixed(6), base = +(BASELINE[s] || 0), broker = +(B.brokerPos[s] || 0); const diff = +(broker - base - lab).toFixed(6);
       rows.push({ sym: s, lab, baseline: base, broker, diff });
-      if (Math.abs(diff) > 1e-6) { if (lab > 1e-9 || B.lab.some(o => o.symbol === s)) labMismatch[s] = { lab, baseline: base, broker }; else if (base) baselineDrift.push(s); else unexplained.push(s); } }
-    return { rows, ok: !Object.keys(labMismatch).length, labMismatch, unexplainedForeign: unexplained, baselineDrift };
+      if (Math.abs(diff) > 1e-6) { if (lab > 1e-9 || B.lab.some(o => o.symbol === s)) labMismatch[s] = { lab, baseline: base, broker }; else if (base) { baselineDrift.push(s); baselineDeficit.push({ sym: s, baseline: base, broker, deficit: +(base - broker).toFixed(6) }); } else unexplained.push(s); } }
+    return { rows, ok: !Object.keys(labMismatch).length, labMismatch, unexplainedForeign: unexplained, baselineDrift, baselineDeficit };
   }
   function foreignActivity(B) { const today = B.n.date; const dOf = x => x ? nyParts(Date.parse(x)).date : null; const ids = new Set(B.foreign.map(o => o.id));
     const fx = o => ({ id: o.id, cid: o.client_order_id || null, symbol: o.symbol, side: o.side, status: o.status });
@@ -538,7 +540,7 @@ function mkLab(env, io) {
     const recon = reconcile(B, books); const foreign = foreignActivity(B); const settle = accountSettlement(B);
     report.recon = recon; report.foreignActivity = foreign; report.settlement = { proven: settle.proven, settledCash: settle.settledCash, cash: settle.cash, unsettledProceeds: settle.unsettledProceeds, reasons: settle.reasons, pendingReserveAll: settle.pendingReserveAll };
     if (recon.unexplainedForeign.length) report.warnings.push('مراكز أجنبية غير معروفة (لا تُمس): ' + recon.unexplainedForeign.join('، '));
-    if (recon.baselineDrift.length) report.warnings.push('المراكز القديمة تغيّرت لدى الوسيط (لا تُمس): ' + recon.baselineDrift.join('، '));
+    if (recon.baselineDrift.length) report.warnings.push('المراكز القديمة تغيّرت لدى الوسيط (لا تُمس): ' + recon.baselineDeficit.map(x => x.sym + ' الأساس ' + x.baseline + ' ⇐ الوسيط ' + x.broker).join('، '));
     if (!recon.ok && TRADING) raise('lab-recon-mismatch', 'labrecon-' + B.n.date + '-' + Object.keys(recon.labMismatch).sort().join('_'), recon.labMismatch);
     const P = protectionState(B, books); const unprotected = P.filter(x => !x.confirmed && !x.exiting && !x.pendingBuy).map(x => x.book + ':' + x.sym);
     return { crosses, crossLedger: XL, ev, books, recon, foreign, settle, unprotected };
@@ -995,7 +997,7 @@ function mkLab(env, io) {
         entryGates: report.entryGates || null, flags: readFlags().active.map(f => ({ id: f.id, kind: f.kind, at: f.at })), players, ref: { totalReturnPct: refRet == null ? null : +(refRet * 100).toFixed(3), maxDrawdownPct: refDD.maxDrawdownPct, investment: RI, comparison: RI.full ? 'active' : 'suspended', note: RI.full ? null : REF_SUSPENDED + ' — ' + RI.why },
         refH: RH,
         learn: { weights: Lw.weights, budgets: Lw.budgets, history: Lw.history }, shadows: shadows ? shadows.map(s => ({ id: s.id, totalReturnPct: s.totalReturnPct, maxDrawdownPct: s.maxDrawdownPct, tradesClosed: s.tradesClosed, error: s.error })) : (readJson(path.join(LABREP, 'lab-status.json')) || {}).shadows || null,
-        recon: { ok: ctx.recon.ok, labMismatch: ctx.recon.labMismatch }, settlement: { proven: ctx.settle.proven, settledCash: ctx.settle.settledCash }, crossesTotal: ctx.crosses.length, crossLedger: { ok: true, state: ctx.crossLedger ? ctx.crossLedger.state : null }, protectionLatency: report.protectionLatency || null,
+        recon: { ok: ctx.recon.ok, labMismatch: ctx.recon.labMismatch, baselineDeficit: ctx.recon.baselineDeficit }, settlement: { proven: ctx.settle.proven, settledCash: ctx.settle.settledCash }, crossesTotal: ctx.crosses.length, crossLedger: { ok: true, state: ctx.crossLedger ? ctx.crossLedger.state : null }, protectionLatency: report.protectionLatency || null,
         ...protF(),
         successRule: 'النجاح = عائد كلي أعلى من الحكَم + أقصى هبوط ليس أسوأ من الحكَم + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند ' + LAB_END + ' فقط.' };
       wj(path.join(LABREP, 'lab-status.json'), status); report.labStatus = { lastCompletedDay: lastDay, dailyWritten: written };
