@@ -27,7 +27,7 @@ const DS = require('./daily_strat.js');
 const CAPS = require('./caps.cjs');
 const RL = require('./runner.cjs'); /* مكتبة فقط: scanSaveIncidents/lastRunPair/pairCovered/verifySave/nyParts — نسخة مطابقة حرفيًا لـ7.2.19-dev */
 const PAPER = 'https://paper-api.alpaca.markets', DATA = 'https://data.alpaca.markets';
-const VERSION = 'lab-0.5';
+const VERSION = 'lab-0.7';
 /* النوافذ بتوقيت نيويورك (OPG-WINDOW-01). وثائق Alpaca (Orders at Alpaca / Time in Force):
    «OPG submitted after 9:28am but before 7:00pm ET will be rejected; after 7:00pm queued for the next day's opening auction» و«CLS after 3:50pm but before 7:00pm rejected».
    ⇒ إرسال OPG من 19:05 حتى 09:15 فقط (هامش 5 دقائق بعد 19:00 و13 دقيقة قبل 09:28)، وأي وقت يقع بين 09:16 و19:04 في أي يوم (ومنها عطلة نهاية الأسبوع) خارج النافذة.
@@ -37,7 +37,7 @@ const ALPACA = Object.freeze({ opgRejectFromHm: 9 * 60 + 28, opgRejectToHm: 19 *
 const WIN = Object.freeze({ overnightStartHm: 19 * 60 + 5, overnightCutoffHm: 9 * 60 + 15, planFromHm: 16 * 60 + 15, clsStartHm: 9 * 60 + 35, clsCutoffBeforeCloseMin: 15, clsCutoffMaxHm: 15 * 60 + 45, opgCleanupHm: 9 * 60 + 35,
   opgBeltFromHm: 9 * 60 + 26, alpaca: ALPACA, alpacaCutoffsVerified: 'docs (not live-tested)',
   /* lab-0.3 (LAB-PROTECT-02): نافذة أمر الحماية lab-protect بتوقيت نيويورك في أيام التداول، ومدته القصوى، وفاصل التحديث، وعدد المحاولات لكل رمز وفواصلها */
-  protectFromHm: 9 * 60 + 25, protectToHm: 9 * 60 + 50, protectMaxMs: 20 * 60000, protectTickMs: 15000, protectMaxAttempts: 3, protectBackoffMs: Object.freeze([5000, 15000]) });
+  protectFromHm: 9 * 60 + 25, protectToHm: 9 * 60 + 50, protectMaxMs: 20 * 60000, protectTickMs: 15000, protectMaxAttempts: 3, protectBackoffMs: Object.freeze([5000, 15000]), opgRemainderStableMs: 15000, opgCancelRetryMs: 5000, opgCancelMaxAttempts: 4 });
 /* هل وقت اليوم (بالدقائق) داخل نافذة إرسال OPG؟ (مستقل عن التقويم؛ التقويم يحدد يوم الهدف) */
 const opgTimeOk = hm => hm >= WIN.overnightStartHm || hm <= WIN.overnightCutoffHm;
 /* الوقف الاحتياطي (LAB-PROTECT-01): يُستعمل فقط إذا تعذر حساب وقف القاعدة من الشموع ومن الخطة المحفوظة — انحراف تنفيذي مُعلَم يحتاج قبول المراجع */
@@ -97,6 +97,7 @@ function mkLab(env, io) {
   let READONLY = false; let ENTRY_BLOCK = null; /* سبب منع الشراء في هذا التشغيل (حزام إضافي في طبقة الطلبات) */
   let OWN_BLOCK = null; /* LAB-CROSS-01: سجل التقاطعات غير مثبت ⇒ لا أوامر مبنية على ملكية الدفاتر (لا شراء ولا بيع ولا إلغاء وقف)؛ يُسمح فقط بوضع وقف حماية لمركز أسهم وبخروج الحماية */
   const LAB_ORDER_IDS = new Map(); /* id ⇒ أمر للمختبر (للإلغاء فقط) */
+  const OPG_REMAINDER_CANCEL = new Set(); const OPG_STABLE = new Map(); const OPG_CANCEL_STATE = new Map(); /* lab-0.7 (LAB-CANCEL-01): السماح (OPG_REMAINDER_CANCEL) منفصل عن الإنجاز (OPG_CANCEL_STATE: done/attempts/lastAt) */ /* lab-0.6: معرّفات أوامر OPG معبأة جزئيًا يجوز لـlab-protect إلغاء باقيها بعد الافتتاح (لا شيء غيرها) */
   let PROTECT_ONLY = false; /* lab-0.3 (LAB-PROTECT-02): أمر lab-protect — حزام في طبقة الطلبات: وقف بيع GTC أو خروج حماية -X فقط، وإلغاء وقف بيع للمختبر فقط */
   const report = { tool: 'SmartTrader-PaperLab', version: VERSION, rulesVersion: ST.LAB_VERSION, at: new Date(now()).toISOString(), cmd: io.cmd || null, trading: TRADING, entries: ENTRIES, halt: HALT,
     runnerMode: env.RUNNER_MODE || null, labStart: cfg.labStart, labEnd: LAB_END, approvedPath: { approved: cfg.approvedPath, thisRun: RUN_PATH || null, ok: PATH_OK },
@@ -285,7 +286,7 @@ function mkLab(env, io) {
     if (method === 'DELETE' && /^\/v2\/orders\/[^/]+$/.test(url)) { const id = url.split('/').pop(); const o = LAB_ORDER_IDS.get(id);
       if (!o) throw new Error('إلغاء أمر ليس للمختبر (' + id + ') — رُفض قبل الإرسال'); if (Object.prototype.hasOwnProperty.call(BASELINE, o.symbol)) throw new Error('أمر على مركز قديم — لا يُلغى');
       if (OWN_BLOCK && o.side === 'sell' && (o.type === 'stop' || o.type === 'stop_limit')) throw new Error('سجل التقاطعات غير مثبت — الوقفات القائمة تبقى ولا تُلغى (' + o.symbol + ')');
-      if (PROTECT_ONLY && !(o.side === 'sell' && (o.type === 'stop' || o.type === 'stop_limit'))) throw new Error('lab-protect: لا يُلغى إلا وقف بيع للمختبر (لا إلغاء لأوامر الافتتاح أو الشراء) — رُفض ' + o.client_order_id); return; }
+      if (PROTECT_ONLY && !(o.side === 'sell' && (o.type === 'stop' || o.type === 'stop_limit')) && !(OPG_REMAINDER_CANCEL.has(id) && o.side === 'buy' && o.time_in_force === 'opg' && SLA.books.includes(o._book))) throw new Error('lab-protect: لا يُلغى إلا وقف بيع للمختبر (لا إلغاء لأوامر الافتتاح أو الشراء) — رُفض ' + o.client_order_id); return; }
     throw new Error('طلب تعديل غير مسموح في المختبر: ' + method + ' ' + url);
   }
 
@@ -849,11 +850,25 @@ function mkLab(env, io) {
       /* lab-0.4: أوامر خروج حماية متتالية رُفضت أو أُلغيت وما زال هناك متبقٍ ⇒ فشل واضح بعد الحد (لا إغراق للوسيط بأوامر بيع) */
       if (A && A.exits >= WIN.protectMaxAttempts && !x.exitPending) { failNow(x, 'خروج الحماية لم يُزل المركز بعد ' + A.exits + ' أوامر خروج (رُفضت أو أُلغيت أو عُبئت جزئيًا) — المتبقي ' + x.need + ' سهم'); return true; }
       if (A && A.washSig && A.washSig === washSig(x)) return true; if (!A || !A.n) return false; return now() - A.lastAt < WIN.protectBackoffMs[Math.min(A.n, WIN.protectBackoffMs.length) - 1]; }
-    function nextWait() { let w = WIN.protectTickMs; for (const A of Object.values(ATT)) if (A.n > 0 && A.n < WIN.protectMaxAttempts) { const due = A.lastAt + WIN.protectBackoffMs[Math.min(A.n, WIN.protectBackoffMs.length) - 1] - now(); w = Math.min(w, Math.max(1000, due)); }
+    function nextWait() { let w = WIN.protectTickMs; for (const cs of OPG_CANCEL_STATE.values()) if (!cs.done && cs.attempts < WIN.opgCancelMaxAttempts) w = Math.min(w, Math.max(1000, cs.lastAt + WIN.opgCancelRetryMs - now()));
+      for (const [id, st] of OPG_STABLE) { const cs = OPG_CANCEL_STATE.get(id); const o = B && B.lab.find(z => z.id === id); if ((cs && (cs.done || cs.attempts)) || !o || o.status !== 'partially_filled') continue; w = Math.min(w, Math.max(1000, st.t + WIN.opgRemainderStableMs - now())); } for (const A of Object.values(ATT)) if (A.n > 0 && A.n < WIN.protectMaxAttempts) { const due = A.lastAt + WIN.protectBackoffMs[Math.min(A.n, WIN.protectBackoffMs.length) - 1] - now(); w = Math.min(w, Math.max(1000, due)); }
       return Math.max(1000, Math.min(w, deadline - now())); }
     let books = null, P = [], burst = 0, status = null;
     for (;;) { PR.ticks++;
       books = await booksOf(B); P = protectionState(B, books); observe(P, B, books);
+      /* lab-0.6 (قياس 9 أكتوبر الحقيقي): أمر OPG معبأ جزئيًا يبقى «partially_filled» دقائق بعد المزاد، والوسيط يرفض الوقف المعاكس (wash)
+         فتأخرت 4 حمايات 114–149 ث. باقي أمر OPG لا يُعبأ بعد مزاد الافتتاح، فيُلغى باقيه فورًا بعد الافتتاح (أمر المختبر نفسه لهذا اليوم فقط)،
+         ثم يُرسل الوقف على الكمية المعبأة. لا تغيير في القواعد ولا في الكمية المعبأة. */
+      if (B.clock && B.clock.is_open && TRADING) { let didCancel = false;
+        for (const o of B.lab) { if (!(o.time_in_force === 'opg' && o.side === 'buy' && o.status === 'partially_filled' && targetOfCid(o.client_order_id) === B.n.date && SLA.books.includes(o._book)) ) continue; /* دفاتر الوقف الأربعة فقط */
+          const cs = OPG_CANCEL_STATE.get(o.id) || { done: false, attempts: 0, lastAt: 0 }; if (cs.done) continue;
+          if (cs.attempts >= WIN.opgCancelMaxAttempts) continue; if (cs.attempts && now() - cs.lastAt < WIN.opgCancelRetryMs) continue;
+          /* ثبات 15 ث: لا إلغاء إلا إذا لم تتغير الكمية المعبأة 15 ث على الأقل (تقارير المزاد قد تصل على دفعات) */
+          const fq = +o.filled_qty || 0, seen = OPG_STABLE.get(o.id); if (!cs.attempts) { if (!seen || seen.fq !== fq) { OPG_STABLE.set(o.id, { fq, t: now() }); continue; } if (now() - seen.t < WIN.opgRemainderStableMs) continue; }
+          OPG_REMAINDER_CANCEL.add(o.id); didCancel = true; cs.attempts++; cs.lastAt = now(); const r = await cancelConfirmed(o.id); cs.done = !!r.resolved; OPG_CANCEL_STATE.set(o.id, cs);
+          (PR.opgRemainderCancels = PR.opgRemainderCancels || []).push({ id: o.id, cid: o.client_order_id, sym: o.symbol, qty: +o.qty, filledAtCancel: +o.filled_qty || 0, at: iso(now()), resolved: !!r.resolved, status: r.status || null, why: r.why || null, attempt: cs.attempts });
+          if (!r.resolved) report.warnings.push('lab-protect: تعذر حسم إلغاء باقي OPG ' + o.client_order_id + ' (محاولة ' + cs.attempts + ' من ' + WIN.opgCancelMaxAttempts + '): ' + (r.why || '') + (cs.attempts < WIN.opgCancelMaxAttempts ? ' — يُعاد بعد ' + WIN.opgCancelRetryMs / 1000 + ' ث' : '')); }
+        if (didCancel) { try { B = await loadBroker(); books = await booksOf(B); P = protectionState(B, books); observe(P, B, books); } catch (e) { report.errors.push('lab-protect: تعذر التحديث بعد إلغاء باقي OPG: ' + e.message); } } }
       const opgOpen = B.lab.filter(o => o.time_in_force === 'opg' && !TERMINAL.has(o.status) && targetOfCid(o.client_order_id) === B.n.date);
       /* lab-0.4: خروج الحماية المعلق (exitPending) يبقى في «المعلّق» حتى تُعبأ كميته ويزول المركز — لا «complete» قبل ذلك */
       const pending = P.filter(x => !x.confirmed && !x.exiting);
