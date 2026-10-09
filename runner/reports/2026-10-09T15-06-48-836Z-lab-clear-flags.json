@@ -1,0 +1,43 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.7",
+ "rulesVersion": "lab-0.1",
+ "at": "2026-10-09T15:06:48.830Z",
+ "cmd": "lab-clear-flags",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "رُفع علم protection-sla-breach (1)",
+  "رُفعت 0 أعلام، وحُسمت 0 حوادث حفظ"
+ ],
+ "warnings": [],
+ "errors": [],
+ "orders": [],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "37949235144",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "46",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-09T15:06:48.830Z"
+ }
+}

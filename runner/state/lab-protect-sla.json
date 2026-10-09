@@ -1,6 +1,7 @@
 {
  "v": 1,
- "active": [
+ "active": [],
+ "cleared": [
   {
    "id": "protection-sla-breach",
    "kind": "protection-sla-breach",
@@ -59,10 +60,11 @@
     }
    ],
    "source": "lab-protect",
-   "note": "تعبئة في دفاتر الأسهم تجاوزت 90 ثانية حتى الحماية المؤكدة أو بقيت معلقة/فشلت — يُمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى مراجعة صالح (lab-clear-flags). الحماية والخروج مستمران."
+   "note": "تعبئة في دفاتر الأسهم تجاوزت 90 ثانية حتى الحماية المؤكدة أو بقيت معلقة/فشلت — يُمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى مراجعة صالح (lab-clear-flags). الحماية والخروج مستمران.",
+   "clearedAt": "2026-10-09T15:06:48.831Z",
+   "clearedBy": "salehx11sa"
   }
  ],
- "cleared": [],
  "lots": {
   "S1|DFTX|1791552608476": {
    "date": "2026-10-09",
