@@ -1,15 +1,18 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.7",
- "at": "2026-10-09T22:48:04.987Z",
- "cmd": "lab-status",
+ "at": "2026-10-09T23:12:36.673Z",
+ "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-09",
  "daysElapsed": 3,
  "trading": true,
  "halt": false,
- "entryGates": null,
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
  "flags": [],
  "players": [
   {
@@ -30,7 +33,7 @@
    "id": "S1",
    "name": "السريع",
    "equityClose": 13058.32,
-   "equityNow": 13057.38,
+   "equityNow": 13070.62,
    "totalReturnPct": 0.449,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -44,7 +47,7 @@
    "id": "T1",
    "name": "الصبور",
    "equityClose": 13056.37,
-   "equityNow": 13056.82,
+   "equityNow": 13058.32,
    "totalReturnPct": 0.434,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0,
@@ -72,7 +75,7 @@
    "id": "O1",
    "name": "الليلي",
    "equityClose": 13019.2,
-   "equityNow": 13019.44,
+   "equityNow": 13019.85,
    "totalReturnPct": 0.148,
    "maxDrawdownPct": 0.14,
    "drawdownPct": 0,
@@ -86,7 +89,7 @@
    "id": "CHEAP",
    "name": "الرخيص",
    "equityClose": 12973.77,
-   "equityNow": 12978.85,
+   "equityNow": 12974.7,
    "totalReturnPct": -0.202,
    "maxDrawdownPct": 0.21,
    "drawdownPct": 0.21,
@@ -100,7 +103,7 @@
    "id": "LEARN",
    "name": "المتعلّم",
    "equityClose": 12996.59,
-   "equityNow": 12997.02,
+   "equityNow": 12997.62,
    "totalReturnPct": -0.026,
    "maxDrawdownPct": 0.03,
    "drawdownPct": 0.03,
@@ -116,14 +119,14 @@
   "maxDrawdownPct": 0,
   "investment": {
    "full": false,
-   "state": "none",
+   "state": "pending",
    "heldQty": 0,
-   "intendedQty": null,
+   "intendedQty": 17,
    "investDate": null,
-   "why": "الحَكَم لم يُعبأ بعد (أوامره: ref1-20261008-VOO-B-r71434/expired، ref1-20261009-VOO-B-r71128/expired)"
+   "why": "الحَكَم لم يُعبأ بعد (أوامره: ref1-20261008-VOO-B-r71434/expired، ref1-20261009-VOO-B-r71128/expired، ref1-20261012-VOO-B-r71559/accepted)"
   },
   "comparison": "suspended",
-  "note": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل — الحَكَم لم يُعبأ بعد (أوامره: ref1-20261008-VOO-B-r71434/expired، ref1-20261009-VOO-B-r71128/expired)"
+  "note": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل — الحَكَم لم يُعبأ بعد (أوامره: ref1-20261008-VOO-B-r71434/expired، ref1-20261009-VOO-B-r71128/expired، ref1-20261012-VOO-B-r71559/accepted)"
  },
  "refH": {
   "id": "REF-H",
@@ -228,7 +231,7 @@
   "proven": true,
   "settledCash": 75428.75
  },
- "crossesTotal": 2,
+ "crossesTotal": 3,
  "crossLedger": {
   "ok": true,
   "state": "valid"
@@ -237,12 +240,12 @@
   {
    "book": "S1",
    "sym": "HELP",
-   "confirmed": true,
+   "confirmed": false,
    "source": "bars",
    "fillAt": "2026-10-08T13:30:26.752Z",
-   "stopAt": "2026-10-08T13:41:26.713Z",
-   "fillToStopSec": 660,
-   "unprotectedSec": null,
+   "stopAt": null,
+   "fillToStopSec": null,
+   "unprotectedSec": 121328,
    "exitPending": false,
    "exitRemaining": 0,
    "need": 18
@@ -250,12 +253,12 @@
   {
    "book": "S1",
    "sym": "DFTX",
-   "confirmed": true,
+   "confirmed": false,
    "source": "bars",
    "fillAt": "2026-10-09T13:30:08.476Z",
-   "stopAt": "2026-10-09T13:32:01.859Z",
-   "fillToStopSec": 113,
-   "unprotectedSec": null,
+   "stopAt": null,
+   "fillToStopSec": null,
+   "unprotectedSec": 34946,
    "exitPending": false,
    "exitRemaining": 0,
    "need": 21

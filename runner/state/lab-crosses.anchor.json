@@ -1,10 +1,10 @@
 {
  "v": 1,
  "kind": "lab-cross-anchor",
- "count": 2,
- "head": "f1e31ecb00397ee1415cd3f98ce58f8d11d5b86739cb0842107d4076f7a7733d",
- "rowsSha": "2ab870e3c7996b14cca1dd2a1028625f1f9123d2263ed55a66199ded75613854",
- "at": "2026-10-07T23:15:22.293Z",
+ "count": 3,
+ "head": "d1cb08a974bc13a15571add22768676c3ccf3c3f94479537df88f0405ec6a3c0",
+ "rowsSha": "03171f681fc4a46abd15c7dcc04c81dee633ba88784f8cc21b635e614b86b2c1",
+ "at": "2026-10-09T23:12:33.098Z",
  "why": "append",
- "version": "lab-0.2"
+ "version": "lab-0.7"
 }
