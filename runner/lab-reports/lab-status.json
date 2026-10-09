@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.4",
- "at": "2026-10-09T03:20:13.864Z",
+ "at": "2026-10-09T08:03:33.372Z",
  "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -10,10 +10,8 @@
  "trading": true,
  "halt": false,
  "entryGates": {
-  "ok": false,
-  "why": [
-   "نشاط أجنبي اليوم على الحساب (CAT)"
-  ]
+  "ok": true,
+  "why": []
  },
  "flags": [],
  "players": [
@@ -49,7 +47,7 @@
    "id": "T1",
    "name": "الصبور",
    "equityClose": 12986.77,
-   "equityNow": 13015.57,
+   "equityNow": 13032.82,
    "totalReturnPct": -0.102,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0.1,
@@ -77,7 +75,7 @@
    "id": "O1",
    "name": "الليلي",
    "equityClose": 12982.08,
-   "equityNow": 12997.44,
+   "equityNow": 13006.64,
    "totalReturnPct": -0.138,
    "maxDrawdownPct": 0.14,
    "drawdownPct": 0.14,
@@ -105,7 +103,7 @@
    "id": "LEARN",
    "name": "المتعلّم",
    "equityClose": 12997.74,
-   "equityNow": 12999.66,
+   "equityNow": 13000.81,
    "totalReturnPct": -0.017,
    "maxDrawdownPct": 0.02,
    "drawdownPct": 0.02,
@@ -121,14 +119,14 @@
   "maxDrawdownPct": 0,
   "investment": {
    "full": false,
-   "state": "none",
+   "state": "pending",
    "heldQty": 0,
-   "intendedQty": null,
+   "intendedQty": 17,
    "investDate": null,
-   "why": "الحَكَم لم يُعبأ بعد (أوامره: ref1-20261008-VOO-B-r71434/expired)"
+   "why": "الحَكَم لم يُعبأ بعد (أوامره: ref1-20261008-VOO-B-r71434/expired، ref1-20261009-VOO-B-r71128/new)"
   },
   "comparison": "suspended",
-  "note": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل — الحَكَم لم يُعبأ بعد (أوامره: ref1-20261008-VOO-B-r71434/expired)"
+  "note": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل — الحَكَم لم يُعبأ بعد (أوامره: ref1-20261008-VOO-B-r71434/expired، ref1-20261009-VOO-B-r71128/new)"
  },
  "refH": {
   "id": "REF-H",
@@ -223,7 +221,7 @@
  },
  "settlement": {
   "proven": true,
-  "settledCash": 76774.48
+  "settledCash": 76774.45
  },
  "crossesTotal": 2,
  "crossLedger": {
