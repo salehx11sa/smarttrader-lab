@@ -1,0 +1,1087 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.7",
+ "rulesVersion": "lab-0.1",
+ "at": "2026-10-09T23:42:13.881Z",
+ "cmd": "lab-overnight",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "lab-overnight: 0 أمر/تحقق، 0 تقاطع داخلي، ليوم 2026-10-12"
+ ],
+ "warnings": [
+  "المراكز القديمة تغيّرت لدى الوسيط (لا تُمس): CAT الأساس 1 ⇐ الوسيط 0",
+  "المراكز القديمة تغيّرت لدى الوسيط (لا تُمس): CAT الأساس 1 ⇐ الوسيط 0"
+ ],
+ "errors": [],
+ "orders": [],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "38005686655",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "60",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-09T23:42:13.881Z"
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "76226.77",
+  "equity": "100138.36",
+  "clock": {
+   "is_open": false,
+   "next_close": "2026-10-12T16:00:00-04:00",
+   "next_open": "2026-10-12T09:30:00-04:00",
+   "timestamp": "2026-10-09T19:42:14.154721729-04:00"
+  }
+ },
+ "window": {
+  "nyNow": "2026-10-09 19:42",
+  "target": "2026-10-12",
+  "prev": "2026-10-09",
+  "inWindow": true,
+  "late": false,
+  "preWindow": false,
+  "why": null,
+  "sendFrom": "2026-10-09 19:05",
+  "sendUntil": "2026-10-12 09:15",
+  "note": "إرسال OPG من 19:05 حتى 09:15 نيويورك فقط: Alpaca ترفض OPG بين 09:28 و19:00 وتصف ما بعد 19:00 لمزاد الافتتاح التالي (الوثائق الرسمية)"
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 3,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 3,
+   "head": "d1cb08a974bc"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "crossLedgerInitial": {
+  "ok": true,
+  "state": "valid",
+  "rows": 3,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 3,
+   "head": "d1cb08a974bc"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "feedUsed": "sip",
+ "recon": {
+  "rows": [
+   {
+    "sym": "AMD",
+    "lab": 0,
+    "baseline": 1,
+    "broker": 1,
+    "diff": 0
+   },
+   {
+    "sym": "CAT",
+    "lab": 0,
+    "baseline": 1,
+    "broker": 0,
+    "diff": -1
+   },
+   {
+    "sym": "DFTX",
+    "lab": 21,
+    "baseline": 0,
+    "broker": 21,
+    "diff": 0
+   },
+   {
+    "sym": "DNTH",
+    "lab": 4,
+    "baseline": 0,
+    "broker": 4,
+    "diff": 0
+   },
+   {
+    "sym": "HELP",
+    "lab": 18,
+    "baseline": 0,
+    "broker": 18,
+    "diff": 0
+   },
+   {
+    "sym": "LAC",
+    "lab": 51,
+    "baseline": 0,
+    "broker": 51,
+    "diff": 0
+   },
+   {
+    "sym": "MFA",
+    "lab": 83,
+    "baseline": 0,
+    "broker": 83,
+    "diff": 0
+   },
+   {
+    "sym": "MSFT",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NVDA",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NXH",
+    "lab": 93,
+    "baseline": 0,
+    "broker": 93,
+    "diff": 0
+   },
+   {
+    "sym": "QUBT",
+    "lab": 20,
+    "baseline": 0,
+    "broker": 20,
+    "diff": 0
+   },
+   {
+    "sym": "SPY",
+    "lab": 24,
+    "baseline": 0,
+    "broker": 24,
+    "diff": 0
+   }
+  ],
+  "ok": true,
+  "labMismatch": {},
+  "unexplainedForeign": [],
+  "baselineDrift": [
+   "CAT"
+  ],
+  "baselineDeficit": [
+   {
+    "sym": "CAT",
+    "baseline": 1,
+    "broker": 0,
+    "deficit": 1
+   }
+  ]
+ },
+ "foreignActivity": {
+  "ordersToday": [],
+  "openBuys": [],
+  "fillsToday": [],
+  "unknownFillsToday": [],
+  "any": false
+ },
+ "settlement": {
+  "proven": true,
+  "settledCash": 75428.75,
+  "cash": 76226.77,
+  "unsettledProceeds": 798.02,
+  "reasons": [],
+  "pendingReserveAll": 15243.66
+ },
+ "universes": {
+  "U-LIQ": {
+   "ok": true,
+   "stats": {
+    "withBars": 2661,
+    "stale": 8,
+    "eligible": 2013,
+    "signals": 48,
+    "lastDay": "2026-10-09"
+   },
+   "top": [
+    {
+     "sym": "DNTH",
+     "rank": -0.6410916106925981,
+     "close": 82.37,
+     "atr": 4.354886716788061,
+     "rsi2": 0.641
+    },
+    {
+     "sym": "JAZZ",
+     "rank": -1.4416919112947824,
+     "close": 218.42,
+     "atr": 7.4590826750017305,
+     "rsi2": 1.442
+    },
+    {
+     "sym": "AMBQ",
+     "rank": -1.5533352307657822,
+     "close": 58.56,
+     "atr": 3.9387231981152846,
+     "rsi2": 1.553
+    },
+    {
+     "sym": "DE",
+     "rank": -1.6758583088011818,
+     "close": 620.93,
+     "atr": 20.06009611160743,
+     "rsi2": 1.676
+    },
+    {
+     "sym": "CNH",
+     "rank": -1.7259946074865553,
+     "close": 11.39,
+     "atr": 0.5646032341675455,
+     "rsi2": 1.726
+    },
+    {
+     "sym": "BLZE",
+     "rank": -1.9070089558152716,
+     "close": 12.69,
+     "atr": 0.8110033690745296,
+     "rsi2": 1.907
+    },
+    {
+     "sym": "WT",
+     "rank": -2.500575549913762,
+     "close": 22.61,
+     "atr": 0.8812483121608953,
+     "rsi2": 2.501
+    },
+    {
+     "sym": "ARM",
+     "rank": -2.6144630371797177,
+     "close": 266.28,
+     "atr": 17.630325885754605,
+     "rsi2": 2.614
+    }
+   ]
+  },
+  "U-LOW": {
+   "ok": true,
+   "stats": {
+    "withBars": 2342,
+    "stale": 20,
+    "eligible": 757,
+    "signals": 143,
+    "lastDay": "2026-10-09"
+   },
+   "top": [
+    {
+     "sym": "NXH",
+     "rank": -0.007470378320590498,
+     "close": 1.69,
+     "atr": 0.23205665175310314,
+     "rsi2": 0.007
+    },
+    {
+     "sym": "LAC",
+     "rank": -0.017956750780129482,
+     "close": 2.35,
+     "atr": 0.12228015505674494,
+     "rsi2": 0.018
+    },
+    {
+     "sym": "NUAI",
+     "rank": -0.03862945898367798,
+     "close": 4.695,
+     "atr": 0.5919584060143924,
+     "rsi2": 0.039
+    },
+    {
+     "sym": "QUBT",
+     "rank": -0.04013828717263834,
+     "close": 7.44,
+     "atr": 0.40158514775039705,
+     "rsi2": 0.04
+    },
+    {
+     "sym": "MARA",
+     "rank": -0.10781298232286929,
+     "close": 9.65,
+     "atr": 0.7861217722576701,
+     "rsi2": 0.108
+    },
+    {
+     "sym": "GNL",
+     "rank": -0.11313645498618996,
+     "close": 7.75,
+     "atr": 0.16106295599722534,
+     "rsi2": 0.113
+    },
+    {
+     "sym": "IMCC",
+     "rank": -0.1326724786322302,
+     "close": 1.58,
+     "atr": 0.5613560968411416,
+     "rsi2": 0.133
+    },
+    {
+     "sym": "JOBY",
+     "rank": -0.16173081960978664,
+     "close": 5.44,
+     "atr": 0.2827108902661473,
+     "rsi2": 0.162
+    }
+   ]
+  }
+ },
+ "continuity": {
+  "tool": "state_guard 7.2.19-dev",
+  "runId": "38005686655",
+  "runNumber": 60,
+  "runAttempt": 1,
+  "at": "2026-10-09T23:42:12.285Z",
+  "anchor": {
+   "runId": "38003172050",
+   "runNumber": 59,
+   "runAttempt": 1,
+   "at": "2026-10-09T23:12:37Z",
+   "cmd": "lab-overnight",
+   "runOutcome": "success",
+   "incomplete": false,
+   "openSaveIncidents": 0,
+   "pairVerified": true,
+   "anchorSchema": 2,
+   "runnerExit": 0,
+   "lastPair": "ok",
+   "problems": []
+  },
+  "checked": [],
+  "lost": [],
+  "recovered": [],
+  "unresolved": [],
+  "ok": true,
+  "reason": "لا تشغيل سابق فقد حالته"
+ },
+ "saveIncidents": {
+  "open": [],
+  "errors": []
+ },
+ "runPair": {
+  "status": "ok",
+  "problems": []
+ },
+ "freeze": {
+  "ok": true,
+  "changed": [],
+  "labVersion": "lab-0.1",
+  "why": null
+ },
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
+ "players": {
+  "REF": {
+   "equityNow": 13000,
+   "killed": null,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  "S1": {
+   "equityNow": 13064.42,
+   "killed": null,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  "T1": {
+   "equityNow": 13058.77,
+   "killed": null,
+   "maxDrawdownPct": 0.1,
+   "tradesClosed": 0
+  },
+  "TM1": {
+   "equityNow": 13000,
+   "killed": null,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  "O1": {
+   "equityNow": 13020,
+   "killed": null,
+   "maxDrawdownPct": 0.14,
+   "tradesClosed": 1
+  },
+  "CHEAP": {
+   "equityNow": 12973.87,
+   "killed": null,
+   "maxDrawdownPct": 0.21,
+   "tradesClosed": 0
+  },
+  "LEARN": {
+   "equityNow": 12998.8,
+   "killed": null,
+   "maxDrawdownPct": 0.03,
+   "tradesClosed": 1
+  }
+ },
+ "learn": {
+  "weights": {
+   "S1": 0.2,
+   "T1": 0.2,
+   "TM1": 0.2,
+   "O1": 0.2,
+   "CHEAP": 0.2
+  },
+  "budgets": {
+   "S1": 2600,
+   "T1": 2600,
+   "TM1": 2600,
+   "O1": 2600,
+   "CHEAP": 2600
+  },
+  "equityBase": 13000
+ },
+ "playerCash": {
+  "REF": {
+   "cash": 13000,
+   "unsettledProceeds": 0,
+   "settledCash": 13000,
+   "pendingReserve": 12529.98,
+   "spendable": 470.02,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 13000,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "S1": {
+   "cash": 11823.91,
+   "unsettledProceeds": 0,
+   "settledCash": 11823.91,
+   "pendingReserve": 1124.86,
+   "spendable": 10699.05,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 11823.91,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "T1": {
+   "cash": 1377.82,
+   "unsettledProceeds": 0,
+   "settledCash": 1377.82,
+   "pendingReserve": 0,
+   "spendable": 1377.82,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 1377.82,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "TM1": {
+   "cash": 13000,
+   "unsettledProceeds": 0,
+   "settledCash": 13000,
+   "pendingReserve": 0,
+   "spendable": 13000,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 13000,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "O1": {
+   "cash": 9126.35,
+   "unsettledProceeds": 8534.59,
+   "settledCash": 591.76,
+   "pendingReserve": 0,
+   "spendable": 591.76,
+   "unknownPending": [],
+   "unsettled": [
+    {
+     "sym": "SPY",
+     "tradeDate": "2026-10-08",
+     "settleDate": "2026-10-09",
+     "proceeds": 6198.88
+    },
+    {
+     "sym": "SPY",
+     "tradeDate": "2026-10-12",
+     "settleDate": "2026-10-13",
+     "proceeds": 2335.71
+    }
+   ],
+   "proof": {
+    "proven": true,
+    "settledCash": 591.76,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "CHEAP": {
+   "cash": 12245.56,
+   "unsettledProceeds": 0,
+   "settledCash": 12245.56,
+   "pendingReserve": 890.13,
+   "spendable": 11355.43,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 12245.56,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "LEARN": {
+   "cash": 9531.29,
+   "unsettledProceeds": 774.86,
+   "settledCash": 8756.43,
+   "pendingReserve": 698.69,
+   "spendable": 8057.74,
+   "unknownPending": [],
+   "unsettled": [
+    {
+     "sym": "SPY",
+     "tradeDate": "2026-10-08",
+     "settleDate": "2026-10-09",
+     "proceeds": 774.86
+    }
+   ],
+   "proof": {
+    "proven": true,
+    "settledCash": 8756.43,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  }
+ },
+ "protectBlocks": [],
+ "protectSla": {
+  "enabled": true,
+  "flag": "protection-sla-breach",
+  "active": false,
+  "corrupt": false,
+  "blocksNewEntriesFor": [],
+  "books": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "targetSec": 60,
+  "upperSec": 90,
+  "since": null,
+  "cases": [],
+  "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
+ },
+ "t1": {
+  "T1": {
+   "decision": "in",
+   "close": 762.63,
+   "sma": 720.884,
+   "months": 10,
+   "monthEnd": "2026-09-30",
+   "monthsUsed": [
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09"
+   ]
+  },
+  "LEARN.T1": {
+   "decision": "in",
+   "close": 762.63,
+   "sma": 720.884,
+   "months": 10,
+   "monthEnd": "2026-09-30",
+   "monthsUsed": [
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09"
+   ]
+  }
+ },
+ "tm1": {
+  "TM1": {
+   "buyDay": false,
+   "lastUnknown": false,
+   "tradingDayOfMonth": 8
+  },
+  "LEARN.TM1": {
+   "buyDay": false,
+   "lastUnknown": false,
+   "tradingDayOfMonth": 8
+  }
+ },
+ "sent": [],
+ "status": "planned",
+ "protection": [
+  {
+   "book": "S1",
+   "sym": "HELP",
+   "qty": 18,
+   "need": 18,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 7.91,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": true,
+   "confirmed": false,
+   "awaiting": false,
+   "stops": [],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791466226752,
+     "qty": 18,
+     "cid": "s1-20261008-HELP-B-r1051"
+    }
+   ],
+   "fillAt": "2026-10-08T13:30:26.752Z",
+   "stopAt": null,
+   "fillToStopSec": null,
+   "unprotectedSec": 123137
+  },
+  {
+   "book": "S1",
+   "sym": "DFTX",
+   "qty": 21,
+   "need": 21,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 29.02,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": true,
+   "confirmed": false,
+   "awaiting": false,
+   "stops": [],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552608476,
+     "qty": 21,
+     "cid": "s1-20261009-DFTX-B-r3418"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:08.476Z",
+   "stopAt": null,
+   "fillToStopSec": null,
+   "unprotectedSec": 36755
+  },
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "qty": 3,
+   "need": 3,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 71.27,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "f0e1ce4a-85ef-40d9-a0b0-a6e7a61d2d7b",
+     "status": "new",
+     "qty": 3,
+     "stop": 71.27,
+     "tif": "gtc",
+     "submittedAt": "2026-10-09T13:32:33.389803Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552616338,
+     "qty": 3,
+     "cid": "s1-20261009-DNTH-B-r8243"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:16.338Z",
+   "stopAt": "2026-10-09T13:32:33.389Z",
+   "fillToStopSec": 137,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "qty": 93,
+   "need": 93,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 0.9886,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "69e71ec8-7ab6-4922-8611-3318bfe8d3bb",
+     "status": "new",
+     "qty": 93,
+     "stop": 0.9886,
+     "tif": "gtc",
+     "submittedAt": "2026-10-08T13:41:26.94322Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791466210980,
+     "qty": 93,
+     "cid": "ch1-20261008-NXH-B-r178"
+    }
+   ],
+   "fillAt": "2026-10-08T13:30:10.980Z",
+   "stopAt": "2026-10-08T13:41:26.943Z",
+   "fillToStopSec": 676,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "qty": 83,
+   "need": 83,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 6.53,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "cce86488-8f16-402a-a904-5954cc0f2370",
+     "status": "new",
+     "qty": 83,
+     "stop": 6.53,
+     "tif": "gtc",
+     "submittedAt": "2026-10-08T13:41:27.027089Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791466220099,
+     "qty": 83,
+     "cid": "ch1-20261008-MFA-B-r715"
+    }
+   ],
+   "fillAt": "2026-10-08T13:30:20.099Z",
+   "stopAt": "2026-10-08T13:41:27.027Z",
+   "fillToStopSec": 667,
+   "unprotectedSec": null
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "qty": 1,
+   "need": 1,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 71.27,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "4ac564c3-b9b6-4410-b34a-7b9443c98389",
+     "status": "new",
+     "qty": 1,
+     "stop": 71.27,
+     "tif": "gtc",
+     "submittedAt": "2026-10-09T13:32:33.57981Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552604778,
+     "qty": 1,
+     "cid": "ln1-s1-20261009-DNTH-B-r8243"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:04.778Z",
+   "stopAt": "2026-10-09T13:32:33.579Z",
+   "fillToStopSec": 149,
+   "unprotectedSec": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "qty": 51,
+   "need": 51,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 2,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "86e6221b-e8f9-494b-abf6-0c13fad803b2",
+     "status": "new",
+     "qty": 51,
+     "stop": 2,
+     "tif": "gtc",
+     "submittedAt": "2026-10-09T13:32:33.648558Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552613956,
+     "qty": 51,
+     "cid": "ln1-ch1-20261009-LAC-B-r236"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:13.956Z",
+   "stopAt": "2026-10-09T13:32:33.648Z",
+   "fillToStopSec": 140,
+   "unprotectedSec": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "qty": 20,
+   "need": 20,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 6.3,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "d8ea7447-f591-48e0-994c-a7d0cad2d902",
+     "status": "new",
+     "qty": 20,
+     "stop": 6.3,
+     "tif": "gtc",
+     "submittedAt": "2026-10-09T13:30:46.790216Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552629284,
+     "qty": 20,
+     "cid": "ln1-ch1-20261009-QUBT-B-r745"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:29.284Z",
+   "stopAt": "2026-10-09T13:30:46.790Z",
+   "fillToStopSec": 18,
+   "unprotectedSec": null
+  }
+ ],
+ "protectionLatency": [
+  {
+   "book": "S1",
+   "sym": "HELP",
+   "confirmed": false,
+   "source": "bars",
+   "fillAt": "2026-10-08T13:30:26.752Z",
+   "stopAt": null,
+   "fillToStopSec": null,
+   "unprotectedSec": 123137,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 18
+  },
+  {
+   "book": "S1",
+   "sym": "DFTX",
+   "confirmed": false,
+   "source": "bars",
+   "fillAt": "2026-10-09T13:30:08.476Z",
+   "stopAt": null,
+   "fillToStopSec": null,
+   "unprotectedSec": 36755,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 21
+  },
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-09T13:30:16.338Z",
+   "stopAt": "2026-10-09T13:32:33.389Z",
+   "fillToStopSec": 137,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 3
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-08T13:30:10.980Z",
+   "stopAt": "2026-10-08T13:41:26.943Z",
+   "fillToStopSec": 676,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 93
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-08T13:30:20.099Z",
+   "stopAt": "2026-10-08T13:41:27.027Z",
+   "fillToStopSec": 667,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 83
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-09T13:30:04.778Z",
+   "stopAt": "2026-10-09T13:32:33.579Z",
+   "fillToStopSec": 149,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 1
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-09T13:30:13.956Z",
+   "stopAt": "2026-10-09T13:32:33.648Z",
+   "fillToStopSec": 140,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 51
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-09T13:30:29.284Z",
+   "stopAt": "2026-10-09T13:30:46.790Z",
+   "fillToStopSec": 18,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 20
+  }
+ ],
+ "labStatus": {
+  "lastCompletedDay": "2026-10-09",
+  "dailyWritten": [
+   "2026-10-09"
+  ]
+ },
+ "weeklyWritten": "2026-W41"
+}
