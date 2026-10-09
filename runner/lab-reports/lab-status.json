@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
- "version": "lab-0.4",
- "at": "2026-10-09T08:03:33.372Z",
+ "version": "lab-0.5",
+ "at": "2026-10-09T10:08:29.778Z",
  "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -47,7 +47,7 @@
    "id": "T1",
    "name": "الصبور",
    "equityClose": 12986.77,
-   "equityNow": 13032.82,
+   "equityNow": 13036.72,
    "totalReturnPct": -0.102,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0.1,
@@ -75,7 +75,7 @@
    "id": "O1",
    "name": "الليلي",
    "equityClose": 12982.08,
-   "equityNow": 13006.64,
+   "equityNow": 13008.72,
    "totalReturnPct": -0.138,
    "maxDrawdownPct": 0.14,
    "drawdownPct": 0.14,
@@ -89,7 +89,7 @@
    "id": "CHEAP",
    "name": "الرخيص",
    "equityClose": 13001,
-   "equityNow": 13001.36,
+   "equityNow": 13001.46,
    "totalReturnPct": 0.008,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -103,7 +103,7 @@
    "id": "LEARN",
    "name": "المتعلّم",
    "equityClose": 12997.74,
-   "equityNow": 13000.81,
+   "equityNow": 13001.07,
    "totalReturnPct": -0.017,
    "maxDrawdownPct": 0.02,
    "drawdownPct": 0.02,
@@ -217,7 +217,15 @@
  ],
  "recon": {
   "ok": true,
-  "labMismatch": {}
+  "labMismatch": {},
+  "baselineDeficit": [
+   {
+    "sym": "CAT",
+    "baseline": 1,
+    "broker": 0,
+    "deficit": 1
+   }
+  ]
  },
  "settlement": {
   "proven": true,
