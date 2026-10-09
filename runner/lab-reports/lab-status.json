@@ -1,8 +1,8 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.7",
- "at": "2026-10-09T21:20:06.933Z",
- "cmd": "lab-status",
+ "at": "2026-10-09T21:24:53.479Z",
+ "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-09",
@@ -44,7 +44,7 @@
    "id": "T1",
    "name": "الصبور",
    "equityClose": 13056.37,
-   "equityNow": 13059.07,
+   "equityNow": 13054.87,
    "totalReturnPct": 0.434,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0,
@@ -72,7 +72,7 @@
    "id": "O1",
    "name": "الليلي",
    "equityClose": 13019.2,
-   "equityNow": 13020.64,
+   "equityNow": 13018.4,
    "totalReturnPct": 0.148,
    "maxDrawdownPct": 0.14,
    "drawdownPct": 0,
@@ -86,7 +86,7 @@
    "id": "CHEAP",
    "name": "الرخيص",
    "equityClose": 12973.77,
-   "equityNow": 12974.99,
+   "equityNow": 12974.6,
    "totalReturnPct": -0.202,
    "maxDrawdownPct": 0.21,
    "drawdownPct": 0.21,
@@ -100,7 +100,7 @@
    "id": "LEARN",
    "name": "المتعلّم",
    "equityClose": 12996.59,
-   "equityNow": 12998.39,
+   "equityNow": 12997.71,
    "totalReturnPct": -0.026,
    "maxDrawdownPct": 0.03,
    "drawdownPct": 0.03,
@@ -183,13 +183,13 @@
  "shadows": [
   {
    "id": "S1-h5",
-   "totalReturnPct": -0.212,
+   "totalReturnPct": 0.23,
    "maxDrawdownPct": 0.212,
    "tradesClosed": 0
   },
   {
    "id": "S1-h15",
-   "totalReturnPct": -0.212,
+   "totalReturnPct": 0.23,
    "maxDrawdownPct": 0.212,
    "tradesClosed": 0
   },
@@ -207,8 +207,8 @@
   },
   {
    "id": "CHEAP-rsi5",
-   "totalReturnPct": -0.168,
-   "maxDrawdownPct": 0.168,
+   "totalReturnPct": -0.479,
+   "maxDrawdownPct": 0.479,
    "tradesClosed": 0
   }
  ],
