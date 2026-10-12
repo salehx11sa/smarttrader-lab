@@ -1,0 +1,57 @@
+{
+ "v": 1,
+ "byCid": {
+  "o1-20261012-SPY-S-R1": {
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261012-SPY-S",
+   "origStatus": "expired",
+   "origQty": 5,
+   "origFilled": 0,
+   "qty": 5,
+   "prePx": 777.39,
+   "late": true,
+   "at": "2026-10-12T18:30:31.466Z",
+   "result": "submitted"
+  },
+  "s1-20261012-DFTX-S-R1": {
+   "book": "S1",
+   "sym": "DFTX",
+   "origCid": "s1-20261012-DFTX-S",
+   "origStatus": "expired",
+   "origQty": 21,
+   "origFilled": 0,
+   "qty": 21,
+   "prePx": 35.26,
+   "late": true,
+   "at": "2026-10-12T18:30:31.556Z",
+   "result": "submitted"
+  },
+  "s1-20261012-HELP-S-R1": {
+   "book": "S1",
+   "sym": "HELP",
+   "origCid": "s1-20261012-HELP-S",
+   "origStatus": "expired",
+   "origQty": 18,
+   "origFilled": 0,
+   "qty": 18,
+   "prePx": 11.32,
+   "late": true,
+   "at": "2026-10-12T18:30:31.685Z",
+   "result": "submitted"
+  },
+  "ln1-o1-20261012-SPY-S-R1": {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261012-SPY-S",
+   "origStatus": "expired",
+   "origQty": 1,
+   "origFilled": 0,
+   "qty": 1,
+   "prePx": 777.39,
+   "late": true,
+   "at": "2026-10-12T18:30:31.762Z",
+   "result": "submitted"
+  }
+ }
+}

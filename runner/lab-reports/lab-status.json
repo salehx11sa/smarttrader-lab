@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
- "version": "lab-0.7",
- "at": "2026-10-12T16:48:29.540Z",
+ "version": "lab-0.8",
+ "at": "2026-10-12T18:30:35.256Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -17,7 +17,8 @@
  "players": [
   {
    "id": "REF",
-   "name": "الحَكَم",
+   "name": "الحَكَم (متقاعد)",
+   "retired": "2026-10-12",
    "equityClose": 13000,
    "equityNow": 13000,
    "totalReturnPct": 0,
@@ -25,6 +26,23 @@
    "drawdownPct": 0,
    "tradesClosed": 0,
    "killed": null,
+   "sinceT0": null,
+   "vsRefPct": null,
+   "verdictSoFar": "متقاعد منذ 2026-10-12",
+   "comparisonSuspended": false
+  },
+  {
+   "id": "REF2",
+   "name": "الحَكَم",
+   "retired": null,
+   "equityClose": 13000,
+   "equityNow": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "drawdownPct": 0,
+   "tradesClosed": 0,
+   "killed": null,
+   "sinceT0": null,
    "vsRefPct": null,
    "verdictSoFar": "المرجع",
    "comparisonSuspended": false
@@ -32,13 +50,15 @@
   {
    "id": "S1",
    "name": "السريع",
+   "retired": null,
    "equityClose": 13058.32,
-   "equityNow": 13025.55,
+   "equityNow": 13012.05,
    "totalReturnPct": 0.449,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
-   "tradesClosed": 0,
+   "tradesClosed": 2,
    "killed": null,
+   "sinceT0": null,
    "vsRefPct": null,
    "verdictSoFar": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل",
    "comparisonSuspended": true
@@ -46,13 +66,15 @@
   {
    "id": "T1",
    "name": "الصبور",
+   "retired": null,
    "equityClose": 13056.37,
-   "equityNow": 13049.55,
+   "equityNow": 13038.37,
    "totalReturnPct": 0.434,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0,
    "tradesClosed": 0,
    "killed": null,
+   "sinceT0": null,
    "vsRefPct": null,
    "verdictSoFar": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل",
    "comparisonSuspended": true
@@ -60,6 +82,7 @@
   {
    "id": "TM1",
    "name": "الموسمي",
+   "retired": null,
    "equityClose": 13000,
    "equityNow": 13000,
    "totalReturnPct": 0,
@@ -67,6 +90,7 @@
    "drawdownPct": 0,
    "tradesClosed": 0,
    "killed": null,
+   "sinceT0": null,
    "vsRefPct": null,
    "verdictSoFar": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل",
    "comparisonSuspended": true
@@ -74,13 +98,15 @@
   {
    "id": "O1",
    "name": "الليلي",
+   "retired": null,
    "equityClose": 13019.2,
-   "equityNow": 13017.56,
+   "equityNow": 13013.88,
    "totalReturnPct": 0.148,
    "maxDrawdownPct": 0.14,
    "drawdownPct": 0,
-   "tradesClosed": 1,
+   "tradesClosed": 2,
    "killed": null,
+   "sinceT0": null,
    "vsRefPct": null,
    "verdictSoFar": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل",
    "comparisonSuspended": true
@@ -88,13 +114,15 @@
   {
    "id": "CHEAP",
    "name": "الرخيص",
+   "retired": null,
    "equityClose": 12973.77,
-   "equityNow": 12950.26,
+   "equityNow": 12950.04,
    "totalReturnPct": -0.202,
    "maxDrawdownPct": 0.21,
    "drawdownPct": 0.21,
    "tradesClosed": 0,
    "killed": null,
+   "sinceT0": null,
    "vsRefPct": null,
    "verdictSoFar": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل",
    "comparisonSuspended": true
@@ -102,21 +130,39 @@
   {
    "id": "LEARN",
    "name": "المتعلّم",
+   "retired": null,
    "equityClose": 12996.59,
-   "equityNow": 12980.91,
+   "equityNow": 12975.59,
    "totalReturnPct": -0.026,
    "maxDrawdownPct": 0.03,
    "drawdownPct": 0.03,
-   "tradesClosed": 1,
+   "tradesClosed": 2,
    "killed": null,
+   "sinceT0": null,
    "vsRefPct": null,
    "verdictSoFar": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل",
    "comparisonSuspended": true
   }
  ],
  "ref": {
+  "id": "REF2",
   "totalReturnPct": 0,
   "maxDrawdownPct": 0,
+  "investment": {
+   "full": false,
+   "state": "pending",
+   "heldQty": 0,
+   "t0": null,
+   "investDate": null,
+   "why": "REF2 لم يكتمل استثماره بعد (لا تعبئة بعد، أمر شراء مفتوح)"
+  },
+  "t0": null,
+  "comparison": "suspended",
+  "note": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل — REF2 لم يكتمل استثماره بعد (لا تعبئة بعد، أمر شراء مفتوح)"
+ },
+ "refRetired": {
+  "id": "REF",
+  "since": "2026-10-12",
   "investment": {
    "full": false,
    "state": "none",
@@ -125,9 +171,88 @@
    "investDate": null,
    "why": "الحَكَم لم يُعبأ بعد (أوامره: ref1-20261008-VOO-B-r71434/expired، ref1-20261009-VOO-B-r71128/expired، ref1-20261012-VOO-B-r71559/expired)"
   },
-  "comparison": "suspended",
-  "note": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل — الحَكَم لم يُعبأ بعد (أوامره: ref1-20261008-VOO-B-r71434/expired، ref1-20261009-VOO-B-r71128/expired، ref1-20261012-VOO-B-r71559/expired)"
+  "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
+ "fallbackExits": [
+  {
+   "at": "2026-10-12T18:30:31.466Z",
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261012-SPY-S",
+   "origStatus": "expired",
+   "origQty": 5,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 5,
+   "openSellQty": 0,
+   "brokerFree": 24,
+   "late": true,
+   "prePx": 777.39,
+   "qty": 5,
+   "fallbackCid": "o1-20261012-SPY-S-R1",
+   "id": "d3ad35da-166f-4cc3-89a4-ffa7b3b8c591",
+   "statusAtSubmit": "pending_new"
+  },
+  {
+   "at": "2026-10-12T18:30:31.556Z",
+   "book": "S1",
+   "sym": "DFTX",
+   "origCid": "s1-20261012-DFTX-S",
+   "origStatus": "expired",
+   "origQty": 21,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 21,
+   "openSellQty": 0,
+   "brokerFree": 21,
+   "stopsCanceled": 1,
+   "late": true,
+   "prePx": 35.26,
+   "qty": 21,
+   "fallbackCid": "s1-20261012-DFTX-S-R1",
+   "id": "ae26bff2-b3de-4833-ad03-d8e189b3eaec",
+   "statusAtSubmit": "pending_new"
+  },
+  {
+   "at": "2026-10-12T18:30:31.685Z",
+   "book": "S1",
+   "sym": "HELP",
+   "origCid": "s1-20261012-HELP-S",
+   "origStatus": "expired",
+   "origQty": 18,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 18,
+   "openSellQty": 0,
+   "brokerFree": 18,
+   "stopsCanceled": 1,
+   "late": true,
+   "prePx": 11.32,
+   "qty": 18,
+   "fallbackCid": "s1-20261012-HELP-S-R1",
+   "id": "3af3c70f-f310-4c44-af44-5a8111efd903",
+   "statusAtSubmit": "pending_new"
+  },
+  {
+   "at": "2026-10-12T18:30:31.762Z",
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261012-SPY-S",
+   "origStatus": "expired",
+   "origQty": 1,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 1,
+   "openSellQty": 0,
+   "brokerFree": 19,
+   "late": true,
+   "prePx": 777.39,
+   "qty": 1,
+   "fallbackCid": "ln1-o1-20261012-SPY-S-R1",
+   "id": "90375b85-64ac-420c-ac0f-9b7dfddd8d77",
+   "statusAtSubmit": "pending_new"
+  }
+ ],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
@@ -237,32 +362,6 @@
   "state": "valid"
  },
  "protectionLatency": [
-  {
-   "book": "S1",
-   "sym": "HELP",
-   "confirmed": true,
-   "source": "bars",
-   "fillAt": "2026-10-08T13:30:26.752Z",
-   "stopAt": "2026-10-12T13:31:20.210Z",
-   "fillToStopSec": 345653,
-   "unprotectedSec": null,
-   "exitPending": false,
-   "exitRemaining": 0,
-   "need": 18
-  },
-  {
-   "book": "S1",
-   "sym": "DFTX",
-   "confirmed": true,
-   "source": "bars",
-   "fillAt": "2026-10-09T13:30:08.476Z",
-   "stopAt": "2026-10-12T13:32:32.904Z",
-   "fillToStopSec": 259344,
-   "unprotectedSec": null,
-   "exitPending": false,
-   "exitRemaining": 0,
-   "need": 21
-  },
   {
    "book": "S1",
    "sym": "DNTH",
@@ -562,5 +661,5 @@
   "failed": [],
   "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
  },
- "successRule": "النجاح = عائد كلي أعلى من الحكَم + أقصى هبوط ليس أسوأ من الحكَم + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }

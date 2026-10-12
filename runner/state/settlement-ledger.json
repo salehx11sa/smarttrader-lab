@@ -1,6 +1,42 @@
 {
  "v": 1,
- "at": "2026-10-12T16:48:29.492Z",
+ "at": "2026-10-12T18:30:35.249Z",
  "today": "2026-10-12",
- "unsettled": []
+ "unsettled": [
+  {
+   "id": "20261012143031972::d817355e-a186-4075-9b3d-e3a69dec7c0d",
+   "symbol": "SPY",
+   "tradeDate": "2026-10-12",
+   "settleDate": "2026-10-13",
+   "proceeds": 3886.9
+  },
+  {
+   "id": "20261012143032196::5f4a41d9-7dbd-4003-a16d-a31ac45615b1",
+   "symbol": "HELP",
+   "tradeDate": "2026-10-12",
+   "settleDate": "2026-10-13",
+   "proceeds": 203.58
+  },
+  {
+   "id": "20261012143032559::c9c442cc-74df-4a7f-8596-76f760720795",
+   "symbol": "SPY",
+   "tradeDate": "2026-10-12",
+   "settleDate": "2026-10-13",
+   "proceeds": 777.38
+  },
+  {
+   "id": "20261012143032574::aa2ecbed-c252-4311-a603-04cf2ebe7e9d",
+   "symbol": "DFTX",
+   "tradeDate": "2026-10-12",
+   "settleDate": "2026-10-13",
+   "proceeds": 633.78
+  },
+  {
+   "id": "20261012143033125::159e65cf-30dd-4b5a-b00c-504096d0392d",
+   "symbol": "DFTX",
+   "tradeDate": "2026-10-12",
+   "settleDate": "2026-10-13",
+   "proceeds": 105.63
+  }
+ ]
 }

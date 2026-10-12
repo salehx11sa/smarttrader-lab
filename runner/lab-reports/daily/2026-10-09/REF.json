@@ -1,8 +1,8 @@
 {
  "player": "REF",
- "name": "الحَكَم",
+ "name": "الحَكَم (متقاعد)",
  "date": "2026-10-09",
- "labVersion": "lab-0.7",
+ "labVersion": "lab-0.8",
  "startEquity": 13000,
  "equity": 13000,
  "cash": 13000,
