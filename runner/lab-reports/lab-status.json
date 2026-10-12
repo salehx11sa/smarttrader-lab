@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.8",
- "at": "2026-10-12T19:12:34.919Z",
+ "at": "2026-10-12T19:47:00.611Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -9,10 +9,7 @@
  "daysElapsed": 3,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -52,7 +49,7 @@
    "name": "السريع",
    "retired": null,
    "equityClose": 13058.32,
-   "equityNow": 13011.28,
+   "equityNow": 13011.32,
    "totalReturnPct": 0.449,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -68,7 +65,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 13056.37,
-   "equityNow": 13037.32,
+   "equityNow": 13045.27,
    "totalReturnPct": 0.434,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0,
@@ -116,7 +113,7 @@
    "name": "الرخيص",
    "retired": null,
    "equityClose": 12973.77,
-   "equityNow": 12948.9,
+   "equityNow": 12947.81,
    "totalReturnPct": -0.202,
    "maxDrawdownPct": 0.21,
    "drawdownPct": 0.21,
@@ -132,7 +129,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12996.59,
-   "equityNow": 12974.78,
+   "equityNow": 12976.67,
    "totalReturnPct": -0.026,
    "maxDrawdownPct": 0.03,
    "drawdownPct": 0.03,
@@ -175,7 +172,7 @@
  },
  "fallbackExits": [
   {
-   "at": "2026-10-12T19:12:34.895Z",
+   "at": "2026-10-12T19:47:00.590Z",
    "book": "O1",
    "sym": "SPY",
    "origCid": "o1-20261012-SPY-S",
@@ -189,7 +186,7 @@
    "fallbackFilled": 5
   },
   {
-   "at": "2026-10-12T19:12:34.895Z",
+   "at": "2026-10-12T19:47:00.590Z",
    "book": "S1",
    "sym": "DFTX",
    "origCid": "s1-20261012-DFTX-S",
@@ -203,7 +200,7 @@
    "fallbackFilled": 21
   },
   {
-   "at": "2026-10-12T19:12:34.895Z",
+   "at": "2026-10-12T19:47:00.590Z",
    "book": "S1",
    "sym": "HELP",
    "origCid": "s1-20261012-HELP-S",
@@ -217,7 +214,7 @@
    "fallbackFilled": 18
   },
   {
-   "at": "2026-10-12T19:12:34.895Z",
+   "at": "2026-10-12T19:47:00.590Z",
    "book": "LEARN.O1",
    "sym": "SPY",
    "origCid": "ln1-o1-20261012-SPY-S",
