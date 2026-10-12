@@ -1,0 +1,63 @@
+{
+ "player": "CHEAP",
+ "name": "الرخيص",
+ "date": "2026-10-12",
+ "labVersion": "lab-0.8",
+ "startEquity": 13000,
+ "equity": 12950.66,
+ "cash": 12245.56,
+ "dayPnl": -23.11,
+ "totalPnl": -49.34,
+ "totalReturnPct": -0.38,
+ "drawdownPct": 0.39,
+ "maxDrawdownPct": 0.39,
+ "positions": [
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "qty": 93,
+   "avgCost": 1.74,
+   "close": 1.62,
+   "value": 150.66,
+   "entryDate": "2026-10-08"
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "qty": 83,
+   "avgCost": 7.14,
+   "close": 6.68,
+   "value": 554.44,
+   "entryDate": "2026-10-08"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ch1-20261012-NUAI-B-r470",
+   "sym": "NUAI",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 73,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261012-MARA-B-r965",
+   "sym": "MARA",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 54,
+   "filled": 0,
+   "status": "expired"
+  }
+ ],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

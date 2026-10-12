@@ -1,0 +1,152 @@
+{
+ "player": "S1",
+ "name": "السريع",
+ "date": "2026-10-12",
+ "labVersion": "lab-0.8",
+ "startEquity": 13000,
+ "equity": 13011.61,
+ "cash": 12766.9,
+ "dayPnl": -46.71,
+ "totalPnl": 11.61,
+ "totalReturnPct": 0.089,
+ "drawdownPct": 0.36,
+ "maxDrawdownPct": 0.36,
+ "positions": [
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "qty": 3,
+   "avgCost": 84.63,
+   "close": 81.57,
+   "value": 244.71,
+   "entryDate": "2026-10-09"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "s1-20261012-DFTX-S",
+   "sym": "DFTX",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 21,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261012-HELP-S",
+   "sym": "HELP",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 18,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261012-JAZZ-B-r21842",
+   "sym": "JAZZ",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 5,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261012-HELP-P1",
+   "sym": "HELP",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 18,
+   "filled": 0,
+   "status": "canceled",
+   "stop": 7.91
+  },
+  {
+   "cid": "s1-20261012-DFTX-P1",
+   "sym": "DFTX",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 21,
+   "filled": 0,
+   "status": "canceled",
+   "stop": 29.02
+  },
+  {
+   "cid": "s1-20261012-DFTX-S-R1",
+   "sym": "DFTX",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 21,
+   "filled": 21,
+   "status": "filled"
+  },
+  {
+   "cid": "s1-20261012-HELP-S-R1",
+   "sym": "HELP",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 18,
+   "filled": 18,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "S1",
+   "sym": "HELP",
+   "side": "sell",
+   "qty": 18,
+   "price": 11.31,
+   "cid": "s1-20261012-HELP-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 11.32,
+   "slipVsRefPct": -0.088,
+   "auctionPrice": 11.78,
+   "slipVsAuctionPct": -3.99,
+   "fallbackExit": true
+  },
+  {
+   "book": "S1",
+   "sym": "DFTX",
+   "side": "sell",
+   "qty": 18,
+   "price": 35.21,
+   "cid": "s1-20261012-DFTX-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 35.26,
+   "slipVsRefPct": -0.142,
+   "auctionPrice": 36.27,
+   "slipVsAuctionPct": -2.923,
+   "fallbackExit": true
+  },
+  {
+   "book": "S1",
+   "sym": "DFTX",
+   "side": "sell",
+   "qty": 3,
+   "price": 35.21,
+   "cid": "s1-20261012-DFTX-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 35.26,
+   "slipVsRefPct": -0.142,
+   "auctionPrice": 36.27,
+   "slipVsAuctionPct": -2.923,
+   "fallbackExit": true
+  }
+ ],
+ "tradesClosedToday": 2,
+ "tradesClosedTotal": 2,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

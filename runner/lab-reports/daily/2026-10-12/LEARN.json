@@ -1,0 +1,219 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-12",
+ "labVersion": "lab-0.8",
+ "startEquity": 13000,
+ "equity": 12977.83,
+ "cash": 10273.66,
+ "dayPnl": -18.76,
+ "totalPnl": -22.17,
+ "totalReturnPct": -0.171,
+ "drawdownPct": 0.17,
+ "maxDrawdownPct": 0.17,
+ "positions": [
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "qty": 1,
+   "avgCost": 84.63,
+   "close": 81.57,
+   "value": 81.57,
+   "entryDate": "2026-10-09"
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "CNH",
+   "qty": 3,
+   "avgCost": 11.46,
+   "close": 11.65,
+   "value": 34.95,
+   "entryDate": "2026-10-12"
+  },
+  {
+   "book": "LEARN.T1",
+   "sym": "SPY",
+   "qty": 3,
+   "avgCost": 778.78,
+   "close": 778.1,
+   "value": 2334.3,
+   "entryDate": "2026-10-12"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "qty": 51,
+   "avgCost": 2.38,
+   "close": 2.25,
+   "value": 114.75,
+   "entryDate": "2026-10-09"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "qty": 20,
+   "avgCost": 7.54,
+   "close": 6.93,
+   "value": 138.6,
+   "entryDate": "2026-10-09"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-s1-20261012-AMBQ-B-r5856",
+   "sym": "AMBQ",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 2,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261012-MARA-B-r965",
+   "sym": "MARA",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 11,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261012-JAZZ-B-r21842",
+   "sym": "JAZZ",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261012-NUAI-B-r470",
+   "sym": "NUAI",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 14,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-o1-20261012-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261012-CNH-B-r1139",
+   "sym": "CNH",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 15,
+   "filled": 3,
+   "status": "canceled"
+  },
+  {
+   "cid": "ln1-s1-20261012-CNH-P3",
+   "sym": "CNH",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 3,
+   "filled": 0,
+   "status": "new",
+   "stop": 9.77
+  },
+  {
+   "cid": "ln1-o1-20261012-SPY-S-R1",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-o1-20261012-SPY-B-r77857",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "cls",
+   "qty": 1,
+   "filled": 0,
+   "status": "expired"
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.S1",
+   "sym": "CNH",
+   "side": "buy",
+   "qty": 3,
+   "price": 11.46,
+   "cid": "ln1-s1-20261012-CNH-B-r1139",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 11.39,
+   "slipVsRefPct": 0.615,
+   "auctionPrice": 11.38,
+   "slipVsAuctionPct": 0.703
+  },
+  {
+   "book": "LEARN.T1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 3,
+   "price": 778.78,
+   "cid": null,
+   "kind": "cross",
+   "tif": "cross",
+   "expectedRef": 778.57,
+   "slipVsRefPct": 0.027,
+   "auctionPrice": 778.78,
+   "slipVsAuctionPct": 0
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 1,
+   "price": 777.38,
+   "cid": "ln1-o1-20261012-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 777.39,
+   "slipVsRefPct": -0.001,
+   "auctionPrice": 778.78,
+   "slipVsAuctionPct": -0.18,
+   "fallbackExit": true
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 2,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}
