@@ -115,6 +115,16 @@
    "breach": false,
    "source": "lab-protect",
    "at": "2026-10-09T13:32:34.016Z"
+  },
+  "LEARN.S1|CNH|1791811819031": {
+   "date": "2026-10-12",
+   "sec": 35,
+   "ageSec": null,
+   "by": "stop",
+   "result": "resolved",
+   "breach": false,
+   "source": "lab-protect",
+   "at": "2026-10-12T13:32:39.234Z"
   }
  }
 }
