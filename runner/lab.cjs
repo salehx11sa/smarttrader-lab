@@ -19,7 +19,14 @@
    lab-0.4 (مراجعة LAB-PROTECT-03): خروج الحماية بأمر سوق (قرار صالح كما هو) يبقى exit-pending حتى تُعبأ كميته ويزول المركز — لا «complete» قبل ذلك؛ يُتتبع كل أمر خروج
             (الحالة والتعبئات والمتبقي)، والرفض أو الإلغاء أو التعبئة الجزئية ⇒ يُعالج المتبقي فقط بعد خصم المتبقي في أوامر الخروج المفتوحة (لا بيع مزدوج)، والموعد مع كمية غير محمية ⇒
             علم protection-failed:<الدفتر>:<الرمز> ونتيجة failed. المسار نفسه في lab-postopen. وتعليق انتقائي مكتوب ومفعّل: protection-sla-breach (60 ثانية هدف، 90 حد أعلى من تعبئة الوسيط
-            حتى وقف مؤكد أو خروج معبأ) يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى lab-clear-flags. التأكيد: new/held فقط (accepted أثناء الجلسة = قيد التأكيد). لا تغيير في أي قاعدة تداول. */
+            حتى وقف مؤكد أو خروج معبأ) يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى lab-clear-flags. التأكيد: new/held فقط (accepted أثناء الجلسة = قيد التأكيد). لا تغيير في أي قاعدة تداول.
+   lab-0.8 (مراجعة 7.2.29، قرار الخيارين ب + ج؛ القواعد lab-0.2):
+     ب) REF متقاعد (لا أوامر جديدة، سجله محفوظ) و REF2 = الحَكَم بأمر إغلاق cls (VOO، شراء فقط). ساعة المقارنة المشتركة T0 = أول يوم يكتمل فيه استثمار REF2
+        (نقده < سهم VOO واحد × 1.03 ولا أمر شراء مفتوح). المقارنة من T0: مؤشر كل لاعب = 100 عند إغلاق T0، والهبوط من T0. التاريخ قبل T0 لا يُمسح.
+     ج) خروج بديل: أمر بيع opg لليوم انتهى (expired/canceled/rejected/filled) وبقيت كمية غير منفذة ⇒ بعد 09:35 بيع سوق day للمتبقي فقط بمعرّف ثابت <معرّف الأصل>-R1،
+        بعد: (1) حالة نهائية للأصل (لا pending_cancel ولا done_for_day) (2) الكمية = أقل من (المتبقي من الأصل، ما يملكه الدفتر − بيوع سوق مفتوحة) (3) إلغاء مؤكد لوقف الدفتر على الرمز
+        (4) لا أمر شراء مفتوح للرمز (wash) (5) تكرار التشغيل لا يرسل ثانيًا (المعرّف موجود ⇒ تحقق فقط). بعد 09:40 يُوسم «متأخر» ويُرسل. القياس: سعر ما قبل الإرسال، وافتتاح اليوم في التقرير اليومي.
+        الخروج المتأخر يُسجَّل كما حدث (لا يُعاد وسمه «ليليًا»). لا تغيير في قواعد الدخول. */
 'use strict';
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const ST = require('./lab_strats.cjs');
@@ -27,7 +34,7 @@ const DS = require('./daily_strat.js');
 const CAPS = require('./caps.cjs');
 const RL = require('./runner.cjs'); /* مكتبة فقط: scanSaveIncidents/lastRunPair/pairCovered/verifySave/nyParts — نسخة مطابقة حرفيًا لـ7.2.19-dev */
 const PAPER = 'https://paper-api.alpaca.markets', DATA = 'https://data.alpaca.markets';
-const VERSION = 'lab-0.7';
+const VERSION = 'lab-0.8';
 /* النوافذ بتوقيت نيويورك (OPG-WINDOW-01). وثائق Alpaca (Orders at Alpaca / Time in Force):
    «OPG submitted after 9:28am but before 7:00pm ET will be rejected; after 7:00pm queued for the next day's opening auction» و«CLS after 3:50pm but before 7:00pm rejected».
    ⇒ إرسال OPG من 19:05 حتى 09:15 فقط (هامش 5 دقائق بعد 19:00 و13 دقيقة قبل 09:28)، وأي وقت يقع بين 09:16 و19:04 في أي يوم (ومنها عطلة نهاية الأسبوع) خارج النافذة.
@@ -270,11 +277,14 @@ function mkLab(env, io) {
         if (ENTRY_BLOCK) throw new Error('الدخول ممنوع في هذا التشغيل (' + ENTRY_BLOCK + ') — رُفض شراء ' + sym);
       }
       const kind = book.kind; const tif = b.time_in_force; const type = b.type;
-      if (kind === 'ref') { if (side !== 'buy') throw new Error('الحَكَم لا يبيع أبدًا — رُفض قبل الإرسال'); if (sym !== 'VOO' || type !== 'market' || tif !== 'opg') throw new Error('الحَكَم: شراء VOO بأمر افتتاح فقط'); }
-      else if (kind === 't1' || kind === 'tm1') { if (sym !== 'SPY' || type !== 'market' || tif !== 'opg') throw new Error(book.id + ': SPY بأمر افتتاح opg فقط'); }
-      else if (kind === 'o1') { if (sym !== 'SPY' || type !== 'market' || !((side === 'buy' && tif === 'cls') || (side === 'sell' && tif === 'opg'))) throw new Error(book.id + ': شراء cls وبيع opg لـSPY فقط'); }
+      /* lab-0.8 (ج): خروج بديل = بيع سوق day بمعرّف <أصل البيع opg>-R1 */
+      const fallbackSell = side === 'sell' && type === 'market' && tif === 'day' && /^[a-z0-9-]+-\d{8}-[A-Z.]{1,6}-S-R1$/.test(cid) && targetOfCid(cid) === nyParts(now()).date;
+      if (kind === 'ref') throw new Error('الحَكَم القديم REF متقاعد منذ lab-0.8 — لا أوامر جديدة');
+      else if (kind === 'ref2') { if (side !== 'buy') throw new Error('الحَكَم لا يبيع أبدًا — رُفض قبل الإرسال'); if (sym !== 'VOO' || type !== 'market' || tif !== 'cls') throw new Error('الحَكَم REF2: شراء VOO بأمر إغلاق cls فقط'); }
+      else if (kind === 't1' || kind === 'tm1') { if (sym !== 'SPY' || !((type === 'market' && tif === 'opg') || fallbackSell)) throw new Error(book.id + ': SPY بأمر افتتاح opg فقط (أو خروج بديل)'); }
+      else if (kind === 'o1') { if (sym !== 'SPY' || !((type === 'market' && ((side === 'buy' && tif === 'cls') || (side === 'sell' && tif === 'opg'))) || fallbackSell)) throw new Error(book.id + ': شراء cls وبيع opg لـSPY فقط (أو خروج بديل)'); }
       else if (kind === 'rsi2') { if (ST.ETF_SYMBOLS.includes(sym)) throw new Error(book.id + ': لا صناديق في دفتر الأسهم');
-        const okShape = (type === 'market' && tif === 'opg') || (side === 'sell' && type === 'stop' && tif === 'gtc' && +b.stop_price > 0) || (side === 'sell' && type === 'market' && tif === 'day' && /-X\d+$/.test(cid)); if (!okShape) throw new Error(book.id + ': شكل أمر غير مسموح ' + type + '/' + tif); }
+        const okShape = (type === 'market' && tif === 'opg') || (side === 'sell' && type === 'stop' && tif === 'gtc' && +b.stop_price > 0) || (side === 'sell' && type === 'market' && tif === 'day' && /-X\d+$/.test(cid)) || fallbackSell; if (!okShape) throw new Error(book.id + ': شكل أمر غير مسموح ' + type + '/' + tif); }
       else throw new Error('نوع دفتر غير معروف');
       if (!(Number.isInteger(+b.qty) && +b.qty >= 1)) throw new Error('كمية غير صحيحة');
       /* OPG-WINDOW-01: حزام زمني — Alpaca ترفض OPG بين 09:28 و19:00 وCLS بين 15:50 و19:00 (نيويورك) */
@@ -610,6 +620,8 @@ function mkLab(env, io) {
       const pendingBuy = s => B.lab.some(o => o._book === k.id && o.symbol === s && o.side === 'buy' && !TERMINAL.has(o.status));
       const pendingSell = s => B.lab.some(o => o._book === k.id && o.symbol === s && o.side === 'sell' && o.type === 'market' && !TERMINAL.has(o.status));
       const why = canEnter(k);
+      if (def.kind === 'ref2') continue; /* REF2 يشتري بأمر إغلاق في lab-postopen */
+      if (def.kind === 'ref' && P.retired) { skip(k.id, 'متقاعد منذ ' + P.retired + ' (حل محله REF2 بأمر إغلاق)'); continue; }
       if (def.kind === 'ref') { if (held('VOO') || pendingBuy('VOO') || k.buys > 0) continue; if (why) { skip(k.id, why); continue; } const ref = refOf('VOO'); if (!ref) { skip(k.id, 'لا شمعة VOO ليوم ' + prev); continue; }
         addEntry(k, 'VOO', ST.wholeBudgetQty(Math.min(spendable(k, ST.BUDGET), ST.BUDGET), ref), ref, 'الحكم: شراء مرة واحدة', null); continue; }
       if (def.kind === 't1') { const me = ST.prevMonthEnd(B.cal, target); const D = ST.t1Decision(spy, me, P.smaMonths); (report.t1 = report.t1 || {})[k.id] = D;
@@ -743,11 +755,52 @@ function mkLab(env, io) {
     const [ch, cm] = String(ci.close || '16:00').split(':').map(Number); const cutoff = Math.min(ch * 60 + cm - WIN.clsCutoffBeforeCloseMin, WIN.clsCutoffMaxHm); /* ≤ 15:45 دائمًا (Alpaca ترفض CLS من 15:50)، وفي الأيام القصيرة الإغلاق − 15 */
     if (n.hm < WIN.clsStartHm) return { inWindow: false, why: 'قبل 09:35' }; if (n.hm > cutoff) return { inWindow: false, late: true, why: 'بعد حد أوامر الإغلاق (' + Math.floor(cutoff / 60) + ':' + String(cutoff % 60).padStart(2, '0') + ') — تُتخطى الليلة' };
     return { inWindow: true, cutoffHm: cutoff, close: ci.close, alpacaClsRejectFrom: '15:50' }; }
+  /* lab-0.8 (ج): الخروج البديل لأوامر بيع الافتتاح التي لم تُنفذ (أو نُفذ بعضها). شروط المراجع 7.2.29 §3-ج كلها، ويُسجّل كل قرار في report.fallbackExits */
+  const FINAL_ACK = new Set(['filled', 'canceled', 'expired', 'rejected']); /* pending_cancel وdone_for_day ليسا إقرارًا نهائيًا */
+  const FALLBACK = Object.freeze({ fromHm: 9 * 60 + 35, lateAfterHm: 9 * 60 + 40, suffix: '-R1' });
+  const FBSENT = {}; /* رمز ⇒ كمية بيوع بديلة أُرسلت في هذا التشغيل */
+  async function fallbackExits(B, ctx) { const FX = report.fallbackExits = report.fallbackExits || []; const today = B.n.date; let sent = false;
+    if (!B.clock || !B.clock.is_open || B.n.hm < FALLBACK.fromHm) return false;
+    if (!ctx.crossLedger || !ctx.crossLedger.ok) { report.warnings.push('الخروج البديل: سجل التقاطعات غير مثبت — لا بيع مبني على الملكية'); return false; }
+    const origs = B.lab.filter(o => o.side === 'sell' && o.type === 'market' && o.time_in_force === 'opg' && !o._parentCid && targetOfCid(o.client_order_id) === today && !/-R\d+$/.test(String(o.client_order_id || '')));
+    for (const o of origs) { const cid0 = String(o.client_order_id); const rec = { at: new Date(now()).toISOString(), book: o._book, sym: o.symbol, origCid: cid0, origStatus: o.status, origQty: +o.qty, origFilled: +o.filled_qty || 0, result: null };
+      const cidR = cid0 + FALLBACK.suffix; const ex = B.lab.find(x => x.client_order_id === cidR);
+      if (ex) { Object.assign(rec, { result: 'exists', fallbackCid: cidR, fallbackStatus: ex.status, fallbackQty: +ex.qty, fallbackFilled: +ex.filled_qty || 0 }); FX.push(rec); continue; }
+      if (!FINAL_ACK.has(o.status)) { rec.result = 'waiting-original'; rec.why = 'الأصل لم يصل حالة نهائية (' + o.status + ')'; FX.push(rec); continue; }
+      const remOrig = Math.max(0, +o.qty - (+o.filled_qty || 0)); if (remOrig < 1) { rec.result = 'not-needed'; FX.push(rec); continue; }
+      const k = ctx.books[o._book]; const pos = k && k.pos[o.symbol] && k.pos[o.symbol].qty > 1e-9 ? k.pos[o.symbol].qty : 0;
+      const open = bookOpen(B, o._book, o.symbol); const openSell = open.filter(x => x.side === 'sell' && x.type === 'market').reduce((a, x) => a + Math.max(0, +x.qty - (+x.filled_qty || 0)), 0);
+      if (ctx.recon && ctx.recon.labMismatch && ctx.recon.labMismatch[o.symbol]) { rec.result = 'recon-mismatch'; rec.why = 'الدفاتر لا تطابق الوسيط في ' + o.symbol + ' — لا بيع'; report.errors.push(o._book + ' ' + o.symbol + ': الخروج البديل: ' + rec.why); FX.push(rec); continue; }
+      /* D2: سقف الوسيط — المملوك لدى الوسيط ناقص المراكز القديمة وكل بيوع السوق المفتوحة على الرمز (كل الدفاتر) وما أُرسل في هذا التشغيل */
+      const acctOpenSell = B.orders.filter(x => x.symbol === o.symbol && x.side === 'sell' && x.type === 'market' && !TERMINAL.has(x.status)).reduce((a, x) => a + Math.max(0, +x.qty - (+x.filled_qty || 0)), 0) + (FBSENT[o.symbol] || 0);
+      const brokerFree = (+B.brokerPos[o.symbol] || 0) - (+BASELINE[o.symbol] || 0) - acctOpenSell;
+      const qty = Math.floor(Math.min(remOrig, pos - openSell, brokerFree) + 1e-9); rec.positionQty = pos; rec.openSellQty = openSell; rec.brokerFree = brokerFree;
+      if (qty < 1) { rec.result = 'nothing-owned'; rec.why = 'الدفتر لا يملك كمية حرة للبيع'; FX.push(rec); continue; }
+      if (B.orders.some(x => x.symbol === o.symbol && x.side === 'buy' && !TERMINAL.has(x.status))) { rec.result = 'wash-wait'; rec.why = 'أمر شراء مفتوح للرمز نفسه — يُعاد في التشغيل التالي'; report.errors.push(o._book + ' ' + o.symbol + ': الخروج البديل مؤجل (أمر شراء مفتوح للرمز — wash)'); FX.push(rec); continue; }
+      const stops = open.filter(isStop); if (stops.length) { let ok = true; for (const st of stops) { const c = await cancelConfirmed(st.id); if (!c.resolved) ok = false; else st.status = c.status || 'canceled'; }
+        rec.stopsCanceled = stops.length; sent = true; /* D1: وقف أُلغي ⇒ يُعاد تحميل الوسيط قبل الحماية */ if (!ok) { rec.result = 'stop-cancel-unresolved'; rec.why = 'إلغاء الوقف لم يُحسم — لا بيع (الوقف باقٍ)'; report.errors.push(o._book + ' ' + o.symbol + ': الخروج البديل: ' + rec.why); FX.push(rec); continue; } }
+      rec.late = B.n.hm > FALLBACK.lateAfterHm; rec.prePx = +B.px[o.symbol] > 0 ? +B.px[o.symbol] : null; rec.qty = qty; rec.fallbackCid = cidR;
+      try { const r = await req('POST', '/v2/orders', { symbol: o.symbol, qty: String(qty), side: 'sell', type: 'market', time_in_force: 'day', client_order_id: cidR });
+        rec.result = r && r.__dry ? 'dry-run' : 'submitted'; rec.id = r && r.id || null; rec.statusAtSubmit = r && r.status || null; if (!(r && r.__dry)) { sent = true; FBSENT[o.symbol] = (FBSENT[o.symbol] || 0) + qty; fbPersist(rec); }
+        report.steps.push('خروج بديل' + (rec.late ? ' (متأخر)' : '') + ': ' + o._book + ' ' + o.symbol + ' × ' + qty + ' بيع سوق day بعد عدم تنفيذ ' + cid0 + ' (' + o.status + '، منفذ ' + rec.origFilled + ' من ' + rec.origQty + ')'); }
+      catch (e) { sent = true; /* D1: الرد ضاع أو رُفض — الحقيقة من الوسيط بالمعرّف قبل أي خطوة أخرى */
+        let x = null; if (TRADING) { try { x = await req('GET', '/v2/orders:by_client_order_id?client_order_id=' + encodeURIComponent(cidR)); } catch (e2) { x = null; } }
+        if (x && x.id) { rec.result = 'verified-at-broker'; rec.id = x.id; rec.statusAtSubmit = x.status || null; rec.lostReply = String(e.message).slice(0, 160); FBSENT[o.symbol] = (FBSENT[o.symbol] || 0) + qty; fbPersist(rec); }
+        else { rec.result = 'submit-failed'; rec.err = String(e.message).slice(0, 200); report.errors.push(o._book + ' ' + o.symbol + ': تعذر الخروج البديل: ' + e.message); } }
+      FX.push(rec); }
+    return sent; }
+  /* D5: سجل دائم لكل خروج بديل (سعر ما قبل الإرسال، والكمية، والتأخر) — يُقرأ في التقارير اليومية */
+  function fbRead() { const r = readStrictState('lab-fallback-exits.json'); return r.exists && r.ok && r.value && typeof r.value.byCid === 'object' ? r.value : { v: 1, byCid: {} }; }
+  function fbPersist(rec) { if (READONLY || !TRADING) return; try { const F = fbRead(); F.byCid[rec.fallbackCid] = { book: rec.book, sym: rec.sym, origCid: rec.origCid, origStatus: rec.origStatus, origQty: rec.origQty, origFilled: rec.origFilled, qty: rec.qty, prePx: rec.prePx, late: rec.late, at: rec.at, result: rec.result };
+      atomicWrite('lab-fallback-exits.json', JSON.stringify(F, null, 1)); } catch (e) { report.warnings.push('تعذر حفظ سجل الخروج البديل: ' + e.message); } }
+  /* lab-0.8 (ب): نقد REF2 وحالة استثماره من سلسلته اليومية. T0 = أول يوم إغلاق نقده فيه < إغلاق VOO × 1.03 ولا أمر شراء مفتوح له */
+  function ref2T0(B, H) { const s = (H && H.REF2) || []; for (const x of s) { const c = closeOnOrBefore('VOO', x.date); if (c > 0 && x.cash != null && x.cash < c * (1 + ST.GAP_BUFFER_PCT / 100)) return x.date; } return null; }
   async function postopen() {
     let B = await loadBroker(); report.account = acctView(B); let ctx = await context(B);
     /* أوامر الافتتاح التي لم تُعبأ بعد 09:35 ⇒ إلغاء مؤكد (الجزئي يُحمى بعده) */
     if (B.clock.is_open && B.n.hm >= WIN.opgCleanupHm) { let any = false; for (const o of B.lab.filter(o => !TERMINAL.has(o.status) && o.time_in_force === 'opg')) { any = true; const c = await cancelConfirmed(o.id); report.steps.push('إلغاء أمر افتتاح لم يكتمل: ' + o.client_order_id + ' (' + (c.status || (c.resolved ? 'ok' : 'غير محسوم')) + ')'); if (!c.resolved) report.errors.push(o.client_order_id + ': إلغاء لم يُحسم'); }
       if (any && TRADING) { B = await loadBroker(); ctx = await context(B); } }
+    if (await fallbackExits(B, ctx)) { if (TRADING) { await sleep(3000); B = await loadBroker(); ctx = await context(B); } }
     ({ B, ctx } = await postopenProtect(B, ctx));
     const CW = clsWindow(B); report.clsWindow = CW;
     if (!ctx.crossLedger.ok) { report.status = 'blocked-cross-ledger'; report.steps.push('lab-postopen: سجل التقاطعات غير مثبت — لا أوامر إغلاق ولا بيع مبني على الملكية'); }
@@ -766,6 +819,14 @@ function mkLab(env, io) {
         const O1P = ST.PLAYER_BY_ID.O1; const half = ST.wholeBudgetQty(O1P.fraction * eq, ref);
         if (q < 1 || q < Math.ceil(half * O1P.minFillOfHalf)) { report.skipped.push({ book: k.id, why: 'O1: النقد المسوّى لا يكفي نصف «النصف» (' + q + ' من ' + half + ' سهم) — تُتخطى الليلة (النصف الآخر لم يُسوَّ بعد)' }); continue; }
         acctRoom -= q * ref * 1.03; intents.push({ book: k.id, sym: 'SPY', side: 'buy', qty: q, ref, reason: 'O1: شراء عند الإغلاق بنصف الحقوق', tif: 'cls' }); }
+      /* lab-0.8 (ب): الحَكَم REF2 — شراء VOO بأمر إغلاق بكامل نقده المسوّى المتاح (أسهم كاملة)، ما لم يكن له أمر شراء مفتوح */
+      for (const def of ST.BOOKS.filter(b => b.kind === 'ref2')) { const k = ctx.books[def.id]; const S = playerSettlement(ctx.books, def.player, B.cal, B.n.date, B); const vref = closeOnOrBefore('VOO', ST.prevTradingDay(B.cal, B.n.date));
+        if (B.lab.some(o => o._book === k.id && o.side === 'buy' && !TERMINAL.has(o.status))) { report.skipped.push({ book: k.id, why: 'REF2: أمر شراء مفتوح — لا أمر جديد' }); continue; }
+        if (gatesWhy.length) { report.skipped.push({ book: k.id, why: 'بوابات الدخول: ' + gatesWhy.join(' • ') }); continue; }
+        if (!S.proven || !(vref > 0)) { report.skipped.push({ book: k.id, why: 'REF2: نقد غير مثبت أو لا إغلاق VOO لأمس' }); continue; }
+        let q = ST.wholeBudgetQty(Math.min(S.spendable, ST.BUDGET), vref); if (q * vref * 1.03 > acctRoom) q = Math.max(0, Math.floor(acctRoom / (vref * 1.03)));
+        if (q < 1) { report.skipped.push({ book: k.id, why: 'REF2: مستثمر بالكامل (النقد أقل من سهم واحد)' }); continue; }
+        acctRoom -= q * vref * 1.03; intents.push({ book: k.id, sym: 'VOO', side: 'buy', qty: q, ref: vref, reason: 'REF2: الحَكَم يشتري VOO بأمر إغلاق', tif: 'cls' }); }
       report.intents = intents; report.sent = await sendIntents(B, ctx, intents, B.n.date, 'cls'); }
     else report.steps.push('lab-postopen: لا أوامر إغلاق (' + CW.why + ')');
     if (TRADING && (report.sent || []).some(s => s.status === 'submitted')) { B = await loadBroker(); ctx = await context(B); }
@@ -965,9 +1026,9 @@ function mkLab(env, io) {
 
   /* ---------- التقارير: يومي لكل لاعب + lab-status.json + ملاحظة أسبوعية + الظلال ---------- */
   function wj(f, v) { fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, JSON.stringify(v, null, 1)); }
-  function fillRows(k, d, B) { return k.fills.filter(f => f.date === d).map(f => { const exp = refOfCid(f.cid) || f.refPx || null; const tif = f.cid ? ((B.lab.find(o => o.client_order_id === f.cid) || {}).time_in_force || null) : 'cross';
-      const bar = barOn(f.sym, d); const auction = tif === 'opg' || f.kind === 'cross' ? (bar ? bar.o : null) : tif === 'cls' ? (bar ? bar.c : null) : null;
-      return { sym: f.sym, side: f.side, qty: f.qty, price: f.px, cid: f.cid, kind: f.kind, tif, expectedRef: exp, slipVsRefPct: exp ? +((f.px / exp - 1) * 100).toFixed(3) : null, auctionPrice: auction, slipVsAuctionPct: auction ? +((f.px / auction - 1) * 100).toFixed(3) : null, provisional: f.provisional || undefined }; }); }
+  function fillRows(k, d, B) { const FBX = fbRead().byCid; return k.fills.filter(f => f.date === d).map(f => { const exp = refOfCid(f.cid) || f.refPx || (FBX[f.cid] && FBX[f.cid].prePx) || null; const tif = f.cid ? ((B.lab.find(o => o.client_order_id === f.cid) || {}).time_in_force || null) : 'cross';
+      const bar = barOn(f.sym, d); const fb = /-S-R\d+$/.test(String(f.cid || '')); const auction = tif === 'opg' || f.kind === 'cross' || fb ? (bar ? bar.o : null) : tif === 'cls' ? (bar ? bar.c : null) : null;
+      return { sym: f.sym, side: f.side, qty: f.qty, price: f.px, cid: f.cid, kind: f.kind, tif, expectedRef: exp, slipVsRefPct: exp ? +((f.px / exp - 1) * 100).toFixed(3) : null, auctionPrice: auction, slipVsAuctionPct: auction ? +((f.px / auction - 1) * 100).toFixed(3) : null, fallbackExit: fb || undefined, provisional: f.provisional || undefined }; }); }
   async function writeReports(B, ctx, plan, readOnly) {
     try {
       if (ctx.crossLedger && !ctx.crossLedger.ok) { const prevS = readJson(path.join(LABREP, 'lab-status.json')) || {}; wj(path.join(LABREP, 'lab-status.json'), Object.assign({}, prevS, { tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), cmd: io.cmd || null,
@@ -979,7 +1040,7 @@ function mkLab(env, io) {
       if (!lastDay || lastDay < cfg.labStart) { wj(path.join(LABREP, 'lab-status.json'), Object.assign({ tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), labStart: cfg.labStart, labEnd: LAB_END, note: 'لم يكتمل أي يوم تداول في المختبر بعد', trading: TRADING }, protF())); return; }
       const syms = new Set(['SPY', 'VOO']); for (const e of ctx.ev) syms.add(e.sym); try { await getBars([...syms], daysAgo(430)); } catch (e) {}
       const ev = events(B, ctx.crosses, crossPx); const { H, view } = playersView(B, Object.assign({}, ctx, { ev }), lastDay);
-      const days = H.REF.map(x => x.date); const refSeries = H.REF; const refDD = ddStats(refSeries, ST.BUDGET);
+      const days = H.REF.map(x => x.date); const refSeries = H.REF2; /* lab-0.8: المرجع = REF2 */ const refDD = ddStats(refSeries, ST.BUDGET);
       const written = [];
       for (const d of days) { const dir = path.join(LABREP, 'daily', d); if (!readOnly && d !== lastDay && fs.existsSync(path.join(dir, 'REF.json'))) continue; if (readOnly && fs.existsSync(path.join(dir, 'REF.json'))) continue;
         const booksD = ledgerAt(ev, nyMs(d, 20 * 60));
@@ -999,22 +1060,28 @@ function mkLab(env, io) {
         shadows = ST.SHADOWS.map(sh => { try { const r = ST.simulateShadow(sh, { cal: B.cal, labStart: cfg.labStart, lastDay, bars, universes: uni, exclude: Object.keys(BASELINE) }); delete r.curve; return r; } catch (e) { return { id: sh.id, error: e.message }; } });
         wj(path.join(LABREP, 'shadows', lastDay + '.json'), { date: lastDay, note: 'لاعبو ظل افتراضيون: لا أوامر أبدًا. محاكاة من الشموع بلا تسوية ولا انزلاق ولا رسوم (متفائلة).', shadows }); }
       /* الحالة المجمعة للوحة */
-      const refE = view.REF.series.length ? view.REF.series[view.REF.series.length - 1].equity : null; const refRet = refE != null ? refE / ST.BUDGET - 1 : null;
+      const refE = view.REF2.series.length ? view.REF2.series[view.REF2.series.length - 1].equity : null; const refRet = refE != null ? refE / ST.BUDGET - 1 : null;
       /* LAB-REF-01: نتيجة الحَكَم الفعلية تبقى كما هي؛ والحكم مقابله معلّق ما دام غير مستثمر بالكامل. REF-H مرجع افتراضي حسابي منفصل (لا أوامر ولا يحل محل الحَكَم) */
-      const RI = refInvestment(B, ctx.books); const RH = refHypo(B, lastDay); const refHRet = RH.omitted ? null : RH.totalReturnPct / 100;
+      const RI = ref2Investment(B, ctx.books, H); const RH = refHypo(B, lastDay); const refHRet = RH.omitted ? null : RH.totalReturnPct / 100; const RI_OLD = refInvestment(B, ctx.books);
+      /* lab-0.8: المقارنة المشتركة من T0 (مؤشر 100 عند إغلاق T0 لكل لاعب وللمرجع، والهبوط من T0) */
+      const since = (series, t0) => { const i0 = series.findIndex(x => x.date === t0); if (i0 < 0 || series[i0].equity == null) return null; const base = series[i0].equity; const tail = series.slice(i0); const last = tail[tail.length - 1];
+        return { base, ret: last.equity == null ? null : last.equity / base - 1, dd: ddStats(tail, base).maxDrawdownPct, index: last.equity == null ? null : +(100 * last.equity / base).toFixed(3) }; };
+      const refT0 = RI.full ? since(refSeries, RI.t0) : null;
       const players = ST.PLAYERS.map(p => { const v = view[p.id]; const last = v.series.length ? v.series[v.series.length - 1] : null; const ret = last && last.equity != null ? last.equity / p.budget - 1 : null;
-        const active = p.id !== 'REF'; const verdict = labVerdict({ active, refFull: RI.full, ret, refRet, tradesClosed: v.tradesClosed, maxDrawdownPct: v.maxDrawdownPct, refMaxDrawdownPct: refDD.maxDrawdownPct });
-        return { id: p.id, name: p.name, equityClose: last ? last.equity : null, equityNow: v.equityNow, totalReturnPct: ret == null ? null : +(ret * 100).toFixed(3), maxDrawdownPct: v.maxDrawdownPct, drawdownPct: v.drawdownPct, tradesClosed: v.tradesClosed, killed: v.killed,
-          vsRefPct: RI.full && ret != null && refRet != null ? +((ret - refRet) * 100).toFixed(3) : null, verdictSoFar: verdict, comparisonSuspended: active && !RI.full }; });
-      if (!RH.omitted) RH.vsPlayersPct = Object.fromEntries(players.filter(p => p.id !== 'REF').map(p => [p.id, p.totalReturnPct == null ? null : +(p.totalReturnPct - RH.totalReturnPct).toFixed(3)]));
+        const active = p.id !== 'REF' && p.id !== 'REF2'; const s0 = RI.full ? since(v.series, RI.t0) : null;
+        const verdict = p.retired ? 'متقاعد منذ ' + p.retired : labVerdict({ active, refFull: RI.full && !!s0 && !!refT0, ret: s0 ? s0.ret : null, refRet: refT0 ? refT0.ret : null, tradesClosed: v.tradesClosed, maxDrawdownPct: s0 ? s0.dd : v.maxDrawdownPct, refMaxDrawdownPct: refT0 ? refT0.dd : refDD.maxDrawdownPct });
+        return { id: p.id, name: p.name, retired: p.retired || null, equityClose: last ? last.equity : null, equityNow: v.equityNow, totalReturnPct: ret == null ? null : +(ret * 100).toFixed(3), maxDrawdownPct: v.maxDrawdownPct, drawdownPct: v.drawdownPct, tradesClosed: v.tradesClosed, killed: v.killed,
+          sinceT0: s0 ? { t0: RI.t0, index: s0.index, returnPct: s0.ret == null ? null : +(s0.ret * 100).toFixed(3), maxDrawdownPct: s0.dd } : null,
+          vsRefPct: s0 && refT0 && s0.ret != null && refT0.ret != null ? +((s0.ret - refT0.ret) * 100).toFixed(3) : null, verdictSoFar: verdict, comparisonSuspended: active && !RI.full }; });
+      if (!RH.omitted) RH.vsPlayersPct = Object.fromEntries(players.filter(p => p.id !== 'REF' && p.id !== 'REF2').map(p => [p.id, p.totalReturnPct == null ? null : +(p.totalReturnPct - RH.totalReturnPct).toFixed(3)]));
       const Lw = learnState(B, H, ST.sortedDates(B.cal).find(x => x > lastDay) || lastDay);
       const status = { tool: 'SmartTrader-PaperLab-Status', version: VERSION, at: new Date(now()).toISOString(), cmd: io.cmd || null, labStart: cfg.labStart, labEnd: LAB_END, lastCompletedDay: lastDay, daysElapsed: days.length, trading: TRADING, halt: HALT,
-        entryGates: report.entryGates || null, flags: readFlags().active.map(f => ({ id: f.id, kind: f.kind, at: f.at })), players, ref: { totalReturnPct: refRet == null ? null : +(refRet * 100).toFixed(3), maxDrawdownPct: refDD.maxDrawdownPct, investment: RI, comparison: RI.full ? 'active' : 'suspended', note: RI.full ? null : REF_SUSPENDED + ' — ' + RI.why },
+        entryGates: report.entryGates || null, flags: readFlags().active.map(f => ({ id: f.id, kind: f.kind, at: f.at })), players, ref: { id: 'REF2', totalReturnPct: refRet == null ? null : +(refRet * 100).toFixed(3), maxDrawdownPct: refDD.maxDrawdownPct, investment: RI, t0: RI.full ? RI.t0 : null, comparison: RI.full ? 'active' : 'suspended', note: RI.full ? 'المقارنة من T0 = ' + RI.t0 + ' (مؤشر 100 لكل لاعب)' : REF_SUSPENDED + ' — ' + RI.why }, refRetired: { id: 'REF', since: ST.PLAYER_BY_ID.REF.retired || null, investment: RI_OLD, note: 'الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو' }, fallbackExits: report.fallbackExits || null,
         refH: RH,
         learn: { weights: Lw.weights, budgets: Lw.budgets, history: Lw.history }, shadows: shadows ? shadows.map(s => ({ id: s.id, totalReturnPct: s.totalReturnPct, maxDrawdownPct: s.maxDrawdownPct, tradesClosed: s.tradesClosed, error: s.error })) : (readJson(path.join(LABREP, 'lab-status.json')) || {}).shadows || null,
         recon: { ok: ctx.recon.ok, labMismatch: ctx.recon.labMismatch, baselineDeficit: ctx.recon.baselineDeficit }, settlement: { proven: ctx.settle.proven, settledCash: ctx.settle.settledCash }, crossesTotal: ctx.crosses.length, crossLedger: { ok: true, state: ctx.crossLedger ? ctx.crossLedger.state : null }, protectionLatency: report.protectionLatency || null,
         ...protF(),
-        successRule: 'النجاح = عائد كلي أعلى من الحكَم + أقصى هبوط ليس أسوأ من الحكَم + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند ' + LAB_END + ' فقط.' };
+        successRule: 'النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند ' + LAB_END + ' فقط.' };
       wj(path.join(LABREP, 'lab-status.json'), status); report.labStatus = { lastCompletedDay: lastDay, dailyWritten: written };
       /* الملاحظة الأسبوعية: عند آخر يوم تداول في الأسبوع */
       const nextTd = ST.sortedDates(B.cal).find(x => x > lastDay); if (nextTd && isoWeek(nextTd) !== isoWeek(lastDay)) { const wk = isoWeek(lastDay); const wkDays = days.filter(d => isoWeek(d) === wk);
@@ -1031,6 +1098,11 @@ function mkLab(env, io) {
     const d0 = ev[0].date; const intended = orders.filter(o => targetOfCid(o.client_order_id) === d0).reduce((a, o) => a + (+o.qty), 0) + ev.filter(f => f.kind === 'cross' && f.date === d0).reduce((a, f) => a + f.qty, 0);
     const full = held >= 1 && held + 1e-9 >= intended && !openBuy.length;
     return { full, state: full ? 'full' : 'partial', heldQty: held, intendedQty: intended, investDate: d0, why: full ? null : 'الحَكَم معبأ جزئيًا: ' + held + ' من ' + intended + ' سهم VOO' + (openBuy.length ? ' (أمر شراء مفتوح)' : '') }; }
+  function ref2Investment(B, books, H) { const k = books.REF2; const held = k && k.pos.VOO && k.pos.VOO.qty > 1e-9 ? k.pos.VOO.qty : 0;
+    const openBuy = B.lab.filter(o => o._book === 'REF2' && o.side === 'buy' && !TERMINAL.has(o.status)); const t0 = ref2T0(B, H);
+    if (!t0) return { full: false, state: held ? 'partial' : (openBuy.length ? 'pending' : 'none'), heldQty: held, t0: null, investDate: null,
+      why: 'REF2 لم يكتمل استثماره بعد (' + (held ? held + ' سهم VOO' : 'لا تعبئة بعد') + (openBuy.length ? '، أمر شراء مفتوح' : '') + ')' };
+    return { full: true, state: 'full', heldQty: held, t0, investDate: t0, why: null, topUpOpen: openBuy.length > 0, rule: 'T0 = أول إغلاق نقد REF2 فيه < إغلاق VOO × 1.03' }; }
   /* REF-H (افتراضي، حسابي فقط): 13,000 مستثمرة بالكامل في VOO بسعر الافتتاح الرسمي لأول يوم تداول في المختبر، بالكمية التي يحسبها الحَكَم نفسه (إغلاق اليوم السابق × 1.03، أسهم كاملة)،
      بلا رسوم ولا انزلاق مثل حساب الحَكَم من التعبئة. من شموع VOO التي جلبها المحرّك؛ غيابها ⇒ يُحذف مع السبب. لا أوامر أبدًا، ولا يدخل في أي حكم رسمي. */
   function refHypo(B, lastDay) { const base = { id: 'REF-H', label: 'REF-H (افتراضي، حسابي فقط)', hypothetical: true, noOrders: true, replacesRef: false,
@@ -1052,7 +1124,9 @@ function mkLab(env, io) {
     if (buys.length) L.push('- عمليات الشراء: ' + buys.length + ' (' + [...new Set(buys.map(e => e.sym))].join('، ') + ').'); if (sells.length) L.push('- عمليات البيع: ' + sells.length + ' (' + [...new Set(sells.map(e => e.sym))].join('، ') + ').');
     const cr = wkEv.filter(e => e.kind === 'cross'); if (cr.length) L.push('- عمليات تمت داخليًا مع لاعب آخر: ' + cr.length + ' (الرمز نفسه في الافتتاح نفسه، بسعر الافتتاح الرسمي).');
     L.push(''); L.push('## النتيجة'); L.push('- قيمة المحفظة: ' + fmt(startE) + ' ← ' + fmt(last && last.equity) + ' دولار.'); L.push('- منذ البداية: ' + (ret == null ? '—' : ret.toFixed(2) + '%') + '، والحكَم: ' + (refRet == null ? '—' : refRet.toFixed(2) + '%') + '.');
-    if (!RI.full) L.push(p.id === 'REF' ? '- الحَكَم غير مستثمر بالكامل: ' + RI.why + '. نتيجته الفعلية تبقى كما هي.' : '- **' + REF_SUSPENDED + '** (' + RI.why + ') — لا حكم «يتفوق/لا يتفوق» حتى يكتمل استثماره.');
+    if (p.retired) L.push('- **متقاعد منذ ' + p.retired + '**: لا أوامر جديدة، والسجل محفوظ كما هو (حل محله REF2 بأمر إغلاق).');
+    else if (!RI.full) L.push(p.id === 'REF2' ? '- الحَكَم غير مستثمر بالكامل: ' + RI.why + '. نتيجته الفعلية تبقى كما هي.' : '- **' + REF_SUSPENDED + '** (' + RI.why + ') — لا حكم «يتفوق/لا يتفوق» حتى يكتمل استثماره.');
+    else L.push('- المقارنة المشتركة تبدأ من T0 = ' + RI.t0 + ' (مؤشر 100 لكل لاعب عند ذلك الإغلاق).');
     if (RH) L.push(RH.omitted ? '- المرجع الافتراضي REF-H غير معروض: ' + RH.why + '.' : '- مرجع افتراضي ' + RH.label + ': ' + RH.totalReturnPct.toFixed(2) + '% (حسابي فقط — لا أوامر، ولا يحل محل الحَكَم).');
     L.push('- أكبر هبوط حتى الآن: ' + v.maxDrawdownPct + '%. الصفقات المغلقة: ' + v.tradesClosed + '.'); L.push('');
     L.push('## ما الذي تغيّر'); if (v.killed) L.push('- **توقف عن الشراء** منذ ' + v.killed.date + ' لأن خسارته بلغت 15%.'); else L.push('- لا تغيير في القواعد (القواعد مجمّدة).');

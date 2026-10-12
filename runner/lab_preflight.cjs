@@ -18,7 +18,7 @@ function check(env,dir){const out=[];const F=(id,ok,msg)=>out.push({id,ok:!!ok,m
  if(TR){if(MODE!=='lab')W('L10','TRADING_ENABLED=true بلا RUNNER_MODE=lab ⇒ lab-status فقط (والمحرّك يرفض الإرسال)');else mode='مختبر ورقي (تداول ورقي مفعّل)';
   if(cfg.labStart==null)W('L11','labStart غير محدد ⇒ لا دخول (حماية ومطابقة فقط)');else F('L11 labStart تاريخ صالح',/^\d{4}-\d{2}-\d{2}$/.test(String(cfg.labStart))&&!isNaN(Date.parse(cfg.labStart)),String(cfg.labStart));
   const fb=cfg.foreignBaseline||{};F('L12 المراكز القديمة معرّفة (لا تُمس)',['AMD','CAT','MSFT','NVDA'].every(s=>fb[s]>0),JSON.stringify(fb));
-  F('L13 ميزانية كل لاعب 13,000 وعددهم 7',ST.PLAYERS.length===7&&ST.PLAYERS.every(p=>p.budget===13000));
+  F('L13 ميزانية كل لاعب 13,000 وعددهم 8 (منهم REF متقاعد، وREF2 الحَكَم)',ST.PLAYERS.length===8&&ST.PLAYERS.every(p=>p.budget===13000)&&ST.PLAYERS.filter(p=>!p.retired).length===7&&!!(ST.PLAYER_BY_ID.REF&&ST.PLAYER_BY_ID.REF.retired)&&!!ST.PLAYER_BY_ID.REF2);
   const cmd=String(env.RUNNER_CMD||'');if(cmd)F('L14 أمر معروف للمختبر',Object.prototype.hasOwnProperty.call(L.COMMANDS,cmd),cmd);}
  if(String(env.ENTRIES_ENABLED||'').toLowerCase()==='false')W('L15','ENTRIES_ENABLED=false ⇒ لا دخول جديد');
  if(HALT)mode='HALT: لا شراء؛ الخروج والحماية والمطابقة مستمرة';

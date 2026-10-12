@@ -2,10 +2,14 @@
 /* SmartTrader PAPER LAB 0.1 — قواعد اللاعبين (دوال نقية: بلا شبكة ولا ملفات ولا وسيط).
    هذا الملف «مجمّد» قبل بدء المختبر: بصمته في LAB/FREEZE.md وفي runner/lab-freeze.json، وlab_preflight يرفض التداول إن تغيّر.
    أي تغيير في قاعدة = نسخة لاعب جديدة تبدأ من الصفر (بادئة جديدة)، لا تعديل أثناء الاختبار.
-   القواعد مكتوبة بالعربية في LAB/RULES-<player>.md. */
+   القواعد مكتوبة بالعربية في LAB/RULES-<player>.md.
+   lab-0.2 (قرار صالح بعد مراجعة 7.2.29، الخيار ب): الحَكَم REF (شراء VOO بأمر افتتاح opg) متقاعد — أوامره الثلاثة (8 و9 و12 أكتوبر) لم تُعبأ،
+   وسجله يبقى كما هو بلا أوامر جديدة. لاعب جديد REF2 (بادئة ref2-): الحَكَم نفسه (VOO بكامل الميزانية، شراء فقط، لا بيع، معفى من القتل) لكن بأمر إغلاق cls.
+   قاعدة REF2 المجمدة: في كل يوم تداول داخل نافذة cls، إن لم يكن له أمر شراء مفتوح ⇒ يشتري VOO بأسهم كاملة = wholeBudgetQty(نقده المسوّى المتاح، إغلاق VOO أمس).
+   «مستثمر بالكامل» (بداية ساعة المقارنة المشتركة T0) = أول يوم ينتهي فيه ونقده أقل من سعر سهم VOO واحد × 1.03 ولا أمر شراء مفتوح له. */
 const DS = (typeof DailyStrat !== 'undefined') ? DailyStrat : require('./daily_strat.js');
 
-const LAB_VERSION = 'lab-0.1';
+const LAB_VERSION = 'lab-0.2';
 const BUDGET = 13000;
 const GAP_BUFFER_PCT = 3;           /* حجز النقد لأوامر المزاد (opg/cls): السعر المرجعي × 1.03 — تقدير لحجز النقد فقط، ليس ضمانًا للسعر */
 const KILL_PCT = 15;                /* مفتاح القتل: إغلاق يومي ≤ 85% من البداية ⇒ لا دخول جديد لبقية المختبر (الحكَم مستثنى) */
@@ -16,7 +20,8 @@ const S1_SPEC = Object.freeze({ id: 'S1-x10-h10', universe: 'U-LIQ', useDsEligib
 const CHEAP_SPEC = Object.freeze({ id: 'CHEAP-rsi10-h5', universe: 'U-LOW', useDsEligible: false, minPx: 1, maxPx: 15, minAdv: 5e6, minBars: 21, rsiMax: 10, sma200: false, condExitSma5: false, holdDays: 5, maxPositions: 4, riskPct: 1, maxPosPct: 25, atrMult: 3, barsDays: 60 });
 
 const PLAYERS = Object.freeze([
-  Object.freeze({ id: 'REF', name: 'الحَكَم', prefix: 'ref1-', kind: 'ref', symbol: 'VOO', budget: BUDGET, killExempt: true }),
+  Object.freeze({ id: 'REF', name: 'الحَكَم (متقاعد)', prefix: 'ref1-', kind: 'ref', symbol: 'VOO', budget: BUDGET, killExempt: true, retired: '2026-10-12' }),
+  Object.freeze({ id: 'REF2', name: 'الحَكَم', prefix: 'ref2-', kind: 'ref2', symbol: 'VOO', tif: 'cls', budget: BUDGET, killExempt: true }),
   Object.freeze({ id: 'S1', name: 'السريع', prefix: 's1-', kind: 'rsi2', spec: S1_SPEC, budget: BUDGET }),
   Object.freeze({ id: 'T1', name: 'الصبور', prefix: 't1-', kind: 't1', symbol: 'SPY', smaMonths: 10, budget: BUDGET }),
   Object.freeze({ id: 'TM1', name: 'الموسمي', prefix: 'tm1-', kind: 'tm1', symbol: 'SPY', sellTradingDay: 4, budget: BUDGET }),
