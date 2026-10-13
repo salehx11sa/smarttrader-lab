@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.9",
- "at": "2026-10-13T19:16:12.474Z",
+ "at": "2026-10-13T19:56:43.987Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -9,7 +9,12 @@
  "daysElapsed": 4,
  "trading": true,
  "halt": false,
- "entryGates": null,
+ "entryGates": {
+  "ok": false,
+  "why": [
+   "نشاط أجنبي اليوم على الحساب (AMD، NVDA)"
+  ]
+ },
  "flags": [],
  "players": [
   {
@@ -49,7 +54,7 @@
    "name": "السريع",
    "retired": null,
    "equityClose": 13011.61,
-   "equityNow": 13000.9,
+   "equityNow": 12999.46,
    "totalReturnPct": 0.089,
    "maxDrawdownPct": 0.36,
    "drawdownPct": 0.36,
@@ -65,7 +70,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 13049.32,
-   "equityNow": 13055.24,
+   "equityNow": 13046.32,
    "totalReturnPct": 0.379,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0.05,
@@ -113,7 +118,7 @@
    "name": "الرخيص",
    "retired": null,
    "equityClose": 12950.66,
-   "equityNow": 12952.78,
+   "equityNow": 12954.55,
    "totalReturnPct": -0.38,
    "maxDrawdownPct": 0.39,
    "drawdownPct": 0.39,
@@ -129,7 +134,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12977.83,
-   "equityNow": 12972.99,
+   "equityNow": 12970.99,
    "totalReturnPct": -0.171,
    "maxDrawdownPct": 0.17,
    "drawdownPct": 0.17,
