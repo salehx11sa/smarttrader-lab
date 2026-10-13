@@ -1,18 +1,15 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.9",
- "at": "2026-10-13T10:46:42.833Z",
- "cmd": "lab-overnight",
+ "at": "2026-10-13T13:42:06.460Z",
+ "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-12",
  "daysElapsed": 4,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -52,7 +49,7 @@
    "name": "السريع",
    "retired": null,
    "equityClose": 13011.61,
-   "equityNow": 13011.61,
+   "equityNow": 13009.26,
    "totalReturnPct": 0.089,
    "maxDrawdownPct": 0.36,
    "drawdownPct": 0.36,
@@ -68,7 +65,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 13049.32,
-   "equityNow": 13041.22,
+   "equityNow": 13057.57,
    "totalReturnPct": 0.379,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0.05,
@@ -116,7 +113,7 @@
    "name": "الرخيص",
    "retired": null,
    "equityClose": 12950.66,
-   "equityNow": 12954.18,
+   "equityNow": 12956.26,
    "totalReturnPct": -0.38,
    "maxDrawdownPct": 0.39,
    "drawdownPct": 0.39,
@@ -132,7 +129,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12977.83,
-   "equityNow": 12977.03,
+   "equityNow": 12974.07,
    "totalReturnPct": -0.171,
    "maxDrawdownPct": 0.17,
    "drawdownPct": 0.17,
@@ -173,7 +170,7 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": null,
+ "fallbackExits": [],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
@@ -266,16 +263,28 @@
   "labMismatch": {},
   "baselineDeficit": [
    {
+    "sym": "AMD",
+    "baseline": 1,
+    "broker": 0,
+    "deficit": 1
+   },
+   {
     "sym": "CAT",
     "baseline": 1,
     "broker": 0,
     "deficit": 1
+   },
+   {
+    "sym": "NVDA",
+    "baseline": 3,
+    "broker": 0,
+    "deficit": 3
    }
   ]
  },
  "settlement": {
   "proven": true,
-  "settledCash": 76192.25
+  "settledCash": 76146.75
  },
  "crossesTotal": 3,
  "crossLedger": {
@@ -373,6 +382,19 @@
    "exitPending": false,
    "exitRemaining": 0,
    "need": 20
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-13T13:30:09.795Z",
+   "stopAt": "2026-10-13T13:42:05.931Z",
+   "fillToStopSec": 716,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 5
   }
  ],
  "protect": {
@@ -560,9 +582,14 @@
  "protectSla": {
   "enabled": true,
   "flag": "protection-sla-breach",
-  "active": false,
+  "active": true,
   "corrupt": false,
-  "blocksNewEntriesFor": [],
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
   "books": [
    "S1",
    "CHEAP",
@@ -571,10 +598,28 @@
   ],
   "targetSec": 60,
   "upperSec": 90,
-  "since": null,
-  "cases": [],
+  "since": "2026-10-13T13:42:06.453Z",
+  "cases": [
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "VEEE",
+    "fillAt": "2026-10-13T13:30:09.795Z",
+    "resolvedAt": "2026-10-13T13:42:05.931Z",
+    "sec": 716,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-postopen"
+   }
+  ],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
- "protectPass": null,
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
  "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }

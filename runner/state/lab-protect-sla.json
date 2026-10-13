@@ -1,6 +1,34 @@
 {
  "v": 1,
- "active": [],
+ "active": [
+  {
+   "id": "protection-sla-breach",
+   "kind": "protection-sla-breach",
+   "at": "2026-10-13T13:42:06.453Z",
+   "date": "2026-10-13",
+   "books": [
+    "S1",
+    "CHEAP",
+    "LEARN.S1",
+    "LEARN.CHEAP"
+   ],
+   "cases": [
+    {
+     "book": "LEARN.CHEAP",
+     "sym": "VEEE",
+     "fillAt": "2026-10-13T13:30:09.795Z",
+     "resolvedAt": "2026-10-13T13:42:05.931Z",
+     "sec": 716,
+     "ageSec": null,
+     "result": "resolved",
+     "by": "stop",
+     "source": "lab-postopen"
+    }
+   ],
+   "source": "lab-postopen",
+   "note": "تعبئة في دفاتر الأسهم تجاوزت 90 ثانية حتى الحماية المؤكدة أو بقيت معلقة/فشلت — يُمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى مراجعة صالح (lab-clear-flags). الحماية والخروج مستمران."
+  }
+ ],
  "cleared": [
   {
    "id": "protection-sla-breach",
@@ -125,6 +153,16 @@
    "breach": false,
    "source": "lab-protect",
    "at": "2026-10-12T13:32:39.234Z"
+  },
+  "LEARN.CHEAP|VEEE|1791898209795": {
+   "date": "2026-10-13",
+   "sec": 716,
+   "ageSec": null,
+   "by": "stop",
+   "result": "resolved",
+   "breach": true,
+   "source": "lab-postopen",
+   "at": "2026-10-13T13:42:06.453Z"
   }
  }
 }
