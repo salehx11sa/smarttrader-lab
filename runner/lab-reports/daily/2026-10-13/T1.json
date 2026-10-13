@@ -1,0 +1,33 @@
+{
+ "player": "T1",
+ "name": "الصبور",
+ "date": "2026-10-13",
+ "labVersion": "lab-0.9",
+ "startEquity": 13000,
+ "equity": 13047.97,
+ "cash": 1377.82,
+ "dayPnl": -1.35,
+ "totalPnl": 47.97,
+ "totalReturnPct": 0.369,
+ "drawdownPct": 0.06,
+ "maxDrawdownPct": 0.1,
+ "positions": [
+  {
+   "book": "T1",
+   "sym": "SPY",
+   "qty": 15,
+   "avgCost": 774.812,
+   "close": 778.01,
+   "value": 11670.15,
+   "entryDate": "2026-10-08"
+  }
+ ],
+ "orders": [],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

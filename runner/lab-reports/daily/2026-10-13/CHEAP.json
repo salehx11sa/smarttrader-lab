@@ -1,0 +1,63 @@
+{
+ "player": "CHEAP",
+ "name": "الرخيص",
+ "date": "2026-10-13",
+ "labVersion": "lab-0.9",
+ "startEquity": 13000,
+ "equity": 12953.25,
+ "cash": 12245.56,
+ "dayPnl": 2.59,
+ "totalPnl": -46.75,
+ "totalReturnPct": -0.36,
+ "drawdownPct": 0.37,
+ "maxDrawdownPct": 0.39,
+ "positions": [
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "qty": 93,
+   "avgCost": 1.74,
+   "close": 1.63,
+   "value": 151.59,
+   "entryDate": "2026-10-08"
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "qty": 83,
+   "avgCost": 7.14,
+   "close": 6.7,
+   "value": 556.1,
+   "entryDate": "2026-10-08"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ch1-20261013-NUAI-B-r434",
+   "sym": "NUAI",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 74,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261013-VEEE-B-r889",
+   "sym": "VEEE",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 29,
+   "filled": 0,
+   "status": "expired"
+  }
+ ],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

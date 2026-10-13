@@ -1,0 +1,64 @@
+{
+ "player": "S1",
+ "name": "السريع",
+ "date": "2026-10-13",
+ "labVersion": "lab-0.9",
+ "startEquity": 13000,
+ "equity": 12999.64,
+ "cash": 12766.9,
+ "dayPnl": -11.97,
+ "totalPnl": -0.36,
+ "totalReturnPct": -0.003,
+ "drawdownPct": 0.45,
+ "maxDrawdownPct": 0.45,
+ "positions": [
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "qty": 3,
+   "avgCost": 84.63,
+   "close": 77.58,
+   "value": 232.74,
+   "entryDate": "2026-10-09"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "s1-20261013-SITM-B-r57007",
+   "sym": "SITM",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261013-JAZZ-B-r21675",
+   "sym": "JAZZ",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 5,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261013-AMBQ-B-r5545",
+   "sym": "AMBQ",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 11,
+   "filled": 0,
+   "status": "expired"
+  }
+ ],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 2,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ }
+}

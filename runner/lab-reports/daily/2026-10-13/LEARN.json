@@ -1,0 +1,159 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-13",
+ "labVersion": "lab-0.9",
+ "startEquity": 13000,
+ "equity": 12970.93,
+ "cash": 10228.16,
+ "dayPnl": -6.9,
+ "totalPnl": -29.07,
+ "totalReturnPct": -0.224,
+ "drawdownPct": 0.22,
+ "maxDrawdownPct": 0.22,
+ "positions": [
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "qty": 1,
+   "avgCost": 84.63,
+   "close": 77.58,
+   "value": 77.58,
+   "entryDate": "2026-10-09"
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "CNH",
+   "qty": 3,
+   "avgCost": 11.46,
+   "close": 12.17,
+   "value": 36.51,
+   "entryDate": "2026-10-12"
+  },
+  {
+   "book": "LEARN.T1",
+   "sym": "SPY",
+   "qty": 3,
+   "avgCost": 778.78,
+   "close": 778.01,
+   "value": 2334.03,
+   "entryDate": "2026-10-12"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "qty": 51,
+   "avgCost": 2.38,
+   "close": 2.2,
+   "value": 112.2,
+   "entryDate": "2026-10-09"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "qty": 20,
+   "avgCost": 7.54,
+   "close": 6.87,
+   "value": 137.4,
+   "entryDate": "2026-10-09"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "qty": 5,
+   "avgCost": 9.1,
+   "close": 9.01,
+   "value": 45.05,
+   "entryDate": "2026-10-13"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-s1-20261013-AMBQ-B-r5545",
+   "sym": "AMBQ",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 2,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261013-VEEE-B-r889",
+   "sym": "VEEE",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 5,
+   "filled": 5,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-ch1-20261013-NUAI-B-r434",
+   "sym": "NUAI",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 15,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261013-JAZZ-B-r21675",
+   "sym": "JAZZ",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261013-VEEE-P1",
+   "sym": "VEEE",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 5,
+   "filled": 0,
+   "status": "new",
+   "stop": 4.76
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "side": "buy",
+   "qty": 5,
+   "price": 9.1,
+   "cid": "ln1-ch1-20261013-VEEE-B-r889",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 8.89,
+   "slipVsRefPct": 2.362,
+   "auctionPrice": 8.93,
+   "slipVsAuctionPct": 1.904
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 2,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13000
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}
