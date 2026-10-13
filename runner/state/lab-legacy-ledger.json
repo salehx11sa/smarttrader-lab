@@ -1,0 +1,88 @@
+{
+ "v": 1,
+ "note": "المراكز القديمة السابقة للمختبر: أوامرها الموثقة وبيوعها. خارج ميزانيات اللاعبين.",
+ "orders": {
+  "4e4bfe29-9294-46a1-a86e-437af5ad0f3f": {
+   "sym": "NVDA",
+   "side": "sell",
+   "type": "stop",
+   "qty": 3,
+   "stop": 223.76,
+   "createdAt": "2026-09-29T12:59:17.688192Z",
+   "replaces": null,
+   "firstSeenAt": "2026-10-13T21:23:32.777Z"
+  },
+  "cf262546-7a42-47b3-b221-2b41acf13f8e": {
+   "sym": "CAT",
+   "side": "sell",
+   "type": "stop",
+   "qty": 1,
+   "stop": 799.06,
+   "createdAt": "2026-09-29T13:57:10.924475Z",
+   "replaces": null,
+   "firstSeenAt": "2026-10-13T21:23:32.777Z"
+  },
+  "abdcb6bf-0997-457b-9d47-e77c54535efd": {
+   "sym": "AMD",
+   "side": "sell",
+   "type": "stop",
+   "qty": 1,
+   "stop": 581.82,
+   "createdAt": "2026-09-29T14:57:11.382771Z",
+   "replaces": null,
+   "firstSeenAt": "2026-10-13T21:23:32.777Z"
+  },
+  "8ddbd5b1-05fd-4f9a-9173-08c41f25fb6f": {
+   "sym": "MSFT",
+   "side": "sell",
+   "type": "stop",
+   "qty": 3,
+   "stop": 490.18,
+   "createdAt": "2026-09-29T16:35:40.583202Z",
+   "replaces": null,
+   "firstSeenAt": "2026-10-13T21:23:32.777Z"
+  }
+ },
+ "fills": {
+  "20261008125242506::f187bcd3-0e79-4a52-8ca1-8cd96ba7fb20": {
+   "sym": "CAT",
+   "qty": 1,
+   "price": 798.02,
+   "proceeds": 798.02,
+   "at": "2026-10-08T16:52:42.506037Z",
+   "orderId": "cf262546-7a42-47b3-b221-2b41acf13f8e",
+   "fees": null,
+   "feesNote": "رسوم الأسهم في Alpaca الورقي لا تظهر في نشاط التعبئة"
+  },
+  "20261013093136474::b07e9a48-1926-40d1-a0e9-d776c8fdbaec": {
+   "sym": "AMD",
+   "qty": 1,
+   "price": 575,
+   "proceeds": 575,
+   "at": "2026-10-13T13:31:36.474701Z",
+   "orderId": "abdcb6bf-0997-457b-9d47-e77c54535efd",
+   "fees": null,
+   "feesNote": "رسوم الأسهم في Alpaca الورقي لا تظهر في نشاط التعبئة"
+  },
+  "20261013093136492::9ed434ea-1812-42dc-840c-48a93255ab07": {
+   "sym": "NVDA",
+   "qty": 2,
+   "price": 223.45,
+   "proceeds": 446.9,
+   "at": "2026-10-13T13:31:36.492757Z",
+   "orderId": "4e4bfe29-9294-46a1-a86e-437af5ad0f3f",
+   "fees": null,
+   "feesNote": "رسوم الأسهم في Alpaca الورقي لا تظهر في نشاط التعبئة"
+  },
+  "20261013093252135::b81057d3-94b5-4001-9ce3-03ac414b41de": {
+   "sym": "NVDA",
+   "qty": 1,
+   "price": 223.61,
+   "proceeds": 223.61,
+   "at": "2026-10-13T13:32:52.135413Z",
+   "orderId": "4e4bfe29-9294-46a1-a86e-437af5ad0f3f",
+   "fees": null,
+   "feesNote": "رسوم الأسهم في Alpaca الورقي لا تظهر في نشاط التعبئة"
+  }
+ }
+}

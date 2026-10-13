@@ -1,8 +1,8 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
- "version": "lab-0.9",
- "at": "2026-10-13T20:38:52.246Z",
- "cmd": "lab-status",
+ "version": "lab-0.10",
+ "at": "2026-10-13T21:24:14.327Z",
+ "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-13",
@@ -65,7 +65,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 13047.97,
-   "equityNow": 13045.12,
+   "equityNow": 13047.13,
    "totalReturnPct": 0.369,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0.06,
@@ -113,7 +113,7 @@
    "name": "الرخيص",
    "retired": null,
    "equityClose": 12953.25,
-   "equityNow": 12955.13,
+   "equityNow": 12953.35,
    "totalReturnPct": -0.36,
    "maxDrawdownPct": 0.39,
    "drawdownPct": 0.37,
@@ -129,7 +129,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12970.93,
-   "equityNow": 12971.29,
+   "equityNow": 12970.92,
    "totalReturnPct": -0.224,
    "maxDrawdownPct": 0.22,
    "drawdownPct": 0.22,
@@ -229,14 +229,14 @@
  "shadows": [
   {
    "id": "S1-h5",
-   "totalReturnPct": -0.101,
-   "maxDrawdownPct": 0.33,
+   "totalReturnPct": -0.679,
+   "maxDrawdownPct": 0.906,
    "tradesClosed": 2
   },
   {
    "id": "S1-h15",
-   "totalReturnPct": -0.101,
-   "maxDrawdownPct": 0.33,
+   "totalReturnPct": -0.679,
+   "maxDrawdownPct": 0.906,
    "tradesClosed": 2
   },
   {
@@ -253,34 +253,15 @@
   },
   {
    "id": "CHEAP-rsi5",
-   "totalReturnPct": -1.395,
-   "maxDrawdownPct": 1.395,
+   "totalReturnPct": -1.917,
+   "maxDrawdownPct": 1.917,
    "tradesClosed": 0
   }
  ],
  "recon": {
   "ok": true,
   "labMismatch": {},
-  "baselineDeficit": [
-   {
-    "sym": "AMD",
-    "baseline": 1,
-    "broker": 0,
-    "deficit": 1
-   },
-   {
-    "sym": "CAT",
-    "baseline": 1,
-    "broker": 0,
-    "deficit": 1
-   },
-   {
-    "sym": "NVDA",
-    "baseline": 3,
-    "broker": 0,
-    "deficit": 3
-   }
-  ]
+  "baselineDeficit": []
  },
  "settlement": {
   "proven": true,
