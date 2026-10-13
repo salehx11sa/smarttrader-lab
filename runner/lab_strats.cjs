@@ -10,10 +10,13 @@
    lab-0.3 (مراجعة 7.2.29b، الخيار 1، 13 أكتوبر 2026): تغيير تنفيذ فقط — شراء REF2 وشراء O1 (وقرينه في المتعلّم) صار أمر سوق day
    قبل الإغلاق بعشر دقائق (نافذة [الإغلاق − 10، الإغلاق − 4]) بدل cls. السبب: 12 أكتوبر لم يكتمل أي أمر cls للأسهم (13 أمرًا).
    REF2 يبقى بالبادئة نفسها لأنه لم يُنفذ له أي سهم قبل التغيير. O1 من 13 أكتوبر = «دخول قبل الإغلاق بعشر دقائق»، وليس دخولًا بمزاد الإغلاق:
-   يختلف عن وصفة البحث بحركة السوق في آخر عشر دقائق، وتُعرض دوراته قبل وبعد 13 أكتوبر منفصلة. قواعد الدخول والخروج والحجم لم تتغير. */
+   يختلف عن وصفة البحث بحركة السوق في آخر عشر دقائق، وتُعرض دوراته قبل وبعد 13 أكتوبر منفصلة. قواعد الدخول والخروج والحجم لم تتغير.
+   lab-0.4 (مراجعة 7.2.29c، 14 أكتوبر 2026): إصدار تنفيذ جديد — النافذة [الإغلاق − 20، الإغلاق − 2) بالثواني، يرسل أول تشغيل مستوفٍ داخلها
+   (عادة 15:40–15:52). السبب: 13 أكتوبر تأخرت جدولة Cloudflare 13 دقيقة ففاتت نافذة الست دقائق. O1 من 14 أكتوبر = «دخول قبل الإغلاق بـ2–20 دقيقة»
+   ووقت الإرسال الفعلي يُسجل لكل دورة؛ تُعرض دورات كل إصدار تنفيذ منفصلة. قواعد الدخول والخروج والحجم لم تتغير. */
 const DS = (typeof DailyStrat !== 'undefined') ? DailyStrat : require('./daily_strat.js');
 
-const LAB_VERSION = 'lab-0.3';
+const LAB_VERSION = 'lab-0.4';
 const BUDGET = 13000;
 const GAP_BUFFER_PCT = 3;           /* حجز النقد لأوامر المزاد (opg/cls): السعر المرجعي × 1.03 — تقدير لحجز النقد فقط، ليس ضمانًا للسعر */
 const KILL_PCT = 15;                /* مفتاح القتل: إغلاق يومي ≤ 85% من البداية ⇒ لا دخول جديد لبقية المختبر (الحكَم مستثنى) */
@@ -25,11 +28,11 @@ const CHEAP_SPEC = Object.freeze({ id: 'CHEAP-rsi10-h5', universe: 'U-LOW', useD
 
 const PLAYERS = Object.freeze([
   Object.freeze({ id: 'REF', name: 'الحَكَم (متقاعد)', prefix: 'ref1-', kind: 'ref', symbol: 'VOO', budget: BUDGET, killExempt: true, retired: '2026-10-12' }),
-  Object.freeze({ id: 'REF2', name: 'الحَكَم', prefix: 'ref2-', kind: 'ref2', symbol: 'VOO', tif: 'day', closeBuyFromMin: 10, budget: BUDGET, killExempt: true }),
+  Object.freeze({ id: 'REF2', name: 'الحَكَم', prefix: 'ref2-', kind: 'ref2', symbol: 'VOO', tif: 'day', closeBuyWindowMin: Object.freeze([20, 2]), budget: BUDGET, killExempt: true }),
   Object.freeze({ id: 'S1', name: 'السريع', prefix: 's1-', kind: 'rsi2', spec: S1_SPEC, budget: BUDGET }),
   Object.freeze({ id: 'T1', name: 'الصبور', prefix: 't1-', kind: 't1', symbol: 'SPY', smaMonths: 10, budget: BUDGET }),
   Object.freeze({ id: 'TM1', name: 'الموسمي', prefix: 'tm1-', kind: 'tm1', symbol: 'SPY', sellTradingDay: 4, budget: BUDGET }),
-  Object.freeze({ id: 'O1', name: 'الليلي', prefix: 'o1-', kind: 'o1', symbol: 'SPY', fraction: 0.5, minFillOfHalf: 0.5, buyExec: 'market-day@close-10', buyExecSince: '2026-10-13', budget: BUDGET }),
+  Object.freeze({ id: 'O1', name: 'الليلي', prefix: 'o1-', kind: 'o1', symbol: 'SPY', fraction: 0.5, minFillOfHalf: 0.5, buyExec: 'market-day@[close-20,close-2)', buyExecSince: '2026-10-14', buyExecHistory: Object.freeze(['cls (حتى 12 أكتوبر)', 'market-day@close-10 (13 أكتوبر)']), budget: BUDGET }),
   Object.freeze({ id: 'CHEAP', name: 'الرخيص', prefix: 'ch1-', kind: 'rsi2', spec: CHEAP_SPEC, budget: BUDGET }),
   Object.freeze({ id: 'LEARN', name: 'المتعلّم', prefix: 'ln1-', kind: 'learn', subs: Object.freeze(['S1', 'T1', 'TM1', 'O1', 'CHEAP']), floor: 0.10, top: 2, blend: 0.5, budget: BUDGET })
 ]);

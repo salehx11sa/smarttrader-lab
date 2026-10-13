@@ -1,14 +1,14 @@
 {
- "labVersion": "lab-0.3",
- "frozenAt": "2026-10-13",
- "note": "بصمات ملفات القواعد. المحرّك يرفض أي دخول إن تغيّر ملف منها. lab-0.3: شراء الإغلاق (REF2 وO1) بأمر سوق day قبل الإغلاق بعشر دقائق بدل cls — مراجعة 7.2.29b، الخيار 1.",
+ "labVersion": "lab-0.4",
+ "frozenAt": "2026-10-14",
+ "note": "بصمات ملفات القواعد. المحرّك يرفض أي دخول إن تغيّر ملف منها. lab-0.4: نافذة شراء الإغلاق [الإغلاق − 20، الإغلاق − 2) — مراجعة 7.2.29c.",
  "files": {
-  "lab_strats.cjs": "495c7ade5cbd269183a63ae7d98e15ec734250fdbb10943d9fbdd790927354cc",
+  "lab_strats.cjs": "3ba5a47e5a013fdce7616b06c48d2ed5380e4512c0540a42570c32620a6189a2",
   "daily_strat.js": "cf89c13f7c9f2ba229c017850f996ccac6c0fb4682a3f5793de08fb511e2243f",
   "caps.cjs": "474ed556a03915f299981ca4e79e49967ddac54a0a302cf6edc8a3820fa84ce9"
  },
  "previous": {
-  "labVersion": "lab-0.2",
-  "lab_strats.cjs": "a7bc5a5083700c871d46efb95c7b0b156f5bffb2f5e73dc3329453884e11af30"
+  "labVersion": "lab-0.3",
+  "lab_strats.cjs": "495c7ade5cbd269183a63ae7d98e15ec734250fdbb10943d9fbdd790927354cc"
  }
 }
