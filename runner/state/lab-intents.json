@@ -1653,5 +1653,26 @@
    "intents": [],
    "crosses": []
   }
+ ],
+ "2026-10-14": [
+  {
+   "at": "2026-10-13T23:16:10.627Z",
+   "runId": "38483108086",
+   "runStartedAt": "2026-10-13T23:15:38.685Z",
+   "intents": [
+    {
+     "book": "LEARN.S1",
+     "sym": "CNH",
+     "side": "sell",
+     "qty": 3,
+     "ref": 12.17,
+     "reason": "خروج شرطي (الإغلاق فوق متوسط 5)",
+     "tif": "opg",
+     "exit": true,
+     "needsStopCancel": true
+    }
+   ],
+   "crosses": []
+  }
  ]
 }
