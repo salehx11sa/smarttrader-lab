@@ -2,7 +2,7 @@
  "player": "LEARN",
  "name": "المتعلّم",
  "date": "2026-10-14",
- "labVersion": "lab-0.10",
+ "labVersion": "lab-0.11",
  "startEquity": 13000,
  "equity": 12922.56,
  "cash": 9621.73,
@@ -145,7 +145,7 @@
    "auctionPrice": 769.6,
    "slipVsAuctionPct": -0.104,
    "closeBuy": true,
-   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق في الدقائق العشر، ليس كله انزلاقًا)"
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
   },
   {
    "book": "LEARN.CHEAP",

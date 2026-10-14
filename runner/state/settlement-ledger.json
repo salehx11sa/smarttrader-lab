@@ -1,6 +1,6 @@
 {
  "v": 1,
- "at": "2026-10-14T19:50:46.070Z",
+ "at": "2026-10-14T21:23:26.536Z",
  "today": "2026-10-14",
  "unsettled": [
   {
@@ -51,6 +51,55 @@
    "tradeDate": "2026-10-14",
    "settleDate": "2026-10-15",
    "proceeds": 130.6
+  },
+  {
+   "id": "20261014155947775::38aa21d0-c2cb-4258-8930-b39c1c2bfb09",
+   "symbol": "QUBT",
+   "tradeDate": "2026-10-14",
+   "settleDate": "2026-10-15",
+   "proceeds": 12.6
+  },
+  {
+   "id": "20261014155948460::fca11729-fee6-44d5-abaa-bd47f0fe5a5e",
+   "symbol": "QUBT",
+   "tradeDate": "2026-10-14",
+   "settleDate": "2026-10-15",
+   "proceeds": 25.2
+  },
+  {
+   "id": "20261014155948896::b77a8023-fe7c-4a7d-a5ad-8843f57f224b",
+   "symbol": "QUBT",
+   "tradeDate": "2026-10-14",
+   "settleDate": "2026-10-15",
+   "proceeds": 18.9
+  },
+  {
+   "id": "20261014155949814::20436fba-8a2e-4b44-b253-d4206d91397f",
+   "symbol": "QUBT",
+   "tradeDate": "2026-10-14",
+   "settleDate": "2026-10-15",
+   "proceeds": 18.9
+  },
+  {
+   "id": "20261014155950136::8bf78025-6246-467b-b936-f68154874a38",
+   "symbol": "QUBT",
+   "tradeDate": "2026-10-14",
+   "settleDate": "2026-10-15",
+   "proceeds": 25.2
+  },
+  {
+   "id": "20261014155950552::0c4a2e04-a522-4976-94c0-46471521a478",
+   "symbol": "QUBT",
+   "tradeDate": "2026-10-14",
+   "settleDate": "2026-10-15",
+   "proceeds": 18.9
+  },
+  {
+   "id": "20261014155951336::2e57105d-c682-418b-a1ba-6a31b9986abe",
+   "symbol": "QUBT",
+   "tradeDate": "2026-10-14",
+   "settleDate": "2026-10-15",
+   "proceeds": 6.3
   }
  ]
 }
