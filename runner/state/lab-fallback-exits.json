@@ -52,6 +52,19 @@
    "late": true,
    "at": "2026-10-12T18:30:31.762Z",
    "result": "submitted"
+  },
+  "ln1-s1-20261014-CNH-S-R1": {
+   "book": "LEARN.S1",
+   "sym": "CNH",
+   "origCid": "ln1-s1-20261014-CNH-S",
+   "origStatus": "expired",
+   "origQty": 3,
+   "origFilled": 1,
+   "qty": 2,
+   "prePx": 12.125,
+   "late": false,
+   "at": "2026-10-14T13:36:45.522Z",
+   "result": "submitted"
   }
  }
 }

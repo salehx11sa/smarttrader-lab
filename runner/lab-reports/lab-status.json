@@ -1,18 +1,15 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.10",
- "at": "2026-10-14T10:08:14.298Z",
- "cmd": "lab-overnight",
+ "at": "2026-10-14T13:36:49.758Z",
+ "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-13",
  "daysElapsed": 5,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -52,7 +49,7 @@
    "name": "السريع",
    "retired": null,
    "equityClose": 12999.64,
-   "equityNow": 12999.58,
+   "equityNow": 12997.6,
    "totalReturnPct": -0.003,
    "maxDrawdownPct": 0.45,
    "drawdownPct": 0.45,
@@ -68,7 +65,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 13047.97,
-   "equityNow": 13069.87,
+   "equityNow": 13001.54,
    "totalReturnPct": 0.369,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0.06,
@@ -116,7 +113,7 @@
    "name": "الرخيص",
    "retired": null,
    "equityClose": 12953.25,
-   "equityNow": 12957.01,
+   "equityNow": 12937.34,
    "totalReturnPct": -0.36,
    "maxDrawdownPct": 0.39,
    "drawdownPct": 0.37,
@@ -132,11 +129,11 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12970.93,
-   "equityNow": 12978.98,
+   "equityNow": 12957.38,
    "totalReturnPct": -0.224,
    "maxDrawdownPct": 0.22,
    "drawdownPct": 0.22,
-   "tradesClosed": 2,
+   "tradesClosed": 3,
    "killed": null,
    "sinceT0": null,
    "vsRefPct": null,
@@ -173,7 +170,28 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": null,
+ "fallbackExits": [
+  {
+   "at": "2026-10-14T13:36:45.522Z",
+   "book": "LEARN.S1",
+   "sym": "CNH",
+   "origCid": "ln1-s1-20261014-CNH-S",
+   "origStatus": "expired",
+   "origQty": 3,
+   "origFilled": 1,
+   "result": "submitted",
+   "positionQty": 2,
+   "openSellQty": 0,
+   "brokerFree": 2,
+   "stopsCanceled": 1,
+   "late": false,
+   "prePx": 12.125,
+   "qty": 2,
+   "fallbackCid": "ln1-s1-20261014-CNH-S-R1",
+   "id": "16cc089f-256a-4936-a700-b83e3abac5bc",
+   "statusAtSubmit": "pending_new"
+  }
+ ],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
@@ -327,19 +345,6 @@
    "exitPending": false,
    "exitRemaining": 0,
    "need": 1
-  },
-  {
-   "book": "LEARN.S1",
-   "sym": "CNH",
-   "confirmed": false,
-   "source": "bars",
-   "fillAt": "2026-10-12T13:30:19.031Z",
-   "stopAt": null,
-   "fillToStopSec": null,
-   "unprotectedSec": 160674,
-   "exitPending": false,
-   "exitRemaining": 0,
-   "need": 3
   },
   {
    "book": "LEARN.CHEAP",
@@ -581,7 +586,12 @@
   ],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
- "protectPass": null,
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
- "protectAt": "2026-10-14T13:32:44.954Z"
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }
