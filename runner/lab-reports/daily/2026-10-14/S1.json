@@ -1,0 +1,33 @@
+{
+ "player": "S1",
+ "name": "السريع",
+ "date": "2026-10-14",
+ "labVersion": "lab-0.10",
+ "startEquity": 13000,
+ "equity": 12991.18,
+ "cash": 12766.9,
+ "dayPnl": -8.46,
+ "totalPnl": -8.82,
+ "totalReturnPct": -0.068,
+ "drawdownPct": 0.51,
+ "maxDrawdownPct": 0.51,
+ "positions": [
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "qty": 3,
+   "avgCost": 84.63,
+   "close": 74.76,
+   "value": 224.28,
+   "entryDate": "2026-10-09"
+  }
+ ],
+ "orders": [],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 2,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13012.87
+ }
+}

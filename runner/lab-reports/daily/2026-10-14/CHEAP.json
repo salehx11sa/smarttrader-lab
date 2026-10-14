@@ -1,0 +1,62 @@
+{
+ "player": "CHEAP",
+ "name": "الرخيص",
+ "date": "2026-10-14",
+ "labVersion": "lab-0.10",
+ "startEquity": 13000,
+ "equity": 12938.21,
+ "cash": 12787.55,
+ "dayPnl": -15.04,
+ "totalPnl": -61.79,
+ "totalReturnPct": -0.475,
+ "drawdownPct": 0.48,
+ "maxDrawdownPct": 0.48,
+ "positions": [
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "qty": 93,
+   "avgCost": 1.74,
+   "close": 1.62,
+   "value": 150.66,
+   "entryDate": "2026-10-08"
+  }
+ ],
+ "orders": [],
+ "fills": [
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "side": "sell",
+   "qty": 63,
+   "price": 6.53,
+   "cid": "ch1-20261008-MFA-P1",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "MFA",
+   "side": "sell",
+   "qty": 20,
+   "price": 6.53,
+   "cid": "ch1-20261008-MFA-P1",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 1,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13012.87
+ }
+}

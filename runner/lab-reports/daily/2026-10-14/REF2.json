@@ -1,0 +1,77 @@
+{
+ "player": "REF2",
+ "name": "الحَكَم",
+ "date": "2026-10-14",
+ "labVersion": "lab-0.10",
+ "startEquity": 13000,
+ "equity": 13012.87,
+ "cash": 986.56,
+ "dayPnl": 12.87,
+ "totalPnl": 12.87,
+ "totalReturnPct": 0.099,
+ "drawdownPct": 0,
+ "maxDrawdownPct": 0,
+ "positions": [
+  {
+   "book": "REF2",
+   "sym": "VOO",
+   "qty": 17,
+   "avgCost": 706.6729,
+   "close": 707.43,
+   "value": 12026.31,
+   "entryDate": "2026-10-14"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ref2-20261014-VOO-B-r70640",
+   "sym": "VOO",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 17,
+   "filled": 17,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "REF2",
+   "sym": "VOO",
+   "side": "buy",
+   "qty": 16,
+   "price": 706.67,
+   "cid": "ref2-20261014-VOO-B-r70640",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 706.4,
+   "slipVsRefPct": 0.038,
+   "auctionPrice": 707.43,
+   "slipVsAuctionPct": -0.107,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق في الدقائق العشر، ليس كله انزلاقًا)"
+  },
+  {
+   "book": "REF2",
+   "sym": "VOO",
+   "side": "buy",
+   "qty": 1,
+   "price": 706.72,
+   "cid": "ref2-20261014-VOO-B-r70640",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 706.4,
+   "slipVsRefPct": 0.045,
+   "auctionPrice": 707.43,
+   "slipVsAuctionPct": -0.1,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق في الدقائق العشر، ليس كله انزلاقًا)"
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13012.87
+ }
+}

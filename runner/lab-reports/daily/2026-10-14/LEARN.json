@@ -1,0 +1,269 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-14",
+ "labVersion": "lab-0.10",
+ "startEquity": 13000,
+ "equity": 12922.56,
+ "cash": 9621.73,
+ "dayPnl": -48.37,
+ "totalPnl": -77.44,
+ "totalReturnPct": -0.596,
+ "drawdownPct": 0.6,
+ "maxDrawdownPct": 0.6,
+ "positions": [
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "qty": 1,
+   "avgCost": 84.63,
+   "close": 74.76,
+   "value": 74.76,
+   "entryDate": "2026-10-09"
+  },
+  {
+   "book": "LEARN.T1",
+   "sym": "SPY",
+   "qty": 3,
+   "avgCost": 778.78,
+   "close": 769.6,
+   "value": 2308.8,
+   "entryDate": "2026-10-12"
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "qty": 1,
+   "avgCost": 768.8,
+   "close": 769.6,
+   "value": 769.6,
+   "entryDate": "2026-10-14"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "qty": 51,
+   "avgCost": 2.38,
+   "close": 2.07,
+   "value": 105.57,
+   "entryDate": "2026-10-09"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "qty": 5,
+   "avgCost": 9.1,
+   "close": 8.42,
+   "value": 42.1,
+   "entryDate": "2026-10-13"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-s1-20261014-CNH-S",
+   "sym": "CNH",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 3,
+   "filled": 1,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261014-CNH-P1",
+   "sym": "CNH",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 2,
+   "filled": 0,
+   "status": "canceled",
+   "stop": 9.77
+  },
+  {
+   "cid": "ln1-s1-20261014-CNH-S-R1",
+   "sym": "CNH",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 2,
+   "filled": 2,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-o1-20261014-SPY-B-r76874",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.S1",
+   "sym": "CNH",
+   "side": "sell",
+   "qty": 1,
+   "price": 12.13,
+   "cid": "ln1-s1-20261014-CNH-S",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": 12.01,
+   "slipVsAuctionPct": 0.999
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "CNH",
+   "side": "sell",
+   "qty": 2,
+   "price": 12.12,
+   "cid": "ln1-s1-20261014-CNH-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 12.125,
+   "slipVsRefPct": -0.041,
+   "auctionPrice": 12.01,
+   "slipVsAuctionPct": 0.916,
+   "fallbackExit": true
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 768.8,
+   "cid": "ln1-o1-20261014-SPY-B-r76874",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 768.74,
+   "slipVsRefPct": 0.008,
+   "auctionPrice": 769.6,
+   "slipVsAuctionPct": -0.104,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق في الدقائق العشر، ليس كله انزلاقًا)"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "side": "sell",
+   "qty": 2,
+   "price": 6.3,
+   "cid": "ln1-ch1-20261009-QUBT-P1",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "side": "sell",
+   "qty": 4,
+   "price": 6.3,
+   "cid": "ln1-ch1-20261009-QUBT-P1",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "side": "sell",
+   "qty": 3,
+   "price": 6.3,
+   "cid": "ln1-ch1-20261009-QUBT-P1",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "side": "sell",
+   "qty": 3,
+   "price": 6.3,
+   "cid": "ln1-ch1-20261009-QUBT-P1",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "side": "sell",
+   "qty": 4,
+   "price": 6.3,
+   "cid": "ln1-ch1-20261009-QUBT-P1",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "side": "sell",
+   "qty": 3,
+   "price": 6.3,
+   "cid": "ln1-ch1-20261009-QUBT-P1",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "QUBT",
+   "side": "sell",
+   "qty": 1,
+   "price": 6.3,
+   "cid": "ln1-ch1-20261009-QUBT-P1",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  }
+ ],
+ "tradesClosedToday": 2,
+ "tradesClosedTotal": 4,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13012.87
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}
