@@ -1730,5 +1730,46 @@
    "intents": [],
    "crosses": []
   }
+ ],
+ "2026-10-15": [
+  {
+   "at": "2026-10-14T23:41:57.712Z",
+   "runId": "38655592378",
+   "runStartedAt": "2026-10-14T23:41:24.764Z",
+   "intents": [
+    {
+     "book": "O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 8,
+     "ref": 769.6,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    },
+    {
+     "book": "CHEAP",
+     "sym": "NXH",
+     "side": "sell",
+     "qty": 93,
+     "ref": 1.62,
+     "reason": "خروج زمني بعد 5 أيام",
+     "tif": "opg",
+     "exit": true,
+     "needsStopCancel": true
+    },
+    {
+     "book": "LEARN.O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 1,
+     "ref": 769.6,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    }
+   ],
+   "crosses": []
+  }
  ]
 }
