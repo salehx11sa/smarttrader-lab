@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.10",
- "at": "2026-10-14T19:20:08.739Z",
+ "at": "2026-10-14T19:40:47.846Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -9,7 +9,10 @@
  "daysElapsed": 5,
  "trading": true,
  "halt": false,
- "entryGates": null,
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
  "flags": [],
  "players": [
   {
@@ -49,7 +52,7 @@
    "name": "السريع",
    "retired": null,
    "equityClose": 12999.64,
-   "equityNow": 12991.28,
+   "equityNow": 12991.03,
    "totalReturnPct": -0.003,
    "maxDrawdownPct": 0.45,
    "drawdownPct": 0.45,
@@ -65,7 +68,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 13047.97,
-   "equityNow": 12907.57,
+   "equityNow": 12909.67,
    "totalReturnPct": 0.369,
    "maxDrawdownPct": 0.1,
    "drawdownPct": 0.06,
@@ -113,7 +116,7 @@
    "name": "الرخيص",
    "retired": null,
    "equityClose": 12953.25,
-   "equityNow": 12935.88,
+   "equityNow": 12936.35,
    "totalReturnPct": -0.36,
    "maxDrawdownPct": 0.39,
    "drawdownPct": 0.37,
@@ -129,7 +132,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12970.93,
-   "equityNow": 12920.9,
+   "equityNow": 12920.45,
    "totalReturnPct": -0.224,
    "maxDrawdownPct": 0.22,
    "drawdownPct": 0.22,
@@ -147,15 +150,15 @@
   "maxDrawdownPct": 0,
   "investment": {
    "full": false,
-   "state": "none",
+   "state": "pending",
    "heldQty": 0,
    "t0": null,
    "investDate": null,
-   "why": "REF2 لم يكتمل استثماره بعد (لا تعبئة بعد)"
+   "why": "REF2 لم يكتمل استثماره بعد (لا تعبئة بعد، أمر شراء مفتوح)"
   },
   "t0": null,
   "comparison": "suspended",
-  "note": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل — REF2 لم يكتمل استثماره بعد (لا تعبئة بعد)"
+  "note": "المقارنة معلّقة: الحَكَم غير مستثمر بالكامل — REF2 لم يكتمل استثماره بعد (لا تعبئة بعد، أمر شراء مفتوح)"
  },
  "refRetired": {
   "id": "REF",
@@ -172,7 +175,7 @@
  },
  "fallbackExits": [
   {
-   "at": "2026-10-14T19:20:08.719Z",
+   "at": "2026-10-14T19:40:47.041Z",
    "book": "LEARN.S1",
    "sym": "CNH",
    "origCid": "ln1-s1-20261014-CNH-S",
