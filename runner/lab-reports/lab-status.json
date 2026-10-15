@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.11",
- "at": "2026-10-15T19:50:30.702Z",
+ "at": "2026-10-15T20:03:55.275Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -9,12 +9,7 @@
  "daysElapsed": 6,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": false,
-  "why": [
-   "أعلام توقف نشطة: lab-recon-mismatch labrecon-2026-10-15-SPY"
-  ]
- },
+ "entryGates": null,
  "flags": [
   {
    "id": "labrecon-2026-10-15-SPY",
@@ -44,7 +39,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 13012.87,
-   "equityNow": 13047.56,
+   "equityNow": 13049.52,
    "totalReturnPct": 0.099,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -60,7 +55,7 @@
    "name": "السريع",
    "retired": null,
    "equityClose": 12991.18,
-   "equityNow": 12993.63,
+   "equityNow": 12990.49,
    "totalReturnPct": -0.068,
    "maxDrawdownPct": 0.51,
    "drawdownPct": 0.51,
@@ -76,7 +71,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12921.82,
-   "equityNow": 12955.57,
+   "equityNow": 12957.22,
    "totalReturnPct": -0.601,
    "maxDrawdownPct": 1.03,
    "drawdownPct": 1.03,
@@ -108,7 +103,7 @@
    "name": "الليلي",
    "retired": null,
    "equityClose": 13020.28,
-   "equityNow": 12990.99,
+   "equityNow": 12991.87,
    "totalReturnPct": 0.156,
    "maxDrawdownPct": 0.14,
    "drawdownPct": 0,
@@ -140,7 +135,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12922.56,
-   "equityNow": 12941.92,
+   "equityNow": 12942.99,
    "totalReturnPct": -0.596,
    "maxDrawdownPct": 0.6,
    "drawdownPct": 0.6,
@@ -181,50 +176,7 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": [
-  {
-   "at": "2026-10-15T19:50:30.575Z",
-   "book": "CHEAP",
-   "sym": "NXH",
-   "origCid": "ch1-20261015-NXH-S",
-   "origStatus": "expired",
-   "origQty": 93,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "ch1-20261015-NXH-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 93,
-   "fallbackFilled": 93
-  },
-  {
-   "at": "2026-10-15T19:50:30.576Z",
-   "book": "LEARN.O1",
-   "sym": "SPY",
-   "origCid": "ln1-o1-20261015-SPY-S",
-   "origStatus": "expired",
-   "origQty": 1,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "ln1-o1-20261015-SPY-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 1,
-   "fallbackFilled": 1
-  },
-  {
-   "at": "2026-10-15T19:50:30.576Z",
-   "book": "O1",
-   "sym": "SPY",
-   "origCid": "o1-20261015-SPY-S",
-   "origStatus": "expired",
-   "origQty": 8,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "o1-20261015-SPY-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 8,
-   "fallbackFilled": 8
-  }
- ],
+ "fallbackExits": [],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
