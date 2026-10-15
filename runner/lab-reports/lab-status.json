@@ -343,10 +343,10 @@
   }
  ],
  "protect": {
-  "at": "2026-10-14T13:32:44.954Z",
+  "at": "2026-10-15T13:33:11.948Z",
   "status": "complete",
   "outcome": "complete",
-  "runId": "38572078301",
+  "runId": "38742947855",
   "summary": {
    "fillsToday": 0,
    "confirmed": 0,
@@ -374,50 +374,33 @@
     "fillAt": "2026-10-09T13:30:16.338Z",
     "fillQty": 3,
     "stopSubmittedAt": "2026-10-09T13:32:33.389803Z",
-    "stopConfirmedAt": "2026-10-14T13:28:50.081Z",
-    "fillToConfirmSec": 431914,
+    "stopConfirmedAt": "2026-10-15T13:28:23.796Z",
+    "fillToConfirmSec": 518287,
     "source": "bars",
     "result": "confirmed",
     "today": false,
     "exitSubmittedAt": null,
     "exitFills": [],
-    "resolvedAt": "2026-10-14T13:28:50.081Z",
+    "resolvedAt": "2026-10-15T13:28:23.796Z",
     "resolvedBy": "stop",
-    "fillToResolveSec": 431914
+    "fillToResolveSec": 518287
    },
    {
     "book": "CHEAP",
     "sym": "NXH",
     "fillAt": "2026-10-08T13:30:10.980Z",
     "fillQty": 93,
-    "stopSubmittedAt": "2026-10-08T13:41:26.94322Z",
-    "stopConfirmedAt": "2026-10-14T13:28:50.081Z",
-    "fillToConfirmSec": 518319,
+    "stopSubmittedAt": "2026-10-15T13:32:56.777Z",
+    "stopConfirmedAt": "2026-10-15T13:33:11.948Z",
+    "fillToConfirmSec": 604981,
     "source": "bars",
     "result": "confirmed",
     "today": false,
     "exitSubmittedAt": null,
     "exitFills": [],
-    "resolvedAt": "2026-10-14T13:28:50.081Z",
+    "resolvedAt": "2026-10-15T13:33:11.948Z",
     "resolvedBy": "stop",
-    "fillToResolveSec": 518319
-   },
-   {
-    "book": "CHEAP",
-    "sym": "MFA",
-    "fillAt": "2026-10-08T13:30:20.099Z",
-    "fillQty": 83,
-    "stopSubmittedAt": "2026-10-08T13:41:27.027089Z",
-    "stopConfirmedAt": "2026-10-14T13:28:50.081Z",
-    "fillToConfirmSec": 518310,
-    "source": "bars",
-    "result": "confirmed",
-    "today": false,
-    "exitSubmittedAt": null,
-    "exitFills": [],
-    "resolvedAt": "2026-10-14T13:28:50.081Z",
-    "resolvedBy": "stop",
-    "fillToResolveSec": 518310
+    "fillToResolveSec": 604981
    },
    {
     "book": "LEARN.S1",
@@ -425,33 +408,16 @@
     "fillAt": "2026-10-09T13:30:04.778Z",
     "fillQty": 1,
     "stopSubmittedAt": "2026-10-09T13:32:33.57981Z",
-    "stopConfirmedAt": "2026-10-14T13:28:50.081Z",
-    "fillToConfirmSec": 431925,
+    "stopConfirmedAt": "2026-10-15T13:28:23.796Z",
+    "fillToConfirmSec": 518299,
     "source": "bars",
     "result": "confirmed",
     "today": false,
     "exitSubmittedAt": null,
     "exitFills": [],
-    "resolvedAt": "2026-10-14T13:28:50.081Z",
+    "resolvedAt": "2026-10-15T13:28:23.796Z",
     "resolvedBy": "stop",
-    "fillToResolveSec": 431925
-   },
-   {
-    "book": "LEARN.S1",
-    "sym": "CNH",
-    "fillAt": "2026-10-12T13:30:19.031Z",
-    "fillQty": 3,
-    "stopSubmittedAt": "2026-10-14T13:32:28.780Z",
-    "stopConfirmedAt": "2026-10-14T13:32:44.954Z",
-    "fillToConfirmSec": 172946,
-    "source": "bars",
-    "result": "confirmed",
-    "today": false,
-    "exitSubmittedAt": null,
-    "exitFills": [],
-    "resolvedAt": "2026-10-14T13:32:44.954Z",
-    "resolvedBy": "stop",
-    "fillToResolveSec": 172946
+    "fillToResolveSec": 518299
    },
    {
     "book": "LEARN.CHEAP",
@@ -459,33 +425,16 @@
     "fillAt": "2026-10-09T13:30:13.956Z",
     "fillQty": 51,
     "stopSubmittedAt": "2026-10-09T13:32:33.648558Z",
-    "stopConfirmedAt": "2026-10-14T13:28:50.081Z",
-    "fillToConfirmSec": 431916,
+    "stopConfirmedAt": "2026-10-15T13:28:23.796Z",
+    "fillToConfirmSec": 518290,
     "source": "bars",
     "result": "confirmed",
     "today": false,
     "exitSubmittedAt": null,
     "exitFills": [],
-    "resolvedAt": "2026-10-14T13:28:50.081Z",
+    "resolvedAt": "2026-10-15T13:28:23.796Z",
     "resolvedBy": "stop",
-    "fillToResolveSec": 431916
-   },
-   {
-    "book": "LEARN.CHEAP",
-    "sym": "QUBT",
-    "fillAt": "2026-10-09T13:30:29.284Z",
-    "fillQty": 20,
-    "stopSubmittedAt": "2026-10-09T13:30:46.790216Z",
-    "stopConfirmedAt": "2026-10-14T13:28:50.081Z",
-    "fillToConfirmSec": 431901,
-    "source": "bars",
-    "result": "confirmed",
-    "today": false,
-    "exitSubmittedAt": null,
-    "exitFills": [],
-    "resolvedAt": "2026-10-14T13:28:50.081Z",
-    "resolvedBy": "stop",
-    "fillToResolveSec": 431901
+    "fillToResolveSec": 518290
    },
    {
     "book": "LEARN.CHEAP",
@@ -493,16 +442,16 @@
     "fillAt": "2026-10-13T13:30:09.795Z",
     "fillQty": 5,
     "stopSubmittedAt": "2026-10-13T13:42:05.931564Z",
-    "stopConfirmedAt": "2026-10-14T13:28:50.081Z",
-    "fillToConfirmSec": 86320,
+    "stopConfirmedAt": "2026-10-15T13:28:23.796Z",
+    "fillToConfirmSec": 172694,
     "source": "bars",
     "result": "confirmed",
     "today": false,
     "exitSubmittedAt": null,
     "exitFills": [],
-    "resolvedAt": "2026-10-14T13:28:50.081Z",
+    "resolvedAt": "2026-10-15T13:28:23.796Z",
     "resolvedBy": "stop",
-    "fillToResolveSec": 86320
+    "fillToResolveSec": 172694
    }
   ]
  },
@@ -543,5 +492,6 @@
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
  "protectPass": null,
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
+ "protectAt": "2026-10-15T13:33:11.948Z"
 }
