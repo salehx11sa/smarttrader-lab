@@ -1,0 +1,127 @@
+{
+ "player": "CHEAP",
+ "name": "الرخيص",
+ "date": "2026-10-15",
+ "labVersion": "lab-0.11",
+ "startEquity": 13000,
+ "equity": 12937.28,
+ "cash": 12937.28,
+ "dayPnl": -0.93,
+ "totalPnl": -62.72,
+ "totalReturnPct": -0.482,
+ "drawdownPct": 0.49,
+ "maxDrawdownPct": 0.49,
+ "positions": [],
+ "orders": [
+  {
+   "cid": "ch1-20261015-NXH-S",
+   "sym": "NXH",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 93,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261015-NXH-P1",
+   "sym": "NXH",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 93,
+   "filled": 0,
+   "status": "canceled",
+   "stop": 0.9886
+  },
+  {
+   "cid": "ch1-20261015-NXH-P2",
+   "sym": "NXH",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 93,
+   "filled": 0,
+   "status": "canceled",
+   "stop": 0.9886
+  },
+  {
+   "cid": "ch1-20261015-NXH-S-R1",
+   "sym": "NXH",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 93,
+   "filled": 93,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "side": "sell",
+   "qty": 21,
+   "price": 1.61,
+   "cid": "ch1-20261015-NXH-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 1.6164,
+   "slipVsRefPct": -0.396,
+   "auctionPrice": 1.61,
+   "slipVsAuctionPct": 0,
+   "fallbackExit": true
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "side": "sell",
+   "qty": 65,
+   "price": 1.61,
+   "cid": "ch1-20261015-NXH-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 1.6164,
+   "slipVsRefPct": -0.396,
+   "auctionPrice": 1.61,
+   "slipVsAuctionPct": 0,
+   "fallbackExit": true
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "side": "sell",
+   "qty": 6,
+   "price": 1.61,
+   "cid": "ch1-20261015-NXH-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 1.6164,
+   "slipVsRefPct": -0.396,
+   "auctionPrice": 1.61,
+   "slipVsAuctionPct": 0,
+   "fallbackExit": true
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "side": "sell",
+   "qty": 1,
+   "price": 1.61,
+   "cid": "ch1-20261015-NXH-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 1.6164,
+   "slipVsRefPct": -0.396,
+   "auctionPrice": 1.61,
+   "slipVsAuctionPct": 0,
+   "fallbackExit": true
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 2,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13046.48
+ }
+}
