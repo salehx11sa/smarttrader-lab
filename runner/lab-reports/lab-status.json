@@ -1,8 +1,8 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
- "version": "lab-0.11",
- "at": "2026-10-15T21:23:54.465Z",
- "cmd": "lab-overnight",
+ "version": "lab-0.11a",
+ "at": "2026-10-15T21:36:58.595Z",
+ "cmd": "lab-status",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-15",
@@ -10,13 +10,7 @@
  "trading": true,
  "halt": false,
  "entryGates": null,
- "flags": [
-  {
-   "id": "labrecon-2026-10-15-SPY",
-   "kind": "lab-recon-mismatch",
-   "at": "2026-10-15T19:40:29.542Z"
-  }
- ],
+ "flags": [],
  "players": [
   {
    "id": "REF",
@@ -44,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 13046.48,
-   "equityNow": 13043.24,
+   "equityNow": 13045.58,
    "totalReturnPct": 0.358,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -86,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12954.67,
-   "equityNow": 12950.47,
+   "equityNow": 12950.17,
    "totalReturnPct": -0.349,
    "maxDrawdownPct": 1.03,
    "drawdownPct": 0.78,
@@ -128,7 +122,7 @@
    "name": "الليلي",
    "retired": null,
    "equityClose": 12990.51,
-   "equityNow": 12988.27,
+   "equityNow": 12988.11,
    "totalReturnPct": -0.073,
    "maxDrawdownPct": 0.23,
    "drawdownPct": 0.23,
@@ -170,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12941.8,
-   "equityNow": 12942.25,
+   "equityNow": 12941.28,
    "totalReturnPct": -0.448,
    "maxDrawdownPct": 0.6,
    "drawdownPct": 0.45,
