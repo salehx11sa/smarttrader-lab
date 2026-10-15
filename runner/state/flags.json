@@ -1,5 +1,6 @@
 {
- "active": [
+ "active": [],
+ "cleared": [
   {
    "id": "labrecon-2026-10-15-SPY",
    "kind": "lab-recon-mismatch",
@@ -10,8 +11,43 @@
      "baseline": 0,
      "broker": 23
     }
-   }
+   },
+   "clearedAt": "2026-10-15T21:36:36.482Z",
+   "clearedBy": "salehx11sa",
+   "scope": "selective",
+   "approval": "المراجع 7.2.29e (البند 1) + صالح، 2026-10-16",
+   "reason": "سباق توقيت: لقطة المراكز في تشغيل 19:40:29Z التقطت تعبئة جزئية (5 من 9) لأوامر التشغيل نفسه o1-20261015-SPY-B-r77219 وln1-o1-20261015-SPY-B-r77219 قبل قيدها في الدفاتر؛ المطابقة سليمة (SPY 27=27) في تشغيلات 19:45 و19:50 و20:03Z",
+   "engine": "lab-0.11a",
+   "recon": [
+    {
+     "at": "2026-10-15T21:36:33.220Z",
+     "ok": true,
+     "rows": [
+      {
+       "sym": "SPY",
+       "lab": 27,
+       "baseline": 0,
+       "broker": 27,
+       "diff": 0
+      }
+     ]
+    },
+    {
+     "at": "2026-10-15T21:36:36.482Z",
+     "ok": true,
+     "rows": [
+      {
+       "sym": "SPY",
+       "lab": 27,
+       "baseline": 0,
+       "broker": 27,
+       "diff": 0
+      }
+     ]
+    }
+   ],
+   "openOrdersOnSymbols": 0,
+   "otherActiveKept": []
   }
- ],
- "cleared": []
+ ]
 }
