@@ -1,0 +1,866 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.11",
+ "rulesVersion": "lab-0.4",
+ "at": "2026-10-15T13:36:28.721Z",
+ "cmd": "lab-postopen",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "خروج بديل: LEARN.O1 SPY × 1 بيع سوق day بعد عدم تنفيذ ln1-o1-20261015-SPY-S (expired، منفذ 0 من 1)",
+  "خروج بديل: O1 SPY × 8 بيع سوق day بعد عدم تنفيذ o1-20261015-SPY-S (expired، منفذ 0 من 8)",
+  "حماية: وقف GTC CHEAP NXH × 93 عند 0.9886 (bars)",
+  "lab-postopen: لا أوامر إغلاق (قبل نافذة شراء الإغلاق (15:40–15:58))"
+ ],
+ "warnings": [],
+ "errors": [
+  "CHEAP NXH: الخروج البديل: إلغاء الوقف لم يُحسم — لا بيع (الوقف باقٍ)"
+ ],
+ "orders": [
+  {
+   "method": "DELETE",
+   "url": "/v2/orders/b3b609ef-6016-4550-84c5-8161907d353e",
+   "status": 204,
+   "id": null,
+   "orderStatus": null
+  },
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "SPY",
+    "qty": "1",
+    "side": "sell",
+    "type": "market",
+    "time_in_force": "day",
+    "client_order_id": "ln1-o1-20261015-SPY-S-R1"
+   },
+   "status": 200,
+   "id": "622d1d7c-e686-4d65-abc3-93379c5e7b54",
+   "orderStatus": "pending_new"
+  },
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "SPY",
+    "qty": "8",
+    "side": "sell",
+    "type": "market",
+    "time_in_force": "day",
+    "client_order_id": "o1-20261015-SPY-S-R1"
+   },
+   "status": 200,
+   "id": "c63f9897-aa19-475e-8ea2-4e47be8251f7",
+   "orderStatus": "pending_new"
+  },
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "NXH",
+    "qty": "93",
+    "side": "sell",
+    "type": "stop",
+    "stop_price": "0.9886",
+    "time_in_force": "gtc",
+    "client_order_id": "ch1-20261015-NXH-P2"
+   },
+   "status": 200,
+   "id": "f88b008d-c92f-4cc2-8111-dedaadd5a5b7",
+   "orderStatus": "pending_new"
+  }
+ ],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "38744097847",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "147",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-15T13:36:28.721Z"
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "64771.18",
+  "equity": "99623.25",
+  "clock": {
+   "is_open": true,
+   "next_close": "2026-10-15T16:00:00-04:00",
+   "next_open": "2026-10-16T09:30:00-04:00",
+   "timestamp": "2026-10-15T09:36:29.038129468-04:00"
+  }
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 3,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 3,
+   "head": "d1cb08a974bc"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "crossLedgerInitial": {
+  "ok": true,
+  "state": "valid",
+  "rows": 3,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 3,
+   "head": "d1cb08a974bc"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "feedUsed": "sip",
+ "legacy": {
+  "effectiveBaseline": {
+   "AMD": 0,
+   "CAT": 0,
+   "MSFT": 3,
+   "NVDA": 0
+  },
+  "sold": {
+   "CAT": 1,
+   "AMD": 1,
+   "NVDA": 3
+  },
+  "invalid": {},
+  "documentedOrders": 4,
+  "documentedFills": 4
+ },
+ "recon": {
+  "rows": [
+   {
+    "sym": "AMD",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "CAT",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "CNH",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "DFTX",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "DNTH",
+    "lab": 4,
+    "baseline": 0,
+    "broker": 4,
+    "diff": 0
+   },
+   {
+    "sym": "HELP",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "LAC",
+    "lab": 51,
+    "baseline": 0,
+    "broker": 51,
+    "diff": 0
+   },
+   {
+    "sym": "MFA",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "MSFT",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NVDA",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "NXH",
+    "lab": 93,
+    "baseline": 0,
+    "broker": 93,
+    "diff": 0
+   },
+   {
+    "sym": "QUBT",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "SPY",
+    "lab": 27,
+    "baseline": 0,
+    "broker": 27,
+    "diff": 0
+   },
+   {
+    "sym": "VEEE",
+    "lab": 5,
+    "baseline": 0,
+    "broker": 5,
+    "diff": 0
+   },
+   {
+    "sym": "VOO",
+    "lab": 17,
+    "baseline": 0,
+    "broker": 17,
+    "diff": 0
+   }
+  ],
+  "ok": true,
+  "labMismatch": {},
+  "unexplainedForeign": [],
+  "baselineDrift": [],
+  "baselineDeficit": []
+ },
+ "foreignActivity": {
+  "ordersToday": [],
+  "openBuys": [],
+  "fillsToday": [],
+  "unknownFillsToday": [],
+  "legacyExcusedToday": [],
+  "any": false
+ },
+ "settlement": {
+  "proven": true,
+  "settledCash": 64066.82,
+  "cash": 64771.18,
+  "unsettledProceeds": 704.36,
+  "reasons": [],
+  "pendingReserveAll": 0
+ },
+ "fallbackExits": [
+  {
+   "at": "2026-10-15T13:36:31.617Z",
+   "book": "CHEAP",
+   "sym": "NXH",
+   "origCid": "ch1-20261015-NXH-S",
+   "origStatus": "expired",
+   "origQty": 93,
+   "origFilled": 0,
+   "result": "stop-cancel-unresolved",
+   "positionQty": 93,
+   "openSellQty": 0,
+   "brokerFree": 93,
+   "stopsCanceled": 1,
+   "why": "إلغاء الوقف لم يُحسم — لا بيع (الوقف باقٍ)"
+  },
+  {
+   "at": "2026-10-15T13:36:37.103Z",
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261015-SPY-S",
+   "origStatus": "expired",
+   "origQty": 1,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 1,
+   "openSellQty": 0,
+   "brokerFree": 27,
+   "late": false,
+   "prePx": 765.72,
+   "qty": 1,
+   "fallbackCid": "ln1-o1-20261015-SPY-S-R1",
+   "id": "622d1d7c-e686-4d65-abc3-93379c5e7b54",
+   "statusAtSubmit": "pending_new"
+  },
+  {
+   "at": "2026-10-15T13:36:37.232Z",
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261015-SPY-S",
+   "origStatus": "expired",
+   "origQty": 8,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 8,
+   "openSellQty": 0,
+   "brokerFree": 26,
+   "late": false,
+   "prePx": 765.72,
+   "qty": 8,
+   "fallbackCid": "o1-20261015-SPY-S-R1",
+   "id": "c63f9897-aa19-475e-8ea2-4e47be8251f7",
+   "statusAtSubmit": "pending_new"
+  }
+ ],
+ "protectPass": {
+  "status": "incomplete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
+ "protection": [
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "qty": 3,
+   "need": 3,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 71.27,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "f0e1ce4a-85ef-40d9-a0b0-a6e7a61d2d7b",
+     "status": "new",
+     "qty": 3,
+     "stop": 71.27,
+     "tif": "gtc",
+     "submittedAt": "2026-10-09T13:32:33.389803Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552616338,
+     "qty": 3,
+     "cid": "s1-20261009-DNTH-B-r8243"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:16.338Z",
+   "stopAt": "2026-10-09T13:32:33.389Z",
+   "fillToStopSec": 137,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "qty": 93,
+   "need": 93,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 0.9886,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": false,
+   "awaiting": false,
+   "stops": [],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791466210980,
+     "qty": 93,
+     "cid": "ch1-20261008-NXH-B-r178"
+    }
+   ],
+   "fillAt": "2026-10-08T13:30:10.980Z",
+   "stopAt": null,
+   "fillToStopSec": null,
+   "unprotectedSec": 605190
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "qty": 1,
+   "need": 1,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 71.27,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "4ac564c3-b9b6-4410-b34a-7b9443c98389",
+     "status": "new",
+     "qty": 1,
+     "stop": 71.27,
+     "tif": "gtc",
+     "submittedAt": "2026-10-09T13:32:33.57981Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552604778,
+     "qty": 1,
+     "cid": "ln1-s1-20261009-DNTH-B-r8243"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:04.778Z",
+   "stopAt": "2026-10-09T13:32:33.579Z",
+   "fillToStopSec": 149,
+   "unprotectedSec": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "qty": 51,
+   "need": 51,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 2,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "86e6221b-e8f9-494b-abf6-0c13fad803b2",
+     "status": "new",
+     "qty": 51,
+     "stop": 2,
+     "tif": "gtc",
+     "submittedAt": "2026-10-09T13:32:33.648558Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552613956,
+     "qty": 51,
+     "cid": "ln1-ch1-20261009-LAC-B-r236"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:13.956Z",
+   "stopAt": "2026-10-09T13:32:33.648Z",
+   "fillToStopSec": 140,
+   "unprotectedSec": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "qty": 5,
+   "need": 5,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 4.76,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "f162ed88-bf63-4bf9-9c49-1c8d6b595b0e",
+     "status": "new",
+     "qty": 5,
+     "stop": 4.76,
+     "tif": "gtc",
+     "submittedAt": "2026-10-13T13:42:05.931564Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791898209795,
+     "qty": 5,
+     "cid": "ln1-ch1-20261013-VEEE-B-r889"
+    }
+   ],
+   "fillAt": "2026-10-13T13:30:09.795Z",
+   "stopAt": "2026-10-13T13:42:05.931Z",
+   "fillToStopSec": 716,
+   "unprotectedSec": null
+  }
+ ],
+ "protectionLatency": [
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-09T13:30:16.338Z",
+   "stopAt": "2026-10-09T13:32:33.389Z",
+   "fillToStopSec": 137,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 3
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "confirmed": false,
+   "source": "bars",
+   "fillAt": "2026-10-08T13:30:10.980Z",
+   "stopAt": null,
+   "fillToStopSec": null,
+   "unprotectedSec": 605190,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 93
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-09T13:30:04.778Z",
+   "stopAt": "2026-10-09T13:32:33.579Z",
+   "fillToStopSec": 149,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 1
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-09T13:30:13.956Z",
+   "stopAt": "2026-10-09T13:32:33.648Z",
+   "fillToStopSec": 140,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 51
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-13T13:30:09.795Z",
+   "stopAt": "2026-10-13T13:42:05.931Z",
+   "fillToStopSec": 716,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 5
+  }
+ ],
+ "protectionAfter": [
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "qty": 3,
+   "need": 3,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 71.27,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "f0e1ce4a-85ef-40d9-a0b0-a6e7a61d2d7b",
+     "status": "new",
+     "qty": 3,
+     "stop": 71.27,
+     "tif": "gtc",
+     "submittedAt": "2026-10-09T13:32:33.389803Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552616338,
+     "qty": 3,
+     "cid": "s1-20261009-DNTH-B-r8243"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:16.338Z",
+   "stopAt": "2026-10-09T13:32:33.389Z",
+   "fillToStopSec": 137,
+   "unprotectedSec": null
+  },
+  {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "qty": 93,
+   "need": 93,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 0.9886,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": false,
+   "awaiting": true,
+   "stops": [
+    {
+     "id": "f88b008d-c92f-4cc2-8111-dedaadd5a5b7",
+     "status": "pending_new",
+     "qty": 93,
+     "stop": 0.9886,
+     "tif": "gtc",
+     "submittedAt": "2026-10-15T13:36:40.863772873Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791466210980,
+     "qty": 93,
+     "cid": "ch1-20261008-NXH-B-r178"
+    }
+   ],
+   "fillAt": "2026-10-08T13:30:10.980Z",
+   "stopAt": null,
+   "fillToStopSec": null,
+   "unprotectedSec": 605190
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "qty": 1,
+   "need": 1,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 71.27,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "4ac564c3-b9b6-4410-b34a-7b9443c98389",
+     "status": "new",
+     "qty": 1,
+     "stop": 71.27,
+     "tif": "gtc",
+     "submittedAt": "2026-10-09T13:32:33.57981Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552604778,
+     "qty": 1,
+     "cid": "ln1-s1-20261009-DNTH-B-r8243"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:04.778Z",
+   "stopAt": "2026-10-09T13:32:33.579Z",
+   "fillToStopSec": 149,
+   "unprotectedSec": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "qty": 51,
+   "need": 51,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 2,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "86e6221b-e8f9-494b-abf6-0c13fad803b2",
+     "status": "new",
+     "qty": 51,
+     "stop": 2,
+     "tif": "gtc",
+     "submittedAt": "2026-10-09T13:32:33.648558Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791552613956,
+     "qty": 51,
+     "cid": "ln1-ch1-20261009-LAC-B-r236"
+    }
+   ],
+   "fillAt": "2026-10-09T13:30:13.956Z",
+   "stopAt": "2026-10-09T13:32:33.648Z",
+   "fillToStopSec": 140,
+   "unprotectedSec": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "qty": 5,
+   "need": 5,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 4.76,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "f162ed88-bf63-4bf9-9c49-1c8d6b595b0e",
+     "status": "new",
+     "qty": 5,
+     "stop": 4.76,
+     "tif": "gtc",
+     "submittedAt": "2026-10-13T13:42:05.931564Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791898209795,
+     "qty": 5,
+     "cid": "ln1-ch1-20261013-VEEE-B-r889"
+    }
+   ],
+   "fillAt": "2026-10-13T13:30:09.795Z",
+   "stopAt": "2026-10-13T13:42:05.931Z",
+   "fillToStopSec": 716,
+   "unprotectedSec": null
+  }
+ ],
+ "protectSla": {
+  "enabled": true,
+  "flag": "protection-sla-breach",
+  "active": true,
+  "corrupt": false,
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "books": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "targetSec": 60,
+  "upperSec": 90,
+  "since": "2026-10-13T13:42:06.453Z",
+  "cases": [
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "VEEE",
+    "fillAt": "2026-10-13T13:30:09.795Z",
+    "resolvedAt": "2026-10-13T13:42:05.931Z",
+    "sec": 716,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-postopen"
+   }
+  ],
+  "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط.",
+  "evaluated": [],
+  "newBreaches": []
+ },
+ "clsWindow": {
+  "fromMs": 1792093200000,
+  "untilMs": 1792094280000,
+  "from": "2026-10-15T19:40:00.000Z",
+  "until": "2026-10-15T19:58:00.000Z",
+  "close": "16:00",
+  "nowAt": "2026-10-15T13:36:41.258Z",
+  "inWindow": false,
+  "why": "قبل نافذة شراء الإغلاق (15:40–15:58)"
+ },
+ "labStatus": {
+  "lastCompletedDay": "2026-10-14",
+  "dailyWritten": [
+   "2026-10-14"
+  ]
+ }
+}
