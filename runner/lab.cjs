@@ -34,7 +34,7 @@ const DS = require('./daily_strat.js');
 const CAPS = require('./caps.cjs');
 const RL = require('./runner.cjs'); /* مكتبة فقط: scanSaveIncidents/lastRunPair/pairCovered/verifySave/nyParts — نسخة مطابقة حرفيًا لـ7.2.19-dev */
 const PAPER = 'https://paper-api.alpaca.markets', DATA = 'https://data.alpaca.markets';
-const VERSION = 'lab-0.11';
+const VERSION = 'lab-0.11a';
 /* النوافذ بتوقيت نيويورك (OPG-WINDOW-01). وثائق Alpaca (Orders at Alpaca / Time in Force):
    «OPG submitted after 9:28am but before 7:00pm ET will be rejected; after 7:00pm queued for the next day's opening auction» و«CLS after 3:50pm but before 7:00pm rejected».
    ⇒ إرسال OPG من 19:05 حتى 09:15 فقط (هامش 5 دقائق بعد 19:00 و13 دقيقة قبل 09:28)، وأي وقت يقع بين 09:16 و19:04 في أي يوم (ومنها عطلة نهاية الأسبوع) خارج النافذة.
@@ -1081,6 +1081,50 @@ function mkLab(env, io) {
     const SI = RL.scanSaveIncidents(STATE_DIR, REPORTS_DIR, { now: now() }); for (const x of SI.open) { fs.mkdirSync(path.join(STATE_DIR, 'evidence'), { recursive: true }); fs.writeFileSync(path.join(STATE_DIR, 'evidence', 'save-incident-' + x.id + '.resolved.json'), JSON.stringify({ incidentId: x.id, resolvedAt: at, by, note: 'حسم يدوي عبر lab-clear-flags' }, null, 1)); }
     report.steps.push('رُفعت ' + n + ' أعلام، وحُسمت ' + SI.open.length + ' حوادث حفظ'); return report; }
 
+  /* lab-0.11a (مراجعة 7.2.29e، البند 1): رفع انتقائي لعلم مطابقة معتمد بالاسم فقط.
+     لا يمس أي علم آخر، ولا موانع الحماية، ولا علم protection-sla-breach، ولا حوادث الحفظ.
+     الشروط: تشغيل تداول • العلم نشط ومعتمد بالاسم والنوع • قراءتان حديثتان متتاليتان (مراكز + أوامر + تعبئات) بمطابقة سليمة
+     • لا فرق على رموز العلم • لا أمر مختبر غير نهائي (عدا وقف الحماية) على رموز العلم • بعد الحفظ: تحقق بالقراءة أن العلم وحده رُفع وأن الباقي كما هو.
+     التزامن: مجموعة concurrency الواحدة في الـworkflow تمنع أي كاتب آخر للحالة أثناء التشغيل. */
+  const APPROVED_FLAG_LIFTS = Object.freeze([Object.freeze({ id: 'labrecon-2026-10-15-SPY', kind: 'lab-recon-mismatch', approval: 'المراجع 7.2.29e (البند 1) + صالح، 2026-10-16',
+    reason: 'سباق توقيت: لقطة المراكز في تشغيل 19:40:29Z التقطت تعبئة جزئية (5 من 9) لأوامر التشغيل نفسه o1-20261015-SPY-B-r77219 وln1-o1-20261015-SPY-B-r77219 قبل قيدها في الدفاتر؛ المطابقة سليمة (SPY 27=27) في تشغيلات 19:45 و19:50 و20:03Z' })]);
+  const PROTECTIVE = new Set(['stop', 'stop_limit', 'trailing_stop']); const FINAL_LIFT = new Set(['filled', 'canceled', 'expired', 'rejected', 'replaced']); const RESTING = new Set(['new', 'accepted', 'held', 'pending_new']); /* done_for_day وpending_cancel ليسا نهائيين */
+  async function liftApproved() {
+    report.liftFlag = { approved: APPROVED_FLAG_LIFTS.map(a => a.id), results: [] };
+    if (READONLY || !TRADING) { report.errors.push('الرفع الانتقائي يحتاج تشغيل تداول (TRADING_ENABLED=true) — لم يُرفع شيء'); return report; }
+    const snap = () => ({ flags: readFlags(), sla: JSON.stringify(slaRead()), pb: JSON.stringify(readProtectBlocks()) });
+    const before = snap(); const targets = APPROVED_FLAG_LIFTS.filter(a => before.flags.active.some(f => f.id === a.id && f.kind === a.kind));
+    for (const a of APPROVED_FLAG_LIFTS) if (!targets.includes(a)) report.liftFlag.results.push({ id: a.id, result: 'not-active', why: 'العلم غير نشط أو نوعه مختلف — لا شيء يُرفع' });
+    if (!targets.length) { report.steps.push('الرفع الانتقائي: لا علم معتمد نشط'); return report; }
+    READONLY = true; /* القراءتان بلا أي كتابة حالة، وطبقة الطلبات ترفض كل طلب غير GET؛ الكتابة الوحيدة flags.json (force) والإيصال */
+    const reads = [];
+    for (let i = 0; i < 2; i++) { if (i) await sleep(3000); const B = await loadBroker(); const ctx = await context(B); if (!i) report.account = acctView(B);
+      reads.push({ at: new Date(now()).toISOString(), B, ctx }); }
+    const F = readFlags(); const otherBefore = before.flags.active.filter(f => !targets.some(a => a.id === f.id)).map(f => f.id).sort();
+    const at = new Date(now()).toISOString(); const by = io.flagNote || env.FLAG_CLEAR_NOTE || 'manual'; const lifted = [];
+    for (const a of targets) { const f = F.active.find(x => x.id === a.id); const syms = Object.keys((f && f.detail) || {}); const why = [];
+      if (!f) why.push('العلم لم يعد نشطًا عند الحفظ');
+      if (!syms.length) why.push('العلم بلا رموز في تفاصيله');
+      const rows = reads.map(r => ({ at: r.at, ok: !!(r.ctx.recon && r.ctx.recon.ok), rows: syms.map(s => (r.ctx.recon.rows || []).find(x => x.sym === s) || { sym: s, missing: true }) }));
+      for (const r of reads) { if (!(r.ctx.recon && r.ctx.recon.ok)) why.push('المطابقة غير سليمة في قراءة ' + r.at); if (!(r.ctx.crossLedger && r.ctx.crossLedger.ok)) why.push('سجل التقاطعات غير مثبت في قراءة ' + r.at + ' (' + ((r.ctx.crossLedger && r.ctx.crossLedger.state) || '?') + ')');
+        for (const s of syms) if (r.ctx.recon && r.ctx.recon.labMismatch && r.ctx.recon.labMismatch[s]) why.push(s + ': فرق بين الدفاتر والوسيط في قراءة ' + r.at); }
+      const last = reads[reads.length - 1].B; const resting = o => PROTECTIVE.has(o.type || o.order_type) && RESTING.has(o.status); const open = last.lab.filter(o => syms.includes(o.symbol) && !FINAL_LIFT.has(o.status) && !resting(o));
+      const foreignOpen = last.foreign.filter(o => syms.includes(o.symbol) && !FINAL_LIFT.has(o.status)); if (foreignOpen.length) why.push('أوامر غير مختبرية مفتوحة على ' + syms.join('، ') + ': ' + foreignOpen.length);
+      if (open.length) why.push('أوامر مختبر غير نهائية على ' + syms.join('، ') + ': ' + open.map(o => o.client_order_id + '/' + o.status).join('، '));
+      for (const s of syms) { const q = reads.map(r => r.B.brokerPos[s] || 0); if (q.some(x => Math.abs(x - q[0]) > 1e-9)) why.push(s + ': كمية الوسيط تغيرت بين القراءتين (' + q.join(' ⇐ ') + ')'); }
+      if (why.length) { report.liftFlag.results.push({ id: a.id, result: 'refused', why, recon: rows }); report.errors.push('الرفع الانتقائي لـ' + a.id + ' رُفض: ' + why.join(' • ')); continue; }
+      F.active = F.active.filter(x => x.id !== a.id);
+      F.cleared.push(Object.assign({}, f, { clearedAt: at, clearedBy: by, scope: 'selective', approval: a.approval, reason: a.reason, engine: VERSION, recon: rows, openOrdersOnSymbols: 0, otherActiveKept: otherBefore }));
+      lifted.push(a.id); report.liftFlag.results.push({ id: a.id, result: 'lifted', at, recon: rows }); }
+    if (lifted.length) { writeState('flags.json', F, true);
+      const after = snap(); const otherAfter = after.flags.active.map(f => f.id).sort(); const v = [];
+      for (const id of lifted) { if (after.flags.active.some(f => f.id === id)) v.push(id + ' ما زال نشطًا'); if (!after.flags.cleared.some(f => f.id === id && f.scope === 'selective')) v.push(id + ' غير موجود في سجل الرفع'); }
+      if (otherBefore.some(id => !otherAfter.includes(id))) v.push('علم آخر اختفى: ' + otherBefore.filter(id => !otherAfter.includes(id)).join('، '));
+      if (after.sla !== before.sla) v.push('ملف protection-sla تغيّر'); if (after.pb !== before.pb) v.push('موانع الحماية تغيّرت');
+      report.liftFlag.verify = { ok: !v.length, problems: v, activeAfter: otherAfter, newDuringRun: otherAfter.filter(id => !otherBefore.includes(id)), slaUnchanged: after.sla === before.sla, protectBlocksUnchanged: after.pb === before.pb, slaActive: (JSON.parse(after.sla).active || []).map(x => x.id || x.flagId || 'sla') };
+      if (v.length) report.errors.push('التحقق بعد الرفع الانتقائي فشل: ' + v.join(' • ')); else report.steps.push('رُفع انتقائيًا: ' + lifted.join('، ') + ' — بقية الأعلام (' + (otherAfter.join('، ') || 'لا شيء') + ') وموانع الحماية وSLA كما هي'); }
+    return report; }
+
   /* ---------- التقارير: يومي لكل لاعب + lab-status.json + ملاحظة أسبوعية + الظلال ---------- */
   function wj(f, v) { fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, JSON.stringify(v, null, 1)); }
   function fillRows(k, d, B) { const FBX = fbRead().byCid; return k.fills.filter(f => f.date === d).map(f => { const exp = refOfCid(f.cid) || f.refPx || (FBX[f.cid] && FBX[f.cid].prePx) || null; const tif = f.cid ? ((B.lab.find(o => o.client_order_id === f.cid) || {}).time_in_force || null) : 'cross';
@@ -1220,7 +1264,7 @@ function mkLab(env, io) {
   /* ---------- الحفظ: التقرير + runs.json + الإيصال (بالصيغة التي يتحقق منها verifySave) ---------- */
   let EXIT_HINT = null; function setExitCode(c) { EXIT_HINT = c == null ? null : +c; }
   function saveReport(cmd, rep, outDir, exitCode) { if (exitCode === undefined) exitCode = EXIT_HINT; outDir = outDir || REPORTS_DIR; fs.mkdirSync(outDir, { recursive: true });
-    const name = new Date(now()).toISOString().replace(/[:.]/g, '-') + '-' + cmd + '.json'; const f = path.join(outDir, name); const recordable = TRADING && !READONLY && cmd !== 'lab-status' && cmd !== 'lab-clear-flags';
+    const name = new Date(now()).toISOString().replace(/[:.]/g, '-') + '-' + cmd + '.json'; const f = path.join(outDir, name); const recordable = TRADING && !READONLY && cmd !== 'lab-status' && cmd !== 'lab-clear-flags' && cmd !== 'lab-lift-flag';
     let body = JSON.stringify(rep, null, 1); try { fs.writeFileSync(f, body); } catch (e) { const id = 'report-' + name.replace(/\.json$/, ''); writeIncident({ id, failed: ['report'], error: e.message, reportFile: name }); try { raise('run-record-failed', 'runrec-' + id, { reportFile: name }); } catch (x) {} const er = new Error('تعذرت كتابة التقرير: ' + e.message); er.code = 'REPORT_WRITE_FAILED'; er.reportFile = name; throw er; }
     let sha = sha256(Buffer.from(body)); let recorded = false;
     if (recordable) { try { const runs = readState('runs.json', []); runs.push({ cmd, start: report.runEnv.startedAt, startedAt: report.runEnv.startedAt, at: new Date(now()).toISOString(), githubRunId: env.GITHUB_RUN_ID || null, githubRunAttempt: env.GITHUB_RUN_ATTEMPT || null, githubEvent: env.GITHUB_EVENT_NAME || null, githubSchedule: env.GH_EVENT_SCHEDULE || null, reportFile: name, reportSha256: sha, lab: true, labStatus: rep.status || null, ordersSent: (rep.orders || []).length });
@@ -1233,10 +1277,10 @@ function mkLab(env, io) {
     catch (e) { const er = new Error('تعذر كتابة إيصال الحفظ: ' + e.message); er.code = 'SAVE_RECEIPT_FAILED'; er.reportFile = name; throw er; }
     return f; }
 
-  return { overnight, postopen, protectLoop, status, clearFlags: async () => clearFlags(io.flagNote), report, saveReport, setExitCode, _req: req, cfg, readState };
+  return { overnight, postopen, protectLoop, status, clearFlags: async () => clearFlags(io.flagNote), liftApproved, report, saveReport, setExitCode, _req: req, cfg, readState };
 }
 
-const COMMANDS = { 'lab-overnight': 'overnight', 'lab-postopen': 'postopen', 'lab-protect': 'protectLoop', 'lab-status': 'status', 'lab-clear-flags': 'clearFlags' };
+const COMMANDS = { 'lab-overnight': 'overnight', 'lab-postopen': 'postopen', 'lab-protect': 'protectLoop', 'lab-status': 'status', 'lab-clear-flags': 'clearFlags', 'lab-lift-flag': 'liftApproved' };
 module.exports = { mkLab, VERSION, WIN, ALPACA, FAILSAFE_STOP_PCT, opgTimeOk, COMMANDS, nyMs, isoWeek, refOfCid, targetOfCid, labEndOf, labVerdict, REF_SUSPENDED, ACTIVE_STOP };
 if (require.main === module) {
   (async () => { const cmd = process.argv[2] || 'lab-status'; const dir = __dirname;
