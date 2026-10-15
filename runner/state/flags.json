@@ -1,4 +1,17 @@
 {
- "active": [],
+ "active": [
+  {
+   "id": "labrecon-2026-10-15-SPY",
+   "kind": "lab-recon-mismatch",
+   "at": "2026-10-15T19:40:29.542Z",
+   "detail": {
+    "SPY": {
+     "lab": 18,
+     "baseline": 0,
+     "broker": 23
+    }
+   }
+  }
+ ],
  "cleared": []
 }
