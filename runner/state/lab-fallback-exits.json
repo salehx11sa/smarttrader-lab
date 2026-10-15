@@ -91,6 +91,19 @@
    "late": false,
    "at": "2026-10-15T13:36:37.232Z",
    "result": "submitted"
+  },
+  "ch1-20261015-NXH-S-R1": {
+   "book": "CHEAP",
+   "sym": "NXH",
+   "origCid": "ch1-20261015-NXH-S",
+   "origStatus": "expired",
+   "origQty": 93,
+   "origFilled": 0,
+   "qty": 93,
+   "prePx": 1.6164,
+   "late": true,
+   "at": "2026-10-15T13:41:28.212Z",
+   "result": "submitted"
   }
  }
 }
