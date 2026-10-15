@@ -1,1 +1,1 @@
-{"runId":"38744097847","runNumber":147,"runAttempt":1,"at":"2026-10-15T13:36:41Z","cmd":"lab-postopen","runOutcome":"failure","incomplete":false,"openSaveIncidents":0,"pairVerified":true,"anchorSchema":2,"runnerExit":1,"lastPair":"ok","problems":[]}
+{"runId":"38744807300","runNumber":148,"runAttempt":1,"at":"2026-10-15T13:41:33Z","cmd":"lab-postopen","runOutcome":"success","incomplete":false,"openSaveIncidents":0,"pairVerified":true,"anchorSchema":2,"runnerExit":0,"lastPair":"ok","problems":[]}
