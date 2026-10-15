@@ -119,6 +119,19 @@
     "sent": 3,
     "gates": [],
     "skipped": []
+   },
+   {
+    "at": "2026-10-15T19:45:27.491Z",
+    "intents": 0,
+    "sent": 0,
+    "gates": [
+     "أعلام توقف نشطة: lab-recon-mismatch labrecon-2026-10-15-SPY"
+    ],
+    "skipped": [
+     "O1: O1: ما زال يملك SPY أو أمرًا معلقًا — لا شراء الليلة",
+     "LEARN.O1: O1: ما زال يملك SPY أو أمرًا معلقًا — لا شراء الليلة",
+     "REF2: بوابات الدخول: أعلام توقف نشطة: lab-recon-mismatch labrecon-2026-10-15-SPY"
+    ]
    }
   ]
  },
