@@ -104,6 +104,45 @@
    "late": true,
    "at": "2026-10-15T13:41:28.212Z",
    "result": "submitted"
+  },
+  "ln1-o1-20261016-SPY-S-R1": {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261016-SPY-S",
+   "origStatus": "expired",
+   "origQty": 1,
+   "origFilled": 0,
+   "qty": 1,
+   "prePx": 772.35,
+   "late": false,
+   "at": "2026-10-16T13:36:37.618Z",
+   "result": "submitted"
+  },
+  "o1-20261016-SPY-S-R1": {
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261016-SPY-S",
+   "origStatus": "expired",
+   "origQty": 8,
+   "origFilled": 0,
+   "qty": 8,
+   "prePx": 772.35,
+   "late": false,
+   "at": "2026-10-16T13:36:37.646Z",
+   "result": "submitted"
+  },
+  "ln1-ch1-20261016-LAC-S-R1": {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "origCid": "ln1-ch1-20261016-LAC-S",
+   "origStatus": "expired",
+   "origQty": 51,
+   "origFilled": 0,
+   "qty": 51,
+   "prePx": 2.22,
+   "late": false,
+   "at": "2026-10-16T13:36:37.674Z",
+   "result": "submitted"
   }
  }
 }
