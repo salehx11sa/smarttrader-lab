@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12",
- "at": "2026-10-16T13:41:36.369Z",
+ "at": "2026-10-16T14:11:39.419Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -38,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 13046.48,
-   "equityNow": 13036.76,
+   "equityNow": 13031.18,
    "totalReturnPct": 0.358,
    "maxDrawdownPct": 0,
    "drawdownPct": 0,
@@ -59,11 +59,11 @@
    "name": "السريع",
    "retired": null,
    "equityClose": 12990.49,
-   "equityNow": 12987.02,
+   "equityNow": 12979.51,
    "totalReturnPct": -0.073,
    "maxDrawdownPct": 0.52,
    "drawdownPct": 0.52,
-   "tradesClosed": 2,
+   "tradesClosed": 3,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
@@ -80,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12954.67,
-   "equityNow": 12945.9,
+   "equityNow": 12941.32,
    "totalReturnPct": -0.349,
    "maxDrawdownPct": 1.03,
    "drawdownPct": 0.78,
@@ -164,11 +164,11 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12941.8,
-   "equityNow": 12936.21,
+   "equityNow": 12933.45,
    "totalReturnPct": -0.448,
    "maxDrawdownPct": 0.6,
    "drawdownPct": 0.45,
-   "tradesClosed": 7,
+   "tradesClosed": 8,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
@@ -225,7 +225,7 @@
  },
  "fallbackExits": [
   {
-   "at": "2026-10-16T13:41:36.345Z",
+   "at": "2026-10-16T14:11:39.061Z",
    "book": "LEARN.O1",
    "sym": "SPY",
    "origCid": "ln1-o1-20261016-SPY-S",
@@ -239,7 +239,7 @@
    "fallbackFilled": 1
   },
   {
-   "at": "2026-10-16T13:41:36.345Z",
+   "at": "2026-10-16T14:11:39.061Z",
    "book": "O1",
    "sym": "SPY",
    "origCid": "o1-20261016-SPY-S",
@@ -253,7 +253,7 @@
    "fallbackFilled": 8
   },
   {
-   "at": "2026-10-16T13:41:36.345Z",
+   "at": "2026-10-16T14:11:39.061Z",
    "book": "LEARN.CHEAP",
    "sym": "LAC",
    "origCid": "ln1-ch1-20261016-LAC-S",
@@ -369,32 +369,6 @@
   "state": "valid"
  },
  "protectionLatency": [
-  {
-   "book": "S1",
-   "sym": "DNTH",
-   "confirmed": true,
-   "source": "bars",
-   "fillAt": "2026-10-09T13:30:16.338Z",
-   "stopAt": "2026-10-09T13:32:33.389Z",
-   "fillToStopSec": 137,
-   "unprotectedSec": null,
-   "exitPending": false,
-   "exitRemaining": 0,
-   "need": 3
-  },
-  {
-   "book": "LEARN.S1",
-   "sym": "DNTH",
-   "confirmed": true,
-   "source": "bars",
-   "fillAt": "2026-10-09T13:30:04.778Z",
-   "stopAt": "2026-10-09T13:32:33.579Z",
-   "fillToStopSec": 149,
-   "unprotectedSec": null,
-   "exitPending": false,
-   "exitRemaining": 0,
-   "need": 1
-  },
   {
    "book": "LEARN.CHEAP",
    "sym": "VEEE",
