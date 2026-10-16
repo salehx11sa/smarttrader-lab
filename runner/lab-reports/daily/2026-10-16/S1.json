@@ -1,0 +1,66 @@
+{
+ "player": "S1",
+ "name": "السريع",
+ "date": "2026-10-16",
+ "labVersion": "lab-0.12",
+ "startEquity": 13000,
+ "equity": 12979.51,
+ "cash": 12979.51,
+ "dayPnl": -10.98,
+ "totalPnl": -20.49,
+ "totalReturnPct": -0.158,
+ "drawdownPct": 0.6,
+ "maxDrawdownPct": 0.6,
+ "positions": [],
+ "orders": [],
+ "fills": [
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "side": "sell",
+   "qty": 1,
+   "price": 70.88,
+   "cid": "s1-20261009-DNTH-P2",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  },
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "side": "sell",
+   "qty": 1,
+   "price": 70.88,
+   "cid": "s1-20261009-DNTH-P2",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  },
+  {
+   "book": "S1",
+   "sym": "DNTH",
+   "side": "sell",
+   "qty": 1,
+   "price": 70.85,
+   "cid": "s1-20261009-DNTH-P2",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 3,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12905.72
+ }
+}

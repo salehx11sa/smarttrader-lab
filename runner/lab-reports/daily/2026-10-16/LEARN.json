@@ -1,0 +1,203 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-16",
+ "labVersion": "lab-0.12",
+ "startEquity": 13000,
+ "equity": 12912.48,
+ "cash": 9809.13,
+ "dayPnl": -29.32,
+ "totalPnl": -87.52,
+ "totalReturnPct": -0.673,
+ "drawdownPct": 0.67,
+ "maxDrawdownPct": 0.67,
+ "positions": [
+  {
+   "book": "LEARN.T1",
+   "sym": "SPY",
+   "qty": 3,
+   "avgCost": 778.78,
+   "close": 763.25,
+   "value": 2289.75,
+   "entryDate": "2026-10-12"
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "qty": 1,
+   "avgCost": 762.32,
+   "close": 763.25,
+   "value": 763.25,
+   "entryDate": "2026-10-16"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "qty": 5,
+   "avgCost": 9.1,
+   "close": 10.07,
+   "value": 50.35,
+   "entryDate": "2026-10-13"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-o1-20261016-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261016-LAC-S",
+   "sym": "LAC",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 51,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261016-LAC-P1",
+   "sym": "LAC",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 51,
+   "filled": 0,
+   "status": "canceled",
+   "stop": 2
+  },
+  {
+   "cid": "ln1-o1-20261016-SPY-S-R1",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-ch1-20261016-LAC-S-R1",
+   "sym": "LAC",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 51,
+   "filled": 51,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-o1-20261016-SPY-B-r76234",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.S1",
+   "sym": "DNTH",
+   "side": "sell",
+   "qty": 1,
+   "price": 70.88,
+   "cid": "ln1-s1-20261009-DNTH-P3",
+   "kind": "fill",
+   "tif": "gtc",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": null,
+   "slipVsAuctionPct": null
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 1,
+   "price": 772.29,
+   "cid": "ln1-o1-20261016-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 772.35,
+   "slipVsRefPct": -0.008,
+   "auctionPrice": 773.24,
+   "slipVsAuctionPct": -0.123,
+   "fallbackExit": true
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 762.32,
+   "cid": "ln1-o1-20261016-SPY-B-r76234",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 762.34,
+   "slipVsRefPct": -0.003,
+   "auctionPrice": 763.25,
+   "slipVsAuctionPct": -0.122,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "side": "sell",
+   "qty": 35,
+   "price": 2.21,
+   "cid": "ln1-ch1-20261016-LAC-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 2.22,
+   "slipVsRefPct": -0.45,
+   "auctionPrice": 2.22,
+   "slipVsAuctionPct": -0.45,
+   "fallbackExit": true
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "LAC",
+   "side": "sell",
+   "qty": 16,
+   "price": 2.21,
+   "cid": "ln1-ch1-20261016-LAC-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 2.22,
+   "slipVsRefPct": -0.45,
+   "auctionPrice": 2.22,
+   "slipVsAuctionPct": -0.45,
+   "fallbackExit": true
+  }
+ ],
+ "tradesClosedToday": 3,
+ "tradesClosedTotal": 8,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12905.72
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}
