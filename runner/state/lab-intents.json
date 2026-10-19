@@ -1979,5 +1979,46 @@
    "intents": [],
    "crosses": []
   }
+ ],
+ "2026-10-20": [
+  {
+   "at": "2026-10-19T23:42:32.953Z",
+   "runId": "39343148253",
+   "runStartedAt": "2026-10-19T23:42:00.559Z",
+   "intents": [
+    {
+     "book": "O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 8,
+     "ref": 766.48,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    },
+    {
+     "book": "LEARN.O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 1,
+     "ref": 766.48,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    },
+    {
+     "book": "LEARN.CHEAP",
+     "sym": "VEEE",
+     "side": "sell",
+     "qty": 5,
+     "ref": 9.445,
+     "reason": "خروج زمني بعد 5 أيام",
+     "tif": "opg",
+     "exit": true,
+     "needsStopCancel": true
+    }
+   ],
+   "crosses": []
+  }
  ]
 }
