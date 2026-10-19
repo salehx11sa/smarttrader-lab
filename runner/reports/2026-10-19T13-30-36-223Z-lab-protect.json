@@ -1,0 +1,240 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.12",
+ "rulesVersion": "lab-0.4",
+ "at": "2026-10-19T13:29:02.318Z",
+ "cmd": "lab-protect",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "lab-protect: complete (النتيجة complete) بعد 7 دورة — تعبئات اليوم 0، محسومة 0 (وقف مؤكد 0، خروج معبأ 0)"
+ ],
+ "warnings": [],
+ "errors": [],
+ "orders": [],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "39260499145",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "205",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-19T13:29:02.318Z"
+ },
+ "protectRun": {
+  "v": 1,
+  "startedAt": "2026-10-19T13:29:02.319Z",
+  "endedAt": "2026-10-19T13:30:36.220Z",
+  "status": "complete",
+  "ticks": 7,
+  "brokerErrors": 0,
+  "window": {
+   "fromNy": "09:25",
+   "toNy": "09:50",
+   "maxMin": 20,
+   "tickSec": 15,
+   "maxAttempts": 3,
+   "backoffSec": [
+    5,
+    15
+   ]
+  },
+  "standard": {
+   "targetSec": 60,
+   "upperSec": 90,
+   "note": "من التعبئة حتى تأكيد الوسيط للوقف في الظروف العادية؛ لا يشمل تأخر بدء تشغيل GitHub"
+  },
+  "fills": [
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "VEEE",
+    "cid": "ln1-ch1-20261013-VEEE-B-r889",
+    "fillAt": "2026-10-13T13:30:09.795Z",
+    "fillQty": 5,
+    "coverQty": 5,
+    "today": false,
+    "seenAt": "2026-10-19T13:29:03.242Z",
+    "stopSubmittedAt": "2026-10-13T13:42:05.931564Z",
+    "stopConfirmedAt": "2026-10-19T13:29:03.242Z",
+    "stopId": "f162ed88-bf63-4bf9-9c49-1c8d6b595b0e",
+    "stopStatus": "new",
+    "stopQty": 5,
+    "source": "bars",
+    "fillToSubmitSec": 716,
+    "fillToConfirmSec": 518333,
+    "attempts": 0,
+    "washWaits": 0,
+    "result": "confirmed",
+    "exitSubmittedAt": null,
+    "exitIds": [],
+    "exitFills": [],
+    "exitFilledQty": 0,
+    "resolvedAt": "2026-10-19T13:29:03.242Z",
+    "resolvedBy": "stop",
+    "fillToResolveSec": 518333,
+    "preexistingStop": true
+   }
+  ],
+  "failed": [],
+  "deadline": "2026-10-19T13:49:02.319Z",
+  "exits": [],
+  "outcome": "complete",
+  "summary": {
+   "fillsToday": 0,
+   "confirmed": 0,
+   "protectiveExits": 0,
+   "resolved": 0,
+   "unresolved": 0,
+   "maxFillToConfirmSec": null,
+   "maxFillToResolveSec": null,
+   "withinTarget": 0,
+   "withinUpper": 0,
+   "failed": [],
+   "note": "المقام = كل تعبئات اليوم؛ المعلّق والفاشل يبقيان فيه"
+  }
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "70742",
+  "equity": "99649.65",
+  "clock": {
+   "is_open": false,
+   "next_close": "2026-10-19T16:00:00-04:00",
+   "next_open": "2026-10-19T09:30:00-04:00",
+   "timestamp": "2026-10-19T09:29:02.547488364-04:00"
+  }
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 3,
+  "why": null,
+  "readOnly": true
+ },
+ "feedUsed": "sip",
+ "protection": [
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "qty": 5,
+   "need": 5,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 4.76,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "f162ed88-bf63-4bf9-9c49-1c8d6b595b0e",
+     "status": "new",
+     "qty": 5,
+     "stop": 4.76,
+     "tif": "gtc",
+     "submittedAt": "2026-10-13T13:42:05.931564Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791898209795,
+     "qty": 5,
+     "cid": "ln1-ch1-20261013-VEEE-B-r889"
+    }
+   ],
+   "fillAt": "2026-10-13T13:30:09.795Z",
+   "stopAt": "2026-10-13T13:42:05.931Z",
+   "fillToStopSec": 716,
+   "unprotectedSec": null
+  }
+ ],
+ "protectionLatency": [
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-13T13:30:09.795Z",
+   "fillQty": 5,
+   "coverQty": 5,
+   "stopSubmittedAt": "2026-10-13T13:42:05.931564Z",
+   "stopConfirmedAt": "2026-10-19T13:29:03.242Z",
+   "stopAt": "2026-10-13T13:42:05.931564Z",
+   "fillToSubmitSec": 716,
+   "fillToConfirmSec": 518333,
+   "fillToStopSec": 518333,
+   "attempts": 0,
+   "result": "confirmed",
+   "today": false,
+   "exitSubmittedAt": null,
+   "exitFills": [],
+   "exitFilledQty": 0,
+   "resolvedAt": "2026-10-19T13:29:03.242Z",
+   "resolvedBy": "stop",
+   "fillToResolveSec": 518333
+  }
+ ],
+ "status": "complete",
+ "protectSla": {
+  "enabled": true,
+  "flag": "protection-sla-breach",
+  "active": true,
+  "corrupt": false,
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "books": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "targetSec": 60,
+  "upperSec": 90,
+  "since": "2026-10-13T13:42:06.453Z",
+  "cases": [
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "VEEE",
+    "fillAt": "2026-10-13T13:30:09.795Z",
+    "resolvedAt": "2026-10-13T13:42:05.931Z",
+    "sec": 716,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-postopen"
+   }
+  ],
+  "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط.",
+  "evaluated": [],
+  "newBreaches": []
+ }
+}
