@@ -1,0 +1,117 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-19",
+ "labVersion": "lab-0.12",
+ "startEquity": 13000,
+ "equity": 12921.38,
+ "cash": 9808.23,
+ "dayPnl": 8.9,
+ "totalPnl": -78.62,
+ "totalReturnPct": -0.605,
+ "drawdownPct": 0.6,
+ "maxDrawdownPct": 0.67,
+ "positions": [
+  {
+   "book": "LEARN.T1",
+   "sym": "SPY",
+   "qty": 3,
+   "avgCost": 778.78,
+   "close": 766.48,
+   "value": 2299.44,
+   "entryDate": "2026-10-12"
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "qty": 1,
+   "avgCost": 768.24,
+   "close": 766.48,
+   "value": 766.48,
+   "entryDate": "2026-10-19"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "qty": 5,
+   "avgCost": 9.1,
+   "close": 9.445,
+   "value": 47.23,
+   "entryDate": "2026-10-13"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-o1-20261019-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-o1-20261019-SPY-B-r76823",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 1,
+   "price": 767.34,
+   "cid": "ln1-o1-20261019-SPY-S",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": 767.23,
+   "slipVsAuctionPct": 0.014
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 768.24,
+   "cid": "ln1-o1-20261019-SPY-B-r76823",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 768.23,
+   "slipVsRefPct": 0.001,
+   "auctionPrice": 766.48,
+   "slipVsAuctionPct": 0.23,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 9,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12959.54
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}
