@@ -1,10 +1,10 @@
 {
- "runId": "39311127148",
+ "runId": "39312984554",
  "runAttempt": "1",
  "cmd": "lab-postopen",
- "reportFile": "2026-10-19T19-27-36-473Z-lab-postopen.json",
- "reportSha256": "226f03201534acb0b8e0344d8139c613ea8d662f77a35e05eb17f2cf272cddda",
+ "reportFile": "2026-10-19T19-41-04-315Z-lab-postopen.json",
+ "reportSha256": "a08686b7b89d7cba769b36d4941a1af01e827361c39c8dd5f2f017dd8053481a",
  "recorded": true,
  "exitCode": 0,
- "at": "2026-10-19T19:27:36.474Z"
+ "at": "2026-10-19T19:41:04.317Z"
 }
