@@ -1,0 +1,257 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.12",
+ "rulesVersion": "lab-0.4",
+ "at": "2026-10-20T13:28:39.608Z",
+ "cmd": "lab-protect",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "حماية: وقف GTC LEARN.CHEAP VEEE × 5 عند 4.76 (bars)",
+  "lab-protect: complete (النتيجة complete) بعد 14 دورة — تعبئات اليوم 0، محسومة 0 (وقف مؤكد 0، خروج معبأ 0)"
+ ],
+ "warnings": [],
+ "errors": [],
+ "orders": [
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "VEEE",
+    "qty": "5",
+    "side": "sell",
+    "type": "stop",
+    "stop_price": "4.76",
+    "time_in_force": "gtc",
+    "client_order_id": "ln1-ch1-20261020-VEEE-P1"
+   },
+   "status": 200,
+   "id": "e4e0af4d-4425-48ac-b053-496547561ac0",
+   "orderStatus": "pending_new"
+  }
+ ],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "39430675180",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "234",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-20T13:28:39.608Z"
+ },
+ "protectRun": {
+  "v": 1,
+  "startedAt": "2026-10-20T13:28:39.608Z",
+  "endedAt": "2026-10-20T13:31:46.647Z",
+  "status": "complete",
+  "ticks": 14,
+  "brokerErrors": 0,
+  "window": {
+   "fromNy": "09:25",
+   "toNy": "09:50",
+   "maxMin": 20,
+   "tickSec": 15,
+   "maxAttempts": 3,
+   "backoffSec": [
+    5,
+    15
+   ]
+  },
+  "standard": {
+   "targetSec": 60,
+   "upperSec": 90,
+   "note": "من التعبئة حتى تأكيد الوسيط للوقف في الظروف العادية؛ لا يشمل تأخر بدء تشغيل GitHub"
+  },
+  "fills": [
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "VEEE",
+    "cid": "ln1-ch1-20261013-VEEE-B-r889",
+    "fillAt": "2026-10-13T13:30:09.795Z",
+    "fillQty": 5,
+    "coverQty": 5,
+    "today": false,
+    "seenAt": "2026-10-20T13:28:40.500Z",
+    "stopSubmittedAt": "2026-10-20T13:30:59.773Z",
+    "stopConfirmedAt": "2026-10-20T13:31:00.428Z",
+    "stopId": "e4e0af4d-4425-48ac-b053-496547561ac0",
+    "stopStatus": "new",
+    "stopQty": 5,
+    "source": "bars",
+    "fillToSubmitSec": 604850,
+    "fillToConfirmSec": 604851,
+    "attempts": 0,
+    "washWaits": 0,
+    "result": "confirmed",
+    "exitSubmittedAt": null,
+    "exitIds": [],
+    "exitFills": [],
+    "exitFilledQty": 0,
+    "resolvedAt": "2026-10-20T13:31:00.428Z",
+    "resolvedBy": "stop",
+    "fillToResolveSec": 604851
+   }
+  ],
+  "failed": [],
+  "deadline": "2026-10-20T13:48:39.608Z",
+  "exits": [],
+  "outcome": "complete",
+  "summary": {
+   "fillsToday": 0,
+   "confirmed": 0,
+   "protectiveExits": 0,
+   "resolved": 0,
+   "unresolved": 0,
+   "maxFillToConfirmSec": null,
+   "maxFillToResolveSec": null,
+   "withinTarget": 0,
+   "withinUpper": 0,
+   "failed": [],
+   "note": "المقام = كل تعبئات اليوم؛ المعلّق والفاشل يبقيان فيه"
+  }
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "64595.27",
+  "equity": "99587.04",
+  "clock": {
+   "is_open": false,
+   "next_close": "2026-10-20T16:00:00-04:00",
+   "next_open": "2026-10-20T09:30:00-04:00",
+   "timestamp": "2026-10-20T09:28:39.809929763-04:00"
+  }
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 3,
+  "why": null,
+  "readOnly": true
+ },
+ "feedUsed": "sip",
+ "protection": [
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "qty": 5,
+   "need": 5,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 4.76,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "e4e0af4d-4425-48ac-b053-496547561ac0",
+     "status": "new",
+     "qty": 5,
+     "stop": 4.76,
+     "tif": "gtc",
+     "submittedAt": "2026-10-20T13:30:59.768634Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1791898209795,
+     "qty": 5,
+     "cid": "ln1-ch1-20261013-VEEE-B-r889"
+    }
+   ],
+   "fillAt": "2026-10-13T13:30:09.795Z",
+   "stopAt": "2026-10-20T13:30:59.768Z",
+   "fillToStopSec": 604850,
+   "unprotectedSec": null
+  }
+ ],
+ "protectionLatency": [
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-13T13:30:09.795Z",
+   "fillQty": 5,
+   "coverQty": 5,
+   "stopSubmittedAt": "2026-10-20T13:30:59.773Z",
+   "stopConfirmedAt": "2026-10-20T13:31:00.428Z",
+   "stopAt": "2026-10-20T13:30:59.773Z",
+   "fillToSubmitSec": 604850,
+   "fillToConfirmSec": 604851,
+   "fillToStopSec": 604851,
+   "attempts": 0,
+   "result": "confirmed",
+   "today": false,
+   "exitSubmittedAt": null,
+   "exitFills": [],
+   "exitFilledQty": 0,
+   "resolvedAt": "2026-10-20T13:31:00.428Z",
+   "resolvedBy": "stop",
+   "fillToResolveSec": 604851
+  }
+ ],
+ "status": "complete",
+ "protectSla": {
+  "enabled": true,
+  "flag": "protection-sla-breach",
+  "active": true,
+  "corrupt": false,
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "books": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "targetSec": 60,
+  "upperSec": 90,
+  "since": "2026-10-13T13:42:06.453Z",
+  "cases": [
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "VEEE",
+    "fillAt": "2026-10-13T13:30:09.795Z",
+    "resolvedAt": "2026-10-13T13:42:05.931Z",
+    "sec": 716,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-postopen"
+   }
+  ],
+  "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط.",
+  "evaluated": [],
+  "newBreaches": []
+ }
+}

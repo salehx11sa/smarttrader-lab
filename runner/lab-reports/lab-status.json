@@ -344,10 +344,10 @@
   }
  ],
  "protect": {
-  "at": "2026-10-19T13:30:36.220Z",
+  "at": "2026-10-20T13:31:46.647Z",
   "status": "complete",
   "outcome": "complete",
-  "runId": "39260499145",
+  "runId": "39430675180",
   "summary": {
    "fillsToday": 0,
    "confirmed": 0,
@@ -374,17 +374,17 @@
     "sym": "VEEE",
     "fillAt": "2026-10-13T13:30:09.795Z",
     "fillQty": 5,
-    "stopSubmittedAt": "2026-10-13T13:42:05.931564Z",
-    "stopConfirmedAt": "2026-10-19T13:29:03.242Z",
-    "fillToConfirmSec": 518333,
+    "stopSubmittedAt": "2026-10-20T13:30:59.773Z",
+    "stopConfirmedAt": "2026-10-20T13:31:00.428Z",
+    "fillToConfirmSec": 604851,
     "source": "bars",
     "result": "confirmed",
     "today": false,
     "exitSubmittedAt": null,
     "exitFills": [],
-    "resolvedAt": "2026-10-19T13:29:03.242Z",
+    "resolvedAt": "2026-10-20T13:31:00.428Z",
     "resolvedBy": "stop",
-    "fillToResolveSec": 518333
+    "fillToResolveSec": 604851
    }
   ]
  },
@@ -429,5 +429,6 @@
   "active": [],
   "resolvedCount": 0
  },
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
+ "protectAt": "2026-10-20T13:31:46.647Z"
 }
