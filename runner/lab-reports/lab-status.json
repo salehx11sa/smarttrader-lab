@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12",
- "at": "2026-10-20T19:50:39.299Z",
+ "at": "2026-10-20T20:09:28.393Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -9,10 +9,7 @@
  "daysElapsed": 9,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -41,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12959.54,
-   "equityNow": 12988.5,
+   "equityNow": 13005.14,
    "totalReturnPct": -0.311,
    "maxDrawdownPct": 1.08,
    "drawdownPct": 0.67,
@@ -83,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12875.02,
-   "equityNow": 12902.17,
+   "equityNow": 12919.87,
    "totalReturnPct": -0.961,
    "maxDrawdownPct": 1.76,
    "drawdownPct": 1.39,
@@ -125,7 +122,7 @@
    "name": "الليلي",
    "retired": null,
    "equityClose": 12980.75,
-   "equityNow": 12977,
+   "equityNow": 12986.44,
    "totalReturnPct": -0.148,
    "maxDrawdownPct": 0.3,
    "drawdownPct": 0.3,
@@ -167,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12921.38,
-   "equityNow": 12924.87,
+   "equityNow": 12929.59,
    "totalReturnPct": -0.605,
    "maxDrawdownPct": 0.67,
    "drawdownPct": 0.6,
@@ -226,50 +223,7 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": [
-  {
-   "at": "2026-10-20T19:50:39.240Z",
-   "book": "LEARN.O1",
-   "sym": "SPY",
-   "origCid": "ln1-o1-20261020-SPY-S",
-   "origStatus": "expired",
-   "origQty": 1,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "ln1-o1-20261020-SPY-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 1,
-   "fallbackFilled": 1
-  },
-  {
-   "at": "2026-10-20T19:50:39.240Z",
-   "book": "LEARN.CHEAP",
-   "sym": "VEEE",
-   "origCid": "ln1-ch1-20261020-VEEE-S",
-   "origStatus": "expired",
-   "origQty": 5,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "ln1-ch1-20261020-VEEE-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 5,
-   "fallbackFilled": 5
-  },
-  {
-   "at": "2026-10-20T19:50:39.240Z",
-   "book": "O1",
-   "sym": "SPY",
-   "origCid": "o1-20261020-SPY-S",
-   "origStatus": "expired",
-   "origQty": 8,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "o1-20261020-SPY-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 8,
-   "fallbackFilled": 8
-  }
- ],
+ "fallbackExits": [],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
