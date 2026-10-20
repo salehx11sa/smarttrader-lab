@@ -1,0 +1,228 @@
+{
+ "date": "2026-10-20",
+ "note": "لاعبو ظل افتراضيون: لا أوامر أبدًا. محاكاة من الشموع بلا تسوية ولا انزلاق ولا رسوم (متفائلة).",
+ "shadows": [
+  {
+   "id": "S1-h5",
+   "base": "S1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 12869.81,
+   "totalReturnPct": -1.001,
+   "maxDrawdownPct": 1.795,
+   "tradesClosed": 7,
+   "openPositions": [
+    "BLZE",
+    "COHU",
+    "IRDM",
+    "FEIM"
+   ],
+   "trades": [
+    {
+     "sym": "HELP",
+     "entry": 10.5,
+     "exit": 11.78,
+     "qty": 52,
+     "pnl": 66.56,
+     "reason": "cond",
+     "exitDate": "2026-10-12"
+    },
+    {
+     "sym": "DFTX",
+     "entry": 34.615,
+     "exit": 36.27,
+     "qty": 21,
+     "pnl": 34.76,
+     "reason": "cond",
+     "exitDate": "2026-10-12"
+    },
+    {
+     "sym": "NUAI",
+     "entry": 5.6,
+     "exit": 3.89,
+     "qty": 76,
+     "pnl": -129.96,
+     "reason": "stop",
+     "exitDate": "2026-10-14"
+    },
+    {
+     "sym": "PFG",
+     "entry": 108.18,
+     "exit": 107.33,
+     "qty": 18,
+     "pnl": -15.3,
+     "reason": "time",
+     "exitDate": "2026-10-15"
+    },
+    {
+     "sym": "JAZZ",
+     "entry": 218.9,
+     "exit": 214.25,
+     "qty": 5,
+     "pnl": -23.25,
+     "reason": "cond",
+     "exitDate": "2026-10-16"
+    },
+    {
+     "sym": "DNTH",
+     "entry": 81.77,
+     "exit": 73.55,
+     "qty": 9,
+     "pnl": -73.98,
+     "reason": "time",
+     "exitDate": "2026-10-19"
+    },
+    {
+     "sym": "ASST",
+     "entry": 23.79,
+     "exit": 25.065,
+     "qty": 24,
+     "pnl": 30.6,
+     "reason": "cond",
+     "exitDate": "2026-10-20"
+    }
+   ]
+  },
+  {
+   "id": "S1-h15",
+   "base": "S1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 12884.91,
+   "totalReturnPct": -0.885,
+   "maxDrawdownPct": 1.974,
+   "tradesClosed": 5,
+   "openPositions": [
+    "DNTH",
+    "BLZE",
+    "COHU",
+    "IRDM"
+   ],
+   "trades": [
+    {
+     "sym": "HELP",
+     "entry": 10.5,
+     "exit": 11.78,
+     "qty": 52,
+     "pnl": 66.56,
+     "reason": "cond",
+     "exitDate": "2026-10-12"
+    },
+    {
+     "sym": "DFTX",
+     "entry": 34.615,
+     "exit": 36.27,
+     "qty": 21,
+     "pnl": 34.76,
+     "reason": "cond",
+     "exitDate": "2026-10-12"
+    },
+    {
+     "sym": "NUAI",
+     "entry": 5.6,
+     "exit": 3.89,
+     "qty": 76,
+     "pnl": -129.96,
+     "reason": "stop",
+     "exitDate": "2026-10-14"
+    },
+    {
+     "sym": "PFG",
+     "entry": 108.18,
+     "exit": 109.235,
+     "qty": 18,
+     "pnl": 18.99,
+     "reason": "cond",
+     "exitDate": "2026-10-16"
+    },
+    {
+     "sym": "JAZZ",
+     "entry": 218.9,
+     "exit": 214.25,
+     "qty": 5,
+     "pnl": -23.25,
+     "reason": "cond",
+     "exitDate": "2026-10-16"
+    }
+   ]
+  },
+  {
+   "id": "T1-sma8",
+   "base": "T1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0,
+   "openPositions": [],
+   "trades": []
+  },
+  {
+   "id": "T1-sma12",
+   "base": "T1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0,
+   "openPositions": [],
+   "trades": []
+  },
+  {
+   "id": "CHEAP-rsi5",
+   "base": "CHEAP",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 12666.14,
+   "totalReturnPct": -2.568,
+   "maxDrawdownPct": 2.593,
+   "tradesClosed": 4,
+   "openPositions": [
+    "QUBT",
+    "NUAI",
+    "JBLU",
+    "MARA"
+   ],
+   "trades": [
+    {
+     "sym": "NXH",
+     "entry": 1.75,
+     "exit": 1.61,
+     "qty": 172,
+     "pnl": -24.08,
+     "reason": "time",
+     "exitDate": "2026-10-15"
+    },
+    {
+     "sym": "ALLO",
+     "entry": 1.44,
+     "exit": 1.33,
+     "qty": 520,
+     "pnl": -57.2,
+     "reason": "time",
+     "exitDate": "2026-10-15"
+    },
+    {
+     "sym": "LAC",
+     "entry": 2.39,
+     "exit": 2.06,
+     "qty": 333,
+     "pnl": -109.89,
+     "reason": "time",
+     "exitDate": "2026-10-15"
+    },
+    {
+     "sym": "MFA",
+     "entry": 7.11,
+     "exit": 6.66,
+     "qty": 213,
+     "pnl": -95.85,
+     "reason": "time",
+     "exitDate": "2026-10-15"
+    }
+   ]
+  }
+ ]
+}

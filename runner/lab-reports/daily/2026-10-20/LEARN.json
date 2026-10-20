@@ -1,0 +1,165 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-20",
+ "labVersion": "lab-0.12",
+ "startEquity": 13000,
+ "equity": 12927.91,
+ "cash": 9851.71,
+ "dayPnl": 6.53,
+ "totalPnl": -72.09,
+ "totalReturnPct": -0.555,
+ "drawdownPct": 0.55,
+ "maxDrawdownPct": 0.67,
+ "positions": [
+  {
+   "book": "LEARN.T1",
+   "sym": "SPY",
+   "qty": 3,
+   "avgCost": 778.78,
+   "close": 769.05,
+   "value": 2307.15,
+   "entryDate": "2026-10-12"
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "qty": 1,
+   "avgCost": 768.05,
+   "close": 769.05,
+   "value": 769.05,
+   "entryDate": "2026-10-20"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-o1-20261020-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261020-VEEE-S",
+   "sym": "VEEE",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 5,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261020-VEEE-P1",
+   "sym": "VEEE",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 5,
+   "filled": 0,
+   "status": "canceled",
+   "stop": 4.76
+  },
+  {
+   "cid": "ln1-o1-20261020-SPY-S-R1",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-ch1-20261020-VEEE-S-R1",
+   "sym": "VEEE",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 5,
+   "filled": 5,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-o1-20261020-SPY-B-r76801",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 1,
+   "price": 765.73,
+   "cid": "ln1-o1-20261020-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 765.76,
+   "slipVsRefPct": -0.004,
+   "auctionPrice": 765.86,
+   "slipVsAuctionPct": -0.017,
+   "fallbackExit": true
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 768.05,
+   "cid": "ln1-o1-20261020-SPY-B-r76801",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 768.01,
+   "slipVsRefPct": 0.005,
+   "auctionPrice": 769.05,
+   "slipVsAuctionPct": -0.13,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "side": "sell",
+   "qty": 5,
+   "price": 9.16,
+   "cid": "ln1-ch1-20261020-VEEE-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 9.11,
+   "slipVsRefPct": 0.549,
+   "auctionPrice": 9.55,
+   "slipVsAuctionPct": -4.084,
+   "fallbackExit": true
+  }
+ ],
+ "tradesClosedToday": 2,
+ "tradesClosedTotal": 11,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12999.14
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}

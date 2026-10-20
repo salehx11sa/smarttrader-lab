@@ -1,0 +1,23 @@
+{
+ "player": "S1",
+ "name": "السريع",
+ "date": "2026-10-20",
+ "labVersion": "lab-0.12",
+ "startEquity": 13000,
+ "equity": 12979.51,
+ "cash": 12979.51,
+ "dayPnl": 0,
+ "totalPnl": -20.49,
+ "totalReturnPct": -0.158,
+ "drawdownPct": 0.6,
+ "maxDrawdownPct": 0.6,
+ "positions": [],
+ "orders": [],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 3,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12999.14
+ }
+}
