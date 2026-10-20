@@ -1,6 +1,6 @@
 {
  "v": 1,
- "at": "2026-10-20T10:08:08.430Z",
+ "at": "2026-10-20T13:36:43.466Z",
  "today": "2026-10-20",
  "unsettled": [
   {
@@ -9,6 +9,34 @@
    "tradeDate": "2026-10-19",
    "settleDate": "2026-10-20",
    "proceeds": 767.34
+  },
+  {
+   "id": "20261020093640505::905f24d2-5a9a-4aa2-80f7-77aa1050bdbe",
+   "symbol": "SPY",
+   "tradeDate": "2026-10-20",
+   "settleDate": "2026-10-21",
+   "proceeds": 5360.39
+  },
+  {
+   "id": "20261020093640699::a64d707c-6ac4-4df9-9ea5-8e1042a82286",
+   "symbol": "VEEE",
+   "tradeDate": "2026-10-20",
+   "settleDate": "2026-10-21",
+   "proceeds": 45.8
+  },
+  {
+   "id": "20261020093640870::2f88bf16-faca-41cc-8d58-930d79f839d1",
+   "symbol": "SPY",
+   "tradeDate": "2026-10-20",
+   "settleDate": "2026-10-21",
+   "proceeds": 765.73
+  },
+  {
+   "id": "20261020093641365::3cb4e45c-b86c-4644-a3d0-33ec2deb5acf",
+   "symbol": "SPY",
+   "tradeDate": "2026-10-20",
+   "settleDate": "2026-10-21",
+   "proceeds": 765.74
   }
  ]
 }

@@ -1,0 +1,419 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.12",
+ "rulesVersion": "lab-0.4",
+ "at": "2026-10-20T13:36:38.704Z",
+ "cmd": "lab-postopen",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "خروج بديل: LEARN.O1 SPY × 1 بيع سوق day بعد عدم تنفيذ ln1-o1-20261020-SPY-S (expired، منفذ 0 من 1)",
+  "خروج بديل: LEARN.CHEAP VEEE × 5 بيع سوق day بعد عدم تنفيذ ln1-ch1-20261020-VEEE-S (expired، منفذ 0 من 5)",
+  "خروج بديل: O1 SPY × 8 بيع سوق day بعد عدم تنفيذ o1-20261020-SPY-S (expired، منفذ 0 من 8)",
+  "lab-postopen: لا أوامر إغلاق (قبل نافذة شراء الإغلاق (15:40–15:58))"
+ ],
+ "warnings": [],
+ "errors": [],
+ "orders": [
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "SPY",
+    "qty": "1",
+    "side": "sell",
+    "type": "market",
+    "time_in_force": "day",
+    "client_order_id": "ln1-o1-20261020-SPY-S-R1"
+   },
+   "status": 200,
+   "id": "2c0d6d76-53da-4e04-a962-9ec216160d89",
+   "orderStatus": "pending_new"
+  },
+  {
+   "method": "DELETE",
+   "url": "/v2/orders/e4e0af4d-4425-48ac-b053-496547561ac0",
+   "status": 204,
+   "id": null,
+   "orderStatus": null
+  },
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "VEEE",
+    "qty": "5",
+    "side": "sell",
+    "type": "market",
+    "time_in_force": "day",
+    "client_order_id": "ln1-ch1-20261020-VEEE-S-R1"
+   },
+   "status": 200,
+   "id": "6327092d-39c9-4af8-a49b-c7d3699a8366",
+   "orderStatus": "pending_new"
+  },
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "SPY",
+    "qty": "8",
+    "side": "sell",
+    "type": "market",
+    "time_in_force": "day",
+    "client_order_id": "o1-20261020-SPY-S-R1"
+   },
+   "status": 200,
+   "id": "c10cefb3-73fd-476b-b6bc-37088cb91a47",
+   "orderStatus": "pending_new"
+  }
+ ],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "39431854934",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "235",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-20T13:36:38.704Z"
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "64595.27",
+  "equity": "99580.23",
+  "clock": {
+   "is_open": true,
+   "next_close": "2026-10-20T16:00:00-04:00",
+   "next_open": "2026-10-21T09:30:00-04:00",
+   "timestamp": "2026-10-20T09:36:38.907353481-04:00"
+  }
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 3,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 3,
+   "head": "d1cb08a974bc"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "crossLedgerInitial": {
+  "ok": true,
+  "state": "valid",
+  "rows": 3,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 3,
+   "head": "d1cb08a974bc"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "feedUsed": "sip",
+ "legacy": {
+  "effectiveBaseline": {
+   "AMD": 0,
+   "CAT": 0,
+   "MSFT": 3,
+   "NVDA": 0
+  },
+  "sold": {
+   "CAT": 1,
+   "AMD": 1,
+   "NVDA": 3
+  },
+  "invalid": {},
+  "documentedOrders": 4,
+  "documentedFills": 4
+ },
+ "recon": {
+  "rows": [
+   {
+    "sym": "AMD",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "CAT",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "CNH",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "DFTX",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "DNTH",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "HELP",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "LAC",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "MFA",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "MSFT",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NVDA",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "NXH",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "QUBT",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "SPY",
+    "lab": 18,
+    "baseline": 0,
+    "broker": 18,
+    "diff": 0
+   },
+   {
+    "sym": "VEEE",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "VOO",
+    "lab": 18,
+    "baseline": 0,
+    "broker": 18,
+    "diff": 0
+   }
+  ],
+  "ok": true,
+  "labMismatch": {},
+  "unexplainedForeign": [],
+  "baselineDrift": [],
+  "baselineDeficit": []
+ },
+ "foreignActivity": {
+  "ordersToday": [],
+  "openBuys": [],
+  "fillsToday": [],
+  "unknownFillsToday": [],
+  "legacyExcusedToday": [],
+  "any": false
+ },
+ "settlement": {
+  "proven": true,
+  "settledCash": 63827.93,
+  "cash": 71532.93,
+  "unsettledProceeds": 7705,
+  "reasons": [],
+  "pendingReserveAll": 0
+ },
+ "fallbackExits": [
+  {
+   "at": "2026-10-20T13:36:39.834Z",
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261020-SPY-S",
+   "origStatus": "expired",
+   "origQty": 1,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 1,
+   "openSellQty": 0,
+   "brokerFree": 27,
+   "late": false,
+   "prePx": 765.76,
+   "qty": 1,
+   "fallbackCid": "ln1-o1-20261020-SPY-S-R1",
+   "id": "2c0d6d76-53da-4e04-a962-9ec216160d89",
+   "statusAtSubmit": "pending_new"
+  },
+  {
+   "at": "2026-10-20T13:36:39.884Z",
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "origCid": "ln1-ch1-20261020-VEEE-S",
+   "origStatus": "expired",
+   "origQty": 5,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 5,
+   "openSellQty": 0,
+   "brokerFree": 5,
+   "stopsCanceled": 1,
+   "late": false,
+   "prePx": 9.11,
+   "qty": 5,
+   "fallbackCid": "ln1-ch1-20261020-VEEE-S-R1",
+   "id": "6327092d-39c9-4af8-a49b-c7d3699a8366",
+   "statusAtSubmit": "pending_new"
+  },
+  {
+   "at": "2026-10-20T13:36:40.100Z",
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261020-SPY-S",
+   "origStatus": "expired",
+   "origQty": 8,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 8,
+   "openSellQty": 0,
+   "brokerFree": 26,
+   "late": false,
+   "prePx": 765.76,
+   "qty": 8,
+   "fallbackCid": "o1-20261020-SPY-S-R1",
+   "id": "c10cefb3-73fd-476b-b6bc-37088cb91a47",
+   "statusAtSubmit": "pending_new"
+  }
+ ],
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
+ "protection": [],
+ "protectionLatency": [],
+ "protectionAfter": [],
+ "protectSla": {
+  "enabled": true,
+  "flag": "protection-sla-breach",
+  "active": true,
+  "corrupt": false,
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "books": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "targetSec": 60,
+  "upperSec": 90,
+  "since": "2026-10-13T13:42:06.453Z",
+  "cases": [
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "VEEE",
+    "fillAt": "2026-10-13T13:30:09.795Z",
+    "resolvedAt": "2026-10-13T13:42:05.931Z",
+    "sec": 716,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-postopen"
+   }
+  ],
+  "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط.",
+  "evaluated": [],
+  "newBreaches": []
+ },
+ "clsWindow": {
+  "fromMs": 1792525200000,
+  "untilMs": 1792526280000,
+  "from": "2026-10-20T19:40:00.000Z",
+  "until": "2026-10-20T19:58:00.000Z",
+  "close": "16:00",
+  "nowAt": "2026-10-20T13:36:43.572Z",
+  "inWindow": false,
+  "why": "قبل نافذة شراء الإغلاق (15:40–15:58)"
+ },
+ "labStatus": {
+  "lastCompletedDay": "2026-10-19",
+  "dailyWritten": [
+   "2026-10-19"
+  ]
+ }
+}

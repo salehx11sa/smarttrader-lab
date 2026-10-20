@@ -143,6 +143,45 @@
    "late": false,
    "at": "2026-10-16T13:36:37.674Z",
    "result": "submitted"
+  },
+  "ln1-o1-20261020-SPY-S-R1": {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261020-SPY-S",
+   "origStatus": "expired",
+   "origQty": 1,
+   "origFilled": 0,
+   "qty": 1,
+   "prePx": 765.76,
+   "late": false,
+   "at": "2026-10-20T13:36:39.834Z",
+   "result": "submitted"
+  },
+  "ln1-ch1-20261020-VEEE-S-R1": {
+   "book": "LEARN.CHEAP",
+   "sym": "VEEE",
+   "origCid": "ln1-ch1-20261020-VEEE-S",
+   "origStatus": "expired",
+   "origQty": 5,
+   "origFilled": 0,
+   "qty": 5,
+   "prePx": 9.11,
+   "late": false,
+   "at": "2026-10-20T13:36:39.884Z",
+   "result": "submitted"
+  },
+  "o1-20261020-SPY-S-R1": {
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261020-SPY-S",
+   "origStatus": "expired",
+   "origQty": 8,
+   "origFilled": 0,
+   "qty": 8,
+   "prePx": 765.76,
+   "late": false,
+   "at": "2026-10-20T13:36:40.100Z",
+   "result": "submitted"
   }
  }
 }
