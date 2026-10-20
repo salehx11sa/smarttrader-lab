@@ -1,71 +1,8 @@
 {
  "v": 1,
- "at": "2026-10-20T03:20:35.762Z",
- "today": "2026-10-19",
+ "at": "2026-10-20T06:45:05.653Z",
+ "today": "2026-10-20",
  "unsettled": [
-  {
-   "id": "20261016093638412::55b67a70-32cf-4114-a27f-6bdfec0b2833",
-   "symbol": "SPY",
-   "tradeDate": "2026-10-16",
-   "settleDate": "2026-10-19",
-   "proceeds": 772.29
-  },
-  {
-   "id": "20261016093638523::73243b29-13cf-485e-9b2c-bf6207b6e09a",
-   "symbol": "SPY",
-   "tradeDate": "2026-10-16",
-   "settleDate": "2026-10-19",
-   "proceeds": 3089.28
-  },
-  {
-   "id": "20261016093639622::8f389b6f-128c-435a-9e7a-5655164b24a8",
-   "symbol": "LAC",
-   "tradeDate": "2026-10-16",
-   "settleDate": "2026-10-19",
-   "proceeds": 77.35
-  },
-  {
-   "id": "20261016093639648::e8068404-83c3-4b9c-9bc1-b82aa8157813",
-   "symbol": "SPY",
-   "tradeDate": "2026-10-16",
-   "settleDate": "2026-10-19",
-   "proceeds": 3089.24
-  },
-  {
-   "id": "20261016093640183::1c0ae60f-1c13-43d2-9398-273be426ff86",
-   "symbol": "LAC",
-   "tradeDate": "2026-10-16",
-   "settleDate": "2026-10-19",
-   "proceeds": 35.36
-  },
-  {
-   "id": "20261016095944924::b566a6af-94d8-43c8-a83a-e73c21b77f26",
-   "symbol": "DNTH",
-   "tradeDate": "2026-10-16",
-   "settleDate": "2026-10-19",
-   "proceeds": 70.88
-  },
-  {
-   "id": "20261016095945165::67c5c5ca-1e59-4780-96fa-550ca03db1cc",
-   "symbol": "DNTH",
-   "tradeDate": "2026-10-16",
-   "settleDate": "2026-10-19",
-   "proceeds": 70.88
-  },
-  {
-   "id": "20261016095945479::503989ee-cd98-4d4d-94b6-312c7a4b28b7",
-   "symbol": "DNTH",
-   "tradeDate": "2026-10-16",
-   "settleDate": "2026-10-19",
-   "proceeds": 70.88
-  },
-  {
-   "id": "20261016095945923::d3cacd01-de2d-473b-b601-e68cd3974e25",
-   "symbol": "DNTH",
-   "tradeDate": "2026-10-16",
-   "settleDate": "2026-10-19",
-   "proceeds": 70.85
-  },
   {
    "id": "20261019093021149::442bfcac-0942-444e-93fd-309ca73dc555",
    "symbol": "SPY",

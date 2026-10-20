@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12",
- "at": "2026-10-20T03:20:39.732Z",
+ "at": "2026-10-20T06:45:09.364Z",
  "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -41,7 +41,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12959.54,
-   "equityNow": 12986.36,
+   "equityNow": 12982.04,
    "totalReturnPct": -0.311,
    "maxDrawdownPct": 1.08,
    "drawdownPct": 0.67,
@@ -83,7 +83,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12875.02,
-   "equityNow": 12897.82,
+   "equityNow": 12893.02,
    "totalReturnPct": -0.961,
    "maxDrawdownPct": 1.76,
    "drawdownPct": 1.39,
@@ -125,7 +125,7 @@
    "name": "الليلي",
    "retired": null,
    "equityClose": 12980.75,
-   "equityNow": 12992.91,
+   "equityNow": 12990.35,
    "totalReturnPct": -0.148,
    "maxDrawdownPct": 0.3,
    "drawdownPct": 0.3,
@@ -167,7 +167,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12921.38,
-   "equityNow": 12925.78,
+   "equityNow": 12924.5,
    "totalReturnPct": -0.605,
    "maxDrawdownPct": 0.67,
    "drawdownPct": 0.6,
@@ -321,7 +321,7 @@
  },
  "settlement": {
   "proven": true,
-  "settledCash": 56480.95
+  "settledCash": 63827.96
  },
  "crossesTotal": 3,
  "crossLedger": {
@@ -337,7 +337,7 @@
    "fillAt": "2026-10-13T13:30:09.795Z",
    "stopAt": null,
    "fillToStopSec": null,
-   "unprotectedSec": 568226,
+   "unprotectedSec": 580496,
    "exitPending": false,
    "exitRemaining": 0,
    "need": 5
