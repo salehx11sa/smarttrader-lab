@@ -34,7 +34,7 @@ const DS = require('./daily_strat.js');
 const CAPS = require('./caps.cjs');
 const RL = require('./runner.cjs'); /* مكتبة فقط: scanSaveIncidents/lastRunPair/pairCovered/verifySave/nyParts — نسخة مطابقة حرفيًا لـ7.2.19-dev */
 const PAPER = 'https://paper-api.alpaca.markets', DATA = 'https://data.alpaca.markets';
-const VERSION = 'lab-0.12';
+const VERSION = 'lab-0.12b';
 /* النوافذ بتوقيت نيويورك (OPG-WINDOW-01). وثائق Alpaca (Orders at Alpaca / Time in Force):
    «OPG submitted after 9:28am but before 7:00pm ET will be rejected; after 7:00pm queued for the next day's opening auction» و«CLS after 3:50pm but before 7:00pm rejected».
    ⇒ إرسال OPG من 19:05 حتى 09:15 فقط (هامش 5 دقائق بعد 19:00 و13 دقيقة قبل 09:28)، وأي وقت يقع بين 09:16 و19:04 في أي يوم (ومنها عطلة نهاية الأسبوع) خارج النافذة.
@@ -135,6 +135,12 @@ function mkLab(env, io) {
     const F = { active: [{ id: 'flags-corrupt-' + ts, kind: 'state-corrupt', at, detail: { note: 'state/flags.json تالف — نُسخ إلى state/evidence' } }], cleared: [] };
     if (!READONLY) { try { fs.mkdirSync(path.join(STATE_DIR, 'evidence'), { recursive: true }); fs.copyFileSync(f, path.join(STATE_DIR, 'evidence', 'flags-' + ts + '.corrupt')); } catch (e) {} writeState('flags.json', F, true); }
     return F; }
+  /* lab-0.12b (حكم 7.2.36): قراءة flags.json بلا أي كتابة ولا إصلاح — للرفع الانتقائي فقط؛ التلف يُعاد كما هو فيُرفض الرفع */
+  function readFlagsRaw() { const f = path.join(STATE_DIR, 'flags.json'); if (!fs.existsSync(f)) return { exists: false, text: null, value: { active: [], cleared: [] }, corrupt: false };
+    let text = null; try { text = fs.readFileSync(f, 'utf8'); } catch (e) { return { exists: true, text: null, value: null, corrupt: true }; }
+    let v = null; try { v = JSON.parse(text); } catch (e) { v = null; }
+    const good = !!(v && Array.isArray(v.active) && Array.isArray(v.cleared) && v.active.concat(v.cleared).every(x => x && typeof x.id === 'string'));
+    return { exists: true, text, value: good ? v : null, corrupt: !good }; }
   function raise(kind, id, detail) { if (READONLY || !TRADING) { report.warnings.push('علم (لم يُحفظ — تشغيل جاف/قراءة): ' + kind + ' ' + id); return; }
     const F = readFlags(); if (F.active.some(f => f.id === id) || F.cleared.some(f => f.id === id)) return; F.active.push({ id, kind, at: new Date(now()).toISOString(), detail }); writeState('flags.json', F); }
   /* قراءة صارمة: الخطأ لا يتحول إلى قيمة افتراضية */
@@ -1153,18 +1159,45 @@ function mkLab(env, io) {
   const APPROVED_FLAG_LIFTS = Object.freeze([Object.freeze({ id: 'labrecon-2026-10-15-SPY', kind: 'lab-recon-mismatch', approval: 'المراجع 7.2.29e (البند 1) + صالح، 2026-10-16',
     reason: 'سباق توقيت: لقطة المراكز في تشغيل 19:40:29Z التقطت تعبئة جزئية (5 من 9) لأوامر التشغيل نفسه o1-20261015-SPY-B-r77219 وln1-o1-20261015-SPY-B-r77219 قبل قيدها في الدفاتر؛ المطابقة سليمة (SPY 27=27) في تشغيلات 19:45 و19:50 و20:03Z' })]);
   const PROTECTIVE = new Set(['stop', 'stop_limit', 'trailing_stop']); const FINAL_LIFT = new Set(['filled', 'canceled', 'expired', 'rejected', 'replaced']); const RESTING = new Set(['new', 'accepted', 'held', 'pending_new']); /* done_for_day وpending_cancel ليسا نهائيين */
+  /* lab-0.12a (حادثة VEEE، تشخيص 2026-10-20): رفع انتقائي لعلم protection-sla-breach المحدد بالوقت والحالة الوحيدة فقط.
+     السبب: خانتا lab-protect (09:28) والاحتياط (09:36) لم تُطلقا يوم 2026-10-13 بعد تعديل يدوي للمُطلِق (lab-dispatch-0.3)؛ عادتا منذ 0.4 ثم 0.5 المعتمد،
+     وlab-protect يعمل يوميًا منذ 2026-10-14. الشروط: تشغيل تداول • علم SLA نشط واحد مطابق تمامًا (id/at/حالة واحدة بالدفتر والرمز ووقت التعبئة) — أي حالة إضافية
+     بعده تمنع الرفع • قراءتان حديثتان: مطابقة سليمة وسجل تقاطعات مثبت • كل مركز قائم في الدفاتر الأربعة محمي بوقف مؤكد أو خروج حماية قائم في القراءتين
+     • لا أمر مختبر غير نهائي على رموز تلك الدفاتر عدا وقف الحماية الساكن. الكتابة: lab-protect-sla.json فقط (lots كما هي، فلا يعود العلم لنفس التعبئة).
+     التحقق بعد الحفظ: SLA بلا نشط، lots وflags.json وموانع الحماية بلا تغيير. */
+  const APPROVED_SLA_LIFTS = Object.freeze([Object.freeze({ id: 'protection-sla-breach', at: '2026-10-13T13:42:06.453Z',
+    cases: Object.freeze([Object.freeze({ book: 'LEARN.CHEAP', sym: 'VEEE', fillAt: '2026-10-13T13:30:09.795Z' })]),
+    approval: 'صالح 2026-10-20 + حكم المراجع على حزمة lab-0.12a',
+    reason: 'خانتا المُطلِق 13:28/13:36 UTC لم تُطلقا يوم 2026-10-13 (lab-dispatch-0.3 المعدل يدويًا)؛ الوقف وضعه lab-postopen 13:42:05Z بعد 716ث. المُطلِق المعتمد 0.5 يطلق lab-protect يوميًا منذ 2026-10-14' })]);
+  function slaLiftMatch(F) { const a = APPROVED_SLA_LIFTS[0]; if (F.corrupt || F.active.length !== 1) return null; const f = F.active[0];
+    if (f.id !== a.id || f.kind !== a.id || f.at !== a.at || !Array.isArray(f.cases) || f.cases.length !== a.cases.length) return null;
+    for (let i = 0; i < a.cases.length; i++) { const c = f.cases[i], w = a.cases[i]; if (!c || c.book !== w.book || c.sym !== w.sym || c.fillAt !== w.fillAt) return null; }
+    return f; }
   async function liftApproved() {
-    report.liftFlag = { approved: APPROVED_FLAG_LIFTS.map(a => a.id), results: [] };
+    report.liftFlag = { approved: APPROVED_FLAG_LIFTS.map(a => a.id).concat(APPROVED_SLA_LIFTS.map(a => a.id + '@' + a.at)), results: [] };
     if (READONLY || !TRADING) { report.errors.push('الرفع الانتقائي يحتاج تشغيل تداول (TRADING_ENABLED=true) — لم يُرفع شيء'); return report; }
-    const snap = () => ({ flags: readFlags(), sla: JSON.stringify(slaRead()), pb: JSON.stringify(readProtectBlocks()) });
+    READONLY = true; /* lab-0.12b: القراءة للقراءة فقط قبل أي لقطة — لا إصلاح ولا كتابة لأي ملف حالة؛ الكتابة الوحيدة لاحقًا (force) للملف المرفوع علمه */
+    const raw0 = readFlagsRaw();
+    if (raw0.corrupt) { const why = 'state/flags.json تالف — لا رفع ولا إصلاح (فشل مغلق؛ الملف تُرك كما هو)';
+      for (const a of APPROVED_FLAG_LIFTS) report.liftFlag.results.push({ id: a.id, result: 'refused', why }); report.liftFlag.results.push({ id: APPROVED_SLA_LIFTS[0].id, result: 'refused', why });
+      report.errors.push('الرفع الانتقائي رُفض: ' + why); return report; }
+    const snap = () => { const r = readFlagsRaw(); return { flags: r.value || { active: [], cleared: [] }, flagsText: r.text, flagsCorrupt: r.corrupt, sla: JSON.stringify(slaRead()), pb: JSON.stringify(readProtectBlocks()) }; };
     const before = snap(); const targets = APPROVED_FLAG_LIFTS.filter(a => before.flags.active.some(f => f.id === a.id && f.kind === a.kind));
     for (const a of APPROVED_FLAG_LIFTS) if (!targets.includes(a)) report.liftFlag.results.push({ id: a.id, result: 'not-active', why: 'العلم غير نشط أو نوعه مختلف — لا شيء يُرفع' });
-    if (!targets.length) { report.steps.push('الرفع الانتقائي: لا علم معتمد نشط'); return report; }
-    READONLY = true; /* القراءتان بلا أي كتابة حالة، وطبقة الطلبات ترفض كل طلب غير GET؛ الكتابة الوحيدة flags.json (force) والإيصال */
+    const slaBefore = slaRead(); const slaTarget = slaLiftMatch(slaBefore);
+    if (!slaTarget) report.liftFlag.results.push({ id: APPROVED_SLA_LIFTS[0].id, result: (slaBefore.active.length || slaBefore.corrupt) ? 'refused' : 'not-active', why: slaBefore.corrupt ? SLA.file + ' تالف — لا رفع (فشل مغلق)' : slaBefore.active.length ? 'علم SLA النشط لا يطابق المعتمد تمامًا (الوقت أو الحالات) — لا رفع' : 'لا علم SLA نشط' });
+    if (!targets.length && !slaTarget) { report.steps.push('الرفع الانتقائي: لا علم معتمد نشط'); return report; }
+    /* lab-0.12b: حصر التشغيل في علم واحد — علم مطابقة معتمد نشط مع علم SLA المعتمد ⇒ لا رفع لأي منهما (لا يُرفع SPY في تشغيل مقصده VEEE) */
+    if (targets.length && slaTarget) { const why = 'علم مطابقة معتمد نشط (' + targets.map(a => a.id).join('، ') + ') مع علم SLA المعتمد — لا رفع لأي منهما في هذا التشغيل؛ يلزم قرار منفصل';
+      for (const a of targets) report.liftFlag.results.push({ id: a.id, result: 'refused', why }); report.liftFlag.results.push({ id: APPROVED_SLA_LIFTS[0].id, result: 'refused', why });
+      report.errors.push('الرفع الانتقائي رُفض: ' + why); return report; }
+    if (!targets.length) return liftSla(before, slaTarget);
+    /* القراءتان بلا أي كتابة حالة، وطبقة الطلبات ترفض كل طلب غير GET؛ الكتابة الوحيدة flags.json (force) والإيصال */
     const reads = [];
     for (let i = 0; i < 2; i++) { if (i) await sleep(3000); const B = await loadBroker(); const ctx = await context(B); if (!i) report.account = acctView(B);
       reads.push({ at: new Date(now()).toISOString(), B, ctx }); }
-    const F = readFlags(); const otherBefore = before.flags.active.filter(f => !targets.some(a => a.id === f.id)).map(f => f.id).sort();
+    const rawF = readFlagsRaw(); if (rawF.corrupt || rawF.text !== before.flagsText) { report.liftFlag.results.push({ id: targets.map(a => a.id).join('،'), result: 'refused', why: 'flags.json تغيّر أو تلف أثناء التشغيل' }); report.errors.push('الرفع الانتقائي رُفض: flags.json تغيّر أو تلف أثناء التشغيل'); return report; }
+    const F = JSON.parse(rawF.text); const otherBefore = before.flags.active.filter(f => !targets.some(a => a.id === f.id)).map(f => f.id).sort();
     const at = new Date(now()).toISOString(); const by = io.flagNote || env.FLAG_CLEAR_NOTE || 'manual'; const lifted = [];
     for (const a of targets) { const f = F.active.find(x => x.id === a.id); const syms = Object.keys((f && f.detail) || {}); const why = [];
       if (!f) why.push('العلم لم يعد نشطًا عند الحفظ');
@@ -1172,7 +1205,7 @@ function mkLab(env, io) {
       const rows = reads.map(r => ({ at: r.at, ok: !!(r.ctx.recon && r.ctx.recon.ok), rows: syms.map(s => (r.ctx.recon.rows || []).find(x => x.sym === s) || { sym: s, missing: true }) }));
       for (const r of reads) { if (!(r.ctx.recon && r.ctx.recon.ok)) why.push('المطابقة غير سليمة في قراءة ' + r.at); if (!(r.ctx.crossLedger && r.ctx.crossLedger.ok)) why.push('سجل التقاطعات غير مثبت في قراءة ' + r.at + ' (' + ((r.ctx.crossLedger && r.ctx.crossLedger.state) || '?') + ')');
         for (const s of syms) if (r.ctx.recon && r.ctx.recon.labMismatch && r.ctx.recon.labMismatch[s]) why.push(s + ': فرق بين الدفاتر والوسيط في قراءة ' + r.at); }
-      const last = reads[reads.length - 1].B; const resting = o => PROTECTIVE.has(o.type || o.order_type) && RESTING.has(o.status); const open = last.lab.filter(o => syms.includes(o.symbol) && !FINAL_LIFT.has(o.status) && !resting(o));
+      const last = reads[reads.length - 1].B; const okStops = protStopIds(protectionState(last, reads[reads.length - 1].ctx.books)); const open = last.lab.filter(o => syms.includes(o.symbol) && !FINAL_LIFT.has(o.status) && !protStopOk(o, okStops));
       const foreignOpen = last.foreign.filter(o => syms.includes(o.symbol) && !FINAL_LIFT.has(o.status)); if (foreignOpen.length) why.push('أوامر غير مختبرية مفتوحة على ' + syms.join('، ') + ': ' + foreignOpen.length);
       if (open.length) why.push('أوامر مختبر غير نهائية على ' + syms.join('، ') + ': ' + open.map(o => o.client_order_id + '/' + o.status).join('، '));
       for (const s of syms) { const q = reads.map(r => r.B.brokerPos[s] || 0); if (q.some(x => Math.abs(x - q[0]) > 1e-9)) why.push(s + ': كمية الوسيط تغيرت بين القراءتين (' + q.join(' ⇐ ') + ')'); }
@@ -1183,11 +1216,44 @@ function mkLab(env, io) {
     if (lifted.length) { writeState('flags.json', F, true);
       const after = snap(); const otherAfter = after.flags.active.map(f => f.id).sort(); const v = [];
       for (const id of lifted) { if (after.flags.active.some(f => f.id === id)) v.push(id + ' ما زال نشطًا'); if (!after.flags.cleared.some(f => f.id === id && f.scope === 'selective')) v.push(id + ' غير موجود في سجل الرفع'); }
+      if (after.flagsCorrupt) v.push('flags.json تالف بعد الحفظ');
       if (otherBefore.some(id => !otherAfter.includes(id))) v.push('علم آخر اختفى: ' + otherBefore.filter(id => !otherAfter.includes(id)).join('، '));
       if (after.sla !== before.sla) v.push('ملف protection-sla تغيّر'); if (after.pb !== before.pb) v.push('موانع الحماية تغيّرت');
       report.liftFlag.verify = { ok: !v.length, problems: v, activeAfter: otherAfter, newDuringRun: otherAfter.filter(id => !otherBefore.includes(id)), slaUnchanged: after.sla === before.sla, protectBlocksUnchanged: after.pb === before.pb, slaActive: (JSON.parse(after.sla).active || []).map(x => x.id || x.flagId || 'sla') };
       if (v.length) report.errors.push('التحقق بعد الرفع الانتقائي فشل: ' + v.join(' • ')); else report.steps.push('رُفع انتقائيًا: ' + lifted.join('، ') + ' — بقية الأعلام (' + (otherAfter.join('، ') || 'لا شيء') + ') وموانع الحماية وSLA كما هي'); }
+    if (slaTarget) report.liftFlag.results.push({ id: APPROVED_SLA_LIFTS[0].id, result: 'deferred', why: 'علم مطابقة رُفع في هذا التشغيل — يُعاد التشغيل لرفع SLA منفردًا' });
     return report; }
+  /* lab-0.12a: الرفع الانتقائي لعلم SLA (يُستدعى فقط حين لا علم مطابقة معتمد نشط، فلكل تشغيل كتابة واحدة) */
+  async function liftSla(before, target) {
+    const a = APPROVED_SLA_LIFTS[0]; const reads = [];
+    for (let i = 0; i < 2; i++) { if (i) await sleep(3000); const B = await loadBroker(); const ctx = await context(B); if (!i) report.account = acctView(B);
+      reads.push({ at: new Date(now()).toISOString(), B, ctx, P: protectionState(B, ctx.books).filter(x => SLA_SET.has(x.book)) }); }
+    const why = [];
+    for (const r of reads) { if (!(r.ctx.recon && r.ctx.recon.ok)) why.push('المطابقة غير سليمة في قراءة ' + r.at); if (!(r.ctx.crossLedger && r.ctx.crossLedger.ok)) why.push('سجل التقاطعات غير مثبت في قراءة ' + r.at);
+      for (const x of r.P) if (!x.confirmed && !x.exitPending) why.push(x.book + ':' + x.sym + ' بلا وقف مؤكد ولا خروج حماية في قراءة ' + r.at); }
+    const syms = new Set(); for (const id of SLA.books) { const k = reads[1].ctx.books[id]; if (k) for (const [sym, p] of Object.entries(k.pos)) if (p.qty > 1e-9) syms.add(sym); }
+    /* lab-0.12b (حكم 7.2.36): كل أمر مختبر غير نهائي تابع للدفاتر الأربعة يمنع الرفع ولو بلا مركز قائم، وكذلك أي أمر مختبر على رموز مراكزها؛
+       والاستثناء الوحيد وقف بيع الحماية المؤكد لمركز قائم (بتعريف protectionState في القراءة الأخيرة: الكمية والحالة وGTC وسعر القاعدة) */
+    const last = reads[1].B; const okStops = protStopIds(reads[1].P);
+    const open = last.lab.filter(o => !FINAL_LIFT.has(o.status) && (SLA_SET.has(o._book) || syms.has(o.symbol)) && !protStopOk(o, okStops)); if (open.length) why.push('أوامر مختبر غير نهائية للدفاتر الأربعة أو على رموز مراكزها: ' + open.map(o => (o.client_order_id || o.id) + '/' + o._book + '/' + o.side + '/' + (o.type || o.order_type) + '/' + o.status).join('، '));
+    { const fr = readFlagsRaw(); if (fr.corrupt || fr.text !== before.flagsText) why.push('flags.json تغيّر أو تلف أثناء التشغيل'); }
+    const F = slaRead(); if (!slaLiftMatch(F) || JSON.stringify(F) !== before.sla) why.push('ملف SLA تغيّر أثناء التشغيل');
+    const prot = reads.map(r => ({ at: r.at, positions: r.P.map(x => ({ book: x.book, sym: x.sym, confirmed: !!x.confirmed, exitPending: !!x.exitPending })) }));
+    if (why.length) { report.liftFlag.results.push({ id: a.id, result: 'refused', why, protection: prot }); report.errors.push('الرفع الانتقائي لـ' + a.id + ' رُفض: ' + why.join(' • ')); return report; }
+    const at = new Date(now()).toISOString(); const by = io.flagNote || env.FLAG_CLEAR_NOTE || 'manual';
+    const out = { v: F.v || 1, active: [], cleared: F.cleared.concat([Object.assign({}, target, { clearedAt: at, clearedBy: by, scope: 'selective', approval: a.approval, reason: a.reason, engine: VERSION, protection: prot })]), lots: F.lots };
+    writeState(SLA.file, out, true);
+    const after = snap2(); const v = [];
+    if (after.slaObj.active.length) v.push('SLA ما زال نشطًا'); if (!after.slaObj.cleared.some(x => x.id === a.id && x.at === a.at && x.scope === 'selective')) v.push('الرفع غير موجود في سجل SLA');
+    if (JSON.stringify(after.slaObj.lots) !== JSON.stringify(F.lots)) v.push('lots تغيّرت'); if (after.flagsCorrupt || after.flagsText !== before.flagsText) v.push('flags.json تغيّر'); if (after.pb !== before.pb) v.push('موانع الحماية تغيّرت');
+    report.liftFlag.results.push({ id: a.id, result: v.length ? 'verify-failed' : 'lifted', at, protection: prot });
+    report.liftFlag.verify = { ok: !v.length, problems: v, slaActiveAfter: after.slaObj.active.length, flagsUnchanged: !after.flagsCorrupt && after.flagsText === before.flagsText, protectBlocksUnchanged: after.pb === before.pb, lotsUnchanged: JSON.stringify(after.slaObj.lots) === JSON.stringify(F.lots) };
+    if (v.length) report.errors.push('التحقق بعد رفع SLA فشل: ' + v.join(' • ')); else report.steps.push('رُفع علم ' + a.id + ' انتقائيًا — يعود دخول ' + SLA.books.join(' و') + '؛ flags.json وموانع الحماية وlots كما هي');
+    return report; }
+  function snap2() { const o = slaRead(); const r = readFlagsRaw(); return { slaObj: o, flagsText: r.text, flagsCorrupt: r.corrupt, pb: JSON.stringify(readProtectBlocks()) }; }
+  /* lab-0.12b: وقف الحماية الصحيح = وقف بيع (stop/stop_limit) ساكن، معرّفه هو الوقف المؤكد لمركز قائم في protectionState */
+  function protStopIds(P) { const s = new Set(); for (const x of P || []) if (x.confirmed && x.stops && x.stops.length === 1) s.add(x.stops[0].id); return s; }
+  function protStopOk(o, ids) { return isStop(o) && RESTING.has(o.status) && ids.has(o.id); }
 
   /* ---------- التقارير: يومي لكل لاعب + lab-status.json + ملاحظة أسبوعية + الظلال ---------- */
   function wj(f, v) { fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, JSON.stringify(v, null, 1)); }
