@@ -1,0 +1,104 @@
+{
+ "player": "O1",
+ "name": "الليلي",
+ "date": "2026-10-21",
+ "labVersion": "lab-0.12",
+ "startEquity": 13000,
+ "equity": 12996.53,
+ "cash": 12996.53,
+ "dayPnl": 13.45,
+ "totalPnl": -3.47,
+ "totalReturnPct": -0.027,
+ "drawdownPct": 0.18,
+ "maxDrawdownPct": 0.3,
+ "positions": [],
+ "orders": [
+  {
+   "cid": "o1-20261021-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 8,
+   "filled": 4,
+   "status": "expired"
+  },
+  {
+   "cid": "o1-20261021-SPY-S-R1",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 4,
+   "filled": 4,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 4,
+   "price": 771.2,
+   "cid": "o1-20261021-SPY-S",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": null,
+   "slipVsRefPct": null,
+   "auctionPrice": 771.17,
+   "slipVsAuctionPct": 0.004
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 1,
+   "price": 770.24,
+   "cid": "o1-20261021-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 770.22,
+   "slipVsRefPct": 0.003,
+   "auctionPrice": 771.17,
+   "slipVsAuctionPct": -0.121,
+   "fallbackExit": true
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 2,
+   "price": 770.27,
+   "cid": "o1-20261021-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 770.22,
+   "slipVsRefPct": 0.006,
+   "auctionPrice": 771.17,
+   "slipVsAuctionPct": -0.117,
+   "fallbackExit": true
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 1,
+   "price": 770.27,
+   "cid": "o1-20261021-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 770.22,
+   "slipVsRefPct": 0.006,
+   "auctionPrice": 771.17,
+   "slipVsAuctionPct": -0.117,
+   "fallbackExit": true
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 6,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13069.7
+ }
+}
