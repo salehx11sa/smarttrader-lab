@@ -1,34 +1,6 @@
 {
  "v": 1,
- "active": [
-  {
-   "id": "protection-sla-breach",
-   "kind": "protection-sla-breach",
-   "at": "2026-10-13T13:42:06.453Z",
-   "date": "2026-10-13",
-   "books": [
-    "S1",
-    "CHEAP",
-    "LEARN.S1",
-    "LEARN.CHEAP"
-   ],
-   "cases": [
-    {
-     "book": "LEARN.CHEAP",
-     "sym": "VEEE",
-     "fillAt": "2026-10-13T13:30:09.795Z",
-     "resolvedAt": "2026-10-13T13:42:05.931Z",
-     "sec": 716,
-     "ageSec": null,
-     "result": "resolved",
-     "by": "stop",
-     "source": "lab-postopen"
-    }
-   ],
-   "source": "lab-postopen",
-   "note": "تعبئة في دفاتر الأسهم تجاوزت 90 ثانية حتى الحماية المؤكدة أو بقيت معلقة/فشلت — يُمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى مراجعة صالح (lab-clear-flags). الحماية والخروج مستمران."
-  }
- ],
+ "active": [],
  "cleared": [
   {
    "id": "protection-sla-breach",
@@ -91,6 +63,49 @@
    "note": "تعبئة في دفاتر الأسهم تجاوزت 90 ثانية حتى الحماية المؤكدة أو بقيت معلقة/فشلت — يُمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى مراجعة صالح (lab-clear-flags). الحماية والخروج مستمران.",
    "clearedAt": "2026-10-09T15:06:48.831Z",
    "clearedBy": "salehx11sa"
+  },
+  {
+   "id": "protection-sla-breach",
+   "kind": "protection-sla-breach",
+   "at": "2026-10-13T13:42:06.453Z",
+   "date": "2026-10-13",
+   "books": [
+    "S1",
+    "CHEAP",
+    "LEARN.S1",
+    "LEARN.CHEAP"
+   ],
+   "cases": [
+    {
+     "book": "LEARN.CHEAP",
+     "sym": "VEEE",
+     "fillAt": "2026-10-13T13:30:09.795Z",
+     "resolvedAt": "2026-10-13T13:42:05.931Z",
+     "sec": 716,
+     "ageSec": null,
+     "result": "resolved",
+     "by": "stop",
+     "source": "lab-postopen"
+    }
+   ],
+   "source": "lab-postopen",
+   "note": "تعبئة في دفاتر الأسهم تجاوزت 90 ثانية حتى الحماية المؤكدة أو بقيت معلقة/فشلت — يُمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى مراجعة صالح (lab-clear-flags). الحماية والخروج مستمران.",
+   "clearedAt": "2026-10-21T20:54:03.568Z",
+   "clearedBy": "salehx11sa",
+   "scope": "selective",
+   "approval": "صالح 2026-10-20 + حكم المراجع على حزمة lab-0.12a",
+   "reason": "خانتا المُطلِق 13:28/13:36 UTC لم تُطلقا يوم 2026-10-13 (lab-dispatch-0.3 المعدل يدويًا)؛ الوقف وضعه lab-postopen 13:42:05Z بعد 716ث. المُطلِق المعتمد 0.5 يطلق lab-protect يوميًا منذ 2026-10-14",
+   "engine": "lab-0.12b",
+   "protection": [
+    {
+     "at": "2026-10-21T20:53:59.495Z",
+     "positions": []
+    },
+    {
+     "at": "2026-10-21T20:54:03.568Z",
+     "positions": []
+    }
+   ]
   }
  ],
  "lots": {
