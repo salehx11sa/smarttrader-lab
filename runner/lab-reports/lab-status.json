@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12",
- "at": "2026-10-21T19:40:22.091Z",
+ "at": "2026-10-21T19:45:26.960Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -41,7 +41,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12999.14,
-   "equityNow": 13063.94,
+   "equityNow": 13068.35,
    "totalReturnPct": -0.007,
    "maxDrawdownPct": 1.08,
    "drawdownPct": 0.36,
@@ -83,7 +83,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12913.57,
-   "equityNow": 12970.87,
+   "equityNow": 12974.77,
    "totalReturnPct": -0.665,
    "maxDrawdownPct": 1.76,
    "drawdownPct": 1.09,
@@ -167,7 +167,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12927.91,
-   "equityNow": 12940.56,
+   "equityNow": 12941.6,
    "totalReturnPct": -0.555,
    "maxDrawdownPct": 0.67,
    "drawdownPct": 0.55,
@@ -228,7 +228,7 @@
  },
  "fallbackExits": [
   {
-   "at": "2026-10-21T19:40:21.892Z",
+   "at": "2026-10-21T19:45:26.877Z",
    "book": "LEARN.O1",
    "sym": "SPY",
    "origCid": "ln1-o1-20261021-SPY-S",
@@ -242,7 +242,7 @@
    "fallbackFilled": 1
   },
   {
-   "at": "2026-10-21T19:40:21.892Z",
+   "at": "2026-10-21T19:45:26.877Z",
    "book": "O1",
    "sym": "SPY",
    "origCid": "o1-20261021-SPY-S",
@@ -350,7 +350,7 @@
  },
  "settlement": {
   "proven": true,
-  "settledCash": 57682.7
+  "settledCash": 56909.83
  },
  "crossesTotal": 3,
  "crossLedger": {
