@@ -1,10 +1,10 @@
 {
- "runId": "39674239376",
+ "runId": "39678343171",
  "runAttempt": "1",
- "cmd": "lab-lift-flag",
- "reportFile": "2026-10-21T20-54-03-569Z-lab-lift-flag.json",
- "reportSha256": "87bd9beb6cc6c577c324c34a93ad5b2aee2809ff82ccdb7b2bca680abc394b05",
- "recorded": false,
+ "cmd": "lab-overnight",
+ "reportFile": "2026-10-21T21-24-06-576Z-lab-overnight.json",
+ "reportSha256": "53dba11e0dcf8eb661357268e71cd8ade223758106469745f0fa28fa5bd10cd5",
+ "recorded": true,
  "exitCode": 0,
- "at": "2026-10-21T20:54:03.569Z"
+ "at": "2026-10-21T21:24:06.577Z"
 }
