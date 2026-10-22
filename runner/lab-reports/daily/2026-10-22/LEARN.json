@@ -1,0 +1,267 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-22",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12912.19,
+ "cash": 9708.87,
+ "dayPnl": -29.25,
+ "totalPnl": -87.81,
+ "totalReturnPct": -0.675,
+ "drawdownPct": 0.68,
+ "maxDrawdownPct": 0.68,
+ "positions": [
+  {
+   "book": "LEARN.S1",
+   "sym": "GRND",
+   "qty": 6,
+   "avgCost": 14.25,
+   "close": 14.1,
+   "value": 84.6,
+   "entryDate": "2026-10-22"
+  },
+  {
+   "book": "LEARN.T1",
+   "sym": "SPY",
+   "qty": 3,
+   "avgCost": 778.78,
+   "close": 763.96,
+   "value": 2291.88,
+   "entryDate": "2026-10-12"
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "qty": 1,
+   "avgCost": 761.85,
+   "close": 763.96,
+   "value": 763.96,
+   "entryDate": "2026-10-22"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "MDXG",
+   "qty": 16,
+   "avgCost": 3.73,
+   "close": 3.93,
+   "value": 62.88,
+   "entryDate": "2026-10-22"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-ch1-20261022-DXST-B-r118",
+   "sym": "DXST",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 30,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261022-GRND-B-r1373",
+   "sym": "GRND",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 12,
+   "filled": 6,
+   "status": "canceled"
+  },
+  {
+   "cid": "ln1-o1-20261022-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261022-ADM-B-r7936",
+   "sym": "ADM",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 4,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261022-GLAS-B-r233",
+   "sym": "GLAS",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 15,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261022-MDXG-B-r374",
+   "sym": "MDXG",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 42,
+   "filled": 16,
+   "status": "canceled"
+  },
+  {
+   "cid": "ln1-s1-20261022-HNI-B-r4506",
+   "sym": "HNI",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 6,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261022-DXCM-B-r8026",
+   "sym": "DXCM",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 3,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-ch1-20261022-TAL-B-r1055",
+   "sym": "TAL",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 20,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-s1-20261022-GRND-P4",
+   "sym": "GRND",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 6,
+   "filled": 0,
+   "status": "new",
+   "stop": 12.2
+  },
+  {
+   "cid": "ln1-ch1-20261022-MDXG-P4",
+   "sym": "MDXG",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 16,
+   "filled": 0,
+   "status": "new",
+   "stop": 3.11
+  },
+  {
+   "cid": "ln1-o1-20261022-SPY-S-R1",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-o1-20261022-SPY-B-r76184",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.S1",
+   "sym": "GRND",
+   "side": "buy",
+   "qty": 6,
+   "price": 14.25,
+   "cid": "ln1-s1-20261022-GRND-B-r1373",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 13.73,
+   "slipVsRefPct": 3.787,
+   "auctionPrice": 13.63,
+   "slipVsAuctionPct": 4.549
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 1,
+   "price": 766.82,
+   "cid": "ln1-o1-20261022-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 766.86,
+   "slipVsRefPct": -0.005,
+   "auctionPrice": 766.37,
+   "slipVsAuctionPct": 0.059,
+   "fallbackExit": true
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 761.85,
+   "cid": "ln1-o1-20261022-SPY-B-r76184",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 761.84,
+   "slipVsRefPct": 0.001,
+   "auctionPrice": 763.96,
+   "slipVsAuctionPct": -0.276,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "MDXG",
+   "side": "buy",
+   "qty": 16,
+   "price": 3.73,
+   "cid": "ln1-ch1-20261022-MDXG-B-r374",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 3.74,
+   "slipVsRefPct": -0.267,
+   "auctionPrice": 3.7,
+   "slipVsAuctionPct": 0.811
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 13,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12918.14
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}

@@ -1,0 +1,64 @@
+{
+ "player": "CHEAP",
+ "name": "الرخيص",
+ "date": "2026-10-22",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12937.28,
+ "cash": 12937.28,
+ "dayPnl": 0,
+ "totalPnl": -62.72,
+ "totalReturnPct": -0.482,
+ "drawdownPct": 0.49,
+ "maxDrawdownPct": 0.49,
+ "positions": [],
+ "orders": [
+  {
+   "cid": "ch1-20261022-DXST-B-r118",
+   "sym": "DXST",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 149,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261022-MDXG-B-r374",
+   "sym": "MDXG",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 212,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261022-TAL-B-r1055",
+   "sym": "TAL",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 99,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ch1-20261022-GLAS-B-r233",
+   "sym": "GLAS",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 78,
+   "filled": 0,
+   "status": "expired"
+  }
+ ],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 2,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12918.14
+ }
+}

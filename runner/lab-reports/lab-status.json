@@ -1,18 +1,15 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-10-22T19:51:14.821Z",
- "cmd": "lab-postopen",
+ "at": "2026-10-22T20:19:37.415Z",
+ "cmd": "lab-status",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
- "lastCompletedDay": "2026-10-21",
- "daysElapsed": 11,
+ "lastCompletedDay": "2026-10-22",
+ "daysElapsed": 12,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -32,7 +29,7 @@
     "returnPct": 0,
     "maxDrawdownPct": 0
    },
-   "vsRefPct": -0.178,
+   "vsRefPct": 0.984,
    "verdictSoFar": "متقاعد منذ 2026-10-12",
    "comparisonSuspended": false
   },
@@ -40,18 +37,18 @@
    "id": "REF2",
    "name": "الحَكَم",
    "retired": null,
-   "equityClose": 13069.7,
-   "equityNow": 12909.86,
-   "totalReturnPct": 0.536,
-   "maxDrawdownPct": 1.08,
-   "drawdownPct": 0,
+   "equityClose": 12918.14,
+   "equityNow": 12918.5,
+   "totalReturnPct": -0.63,
+   "maxDrawdownPct": 1.16,
+   "drawdownPct": 1.16,
    "tradesClosed": 0,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
-    "index": 100.178,
-    "returnPct": 0.178,
-    "maxDrawdownPct": 1.08
+    "index": 99.016,
+    "returnPct": -0.984,
+    "maxDrawdownPct": 1.16
    },
    "vsRefPct": 0,
    "verdictSoFar": "المرجع",
@@ -61,20 +58,20 @@
    "id": "S1",
    "name": "السريع",
    "retired": null,
-   "equityClose": 12979.51,
-   "equityNow": 12968.71,
-   "totalReturnPct": -0.158,
-   "maxDrawdownPct": 0.6,
-   "drawdownPct": 0.6,
+   "equityClose": 12972.76,
+   "equityNow": 12972.76,
+   "totalReturnPct": -0.21,
+   "maxDrawdownPct": 0.66,
+   "drawdownPct": 0.66,
    "tradesClosed": 3,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
-    "index": 99.915,
-    "returnPct": -0.085,
-    "maxDrawdownPct": 0.08
+    "index": 99.864,
+    "returnPct": -0.136,
+    "maxDrawdownPct": 0.14
    },
-   "vsRefPct": -0.263,
+   "vsRefPct": 0.847,
    "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد",
    "comparisonSuspended": false
   },
@@ -82,20 +79,20 @@
    "id": "T1",
    "name": "الصبور",
    "retired": null,
-   "equityClose": 12974.17,
-   "equityNow": 12831.22,
-   "totalReturnPct": -0.199,
+   "equityClose": 12837.22,
+   "equityNow": 12840.37,
+   "totalReturnPct": -1.252,
    "maxDrawdownPct": 1.76,
-   "drawdownPct": 0.63,
+   "drawdownPct": 1.68,
    "tradesClosed": 0,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
-    "index": 100.151,
-    "returnPct": 0.151,
-    "maxDrawdownPct": 0.99
+    "index": 99.093,
+    "returnPct": -0.907,
+    "maxDrawdownPct": 1.06
    },
-   "vsRefPct": -0.027,
+   "vsRefPct": 0.077,
    "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد",
    "comparisonSuspended": false
   },
@@ -116,7 +113,7 @@
     "returnPct": 0,
     "maxDrawdownPct": 0
    },
-   "vsRefPct": -0.178,
+   "vsRefPct": 0.984,
    "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد",
    "comparisonSuspended": false
   },
@@ -124,20 +121,20 @@
    "id": "O1",
    "name": "الليلي",
    "retired": null,
-   "equityClose": 12996.53,
-   "equityNow": 13010.21,
-   "totalReturnPct": -0.027,
+   "equityClose": 13013.41,
+   "equityNow": 13015.09,
+   "totalReturnPct": 0.103,
    "maxDrawdownPct": 0.3,
-   "drawdownPct": 0.18,
+   "drawdownPct": 0.05,
    "tradesClosed": 6,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
-    "index": 100.046,
-    "returnPct": 0.046,
+    "index": 100.176,
+    "returnPct": 0.176,
     "maxDrawdownPct": 0.11
    },
-   "vsRefPct": -0.132,
+   "vsRefPct": 1.16,
    "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد",
    "comparisonSuspended": false
   },
@@ -158,7 +155,7 @@
     "returnPct": 0,
     "maxDrawdownPct": 0
    },
-   "vsRefPct": -0.178,
+   "vsRefPct": 0.984,
    "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد",
    "comparisonSuspended": false
   },
@@ -166,28 +163,28 @@
    "id": "LEARN",
    "name": "المتعلّم",
    "retired": null,
-   "equityClose": 12941.44,
-   "equityNow": 12910.29,
-   "totalReturnPct": -0.45,
-   "maxDrawdownPct": 0.67,
-   "drawdownPct": 0.45,
+   "equityClose": 12912.19,
+   "equityNow": 12913.03,
+   "totalReturnPct": -0.675,
+   "maxDrawdownPct": 0.68,
+   "drawdownPct": 0.68,
    "tradesClosed": 13,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
-    "index": 99.997,
-    "returnPct": -0.003,
+    "index": 99.771,
+    "returnPct": -0.229,
     "maxDrawdownPct": 0.23
    },
-   "vsRefPct": -0.181,
+   "vsRefPct": 0.755,
    "verdictSoFar": "صفقات أقل من 20 — لا حكم بعد",
    "comparisonSuspended": false
   }
  ],
  "ref": {
   "id": "REF2",
-  "totalReturnPct": 0.536,
-  "maxDrawdownPct": 1.08,
+  "totalReturnPct": -0.63,
+  "maxDrawdownPct": 1.16,
   "investment": {
    "full": true,
    "state": "full",
@@ -226,22 +223,7 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": [
-  {
-   "at": "2026-10-22T19:51:14.005Z",
-   "book": "LEARN.O1",
-   "sym": "SPY",
-   "origCid": "ln1-o1-20261022-SPY-S",
-   "origStatus": "expired",
-   "origQty": 1,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "ln1-o1-20261022-SPY-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 1,
-   "fallbackFilled": 1
-  }
- ],
+ "fallbackExits": null,
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
@@ -251,21 +233,21 @@
   "note": "مرجع مساعد افتراضي: لا يرسل أوامر ولا يحل محل الحَكَم ولا يدخل في حكم «يتفوق/لا يتفوق». 13,000 دولار في VOO بافتتاح أول يوم تداول للمختبر، بقاعدة كمية الحَكَم نفسها.",
   "omitted": false,
   "startDate": "2026-10-07",
-  "lastDay": "2026-10-21",
+  "lastDay": "2026-10-22",
   "openPx": 713.06,
   "refPx": 716.2,
   "qty": 17,
   "cash": 877.98,
-  "equity": 12960.22,
-  "totalReturnPct": -0.306,
+  "equity": 12817.08,
+  "totalReturnPct": -1.407,
   "maxDrawdownPct": 1.82,
   "vsPlayersPct": {
-   "S1": 0.148,
-   "T1": 0.107,
-   "TM1": 0.306,
-   "O1": 0.279,
-   "CHEAP": -0.176,
-   "LEARN": -0.144
+   "S1": 1.197,
+   "T1": 0.155,
+   "TM1": 1.407,
+   "O1": 1.51,
+   "CHEAP": 0.925,
+   "LEARN": 0.732
   }
  },
  "learn": {
@@ -510,13 +492,7 @@
   ],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
- "protectPass": {
-  "status": "complete",
-  "rounds": 1,
-  "exits": [],
-  "failed": [],
-  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
- },
+ "protectPass": null,
  "reconPending": {
   "active": [],
   "resolvedCount": 0
