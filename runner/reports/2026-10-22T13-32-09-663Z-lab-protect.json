@@ -1,0 +1,601 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.12b",
+ "rulesVersion": "lab-0.4",
+ "at": "2026-10-22T13:29:09.652Z",
+ "cmd": "lab-protect",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "حماية: وقف GTC S1 GRND × 45 عند 12.2 (bars)",
+  "حماية: وقف GTC LEARN.S1 GRND × 6 عند 12.2 (bars)",
+  "حماية: وقف GTC LEARN.CHEAP MDXG × 16 عند 3.11 (bars)",
+  "lab-protect: complete (النتيجة complete) بعد 59 دورة — تعبئات اليوم 3، محسومة 3 (وقف مؤكد 3، خروج معبأ 0) (أقصى 93 ث)"
+ ],
+ "warnings": [
+  "S1 GRND: أمر الشراء ما زال مفتوحًا (تعبئة جزئية) — الوسيط يرفض الوقف المعاكس؛ يُعاد عند انتهاء أمر الشراء",
+  "LEARN.S1 GRND: أمر الشراء ما زال مفتوحًا (تعبئة جزئية) — الوسيط يرفض الوقف المعاكس؛ يُعاد عند انتهاء أمر الشراء",
+  "lab-protect: تعذر حسم إلغاء باقي OPG ln1-s1-20261022-GRND-B-r1373 (محاولة 1 من 4): لم يُحسم الإلغاء — يُعاد بعد 5 ث",
+  "lab-protect: تعذر حسم إلغاء باقي OPG s1-20261022-GRND-B-r1373 (محاولة 1 من 4): لم يُحسم الإلغاء — يُعاد بعد 5 ث",
+  "LEARN.CHEAP MDXG: أمر الشراء ما زال مفتوحًا (تعبئة جزئية) — الوسيط يرفض الوقف المعاكس؛ يُعاد عند انتهاء أمر الشراء",
+  "lab-protect: تعذر حسم إلغاء باقي OPG ln1-ch1-20261022-MDXG-B-r374 (محاولة 1 من 4): لم يُحسم الإلغاء — يُعاد بعد 5 ث"
+ ],
+ "errors": [
+  "S1 GRND: تعذر وضع الوقف: POST /v2/orders → HTTP 403 potential wash trade detected. use complex orders",
+  "LEARN.S1 GRND: تعذر وضع الوقف: POST /v2/orders → HTTP 403 potential wash trade detected. use complex orders",
+  "LEARN.CHEAP MDXG: تعذر وضع الوقف: POST /v2/orders → HTTP 403 potential wash trade detected. use complex orders",
+  "protection-sla-breach — 2 تعبئة خارج معيار الحماية (S1:GRND 91ث، LEARN.CHEAP:MDXG 93ث): يُمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط في الليالي التالية حتى lab-clear-flags"
+ ],
+ "orders": [
+  {
+   "method": "DELETE",
+   "url": "/v2/orders/252ce433-f406-4d82-9a77-e3714f64c341",
+   "status": 204,
+   "id": null,
+   "orderStatus": null
+  },
+  {
+   "method": "DELETE",
+   "url": "/v2/orders/428338ad-b844-44c2-bd18-ae4d1c9d28bb",
+   "status": 204,
+   "id": null,
+   "orderStatus": null
+  },
+  {
+   "method": "DELETE",
+   "url": "/v2/orders/75524200-24b5-40be-a678-1768726d8e5d",
+   "status": 204,
+   "id": null,
+   "orderStatus": null
+  },
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "GRND",
+    "qty": "45",
+    "side": "sell",
+    "type": "stop",
+    "stop_price": "12.2",
+    "time_in_force": "gtc",
+    "client_order_id": "s1-20261022-GRND-P4"
+   },
+   "status": 200,
+   "id": "87c5efdb-1dfe-484b-98e3-29edb4a7d44e",
+   "orderStatus": "pending_new"
+  },
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "GRND",
+    "qty": "6",
+    "side": "sell",
+    "type": "stop",
+    "stop_price": "12.2",
+    "time_in_force": "gtc",
+    "client_order_id": "ln1-s1-20261022-GRND-P4"
+   },
+   "status": 200,
+   "id": "8336f2bc-45b6-4c91-b597-2c2381de7aca",
+   "orderStatus": "pending_new"
+  },
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "MDXG",
+    "qty": "16",
+    "side": "sell",
+    "type": "stop",
+    "stop_price": "3.11",
+    "time_in_force": "gtc",
+    "client_order_id": "ln1-ch1-20261022-MDXG-P4"
+   },
+   "status": 200,
+   "id": "8bbb3e9a-ca91-42f8-899e-e065d738a30b",
+   "orderStatus": "pending_new"
+  }
+ ],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "39787204941",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "293",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-22T13:29:09.652Z"
+ },
+ "protectRun": {
+  "v": 1,
+  "startedAt": "2026-10-22T13:29:09.652Z",
+  "endedAt": "2026-10-22T13:32:09.660Z",
+  "status": "complete",
+  "ticks": 59,
+  "brokerErrors": 0,
+  "window": {
+   "fromNy": "09:25",
+   "toNy": "09:50",
+   "maxMin": 20,
+   "tickSec": 15,
+   "maxAttempts": 3,
+   "backoffSec": [
+    5,
+    15
+   ]
+  },
+  "standard": {
+   "targetSec": 60,
+   "upperSec": 90,
+   "note": "من التعبئة حتى تأكيد الوسيط للوقف في الظروف العادية؛ لا يشمل تأخر بدء تشغيل GitHub"
+  },
+  "fills": [
+   {
+    "book": "S1",
+    "sym": "GRND",
+    "cid": "s1-20261022-GRND-B-r1373",
+    "fillAt": "2026-10-22T13:30:03.206Z",
+    "fillQty": 45,
+    "coverQty": 45,
+    "today": true,
+    "seenAt": "2026-10-22T13:30:14.243Z",
+    "stopSubmittedAt": "2026-10-22T13:31:06.359Z",
+    "stopConfirmedAt": "2026-10-22T13:31:33.991Z",
+    "stopId": "87c5efdb-1dfe-484b-98e3-29edb4a7d44e",
+    "stopStatus": "new",
+    "stopQty": 45,
+    "source": "bars",
+    "fillToSubmitSec": 63,
+    "fillToConfirmSec": 91,
+    "attempts": 0,
+    "washWaits": 3,
+    "result": "confirmed",
+    "exitSubmittedAt": null,
+    "exitIds": [],
+    "exitFills": [],
+    "exitFilledQty": 0,
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "resolvedBy": "stop",
+    "fillToResolveSec": 91
+   },
+   {
+    "book": "LEARN.S1",
+    "sym": "GRND",
+    "cid": "ln1-s1-20261022-GRND-B-r1373",
+    "fillAt": "2026-10-22T13:30:10.329Z",
+    "fillQty": 6,
+    "coverQty": 6,
+    "today": true,
+    "seenAt": "2026-10-22T13:30:14.243Z",
+    "stopSubmittedAt": "2026-10-22T13:31:06.429Z",
+    "stopConfirmedAt": "2026-10-22T13:31:33.991Z",
+    "stopId": "8336f2bc-45b6-4c91-b597-2c2381de7aca",
+    "stopStatus": "new",
+    "stopQty": 6,
+    "source": "bars",
+    "fillToSubmitSec": 56,
+    "fillToConfirmSec": 84,
+    "attempts": 0,
+    "washWaits": 3,
+    "result": "confirmed",
+    "exitSubmittedAt": null,
+    "exitIds": [],
+    "exitFills": [],
+    "exitFilledQty": 0,
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "resolvedBy": "stop",
+    "fillToResolveSec": 84
+   },
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "MDXG",
+    "cid": "ln1-ch1-20261022-MDXG-B-r374",
+    "fillAt": "2026-10-22T13:30:16.620Z",
+    "fillQty": 16,
+    "coverQty": 16,
+    "today": true,
+    "seenAt": "2026-10-22T13:30:29.948Z",
+    "stopSubmittedAt": "2026-10-22T13:31:22.502Z",
+    "stopConfirmedAt": "2026-10-22T13:31:49.437Z",
+    "stopId": "8bbb3e9a-ca91-42f8-899e-e065d738a30b",
+    "stopStatus": "new",
+    "stopQty": 16,
+    "source": "bars",
+    "fillToSubmitSec": 66,
+    "fillToConfirmSec": 93,
+    "attempts": 0,
+    "washWaits": 3,
+    "result": "confirmed",
+    "exitSubmittedAt": null,
+    "exitIds": [],
+    "exitFills": [],
+    "exitFilledQty": 0,
+    "resolvedAt": "2026-10-22T13:31:49.437Z",
+    "resolvedBy": "stop",
+    "fillToResolveSec": 93
+   }
+  ],
+  "failed": [],
+  "deadline": "2026-10-22T13:49:09.652Z",
+  "opgRemainderCancels": [
+   {
+    "id": "252ce433-f406-4d82-9a77-e3714f64c341",
+    "cid": "ln1-s1-20261022-GRND-B-r1373",
+    "sym": "GRND",
+    "qty": 12,
+    "filledAtCancel": 6,
+    "at": "2026-10-22T13:30:35.556Z",
+    "resolved": false,
+    "status": null,
+    "why": "لم يُحسم الإلغاء",
+    "attempt": 1
+   },
+   {
+    "id": "428338ad-b844-44c2-bd18-ae4d1c9d28bb",
+    "cid": "s1-20261022-GRND-B-r1373",
+    "sym": "GRND",
+    "qty": 63,
+    "filledAtCancel": 45,
+    "at": "2026-10-22T13:30:41.182Z",
+    "resolved": false,
+    "status": null,
+    "why": "لم يُحسم الإلغاء",
+    "attempt": 1
+   },
+   {
+    "id": "75524200-24b5-40be-a678-1768726d8e5d",
+    "cid": "ln1-ch1-20261022-MDXG-B-r374",
+    "sym": "MDXG",
+    "qty": 42,
+    "filledAtCancel": 16,
+    "at": "2026-10-22T13:31:03.205Z",
+    "resolved": false,
+    "status": null,
+    "why": "لم يُحسم الإلغاء",
+    "attempt": 1
+   }
+  ],
+  "exits": [],
+  "outcome": "complete",
+  "summary": {
+   "fillsToday": 3,
+   "confirmed": 3,
+   "protectiveExits": 0,
+   "resolved": 3,
+   "unresolved": 0,
+   "maxFillToConfirmSec": 93,
+   "maxFillToResolveSec": 93,
+   "withinTarget": 0,
+   "withinUpper": 1,
+   "failed": [],
+   "note": "المقام = كل تعبئات اليوم؛ المعلّق والفاشل يبقيان فيه"
+  }
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "70783.42",
+  "equity": "99627.99",
+  "clock": {
+   "is_open": false,
+   "next_close": "2026-10-22T16:00:00-04:00",
+   "next_open": "2026-10-22T09:30:00-04:00",
+   "timestamp": "2026-10-22T09:29:09.99077684-04:00"
+  }
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 3,
+  "why": null,
+  "readOnly": true
+ },
+ "feedUsed": "sip",
+ "protection": [
+  {
+   "book": "S1",
+   "sym": "GRND",
+   "qty": 45,
+   "need": 45,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 12.2,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "87c5efdb-1dfe-484b-98e3-29edb4a7d44e",
+     "status": "new",
+     "qty": 45,
+     "stop": 12.2,
+     "tif": "gtc",
+     "submittedAt": "2026-10-22T13:31:32.63544Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1792675803206,
+     "qty": 45,
+     "cid": "s1-20261022-GRND-B-r1373"
+    }
+   ],
+   "fillAt": "2026-10-22T13:30:03.206Z",
+   "stopAt": "2026-10-22T13:31:32.635Z",
+   "fillToStopSec": 89,
+   "unprotectedSec": null
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "GRND",
+   "qty": 6,
+   "need": 6,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 12.2,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "8336f2bc-45b6-4c91-b597-2c2381de7aca",
+     "status": "new",
+     "qty": 6,
+     "stop": 12.2,
+     "tif": "gtc",
+     "submittedAt": "2026-10-22T13:31:32.756879Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1792675810329,
+     "qty": 6,
+     "cid": "ln1-s1-20261022-GRND-B-r1373"
+    }
+   ],
+   "fillAt": "2026-10-22T13:30:10.329Z",
+   "stopAt": "2026-10-22T13:31:32.756Z",
+   "fillToStopSec": 82,
+   "unprotectedSec": null
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "MDXG",
+   "qty": 16,
+   "need": 16,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 3.11,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "8bbb3e9a-ca91-42f8-899e-e065d738a30b",
+     "status": "new",
+     "qty": 16,
+     "stop": 3.11,
+     "tif": "gtc",
+     "submittedAt": "2026-10-22T13:31:48.39718Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1792675816620,
+     "qty": 16,
+     "cid": "ln1-ch1-20261022-MDXG-B-r374"
+    }
+   ],
+   "fillAt": "2026-10-22T13:30:16.620Z",
+   "stopAt": "2026-10-22T13:31:48.397Z",
+   "fillToStopSec": 92,
+   "unprotectedSec": null
+  }
+ ],
+ "protectionLatency": [
+  {
+   "book": "S1",
+   "sym": "GRND",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-22T13:30:03.206Z",
+   "fillQty": 45,
+   "coverQty": 45,
+   "stopSubmittedAt": "2026-10-22T13:31:06.359Z",
+   "stopConfirmedAt": "2026-10-22T13:31:33.991Z",
+   "stopAt": "2026-10-22T13:31:06.359Z",
+   "fillToSubmitSec": 63,
+   "fillToConfirmSec": 91,
+   "fillToStopSec": 91,
+   "attempts": 0,
+   "result": "confirmed",
+   "today": true,
+   "exitSubmittedAt": null,
+   "exitFills": [],
+   "exitFilledQty": 0,
+   "resolvedAt": "2026-10-22T13:31:33.991Z",
+   "resolvedBy": "stop",
+   "fillToResolveSec": 91
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "GRND",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-22T13:30:10.329Z",
+   "fillQty": 6,
+   "coverQty": 6,
+   "stopSubmittedAt": "2026-10-22T13:31:06.429Z",
+   "stopConfirmedAt": "2026-10-22T13:31:33.991Z",
+   "stopAt": "2026-10-22T13:31:06.429Z",
+   "fillToSubmitSec": 56,
+   "fillToConfirmSec": 84,
+   "fillToStopSec": 84,
+   "attempts": 0,
+   "result": "confirmed",
+   "today": true,
+   "exitSubmittedAt": null,
+   "exitFills": [],
+   "exitFilledQty": 0,
+   "resolvedAt": "2026-10-22T13:31:33.991Z",
+   "resolvedBy": "stop",
+   "fillToResolveSec": 84
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "MDXG",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-22T13:30:16.620Z",
+   "fillQty": 16,
+   "coverQty": 16,
+   "stopSubmittedAt": "2026-10-22T13:31:22.502Z",
+   "stopConfirmedAt": "2026-10-22T13:31:49.437Z",
+   "stopAt": "2026-10-22T13:31:22.502Z",
+   "fillToSubmitSec": 66,
+   "fillToConfirmSec": 93,
+   "fillToStopSec": 93,
+   "attempts": 0,
+   "result": "confirmed",
+   "today": true,
+   "exitSubmittedAt": null,
+   "exitFills": [],
+   "exitFilledQty": 0,
+   "resolvedAt": "2026-10-22T13:31:49.437Z",
+   "resolvedBy": "stop",
+   "fillToResolveSec": 93
+  }
+ ],
+ "status": "complete",
+ "protectSla": {
+  "enabled": true,
+  "flag": "protection-sla-breach",
+  "active": true,
+  "corrupt": false,
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "books": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "targetSec": 60,
+  "upperSec": 90,
+  "since": "2026-10-22T13:32:09.662Z",
+  "cases": [
+   {
+    "book": "S1",
+    "sym": "GRND",
+    "fillAt": "2026-10-22T13:30:03.206Z",
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "sec": 91,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   },
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "MDXG",
+    "fillAt": "2026-10-22T13:30:16.620Z",
+    "resolvedAt": "2026-10-22T13:31:49.437Z",
+    "sec": 93,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   }
+  ],
+  "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط.",
+  "evaluated": [
+   {
+    "book": "S1",
+    "sym": "GRND",
+    "date": "2026-10-22",
+    "fillAt": "2026-10-22T13:30:03.206Z",
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "sec": 91,
+    "ageSec": null,
+    "by": "stop",
+    "result": "resolved",
+    "breach": true,
+    "final": true,
+    "source": "lab-protect"
+   },
+   {
+    "book": "LEARN.S1",
+    "sym": "GRND",
+    "date": "2026-10-22",
+    "fillAt": "2026-10-22T13:30:10.329Z",
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "sec": 84,
+    "ageSec": null,
+    "by": "stop",
+    "result": "resolved",
+    "breach": false,
+    "final": true,
+    "source": "lab-protect"
+   },
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "MDXG",
+    "date": "2026-10-22",
+    "fillAt": "2026-10-22T13:30:16.620Z",
+    "resolvedAt": "2026-10-22T13:31:49.437Z",
+    "sec": 93,
+    "ageSec": null,
+    "by": "stop",
+    "result": "resolved",
+    "breach": true,
+    "final": true,
+    "source": "lab-protect"
+   }
+  ],
+  "newBreaches": [
+   "S1:GRND 91ث",
+   "LEARN.CHEAP:MDXG 93ث"
+  ]
+ }
+}

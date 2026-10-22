@@ -330,20 +330,20 @@
  },
  "protectionLatency": [],
  "protect": {
-  "at": "2026-10-21T13:31:55.036Z",
+  "at": "2026-10-22T13:32:09.660Z",
   "status": "complete",
   "outcome": "complete",
-  "runId": "39608243042",
+  "runId": "39787204941",
   "summary": {
-   "fillsToday": 0,
-   "confirmed": 0,
+   "fillsToday": 3,
+   "confirmed": 3,
    "protectiveExits": 0,
-   "resolved": 0,
+   "resolved": 3,
    "unresolved": 0,
-   "maxFillToConfirmSec": null,
-   "maxFillToResolveSec": null,
+   "maxFillToConfirmSec": 93,
+   "maxFillToResolveSec": 93,
    "withinTarget": 0,
-   "withinUpper": 0,
+   "withinUpper": 1,
    "failed": [],
    "note": "المقام = كل تعبئات اليوم؛ المعلّق والفاشل يبقيان فيه"
   },
@@ -354,15 +354,72 @@
   },
   "exits": [],
   "failed": [],
-  "latency": []
+  "latency": [
+   {
+    "book": "S1",
+    "sym": "GRND",
+    "fillAt": "2026-10-22T13:30:03.206Z",
+    "fillQty": 45,
+    "stopSubmittedAt": "2026-10-22T13:31:06.359Z",
+    "stopConfirmedAt": "2026-10-22T13:31:33.991Z",
+    "fillToConfirmSec": 91,
+    "source": "bars",
+    "result": "confirmed",
+    "today": true,
+    "exitSubmittedAt": null,
+    "exitFills": [],
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "resolvedBy": "stop",
+    "fillToResolveSec": 91
+   },
+   {
+    "book": "LEARN.S1",
+    "sym": "GRND",
+    "fillAt": "2026-10-22T13:30:10.329Z",
+    "fillQty": 6,
+    "stopSubmittedAt": "2026-10-22T13:31:06.429Z",
+    "stopConfirmedAt": "2026-10-22T13:31:33.991Z",
+    "fillToConfirmSec": 84,
+    "source": "bars",
+    "result": "confirmed",
+    "today": true,
+    "exitSubmittedAt": null,
+    "exitFills": [],
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "resolvedBy": "stop",
+    "fillToResolveSec": 84
+   },
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "MDXG",
+    "fillAt": "2026-10-22T13:30:16.620Z",
+    "fillQty": 16,
+    "stopSubmittedAt": "2026-10-22T13:31:22.502Z",
+    "stopConfirmedAt": "2026-10-22T13:31:49.437Z",
+    "fillToConfirmSec": 93,
+    "source": "bars",
+    "result": "confirmed",
+    "today": true,
+    "exitSubmittedAt": null,
+    "exitFills": [],
+    "resolvedAt": "2026-10-22T13:31:49.437Z",
+    "resolvedBy": "stop",
+    "fillToResolveSec": 93
+   }
+  ]
  },
  "protectBlocks": [],
  "protectSla": {
   "enabled": true,
   "flag": "protection-sla-breach",
-  "active": false,
+  "active": true,
   "corrupt": false,
-  "blocksNewEntriesFor": [],
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
   "books": [
    "S1",
    "CHEAP",
@@ -371,8 +428,31 @@
   ],
   "targetSec": 60,
   "upperSec": 90,
-  "since": null,
-  "cases": [],
+  "since": "2026-10-22T13:32:09.662Z",
+  "cases": [
+   {
+    "book": "S1",
+    "sym": "GRND",
+    "fillAt": "2026-10-22T13:30:03.206Z",
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "sec": 91,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   },
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "MDXG",
+    "fillAt": "2026-10-22T13:30:16.620Z",
+    "resolvedAt": "2026-10-22T13:31:49.437Z",
+    "sec": 93,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   }
+  ],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
  "protectPass": null,
@@ -380,5 +460,6 @@
   "active": [],
   "resolvedCount": 0
  },
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
+ "protectAt": "2026-10-22T13:32:09.660Z"
 }

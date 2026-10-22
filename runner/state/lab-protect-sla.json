@@ -1,6 +1,45 @@
 {
  "v": 1,
- "active": [],
+ "active": [
+  {
+   "id": "protection-sla-breach",
+   "kind": "protection-sla-breach",
+   "at": "2026-10-22T13:32:09.662Z",
+   "date": "2026-10-22",
+   "books": [
+    "S1",
+    "CHEAP",
+    "LEARN.S1",
+    "LEARN.CHEAP"
+   ],
+   "cases": [
+    {
+     "book": "S1",
+     "sym": "GRND",
+     "fillAt": "2026-10-22T13:30:03.206Z",
+     "resolvedAt": "2026-10-22T13:31:33.991Z",
+     "sec": 91,
+     "ageSec": null,
+     "result": "resolved",
+     "by": "stop",
+     "source": "lab-protect"
+    },
+    {
+     "book": "LEARN.CHEAP",
+     "sym": "MDXG",
+     "fillAt": "2026-10-22T13:30:16.620Z",
+     "resolvedAt": "2026-10-22T13:31:49.437Z",
+     "sec": 93,
+     "ageSec": null,
+     "result": "resolved",
+     "by": "stop",
+     "source": "lab-protect"
+    }
+   ],
+   "source": "lab-protect",
+   "note": "تعبئة في دفاتر الأسهم تجاوزت 90 ثانية حتى الحماية المؤكدة أو بقيت معلقة/فشلت — يُمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط حتى مراجعة صالح (lab-clear-flags). الحماية والخروج مستمران."
+  }
+ ],
  "cleared": [
   {
    "id": "protection-sla-breach",
@@ -178,6 +217,36 @@
    "breach": true,
    "source": "lab-postopen",
    "at": "2026-10-13T13:42:06.453Z"
+  },
+  "S1|GRND|1792675803206": {
+   "date": "2026-10-22",
+   "sec": 91,
+   "ageSec": null,
+   "by": "stop",
+   "result": "resolved",
+   "breach": true,
+   "source": "lab-protect",
+   "at": "2026-10-22T13:32:09.661Z"
+  },
+  "LEARN.S1|GRND|1792675810329": {
+   "date": "2026-10-22",
+   "sec": 84,
+   "ageSec": null,
+   "by": "stop",
+   "result": "resolved",
+   "breach": false,
+   "source": "lab-protect",
+   "at": "2026-10-22T13:32:09.661Z"
+  },
+  "LEARN.CHEAP|MDXG|1792675816620": {
+   "date": "2026-10-22",
+   "sec": 93,
+   "ageSec": null,
+   "by": "stop",
+   "result": "resolved",
+   "breach": true,
+   "source": "lab-protect",
+   "at": "2026-10-22T13:32:09.661Z"
   }
  }
 }
