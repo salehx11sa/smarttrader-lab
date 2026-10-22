@@ -1,18 +1,15 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-10-22T10:08:40.616Z",
- "cmd": "lab-overnight",
+ "at": "2026-10-22T13:37:13.451Z",
+ "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-21",
  "daysElapsed": 11,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -41,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 13069.7,
-   "equityNow": 12942.28,
+   "equityNow": 12966.02,
    "totalReturnPct": 0.536,
    "maxDrawdownPct": 1.08,
    "drawdownPct": 0,
@@ -62,7 +59,7 @@
    "name": "السريع",
    "retired": null,
    "equityClose": 12979.51,
-   "equityNow": 12979.51,
+   "equityNow": 12952.06,
    "totalReturnPct": -0.158,
    "maxDrawdownPct": 0.6,
    "drawdownPct": 0.6,
@@ -83,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12974.17,
-   "equityNow": 12861.82,
+   "equityNow": 12881.47,
    "totalReturnPct": -0.199,
    "maxDrawdownPct": 1.76,
    "drawdownPct": 0.63,
@@ -167,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12941.44,
-   "equityNow": 12911.48,
+   "equityNow": 12913.46,
    "totalReturnPct": -0.45,
    "maxDrawdownPct": 0.67,
    "drawdownPct": 0.45,
@@ -226,7 +223,27 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": null,
+ "fallbackExits": [
+  {
+   "at": "2026-10-22T13:37:09.981Z",
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261022-SPY-S",
+   "origStatus": "expired",
+   "origQty": 1,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 1,
+   "openSellQty": 0,
+   "brokerFree": 19,
+   "late": false,
+   "prePx": 766.86,
+   "qty": 1,
+   "fallbackCid": "ln1-o1-20261022-SPY-S-R1",
+   "id": "d696a5d3-3a29-4dec-b482-b6a1b7867524",
+   "statusAtSubmit": "pending_new"
+  }
+ ],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
@@ -321,14 +338,54 @@
  },
  "settlement": {
   "proven": true,
-  "settledCash": 63847.33
+  "settledCash": 63060.9
  },
  "crossesTotal": 3,
  "crossLedger": {
   "ok": true,
   "state": "valid"
  },
- "protectionLatency": [],
+ "protectionLatency": [
+  {
+   "book": "S1",
+   "sym": "GRND",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-22T13:30:03.206Z",
+   "stopAt": "2026-10-22T13:31:32.635Z",
+   "fillToStopSec": 89,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 45
+  },
+  {
+   "book": "LEARN.S1",
+   "sym": "GRND",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-22T13:30:10.329Z",
+   "stopAt": "2026-10-22T13:31:32.756Z",
+   "fillToStopSec": 82,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 6
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "MDXG",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-22T13:30:16.620Z",
+   "stopAt": "2026-10-22T13:31:48.397Z",
+   "fillToStopSec": 92,
+   "unprotectedSec": null,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "need": 16
+  }
+ ],
  "protect": {
   "at": "2026-10-22T13:32:09.660Z",
   "status": "complete",
@@ -455,11 +512,16 @@
   ],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
- "protectPass": null,
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
  "reconPending": {
   "active": [],
   "resolvedCount": 0
  },
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
- "protectAt": "2026-10-22T13:32:09.660Z"
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }
