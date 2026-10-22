@@ -71,7 +71,7 @@
    "tif": "gtc",
    "qty": 45,
    "filled": 0,
-   "status": "new",
+   "status": "canceled",
    "stop": 12.2
   }
  ],

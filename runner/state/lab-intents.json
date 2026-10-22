@@ -2649,5 +2649,57 @@
    "intents": [],
    "crosses": []
   }
+ ],
+ "2026-10-23": [
+  {
+   "at": "2026-10-22T23:42:42.131Z",
+   "runId": "39873487250",
+   "runStartedAt": "2026-10-22T23:42:06.694Z",
+   "intents": [
+    {
+     "book": "S1",
+     "sym": "GRND",
+     "side": "sell",
+     "qty": 45,
+     "ref": 14.1,
+     "reason": "خروج شرطي (الإغلاق فوق متوسط 5)",
+     "tif": "opg",
+     "exit": true,
+     "needsStopCancel": true
+    },
+    {
+     "book": "O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 8,
+     "ref": 763.96,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    },
+    {
+     "book": "LEARN.S1",
+     "sym": "GRND",
+     "side": "sell",
+     "qty": 6,
+     "ref": 14.1,
+     "reason": "خروج شرطي (الإغلاق فوق متوسط 5)",
+     "tif": "opg",
+     "exit": true,
+     "needsStopCancel": true
+    },
+    {
+     "book": "LEARN.O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 1,
+     "ref": 763.96,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    }
+   ],
+   "crosses": []
+  }
  ]
 }
