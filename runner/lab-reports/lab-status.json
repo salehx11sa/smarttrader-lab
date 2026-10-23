@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-10-23T19:41:10.553Z",
+ "at": "2026-10-23T19:46:10.674Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -41,7 +41,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12918.14,
-   "equityNow": 12855.5,
+   "equityNow": 12854.24,
    "totalReturnPct": -0.63,
    "maxDrawdownPct": 1.16,
    "drawdownPct": 1.16,
@@ -83,7 +83,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12837.22,
-   "equityNow": 12781.27,
+   "equityNow": 12780.75,
    "totalReturnPct": -1.252,
    "maxDrawdownPct": 1.76,
    "drawdownPct": 1.68,
@@ -125,7 +125,7 @@
    "name": "الليلي",
    "retired": null,
    "equityClose": 13013.41,
-   "equityNow": 12977.58,
+   "equityNow": 12977.31,
    "totalReturnPct": 0.103,
    "maxDrawdownPct": 0.3,
    "drawdownPct": 0.05,
@@ -167,7 +167,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12912.19,
-   "equityNow": 12894.28,
+   "equityNow": 12894.14,
    "totalReturnPct": -0.675,
    "maxDrawdownPct": 0.68,
    "drawdownPct": 0.68,
@@ -228,7 +228,7 @@
  },
  "fallbackExits": [
   {
-   "at": "2026-10-23T19:41:10.368Z",
+   "at": "2026-10-23T19:46:10.608Z",
    "book": "O1",
    "sym": "SPY",
    "origCid": "o1-20261023-SPY-S",
@@ -242,7 +242,7 @@
    "fallbackFilled": 8
   },
   {
-   "at": "2026-10-23T19:41:10.368Z",
+   "at": "2026-10-23T19:46:10.608Z",
    "book": "LEARN.S1",
    "sym": "GRND",
    "origCid": "ln1-s1-20261023-GRND-S",
@@ -252,7 +252,7 @@
    "result": "not-needed"
   },
   {
-   "at": "2026-10-23T19:41:10.368Z",
+   "at": "2026-10-23T19:46:10.608Z",
    "book": "S1",
    "sym": "GRND",
    "origCid": "s1-20261023-GRND-S",
@@ -266,7 +266,7 @@
    "fallbackFilled": 45
   },
   {
-   "at": "2026-10-23T19:41:10.368Z",
+   "at": "2026-10-23T19:46:10.609Z",
    "book": "LEARN.O1",
    "sym": "SPY",
    "origCid": "ln1-o1-20261023-SPY-S",
@@ -374,7 +374,7 @@
  },
  "settlement": {
   "proven": true,
-  "settledCash": 63140.31
+  "settledCash": 56298.25
  },
  "crossesTotal": 3,
  "crossLedger": {
