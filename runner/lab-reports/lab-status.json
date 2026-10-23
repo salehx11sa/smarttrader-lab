@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-10-23T13:37:12.104Z",
+ "at": "2026-10-23T13:42:10.672Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -38,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12918.14,
-   "equityNow": 12842.88,
+   "equityNow": 12857.39,
    "totalReturnPct": -0.63,
    "maxDrawdownPct": 1.16,
    "drawdownPct": 1.16,
@@ -59,11 +59,11 @@
    "name": "السريع",
    "retired": null,
    "equityClose": 12972.76,
-   "equityNow": 12963.82,
+   "equityNow": 12963.76,
    "totalReturnPct": -0.21,
    "maxDrawdownPct": 0.66,
    "drawdownPct": 0.66,
-   "tradesClosed": 3,
+   "tradesClosed": 4,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
@@ -80,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12837.22,
-   "equityNow": 12770.02,
+   "equityNow": 12783.52,
    "totalReturnPct": -1.252,
    "maxDrawdownPct": 1.76,
    "drawdownPct": 1.68,
@@ -164,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12912.19,
-   "equityNow": 12892.11,
+   "equityNow": 12894.65,
    "totalReturnPct": -0.675,
    "maxDrawdownPct": 0.68,
    "drawdownPct": 0.68,
@@ -225,26 +225,21 @@
  },
  "fallbackExits": [
   {
-   "at": "2026-10-23T13:37:07.878Z",
+   "at": "2026-10-23T13:42:10.658Z",
    "book": "O1",
    "sym": "SPY",
    "origCid": "o1-20261023-SPY-S",
    "origStatus": "expired",
    "origQty": 8,
    "origFilled": 0,
-   "result": "submitted",
-   "positionQty": 8,
-   "openSellQty": 0,
-   "brokerFree": 27,
-   "late": false,
-   "prePx": 759.6,
-   "qty": 8,
+   "result": "exists",
    "fallbackCid": "o1-20261023-SPY-S-R1",
-   "id": "b278e818-d65a-4481-9974-96ebfb19c465",
-   "statusAtSubmit": "pending_new"
+   "fallbackStatus": "filled",
+   "fallbackQty": 8,
+   "fallbackFilled": 8
   },
   {
-   "at": "2026-10-23T13:37:07.892Z",
+   "at": "2026-10-23T13:42:10.658Z",
    "book": "LEARN.S1",
    "sym": "GRND",
    "origCid": "ln1-s1-20261023-GRND-S",
@@ -254,43 +249,32 @@
    "result": "not-needed"
   },
   {
-   "at": "2026-10-23T13:37:07.892Z",
+   "at": "2026-10-23T13:42:10.658Z",
    "book": "S1",
    "sym": "GRND",
    "origCid": "s1-20261023-GRND-S",
    "origStatus": "expired",
    "origQty": 45,
    "origFilled": 0,
-   "result": "submitted",
-   "positionQty": 45,
-   "openSellQty": 0,
-   "brokerFree": 45,
-   "stopsCanceled": 1,
-   "late": false,
-   "prePx": 13.93,
-   "qty": 45,
+   "result": "exists",
    "fallbackCid": "s1-20261023-GRND-S-R1",
-   "id": "f57ccb82-cc5c-428d-b7c2-e3cc294ea716",
-   "statusAtSubmit": "pending_new"
+   "fallbackStatus": "filled",
+   "fallbackQty": 45,
+   "fallbackFilled": 45
   },
   {
-   "at": "2026-10-23T13:37:08.958Z",
+   "at": "2026-10-23T13:42:10.658Z",
    "book": "LEARN.O1",
    "sym": "SPY",
    "origCid": "ln1-o1-20261023-SPY-S",
    "origStatus": "expired",
    "origQty": 1,
    "origFilled": 0,
-   "result": "submitted",
-   "positionQty": 1,
-   "openSellQty": 0,
-   "brokerFree": 19,
-   "late": false,
-   "prePx": 759.6,
-   "qty": 1,
+   "result": "exists",
    "fallbackCid": "ln1-o1-20261023-SPY-S-R1",
-   "id": "2831d132-2c3e-403e-99ee-144b704dfef4",
-   "statusAtSubmit": "pending_new"
+   "fallbackStatus": "filled",
+   "fallbackQty": 1,
+   "fallbackFilled": 1
   }
  ],
  "refH": {
@@ -381,19 +365,13 @@
   }
  ],
  "recon": {
-  "ok": false,
-  "labMismatch": {
-   "GRND": {
-    "lab": 2,
-    "baseline": 0,
-    "broker": 8
-   }
-  },
+  "ok": true,
+  "labMismatch": {},
   "baselineDeficit": []
  },
  "settlement": {
   "proven": true,
-  "settledCash": 63056.91
+  "settledCash": 63140.31
  },
  "crossesTotal": 3,
  "crossLedger": {
@@ -401,19 +379,6 @@
   "state": "valid"
  },
  "protectionLatency": [
-  {
-   "book": "S1",
-   "sym": "GRND",
-   "confirmed": false,
-   "source": "bars",
-   "fillAt": "2026-10-22T13:30:03.206Z",
-   "stopAt": null,
-   "fillToStopSec": null,
-   "unprotectedSec": 86829,
-   "exitPending": false,
-   "exitRemaining": 0,
-   "need": 2
-  },
   {
    "book": "LEARN.CHEAP",
    "sym": "MDXG",
@@ -562,19 +527,8 @@
   "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
  },
  "reconPending": {
-  "active": [
-   {
-    "sym": "GRND",
-    "since": "2026-10-23T13:37:12.078Z",
-    "deadlineAt": "2026-10-23T14:07:12.078Z",
-    "overdue": false,
-    "diff": 6,
-    "orders": [
-     "s1-20261023-GRND-S-R1"
-    ]
-   }
-  ],
-  "resolvedCount": 0
+  "active": [],
+  "resolvedCount": 1
  },
  "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }
