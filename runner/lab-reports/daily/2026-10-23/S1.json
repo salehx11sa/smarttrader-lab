@@ -1,0 +1,131 @@
+{
+ "player": "S1",
+ "name": "السريع",
+ "date": "2026-10-23",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12963.76,
+ "cash": 12963.76,
+ "dayPnl": -9,
+ "totalPnl": -36.24,
+ "totalReturnPct": -0.279,
+ "drawdownPct": 0.72,
+ "maxDrawdownPct": 0.72,
+ "positions": [],
+ "orders": [
+  {
+   "cid": "s1-20261023-GRND-S",
+   "sym": "GRND",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 45,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "s1-20261023-GRND-P1",
+   "sym": "GRND",
+   "side": "sell",
+   "type": "stop",
+   "tif": "gtc",
+   "qty": 45,
+   "filled": 0,
+   "status": "canceled",
+   "stop": 12.2
+  },
+  {
+   "cid": "s1-20261023-GRND-S-R1",
+   "sym": "GRND",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 45,
+   "filled": 45,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "S1",
+   "sym": "GRND",
+   "side": "sell",
+   "qty": 32,
+   "price": 13.9,
+   "cid": "s1-20261023-GRND-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 13.93,
+   "slipVsRefPct": -0.215,
+   "auctionPrice": 14.09,
+   "slipVsAuctionPct": -1.348,
+   "fallbackExit": true
+  },
+  {
+   "book": "S1",
+   "sym": "GRND",
+   "side": "sell",
+   "qty": 5,
+   "price": 13.9,
+   "cid": "s1-20261023-GRND-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 13.93,
+   "slipVsRefPct": -0.215,
+   "auctionPrice": 14.09,
+   "slipVsAuctionPct": -1.348,
+   "fallbackExit": true
+  },
+  {
+   "book": "S1",
+   "sym": "GRND",
+   "side": "sell",
+   "qty": 6,
+   "price": 13.9,
+   "cid": "s1-20261023-GRND-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 13.93,
+   "slipVsRefPct": -0.215,
+   "auctionPrice": 14.09,
+   "slipVsAuctionPct": -1.348,
+   "fallbackExit": true
+  },
+  {
+   "book": "S1",
+   "sym": "GRND",
+   "side": "sell",
+   "qty": 1,
+   "price": 13.9,
+   "cid": "s1-20261023-GRND-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 13.93,
+   "slipVsRefPct": -0.215,
+   "auctionPrice": 14.09,
+   "slipVsAuctionPct": -1.348,
+   "fallbackExit": true
+  },
+  {
+   "book": "S1",
+   "sym": "GRND",
+   "side": "sell",
+   "qty": 1,
+   "price": 13.9,
+   "cid": "s1-20261023-GRND-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 13.93,
+   "slipVsRefPct": -0.215,
+   "auctionPrice": 14.09,
+   "slipVsAuctionPct": -1.348,
+   "fallbackExit": true
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 4,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12851.18
+ }
+}
