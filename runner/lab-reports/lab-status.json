@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-10-23T19:51:14.042Z",
+ "at": "2026-10-23T20:07:00.035Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -9,10 +9,7 @@
  "daysElapsed": 12,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -41,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12918.14,
-   "equityNow": 12852.08,
+   "equityNow": 12848.51,
    "totalReturnPct": -0.63,
    "maxDrawdownPct": 1.16,
    "drawdownPct": 1.16,
@@ -83,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12837.22,
-   "equityNow": 12778.42,
+   "equityNow": 12780.52,
    "totalReturnPct": -1.252,
    "maxDrawdownPct": 1.76,
    "drawdownPct": 1.68,
@@ -125,7 +122,7 @@
    "name": "الليلي",
    "retired": null,
    "equityClose": 13013.41,
-   "equityNow": 12976.07,
+   "equityNow": 12977.19,
    "totalReturnPct": 0.103,
    "maxDrawdownPct": 0.3,
    "drawdownPct": 0.05,
@@ -167,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12912.19,
-   "equityNow": 12893.52,
+   "equityNow": 12894.32,
    "totalReturnPct": -0.675,
    "maxDrawdownPct": 0.68,
    "drawdownPct": 0.68,
@@ -226,60 +223,7 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": [
-  {
-   "at": "2026-10-23T19:51:13.920Z",
-   "book": "O1",
-   "sym": "SPY",
-   "origCid": "o1-20261023-SPY-S",
-   "origStatus": "expired",
-   "origQty": 8,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "o1-20261023-SPY-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 8,
-   "fallbackFilled": 8
-  },
-  {
-   "at": "2026-10-23T19:51:13.920Z",
-   "book": "LEARN.S1",
-   "sym": "GRND",
-   "origCid": "ln1-s1-20261023-GRND-S",
-   "origStatus": "filled",
-   "origQty": 6,
-   "origFilled": 6,
-   "result": "not-needed"
-  },
-  {
-   "at": "2026-10-23T19:51:13.920Z",
-   "book": "S1",
-   "sym": "GRND",
-   "origCid": "s1-20261023-GRND-S",
-   "origStatus": "expired",
-   "origQty": 45,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "s1-20261023-GRND-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 45,
-   "fallbackFilled": 45
-  },
-  {
-   "at": "2026-10-23T19:51:13.920Z",
-   "book": "LEARN.O1",
-   "sym": "SPY",
-   "origCid": "ln1-o1-20261023-SPY-S",
-   "origStatus": "expired",
-   "origQty": 1,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "ln1-o1-20261023-SPY-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 1,
-   "fallbackFilled": 1
-  }
- ],
+ "fallbackExits": [],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
