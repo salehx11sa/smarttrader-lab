@@ -1,18 +1,15 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-10-23T10:09:26.961Z",
- "cmd": "lab-overnight",
+ "at": "2026-10-23T13:37:12.104Z",
+ "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-22",
  "daysElapsed": 12,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -41,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12918.14,
-   "equityNow": 12894.2,
+   "equityNow": 12842.88,
    "totalReturnPct": -0.63,
    "maxDrawdownPct": 1.16,
    "drawdownPct": 1.16,
@@ -62,7 +59,7 @@
    "name": "السريع",
    "retired": null,
    "equityClose": 12972.76,
-   "equityNow": 12974.11,
+   "equityNow": 12963.82,
    "totalReturnPct": -0.21,
    "maxDrawdownPct": 0.66,
    "drawdownPct": 0.66,
@@ -83,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12837.22,
-   "equityNow": 12817.57,
+   "equityNow": 12770.02,
    "totalReturnPct": -1.252,
    "maxDrawdownPct": 1.76,
    "drawdownPct": 1.68,
@@ -125,11 +122,11 @@
    "name": "الليلي",
    "retired": null,
    "equityClose": 13013.41,
-   "equityNow": 13002.93,
+   "equityNow": 12977.58,
    "totalReturnPct": 0.103,
    "maxDrawdownPct": 0.3,
    "drawdownPct": 0.05,
-   "tradesClosed": 6,
+   "tradesClosed": 7,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
@@ -167,11 +164,11 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12912.19,
-   "equityNow": 12907.13,
+   "equityNow": 12892.11,
    "totalReturnPct": -0.675,
    "maxDrawdownPct": 0.68,
    "drawdownPct": 0.68,
-   "tradesClosed": 13,
+   "tradesClosed": 15,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
@@ -226,7 +223,76 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": null,
+ "fallbackExits": [
+  {
+   "at": "2026-10-23T13:37:07.878Z",
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261023-SPY-S",
+   "origStatus": "expired",
+   "origQty": 8,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 8,
+   "openSellQty": 0,
+   "brokerFree": 27,
+   "late": false,
+   "prePx": 759.6,
+   "qty": 8,
+   "fallbackCid": "o1-20261023-SPY-S-R1",
+   "id": "b278e818-d65a-4481-9974-96ebfb19c465",
+   "statusAtSubmit": "pending_new"
+  },
+  {
+   "at": "2026-10-23T13:37:07.892Z",
+   "book": "LEARN.S1",
+   "sym": "GRND",
+   "origCid": "ln1-s1-20261023-GRND-S",
+   "origStatus": "filled",
+   "origQty": 6,
+   "origFilled": 6,
+   "result": "not-needed"
+  },
+  {
+   "at": "2026-10-23T13:37:07.892Z",
+   "book": "S1",
+   "sym": "GRND",
+   "origCid": "s1-20261023-GRND-S",
+   "origStatus": "expired",
+   "origQty": 45,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 45,
+   "openSellQty": 0,
+   "brokerFree": 45,
+   "stopsCanceled": 1,
+   "late": false,
+   "prePx": 13.93,
+   "qty": 45,
+   "fallbackCid": "s1-20261023-GRND-S-R1",
+   "id": "f57ccb82-cc5c-428d-b7c2-e3cc294ea716",
+   "statusAtSubmit": "pending_new"
+  },
+  {
+   "at": "2026-10-23T13:37:08.958Z",
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261023-SPY-S",
+   "origStatus": "expired",
+   "origQty": 1,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 1,
+   "openSellQty": 0,
+   "brokerFree": 19,
+   "late": false,
+   "prePx": 759.6,
+   "qty": 1,
+   "fallbackCid": "ln1-o1-20261023-SPY-S-R1",
+   "id": "2831d132-2c3e-403e-99ee-144b704dfef4",
+   "statusAtSubmit": "pending_new"
+  }
+ ],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
@@ -315,13 +381,19 @@
   }
  ],
  "recon": {
-  "ok": true,
-  "labMismatch": {},
+  "ok": false,
+  "labMismatch": {
+   "GRND": {
+    "lab": 2,
+    "baseline": 0,
+    "broker": 8
+   }
+  },
   "baselineDeficit": []
  },
  "settlement": {
   "proven": true,
-  "settledCash": 63140.34
+  "settledCash": 63056.91
  },
  "crossesTotal": 3,
  "crossLedger": {
@@ -337,23 +409,10 @@
    "fillAt": "2026-10-22T13:30:03.206Z",
    "stopAt": null,
    "fillToStopSec": null,
-   "unprotectedSec": 74359,
+   "unprotectedSec": 86829,
    "exitPending": false,
    "exitRemaining": 0,
-   "need": 45
-  },
-  {
-   "book": "LEARN.S1",
-   "sym": "GRND",
-   "confirmed": false,
-   "source": "bars",
-   "fillAt": "2026-10-22T13:30:10.329Z",
-   "stopAt": null,
-   "fillToStopSec": null,
-   "unprotectedSec": 74352,
-   "exitPending": false,
-   "exitRemaining": 0,
-   "need": 6
+   "need": 2
   },
   {
    "book": "LEARN.CHEAP",
@@ -495,11 +554,27 @@
   ],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
- "protectPass": null,
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
  "reconPending": {
-  "active": [],
+  "active": [
+   {
+    "sym": "GRND",
+    "since": "2026-10-23T13:37:12.078Z",
+    "deadlineAt": "2026-10-23T14:07:12.078Z",
+    "overdue": false,
+    "diff": 6,
+    "orders": [
+     "s1-20261023-GRND-S-R1"
+    ]
+   }
+  ],
   "resolvedCount": 0
  },
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
- "protectAt": "2026-10-23T13:32:36.851Z"
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }

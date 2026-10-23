@@ -1,0 +1,37 @@
+{
+ "v": 1,
+ "active": {
+  "GRND": {
+   "runId": "39962675033",
+   "diff": 6,
+   "range": [
+    0,
+    43
+   ],
+   "mode": "fills-ahead-of-positions",
+   "unbooked": 0,
+   "booked": 43,
+   "lab": 2,
+   "broker": 8,
+   "baseline": 0,
+   "orders": [
+    {
+     "id": "f57ccb82-cc5c-428d-b7c2-e3cc294ea716",
+     "cid": "s1-20261023-GRND-S-R1",
+     "side": "sell",
+     "sentAt": "2026-10-23T13:37:08.955Z",
+     "status": "partially_filled",
+     "qty": 45,
+     "orderFilledQty": 37,
+     "bookedFillQty": 43,
+     "filledAt": "2026-10-23T13:37:10.918794Z"
+    }
+   ],
+   "at": "2026-10-23T13:37:12.078Z",
+   "since": "2026-10-23T13:37:12.078Z",
+   "deadlineAt": "2026-10-23T14:07:12.078Z",
+   "deadline": "التشغيل التداولي التالي أو 30 دقيقة من أول رصد، أيهما أول"
+  }
+ },
+ "resolved": []
+}

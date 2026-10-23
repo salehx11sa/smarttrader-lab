@@ -1,6 +1,6 @@
 {
  "v": 1,
- "at": "2026-10-23T10:09:22.358Z",
+ "at": "2026-10-23T13:37:12.077Z",
  "today": "2026-10-23",
  "unsettled": [
   {
@@ -9,6 +9,62 @@
    "tradeDate": "2026-10-22",
    "settleDate": "2026-10-23",
    "proceeds": 766.82
+  },
+  {
+   "id": "20261023093020902::98b82669-376e-4e75-9943-05b37f738946",
+   "symbol": "GRND",
+   "tradeDate": "2026-10-23",
+   "settleDate": "2026-10-26",
+   "proceeds": 82.86
+  },
+  {
+   "id": "20261023093709057::54137e2e-6dfb-4fa5-9922-69258744dec7",
+   "symbol": "SPY",
+   "tradeDate": "2026-10-23",
+   "settleDate": "2026-10-26",
+   "proceeds": 759.56
+  },
+  {
+   "id": "20261023093709674::ffb03a5d-44e7-47d5-ba85-4fee61d3677c",
+   "symbol": "GRND",
+   "tradeDate": "2026-10-23",
+   "settleDate": "2026-10-26",
+   "proceeds": 444.8
+  },
+  {
+   "id": "20261023093709715::e726c649-de15-445d-a196-2f23dafce2fb",
+   "symbol": "SPY",
+   "tradeDate": "2026-10-23",
+   "settleDate": "2026-10-26",
+   "proceeds": 759.54
+  },
+  {
+   "id": "20261023093709850::3323a973-2edc-4485-bc96-7f08c8bc4abc",
+   "symbol": "SPY",
+   "tradeDate": "2026-10-23",
+   "settleDate": "2026-10-26",
+   "proceeds": 1518.94
+  },
+  {
+   "id": "20261023093710918::f9d4e2a8-b0ed-404c-aad9-6bccba8c3e9b",
+   "symbol": "GRND",
+   "tradeDate": "2026-10-23",
+   "settleDate": "2026-10-26",
+   "proceeds": 69.5
+  },
+  {
+   "id": "20261023093711144::8b99dcd4-9b81-4f30-9313-f808bc9d4696",
+   "symbol": "SPY",
+   "tradeDate": "2026-10-23",
+   "settleDate": "2026-10-26",
+   "proceeds": 3797.35
+  },
+  {
+   "id": "20261023093712011::f6a0aee9-88c3-43fe-9d5d-00ba7c3e99f4",
+   "symbol": "GRND",
+   "tradeDate": "2026-10-23",
+   "settleDate": "2026-10-26",
+   "proceeds": 83.4
   }
  ]
 }
