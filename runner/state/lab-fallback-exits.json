@@ -260,6 +260,19 @@
    "late": false,
    "at": "2026-10-23T13:37:08.958Z",
    "result": "submitted"
+  },
+  "o1-20261026-SPY-S-R1": {
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261026-SPY-S",
+   "origStatus": "expired",
+   "origQty": 8,
+   "origFilled": 0,
+   "qty": 8,
+   "prePx": 763.1498,
+   "late": true,
+   "at": "2026-10-26T13:42:10.567Z",
+   "result": "submitted"
   }
  }
 }
