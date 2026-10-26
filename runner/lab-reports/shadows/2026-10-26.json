@@ -1,0 +1,381 @@
+{
+ "date": "2026-10-26",
+ "note": "لاعبو ظل افتراضيون: لا أوامر أبدًا. محاكاة من الشموع بلا تسوية ولا انزلاق ولا رسوم (متفائلة).",
+ "shadows": [
+  {
+   "id": "S1-h5",
+   "base": "S1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 12970.97,
+   "totalReturnPct": -0.223,
+   "maxDrawdownPct": 1.795,
+   "tradesClosed": 14,
+   "openPositions": [
+    "EAT",
+    "DXCM",
+    "CLMT",
+    "GME"
+   ],
+   "trades": [
+    {
+     "sym": "HELP",
+     "entry": 10.5,
+     "exit": 11.78,
+     "qty": 52,
+     "pnl": 66.56,
+     "reason": "cond",
+     "exitDate": "2026-10-12"
+    },
+    {
+     "sym": "DFTX",
+     "entry": 34.615,
+     "exit": 36.27,
+     "qty": 21,
+     "pnl": 34.76,
+     "reason": "cond",
+     "exitDate": "2026-10-12"
+    },
+    {
+     "sym": "NUAI",
+     "entry": 5.6,
+     "exit": 3.89,
+     "qty": 76,
+     "pnl": -129.96,
+     "reason": "stop",
+     "exitDate": "2026-10-14"
+    },
+    {
+     "sym": "PFG",
+     "entry": 108.18,
+     "exit": 107.33,
+     "qty": 18,
+     "pnl": -15.3,
+     "reason": "time",
+     "exitDate": "2026-10-15"
+    },
+    {
+     "sym": "JAZZ",
+     "entry": 218.9,
+     "exit": 214.25,
+     "qty": 5,
+     "pnl": -23.25,
+     "reason": "cond",
+     "exitDate": "2026-10-16"
+    },
+    {
+     "sym": "DNTH",
+     "entry": 81.77,
+     "exit": 73.55,
+     "qty": 9,
+     "pnl": -73.98,
+     "reason": "time",
+     "exitDate": "2026-10-19"
+    },
+    {
+     "sym": "ASST",
+     "entry": 23.79,
+     "exit": 25.065,
+     "qty": 24,
+     "pnl": 30.6,
+     "reason": "cond",
+     "exitDate": "2026-10-20"
+    },
+    {
+     "sym": "BLZE",
+     "entry": 9.22,
+     "exit": 9.04,
+     "qty": 45,
+     "pnl": -8.1,
+     "reason": "cond",
+     "exitDate": "2026-10-22"
+    },
+    {
+     "sym": "COHU",
+     "entry": 53.71,
+     "exit": 51.24,
+     "qty": 10,
+     "pnl": -24.7,
+     "reason": "cond",
+     "exitDate": "2026-10-22"
+    },
+    {
+     "sym": "IRDM",
+     "entry": 44.18,
+     "exit": 43.62,
+     "qty": 40,
+     "pnl": -22.4,
+     "reason": "cond",
+     "exitDate": "2026-10-22"
+    },
+    {
+     "sym": "FEIM",
+     "entry": 64.03,
+     "exit": 65.06,
+     "qty": 9,
+     "pnl": 9.27,
+     "reason": "cond",
+     "exitDate": "2026-10-22"
+    },
+    {
+     "sym": "GRND",
+     "entry": 13.63,
+     "exit": 14.09,
+     "qty": 63,
+     "pnl": 28.98,
+     "reason": "cond",
+     "exitDate": "2026-10-23"
+    },
+    {
+     "sym": "HNI",
+     "entry": 44.92,
+     "exit": 47.77,
+     "qty": 30,
+     "pnl": 85.5,
+     "reason": "cond",
+     "exitDate": "2026-10-23"
+    },
+    {
+     "sym": "ADM",
+     "entry": 79.72,
+     "exit": 79.97,
+     "qty": 20,
+     "pnl": 5,
+     "reason": "cond",
+     "exitDate": "2026-10-26"
+    }
+   ]
+  },
+  {
+   "id": "S1-h15",
+   "base": "S1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 12772.88,
+   "totalReturnPct": -1.747,
+   "maxDrawdownPct": 1.974,
+   "tradesClosed": 11,
+   "openPositions": [
+    "MFG",
+    "EAT",
+    "DXCM",
+    "GME"
+   ],
+   "trades": [
+    {
+     "sym": "HELP",
+     "entry": 10.5,
+     "exit": 11.78,
+     "qty": 52,
+     "pnl": 66.56,
+     "reason": "cond",
+     "exitDate": "2026-10-12"
+    },
+    {
+     "sym": "DFTX",
+     "entry": 34.615,
+     "exit": 36.27,
+     "qty": 21,
+     "pnl": 34.76,
+     "reason": "cond",
+     "exitDate": "2026-10-12"
+    },
+    {
+     "sym": "NUAI",
+     "entry": 5.6,
+     "exit": 3.89,
+     "qty": 76,
+     "pnl": -129.96,
+     "reason": "stop",
+     "exitDate": "2026-10-14"
+    },
+    {
+     "sym": "PFG",
+     "entry": 108.18,
+     "exit": 109.235,
+     "qty": 18,
+     "pnl": 18.99,
+     "reason": "cond",
+     "exitDate": "2026-10-16"
+    },
+    {
+     "sym": "JAZZ",
+     "entry": 218.9,
+     "exit": 214.25,
+     "qty": 5,
+     "pnl": -23.25,
+     "reason": "cond",
+     "exitDate": "2026-10-16"
+    },
+    {
+     "sym": "DNTH",
+     "entry": 81.77,
+     "exit": 78.89,
+     "qty": 9,
+     "pnl": -25.92,
+     "reason": "cond",
+     "exitDate": "2026-10-21"
+    },
+    {
+     "sym": "BLZE",
+     "entry": 9.22,
+     "exit": 9.04,
+     "qty": 45,
+     "pnl": -8.1,
+     "reason": "cond",
+     "exitDate": "2026-10-22"
+    },
+    {
+     "sym": "COHU",
+     "entry": 53.71,
+     "exit": 51.24,
+     "qty": 10,
+     "pnl": -24.7,
+     "reason": "cond",
+     "exitDate": "2026-10-22"
+    },
+    {
+     "sym": "IRDM",
+     "entry": 44.99,
+     "exit": 43.62,
+     "qty": 41,
+     "pnl": -56.17,
+     "reason": "cond",
+     "exitDate": "2026-10-22"
+    },
+    {
+     "sym": "GRND",
+     "entry": 13.63,
+     "exit": 14.09,
+     "qty": 63,
+     "pnl": 28.98,
+     "reason": "cond",
+     "exitDate": "2026-10-23"
+    },
+    {
+     "sym": "ADM",
+     "entry": 79.72,
+     "exit": 79.97,
+     "qty": 20,
+     "pnl": 5,
+     "reason": "cond",
+     "exitDate": "2026-10-26"
+    }
+   ]
+  },
+  {
+   "id": "T1-sma8",
+   "base": "T1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0,
+   "openPositions": [],
+   "trades": []
+  },
+  {
+   "id": "T1-sma12",
+   "base": "T1",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 13000,
+   "totalReturnPct": 0,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0,
+   "openPositions": [],
+   "trades": []
+  },
+  {
+   "id": "CHEAP-rsi5",
+   "base": "CHEAP",
+   "virtual": true,
+   "noOrders": true,
+   "equity": 12671.21,
+   "totalReturnPct": -2.529,
+   "maxDrawdownPct": 2.593,
+   "tradesClosed": 8,
+   "openPositions": [
+    "DXST",
+    "TAL",
+    "MDXG",
+    "GLAS"
+   ],
+   "trades": [
+    {
+     "sym": "NXH",
+     "entry": 1.75,
+     "exit": 1.61,
+     "qty": 172,
+     "pnl": -24.08,
+     "reason": "time",
+     "exitDate": "2026-10-15"
+    },
+    {
+     "sym": "ALLO",
+     "entry": 1.44,
+     "exit": 1.33,
+     "qty": 520,
+     "pnl": -57.2,
+     "reason": "time",
+     "exitDate": "2026-10-15"
+    },
+    {
+     "sym": "LAC",
+     "entry": 2.39,
+     "exit": 2.06,
+     "qty": 333,
+     "pnl": -109.89,
+     "reason": "time",
+     "exitDate": "2026-10-15"
+    },
+    {
+     "sym": "MFA",
+     "entry": 7.11,
+     "exit": 6.66,
+     "qty": 213,
+     "pnl": -95.85,
+     "reason": "time",
+     "exitDate": "2026-10-15"
+    },
+    {
+     "sym": "QUBT",
+     "entry": 6.095,
+     "exit": 6.53,
+     "qty": 102,
+     "pnl": 44.37,
+     "reason": "time",
+     "exitDate": "2026-10-22"
+    },
+    {
+     "sym": "NUAI",
+     "entry": 3.32,
+     "exit": 3.07,
+     "qty": 72,
+     "pnl": -18,
+     "reason": "time",
+     "exitDate": "2026-10-22"
+    },
+    {
+     "sym": "JBLU",
+     "entry": 3.015,
+     "exit": 2.85,
+     "qty": 214,
+     "pnl": -35.31,
+     "reason": "time",
+     "exitDate": "2026-10-22"
+    },
+    {
+     "sym": "MARA",
+     "entry": 8.01,
+     "exit": 7.45,
+     "qty": 56,
+     "pnl": -31.36,
+     "reason": "time",
+     "exitDate": "2026-10-22"
+    }
+   ]
+  }
+ ]
+}
