@@ -1,14 +1,14 @@
 {
  "tool": "state_guard 7.2.19-dev",
- "runId": "40337391676",
- "runNumber": 355,
+ "runId": "40342013019",
+ "runNumber": 356,
  "runAttempt": 1,
- "at": "2026-10-26T14:12:05.072Z",
+ "at": "2026-10-26T14:41:59.268Z",
  "anchor": {
-  "runId": "40332123508",
-  "runNumber": 353,
+  "runId": "40337391676",
+  "runNumber": 355,
   "runAttempt": 1,
-  "at": "2026-10-26T13:45:33Z",
+  "at": "2026-10-26T14:12:10Z",
   "cmd": "lab-postopen",
   "runOutcome": "success",
   "incomplete": false,
@@ -19,19 +19,7 @@
   "lastPair": "ok",
   "problems": []
  },
- "checked": [
-  {
-   "id": 40332861235,
-   "number": 354,
-   "attempt": 1,
-   "runStep": {
-    "conclusion": "success",
-    "started": true
-   },
-   "saveStep": "success",
-   "state": "حُفظ"
-  }
- ],
+ "checked": [],
  "lost": [],
  "recovered": [],
  "unresolved": [],
