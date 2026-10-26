@@ -344,10 +344,10 @@
   }
  ],
  "protect": {
-  "at": "2026-10-23T13:32:36.851Z",
+  "at": "2026-10-26T13:31:01.335Z",
   "status": "complete",
   "outcome": "complete",
-  "runId": "39961548236",
+  "runId": "40330940283",
   "summary": {
    "fillsToday": 0,
    "confirmed": 0,
@@ -370,55 +370,21 @@
   "failed": [],
   "latency": [
    {
-    "book": "S1",
-    "sym": "GRND",
-    "fillAt": "2026-10-22T13:30:03.206Z",
-    "fillQty": 45,
-    "stopSubmittedAt": "2026-10-23T13:32:20.547Z",
-    "stopConfirmedAt": "2026-10-23T13:32:36.850Z",
-    "fillToConfirmSec": 86554,
-    "source": "bars",
-    "result": "confirmed",
-    "today": false,
-    "exitSubmittedAt": null,
-    "exitFills": [],
-    "resolvedAt": "2026-10-23T13:32:36.850Z",
-    "resolvedBy": "stop",
-    "fillToResolveSec": 86554
-   },
-   {
-    "book": "LEARN.S1",
-    "sym": "GRND",
-    "fillAt": "2026-10-22T13:30:10.329Z",
-    "fillQty": 6,
-    "stopSubmittedAt": null,
-    "stopConfirmedAt": null,
-    "fillToConfirmSec": null,
-    "source": null,
-    "result": "closed",
-    "today": false,
-    "exitSubmittedAt": null,
-    "exitFills": [],
-    "resolvedAt": "2026-10-23T13:30:20.902Z",
-    "resolvedBy": "sell",
-    "fillToResolveSec": 86411
-   },
-   {
     "book": "LEARN.CHEAP",
     "sym": "MDXG",
     "fillAt": "2026-10-22T13:30:16.620Z",
     "fillQty": 16,
     "stopSubmittedAt": "2026-10-22T13:31:48.39718Z",
-    "stopConfirmedAt": "2026-10-23T13:29:11.573Z",
-    "fillToConfirmSec": 86335,
+    "stopConfirmedAt": "2026-10-26T13:29:12.910Z",
+    "fillToConfirmSec": 345536,
     "source": "bars",
     "result": "confirmed",
     "today": false,
     "exitSubmittedAt": null,
     "exitFills": [],
-    "resolvedAt": "2026-10-23T13:29:11.573Z",
+    "resolvedAt": "2026-10-26T13:29:12.910Z",
     "resolvedBy": "stop",
-    "fillToResolveSec": 86335
+    "fillToResolveSec": 345536
    }
   ]
  },
@@ -474,5 +440,6 @@
   "active": [],
   "resolvedCount": 1
  },
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
+ "protectAt": "2026-10-26T13:31:01.335Z"
 }
