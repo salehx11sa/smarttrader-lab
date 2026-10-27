@@ -1,18 +1,15 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-10-27T10:08:32.302Z",
- "cmd": "lab-overnight",
+ "at": "2026-10-27T13:37:48.374Z",
+ "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-26",
  "daysElapsed": 14,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -41,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12938.12,
-   "equityNow": 12940.82,
+   "equityNow": 12980.69,
    "totalReturnPct": -0.476,
    "maxDrawdownPct": 1.67,
    "drawdownPct": 1.01,
@@ -83,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12858.37,
-   "equityNow": 12855.52,
+   "equityNow": 12894.97,
    "totalReturnPct": -1.089,
    "maxDrawdownPct": 2.14,
    "drawdownPct": 1.52,
@@ -167,11 +164,11 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12911.09,
-   "equityNow": 12910.17,
+   "equityNow": 12920.34,
    "totalReturnPct": -0.684,
    "maxDrawdownPct": 0.82,
    "drawdownPct": 0.68,
-   "tradesClosed": 16,
+   "tradesClosed": 17,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
@@ -226,7 +223,18 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": null,
+ "fallbackExits": [
+  {
+   "at": "2026-10-27T13:37:48.354Z",
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261027-SPY-S",
+   "origStatus": "filled",
+   "origQty": 1,
+   "origFilled": 1,
+   "result": "not-needed"
+  }
+ ],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
@@ -435,7 +443,13 @@
   ],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
- "protectPass": null,
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
  "reconPending": {
   "active": [],
   "resolvedCount": 1
