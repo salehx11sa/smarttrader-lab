@@ -2984,5 +2984,46 @@
    "intents": [],
    "crosses": []
   }
+ ],
+ "2026-10-29": [
+  {
+   "at": "2026-10-28T23:09:23.769Z",
+   "runId": "40785189217",
+   "runStartedAt": "2026-10-28T23:08:33.361Z",
+   "intents": [
+    {
+     "book": "O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 8,
+     "ref": 772.31,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    },
+    {
+     "book": "LEARN.O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 1,
+     "ref": 772.31,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    },
+    {
+     "book": "LEARN.CHEAP",
+     "sym": "MDXG",
+     "side": "sell",
+     "qty": 16,
+     "ref": 3.95,
+     "reason": "خروج زمني بعد 5 أيام",
+     "tif": "opg",
+     "exit": true,
+     "needsStopCancel": true
+    }
+   ],
+   "crosses": []
+  }
  ]
 }
