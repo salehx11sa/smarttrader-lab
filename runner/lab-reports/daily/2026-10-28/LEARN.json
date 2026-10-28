@@ -1,0 +1,128 @@
+{
+ "player": "LEARN",
+ "name": "المتعلّم",
+ "date": "2026-10-28",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12937.74,
+ "cash": 9785.3,
+ "dayPnl": 11.96,
+ "totalPnl": -62.26,
+ "totalReturnPct": -0.479,
+ "drawdownPct": 0.48,
+ "maxDrawdownPct": 0.82,
+ "positions": [
+  {
+   "book": "LEARN.T1",
+   "sym": "SPY",
+   "qty": 3,
+   "avgCost": 778.78,
+   "close": 772.31,
+   "value": 2316.93,
+   "entryDate": "2026-10-12"
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "qty": 1,
+   "avgCost": 770.92,
+   "close": 772.31,
+   "value": 772.31,
+   "entryDate": "2026-10-28"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "MDXG",
+   "qty": 16,
+   "avgCost": 3.73,
+   "close": 3.95,
+   "value": 63.2,
+   "entryDate": "2026-10-22"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "ln1-o1-20261028-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 1,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "ln1-o1-20261028-SPY-S-R1",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  },
+  {
+   "cid": "ln1-o1-20261028-SPY-B-r77096",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 1,
+   "filled": 1,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 1,
+   "price": 771.48,
+   "cid": "ln1-o1-20261028-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 771.48,
+   "slipVsRefPct": 0,
+   "auctionPrice": 771.43,
+   "slipVsAuctionPct": 0.006,
+   "fallbackExit": true
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 770.92,
+   "cid": "ln1-o1-20261028-SPY-B-r77096",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 770.96,
+   "slipVsRefPct": -0.005,
+   "auctionPrice": 772.31,
+   "slipVsAuctionPct": -0.18,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 18,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 13054.94
+ },
+ "learnWeights": {
+  "S1": 0.2,
+  "T1": 0.2,
+  "TM1": 0.2,
+  "O1": 0.2,
+  "CHEAP": 0.2
+ },
+ "learnBudgets": {
+  "S1": 2600,
+  "T1": 2600,
+  "TM1": 2600,
+  "O1": 2600,
+  "CHEAP": 2600
+ }
+}
