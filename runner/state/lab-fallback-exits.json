@@ -286,6 +286,45 @@
    "late": false,
    "at": "2026-10-28T13:37:01.998Z",
    "result": "submitted"
+  },
+  "ln1-ch1-20261029-MDXG-S-R1": {
+   "book": "LEARN.CHEAP",
+   "sym": "MDXG",
+   "origCid": "ln1-ch1-20261029-MDXG-S",
+   "origStatus": "expired",
+   "origQty": 16,
+   "origFilled": 12,
+   "qty": 4,
+   "prePx": 3.585,
+   "late": false,
+   "at": "2026-10-29T13:37:00.133Z",
+   "result": "submitted"
+  },
+  "o1-20261029-SPY-S-R1": {
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261029-SPY-S",
+   "origStatus": "expired",
+   "origQty": 8,
+   "origFilled": 5,
+   "qty": 3,
+   "prePx": 768.06,
+   "late": false,
+   "at": "2026-10-29T13:37:00.436Z",
+   "result": "submitted"
+  },
+  "ln1-o1-20261029-SPY-S-R1": {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261029-SPY-S",
+   "origStatus": "expired",
+   "origQty": 1,
+   "origFilled": 0,
+   "qty": 1,
+   "prePx": 768.06,
+   "late": false,
+   "at": "2026-10-29T13:37:00.482Z",
+   "result": "submitted"
   }
  }
 }
