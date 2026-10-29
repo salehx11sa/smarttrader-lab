@@ -1,0 +1,268 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.12b",
+ "rulesVersion": "lab-0.4",
+ "at": "2026-10-29T13:29:00.541Z",
+ "cmd": "lab-protect",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "حماية: وقف GTC LEARN.CHEAP MDXG × 4 عند 3.11 (bars)",
+  "lab-protect: complete (النتيجة complete) بعد 15 دورة — تعبئات اليوم 0، محسومة 0 (وقف مؤكد 0، خروج معبأ 0)"
+ ],
+ "warnings": [],
+ "errors": [],
+ "orders": [
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "MDXG",
+    "qty": "4",
+    "side": "sell",
+    "type": "stop",
+    "stop_price": "3.11",
+    "time_in_force": "gtc",
+    "client_order_id": "ln1-ch1-20261029-MDXG-P1"
+   },
+   "status": 200,
+   "id": "1e4496a7-4dab-401e-8035-510e1225f4a5",
+   "orderStatus": "pending_new"
+  }
+ ],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "40882292102",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "438",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-29T13:29:00.542Z"
+ },
+ "protectRun": {
+  "v": 1,
+  "startedAt": "2026-10-29T13:29:00.542Z",
+  "endedAt": "2026-10-29T13:32:24.488Z",
+  "status": "complete",
+  "ticks": 15,
+  "brokerErrors": 0,
+  "window": {
+   "fromNy": "09:25",
+   "toNy": "09:50",
+   "maxMin": 20,
+   "tickSec": 15,
+   "maxAttempts": 3,
+   "backoffSec": [
+    5,
+    15
+   ]
+  },
+  "standard": {
+   "targetSec": 60,
+   "upperSec": 90,
+   "note": "من التعبئة حتى تأكيد الوسيط للوقف في الظروف العادية؛ لا يشمل تأخر بدء تشغيل GitHub"
+  },
+  "fills": [
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "MDXG",
+    "cid": "ln1-ch1-20261022-MDXG-B-r374",
+    "fillAt": "2026-10-22T13:30:16.620Z",
+    "fillQty": 16,
+    "coverQty": 16,
+    "today": false,
+    "seenAt": "2026-10-29T13:29:01.803Z",
+    "stopSubmittedAt": "2026-10-29T13:32:08.642Z",
+    "stopConfirmedAt": "2026-10-29T13:32:24.487Z",
+    "stopId": "1e4496a7-4dab-401e-8035-510e1225f4a5",
+    "stopStatus": "new",
+    "stopQty": 4,
+    "source": "bars",
+    "fillToSubmitSec": 604912,
+    "fillToConfirmSec": 604928,
+    "attempts": 0,
+    "washWaits": 0,
+    "result": "confirmed",
+    "exitSubmittedAt": null,
+    "exitIds": [],
+    "exitFills": [],
+    "exitFilledQty": 0,
+    "resolvedAt": "2026-10-29T13:32:24.487Z",
+    "resolvedBy": "stop",
+    "fillToResolveSec": 604928
+   }
+  ],
+  "failed": [],
+  "deadline": "2026-10-29T13:49:00.542Z",
+  "exits": [],
+  "outcome": "complete",
+  "summary": {
+   "fillsToday": 0,
+   "confirmed": 0,
+   "protectiveExits": 0,
+   "resolved": 0,
+   "unresolved": 0,
+   "maxFillToConfirmSec": null,
+   "maxFillToResolveSec": null,
+   "withinTarget": 0,
+   "withinUpper": 0,
+   "failed": [],
+   "note": "المقام = كل تعبئات اليوم؛ المعلّق والفاشل يبقيان فيه"
+  }
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "64542.85",
+  "equity": "99705.09",
+  "clock": {
+   "is_open": false,
+   "next_close": "2026-10-29T16:00:00-04:00",
+   "next_open": "2026-10-29T09:30:00-04:00",
+   "timestamp": "2026-10-29T09:29:00.772465907-04:00"
+  }
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 3,
+  "why": null,
+  "readOnly": true
+ },
+ "feedUsed": "sip",
+ "protection": [
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "MDXG",
+   "qty": 4,
+   "need": 4,
+   "exitPending": false,
+   "exitRemaining": 0,
+   "exits": [],
+   "want": 3.11,
+   "source": "bars",
+   "sourceWhy": null,
+   "planCid": null,
+   "planInvalid": false,
+   "exiting": false,
+   "confirmed": true,
+   "awaiting": false,
+   "stops": [
+    {
+     "id": "1e4496a7-4dab-401e-8035-510e1225f4a5",
+     "status": "new",
+     "qty": 4,
+     "stop": 3.11,
+     "tif": "gtc",
+     "submittedAt": "2026-10-29T13:32:11.089751Z"
+    }
+   ],
+   "pendingBuy": false,
+   "lots": [
+    {
+     "t": 1792675816620,
+     "qty": 16,
+     "cid": "ln1-ch1-20261022-MDXG-B-r374"
+    }
+   ],
+   "fillAt": "2026-10-22T13:30:16.620Z",
+   "stopAt": "2026-10-29T13:32:11.089Z",
+   "fillToStopSec": 604914,
+   "unprotectedSec": null
+  }
+ ],
+ "protectionLatency": [
+  {
+   "book": "LEARN.CHEAP",
+   "sym": "MDXG",
+   "confirmed": true,
+   "source": "bars",
+   "fillAt": "2026-10-22T13:30:16.620Z",
+   "fillQty": 16,
+   "coverQty": 16,
+   "stopSubmittedAt": "2026-10-29T13:32:08.642Z",
+   "stopConfirmedAt": "2026-10-29T13:32:24.487Z",
+   "stopAt": "2026-10-29T13:32:08.642Z",
+   "fillToSubmitSec": 604912,
+   "fillToConfirmSec": 604928,
+   "fillToStopSec": 604928,
+   "attempts": 0,
+   "result": "confirmed",
+   "today": false,
+   "exitSubmittedAt": null,
+   "exitFills": [],
+   "exitFilledQty": 0,
+   "resolvedAt": "2026-10-29T13:32:24.487Z",
+   "resolvedBy": "stop",
+   "fillToResolveSec": 604928
+  }
+ ],
+ "status": "complete",
+ "protectSla": {
+  "enabled": true,
+  "flag": "protection-sla-breach",
+  "active": true,
+  "corrupt": false,
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "books": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "targetSec": 60,
+  "upperSec": 90,
+  "since": "2026-10-22T13:32:09.662Z",
+  "cases": [
+   {
+    "book": "S1",
+    "sym": "GRND",
+    "fillAt": "2026-10-22T13:30:03.206Z",
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "sec": 91,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   },
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "MDXG",
+    "fillAt": "2026-10-22T13:30:16.620Z",
+    "resolvedAt": "2026-10-22T13:31:49.437Z",
+    "sec": 93,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   }
+  ],
+  "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط.",
+  "evaluated": [],
+  "newBreaches": []
+ }
+}
