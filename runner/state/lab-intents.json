@@ -3081,5 +3081,35 @@
    "intents": [],
    "crosses": []
   }
+ ],
+ "2026-10-30": [
+  {
+   "at": "2026-10-29T23:15:03.461Z",
+   "runId": "40971721725",
+   "runStartedAt": "2026-10-29T23:14:24.725Z",
+   "intents": [
+    {
+     "book": "TM1",
+     "sym": "SPY",
+     "side": "buy",
+     "qty": 15,
+     "ref": 769.36,
+     "reason": "TM1: آخر يوم تداول في الشهر",
+     "tif": "opg"
+    },
+    {
+     "book": "LEARN.TM1",
+     "sym": "SPY",
+     "side": "buy",
+     "qty": 3,
+     "ref": 769.36,
+     "reason": "TM1: آخر يوم تداول في الشهر",
+     "tif": "opg"
+    }
+   ],
+   "crosses": [
+    "x-20261030-SPY-1"
+   ]
+  }
  ]
 }
