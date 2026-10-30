@@ -1,0 +1,156 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.12b",
+ "rulesVersion": "lab-0.4",
+ "at": "2026-10-30T13:29:00.132Z",
+ "cmd": "lab-protect",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "lab-protect: complete (النتيجة complete) بعد 14 دورة — تعبئات اليوم 0، محسومة 0 (وقف مؤكد 0، خروج معبأ 0)"
+ ],
+ "warnings": [],
+ "errors": [],
+ "orders": [],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "41063579575",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "467",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-10-30T13:29:00.132Z"
+ },
+ "protectRun": {
+  "v": 1,
+  "startedAt": "2026-10-30T13:29:00.132Z",
+  "endedAt": "2026-10-30T13:32:29.395Z",
+  "status": "complete",
+  "ticks": 14,
+  "brokerErrors": 0,
+  "window": {
+   "fromNy": "09:25",
+   "toNy": "09:50",
+   "maxMin": 20,
+   "tickSec": 15,
+   "maxAttempts": 3,
+   "backoffSec": [
+    5,
+    15
+   ]
+  },
+  "standard": {
+   "targetSec": 60,
+   "upperSec": 90,
+   "note": "من التعبئة حتى تأكيد الوسيط للوقف في الظروف العادية؛ لا يشمل تأخر بدء تشغيل GitHub"
+  },
+  "fills": [],
+  "failed": [],
+  "deadline": "2026-10-30T13:49:00.132Z",
+  "exits": [],
+  "outcome": "complete",
+  "summary": {
+   "fillsToday": 0,
+   "confirmed": 0,
+   "protectiveExits": 0,
+   "resolved": 0,
+   "unresolved": 0,
+   "maxFillToConfirmSec": null,
+   "maxFillToResolveSec": null,
+   "withinTarget": 0,
+   "withinUpper": 0,
+   "failed": [],
+   "note": "المقام = كل تعبئات اليوم؛ المعلّق والفاشل يبقيان فيه"
+  }
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "70749.76",
+  "equity": "99394.51",
+  "clock": {
+   "is_open": false,
+   "next_close": "2026-10-30T16:00:00-04:00",
+   "next_open": "2026-10-30T09:30:00-04:00",
+   "timestamp": "2026-10-30T09:29:00.457057192-04:00"
+  }
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 4,
+  "why": null,
+  "readOnly": true
+ },
+ "feedUsed": "sip",
+ "protection": [],
+ "protectionLatency": [],
+ "status": "complete",
+ "protectSla": {
+  "enabled": true,
+  "flag": "protection-sla-breach",
+  "active": true,
+  "corrupt": false,
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "books": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "targetSec": 60,
+  "upperSec": 90,
+  "since": "2026-10-22T13:32:09.662Z",
+  "cases": [
+   {
+    "book": "S1",
+    "sym": "GRND",
+    "fillAt": "2026-10-22T13:30:03.206Z",
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "sec": 91,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   },
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "MDXG",
+    "fillAt": "2026-10-22T13:30:16.620Z",
+    "resolvedAt": "2026-10-22T13:31:49.437Z",
+    "sec": 93,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   }
+  ],
+  "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط.",
+  "evaluated": [],
+  "newBreaches": []
+ }
+}

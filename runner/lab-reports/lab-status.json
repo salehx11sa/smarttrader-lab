@@ -330,10 +330,10 @@
  },
  "protectionLatency": [],
  "protect": {
-  "at": "2026-10-29T13:32:24.488Z",
+  "at": "2026-10-30T13:32:29.395Z",
   "status": "complete",
   "outcome": "complete",
-  "runId": "40882292102",
+  "runId": "41063579575",
   "summary": {
    "fillsToday": 0,
    "confirmed": 0,
@@ -354,25 +354,7 @@
   },
   "exits": [],
   "failed": [],
-  "latency": [
-   {
-    "book": "LEARN.CHEAP",
-    "sym": "MDXG",
-    "fillAt": "2026-10-22T13:30:16.620Z",
-    "fillQty": 16,
-    "stopSubmittedAt": "2026-10-29T13:32:08.642Z",
-    "stopConfirmedAt": "2026-10-29T13:32:24.487Z",
-    "fillToConfirmSec": 604928,
-    "source": "bars",
-    "result": "confirmed",
-    "today": false,
-    "exitSubmittedAt": null,
-    "exitFills": [],
-    "resolvedAt": "2026-10-29T13:32:24.487Z",
-    "resolvedBy": "stop",
-    "fillToResolveSec": 604928
-   }
-  ]
+  "latency": []
  },
  "protectBlocks": [],
  "protectSla": {
@@ -426,5 +408,6 @@
   "active": [],
   "resolvedCount": 1
  },
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
+ "protectAt": "2026-10-30T13:32:29.395Z"
 }
