@@ -1,8 +1,8 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-10-30T21:06:20.870Z",
- "cmd": "lab-status",
+ "at": "2026-10-30T21:25:47.707Z",
+ "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-10-30",
@@ -38,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12783.32,
-   "equityNow": 12783.86,
+   "equityNow": 12786.74,
    "totalReturnPct": -1.667,
    "maxDrawdownPct": 2.19,
    "drawdownPct": 2.19,
@@ -80,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12713.62,
-   "equityNow": 12718.72,
+   "equityNow": 12718.57,
    "totalReturnPct": -2.203,
    "maxDrawdownPct": 2.63,
    "drawdownPct": 2.63,
@@ -101,7 +101,7 @@
    "name": "الموسمي",
    "retired": null,
    "equityClose": 12944.93,
-   "equityNow": 12948.33,
+   "equityNow": 12948.23,
    "totalReturnPct": -0.424,
    "maxDrawdownPct": 0.42,
    "drawdownPct": 0.42,
@@ -122,7 +122,7 @@
    "name": "الليلي",
    "retired": null,
    "equityClose": 13001.06,
-   "equityNow": 13003.78,
+   "equityNow": 13003.7,
    "totalReturnPct": 0.008,
    "maxDrawdownPct": 0.34,
    "drawdownPct": 0.15,
@@ -164,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12874.68,
-   "equityNow": 12876.04,
+   "equityNow": 12876,
    "totalReturnPct": -0.964,
    "maxDrawdownPct": 0.96,
    "drawdownPct": 0.96,
@@ -303,15 +303,15 @@
  "shadows": [
   {
    "id": "S1-h5",
-   "totalReturnPct": -0.485,
+   "totalReturnPct": -1.349,
    "maxDrawdownPct": 1.795,
-   "tradesClosed": 18
+   "tradesClosed": 20
   },
   {
    "id": "S1-h15",
-   "totalReturnPct": -0.216,
+   "totalReturnPct": -1.082,
    "maxDrawdownPct": 1.974,
-   "tradesClosed": 14
+   "tradesClosed": 16
   },
   {
    "id": "T1-sma8",
@@ -327,9 +327,9 @@
   },
   {
    "id": "CHEAP-rsi5",
-   "totalReturnPct": -2.905,
-   "maxDrawdownPct": 2.905,
-   "tradesClosed": 11
+   "totalReturnPct": -3.191,
+   "maxDrawdownPct": 3.191,
+   "tradesClosed": 12
   }
  ],
  "recon": {
