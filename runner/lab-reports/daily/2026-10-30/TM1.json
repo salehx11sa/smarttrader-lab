@@ -1,0 +1,73 @@
+{
+ "player": "TM1",
+ "name": "الموسمي",
+ "date": "2026-10-30",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12944.93,
+ "cash": 5387.73,
+ "dayPnl": -55.07,
+ "totalPnl": -55.07,
+ "totalReturnPct": -0.424,
+ "drawdownPct": 0.42,
+ "maxDrawdownPct": 0.42,
+ "positions": [
+  {
+   "book": "TM1",
+   "sym": "SPY",
+   "qty": 10,
+   "avgCost": 761.227,
+   "close": 755.72,
+   "value": 7557.2,
+   "entryDate": "2026-10-30"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "tm1-20261030-SPY-B-r76936",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "opg",
+   "qty": 15,
+   "filled": 9,
+   "status": "expired"
+  }
+ ],
+ "fills": [
+  {
+   "book": "TM1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 761.38,
+   "cid": null,
+   "kind": "cross",
+   "tif": "cross",
+   "expectedRef": 769.36,
+   "slipVsRefPct": -1.037,
+   "auctionPrice": 761.38,
+   "slipVsAuctionPct": 0
+  },
+  {
+   "book": "TM1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 9,
+   "price": 761.21,
+   "cid": "tm1-20261030-SPY-B-r76936",
+   "kind": "fill",
+   "tif": "opg",
+   "expectedRef": 769.36,
+   "slipVsRefPct": -1.059,
+   "auctionPrice": 761.38,
+   "slipVsAuctionPct": -0.022
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12783.32
+ }
+}
