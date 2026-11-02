@@ -1,0 +1,128 @@
+{
+ "player": "O1",
+ "name": "الليلي",
+ "date": "2026-11-02",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 13027.62,
+ "cash": 7010.82,
+ "dayPnl": 26.56,
+ "totalPnl": 27.62,
+ "totalReturnPct": 0.212,
+ "drawdownPct": 0,
+ "maxDrawdownPct": 0.34,
+ "positions": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "qty": 8,
+   "avgCost": 752.21,
+   "close": 752.1,
+   "value": 6016.8,
+   "entryDate": "2026-11-02"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "o1-20261102-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 8,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "o1-20261102-SPY-S-R1",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  },
+  {
+   "cid": "o1-20261102-SPY-B-r75227",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 8,
+   "price": 759.15,
+   "cid": "o1-20261102-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 759.57,
+   "slipVsRefPct": -0.055,
+   "auctionPrice": 759.45,
+   "slipVsAuctionPct": -0.04,
+   "fallbackExit": true
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 2,
+   "price": 752.23,
+   "cid": "o1-20261102-SPY-B-r75227",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 752.27,
+   "slipVsRefPct": -0.005,
+   "auctionPrice": 752.1,
+   "slipVsAuctionPct": 0.017,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 2,
+   "price": 752.23,
+   "cid": "o1-20261102-SPY-B-r75227",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 752.27,
+   "slipVsRefPct": -0.005,
+   "auctionPrice": 752.1,
+   "slipVsAuctionPct": 0.017,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 4,
+   "price": 752.19,
+   "cid": "o1-20261102-SPY-B-r75227",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 752.27,
+   "slipVsRefPct": -0.011,
+   "auctionPrice": 752.1,
+   "slipVsAuctionPct": 0.012,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 11,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12720.5
+ }
+}

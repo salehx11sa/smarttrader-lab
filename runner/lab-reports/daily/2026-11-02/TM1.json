@@ -1,0 +1,33 @@
+{
+ "player": "TM1",
+ "name": "الموسمي",
+ "date": "2026-11-02",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12908.73,
+ "cash": 5387.73,
+ "dayPnl": -36.2,
+ "totalPnl": -91.27,
+ "totalReturnPct": -0.702,
+ "drawdownPct": 0.7,
+ "maxDrawdownPct": 0.7,
+ "positions": [
+  {
+   "book": "TM1",
+   "sym": "SPY",
+   "qty": 10,
+   "avgCost": 761.227,
+   "close": 752.1,
+   "value": 7521,
+   "entryDate": "2026-10-30"
+  }
+ ],
+ "orders": [],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12720.5
+ }
+}
