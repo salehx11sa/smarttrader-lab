@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-02T15:14:03.393Z",
+ "at": "2026-11-02T16:48:14.566Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -38,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12783.32,
-   "equityNow": 12873.95,
+   "equityNow": 12854.6,
    "totalReturnPct": -1.667,
    "maxDrawdownPct": 2.19,
    "drawdownPct": 2.19,
@@ -80,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12713.62,
-   "equityNow": 12797.92,
+   "equityNow": 12780.82,
    "totalReturnPct": -2.203,
    "maxDrawdownPct": 2.63,
    "drawdownPct": 2.63,
@@ -101,7 +101,7 @@
    "name": "الموسمي",
    "retired": null,
    "equityClose": 12944.93,
-   "equityNow": 13001.13,
+   "equityNow": 12989.73,
    "totalReturnPct": -0.424,
    "maxDrawdownPct": 0.42,
    "drawdownPct": 0.42,
@@ -164,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12874.68,
-   "equityNow": 12894.98,
+   "equityNow": 12891.56,
    "totalReturnPct": -0.964,
    "maxDrawdownPct": 0.96,
    "drawdownPct": 0.96,
@@ -225,7 +225,7 @@
  },
  "fallbackExits": [
   {
-   "at": "2026-11-02T15:14:03.377Z",
+   "at": "2026-11-02T16:48:14.557Z",
    "book": "O1",
    "sym": "SPY",
    "origCid": "o1-20261102-SPY-S",
@@ -239,7 +239,7 @@
    "fallbackFilled": 8
   },
   {
-   "at": "2026-11-02T15:14:03.377Z",
+   "at": "2026-11-02T16:48:14.557Z",
    "book": "LEARN.O1",
    "sym": "SPY",
    "origCid": "ln1-o1-20261102-SPY-S",
