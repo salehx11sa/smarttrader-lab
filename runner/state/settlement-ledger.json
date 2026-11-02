@@ -1,6 +1,21 @@
 {
  "v": 1,
- "at": "2026-11-02T14:37:08.171Z",
+ "at": "2026-11-02T14:42:02.234Z",
  "today": "2026-11-02",
- "unsettled": []
+ "unsettled": [
+  {
+   "id": "20261102093733176::2d73bf15-342f-4fdc-b179-7fbefe87c7b1",
+   "symbol": "SPY",
+   "tradeDate": "2026-11-02",
+   "settleDate": "2026-11-03",
+   "proceeds": 759.16
+  },
+  {
+   "id": "20261102093733507::2abf8983-fcbf-4f0e-ab25-7bcc698c8482",
+   "symbol": "SPY",
+   "tradeDate": "2026-11-02",
+   "settleDate": "2026-11-03",
+   "proceeds": 6073.2
+  }
+ ]
 }
