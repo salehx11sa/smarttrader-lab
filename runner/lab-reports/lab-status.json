@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-03T02:58:33.878Z",
+ "at": "2026-11-03T03:20:58.826Z",
  "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -41,7 +41,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12720.5,
-   "equityNow": 12722.3,
+   "equityNow": 12723.74,
    "totalReturnPct": -2.15,
    "maxDrawdownPct": 2.67,
    "drawdownPct": 2.67,
