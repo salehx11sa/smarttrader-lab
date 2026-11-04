@@ -1,0 +1,93 @@
+{
+ "player": "O1",
+ "name": "الليلي",
+ "date": "2026-11-04",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 13034.85,
+ "cash": 6900.37,
+ "dayPnl": -6.18,
+ "totalPnl": 34.85,
+ "totalReturnPct": 0.268,
+ "drawdownPct": 0.05,
+ "maxDrawdownPct": 0.34,
+ "positions": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "qty": 8,
+   "avgCost": 767.5825,
+   "close": 766.81,
+   "value": 6134.48,
+   "entryDate": "2026-11-04"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "o1-20261104-SPY-B-r76751",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 4,
+   "price": 767.58,
+   "cid": "o1-20261104-SPY-B-r76751",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 767.51,
+   "slipVsRefPct": 0.009,
+   "auctionPrice": 766.81,
+   "slipVsAuctionPct": 0.1,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 3,
+   "price": 767.59,
+   "cid": "o1-20261104-SPY-B-r76751",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 767.51,
+   "slipVsRefPct": 0.01,
+   "auctionPrice": 766.81,
+   "slipVsAuctionPct": 0.102,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 767.57,
+   "cid": "o1-20261104-SPY-B-r76751",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 767.51,
+   "slipVsRefPct": 0.008,
+   "auctionPrice": 766.81,
+   "slipVsAuctionPct": 0.099,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 12,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12962.78
+ }
+}

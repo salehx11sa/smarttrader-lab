@@ -1,0 +1,33 @@
+{
+ "player": "REF2",
+ "name": "الحَكَم",
+ "date": "2026-11-04",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12962.78,
+ "cash": 276.74,
+ "dayPnl": 202.32,
+ "totalPnl": -37.22,
+ "totalReturnPct": -0.286,
+ "drawdownPct": 0.82,
+ "maxDrawdownPct": 2.67,
+ "positions": [
+  {
+   "book": "REF2",
+   "sym": "VOO",
+   "qty": 18,
+   "avgCost": 706.8478,
+   "close": 704.78,
+   "value": 12686.04,
+   "entryDate": "2026-10-14"
+  }
+ ],
+ "orders": [],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 0,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12962.78
+ }
+}
