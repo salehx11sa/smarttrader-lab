@@ -1,7 +1,7 @@
 {
- "runId": "41915691133",
- "runNumber": 571,
+ "runId": "41923463334",
+ "runNumber": 572,
  "runAttempt": 1,
- "cmd": "lab-overnight",
- "at": "2026-11-04T21:23:58.954Z"
+ "cmd": "lab-status",
+ "at": "2026-11-04T22:14:24.541Z"
 }
