@@ -377,6 +377,19 @@
    "late": false,
    "at": "2026-11-03T14:37:11.286Z",
    "result": "submitted"
+  },
+  "ln1-o1-20261104-SPY-S-R1": {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261104-SPY-S",
+   "origStatus": "expired",
+   "origQty": 2,
+   "origFilled": 1,
+   "qty": 1,
+   "prePx": 764.5,
+   "late": false,
+   "at": "2026-11-04T14:37:02.951Z",
+   "result": "submitted"
   }
  }
 }
