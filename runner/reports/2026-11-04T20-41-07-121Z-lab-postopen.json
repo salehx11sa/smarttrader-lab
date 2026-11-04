@@ -1,0 +1,491 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.12b",
+ "rulesVersion": "lab-0.4",
+ "at": "2026-11-04T20:41:00.850Z",
+ "cmd": "lab-postopen",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [],
+ "warnings": [],
+ "errors": [],
+ "orders": [
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "SPY",
+    "qty": "8",
+    "side": "buy",
+    "type": "market",
+    "time_in_force": "day",
+    "client_order_id": "o1-20261104-SPY-B-r76751"
+   },
+   "status": 200,
+   "id": "860a12e0-1407-4ccf-8650-be998f89086b",
+   "orderStatus": "pending_new"
+  },
+  {
+   "method": "POST",
+   "url": "/v2/orders",
+   "body": {
+    "symbol": "SPY",
+    "qty": "2",
+    "side": "buy",
+    "type": "market",
+    "time_in_force": "day",
+    "client_order_id": "ln1-o1-20261104-SPY-B-r76751"
+   },
+   "status": 200,
+   "id": "b9362e43-f132-4a44-8a46-b56e95700911",
+   "orderStatus": "pending_new"
+  }
+ ],
+ "wouldSend": [],
+ "intents": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 8,
+   "ref": 754.35,
+   "pre": 767.51,
+   "reason": "O1: شراء داخل نافذة الإغلاق [الإغلاق − 20، الإغلاق − 2) بنصف الحقوق",
+   "tif": "day"
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 2,
+   "ref": 754.35,
+   "pre": 767.51,
+   "reason": "O1: شراء داخل نافذة الإغلاق [الإغلاق − 20، الإغلاق − 2) بنصف الحقوق",
+   "tif": "day"
+  }
+ ],
+ "crossesCreated": [],
+ "skipped": [
+  {
+   "book": "REF2",
+   "why": "REF2: مستثمر بالكامل (النقد أقل من سهم واحد)"
+  }
+ ],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "41908877588",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "workflow_dispatch",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "565",
+  "githubSchedule": null,
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-11-04T20:41:00.850Z"
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "63983.08",
+  "equity": "99846",
+  "clock": {
+   "is_open": true,
+   "next_close": "2026-11-04T16:00:00-05:00",
+   "next_open": "2026-11-05T09:30:00-05:00",
+   "timestamp": "2026-11-04T15:41:01.13413487-05:00"
+  }
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 4,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 4,
+   "head": "edaaee186500"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "crossLedgerInitial": {
+  "ok": true,
+  "state": "valid",
+  "rows": 4,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 4,
+   "head": "edaaee186500"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "feedUsed": "sip",
+ "legacy": {
+  "effectiveBaseline": {
+   "AMD": 0,
+   "CAT": 0,
+   "MSFT": 3,
+   "NVDA": 0
+  },
+  "sold": {
+   "CAT": 1,
+   "AMD": 1,
+   "NVDA": 3
+  },
+  "invalid": {},
+  "documentedOrders": 4,
+  "documentedFills": 4
+ },
+ "recon": {
+  "rows": [
+   {
+    "sym": "AMD",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "CAT",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "CNH",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "DFTX",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "DNTH",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "GRND",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "HELP",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "LAC",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "MDXG",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "MFA",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "MSFT",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NVDA",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "NXH",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "QUBT",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "SPY",
+    "lab": 28,
+    "baseline": 0,
+    "broker": 28,
+    "diff": 0
+   },
+   {
+    "sym": "VEEE",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "VOO",
+    "lab": 18,
+    "baseline": 0,
+    "broker": 18,
+    "diff": 0
+   }
+  ],
+  "ok": true,
+  "labMismatch": {},
+  "unexplainedForeign": [],
+  "baselineDrift": [],
+  "baselineDeficit": []
+ },
+ "foreignActivity": {
+  "ordersToday": [],
+  "openBuys": [],
+  "fillsToday": [],
+  "unknownFillsToday": [],
+  "legacyExcusedToday": [],
+  "any": false
+ },
+ "settlement": {
+  "proven": true,
+  "settledCash": 54917.37,
+  "cash": 63983.08,
+  "unsettledProceeds": 9065.71,
+  "reasons": [],
+  "pendingReserveAll": 7905.35
+ },
+ "fallbackExits": [
+  {
+   "at": "2026-11-04T20:41:06.072Z",
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261104-SPY-S",
+   "origStatus": "expired",
+   "origQty": 2,
+   "origFilled": 1,
+   "result": "exists",
+   "fallbackCid": "ln1-o1-20261104-SPY-S-R1",
+   "fallbackStatus": "filled",
+   "fallbackQty": 1,
+   "fallbackFilled": 1
+  }
+ ],
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
+ "protection": [],
+ "protectionLatency": [],
+ "protectionAfter": [],
+ "protectSla": {
+  "enabled": true,
+  "flag": "protection-sla-breach",
+  "active": true,
+  "corrupt": false,
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "books": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "targetSec": 60,
+  "upperSec": 90,
+  "since": "2026-10-22T13:32:09.662Z",
+  "cases": [
+   {
+    "book": "S1",
+    "sym": "GRND",
+    "fillAt": "2026-10-22T13:30:03.206Z",
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "sec": 91,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   },
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "MDXG",
+    "fillAt": "2026-10-22T13:30:16.620Z",
+    "resolvedAt": "2026-10-22T13:31:49.437Z",
+    "sec": 93,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   }
+  ],
+  "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط.",
+  "evaluated": [],
+  "newBreaches": []
+ },
+ "clsWindow": {
+  "fromMs": 1793824800000,
+  "untilMs": 1793825880000,
+  "from": "2026-11-04T20:40:00.000Z",
+  "until": "2026-11-04T20:58:00.000Z",
+  "close": "16:00",
+  "nowAt": "2026-11-04T20:41:06.074Z",
+  "inWindow": true,
+  "order": "market/day"
+ },
+ "continuity": {
+  "tool": "state_guard 7.2.19-dev",
+  "runId": "41908877588",
+  "runNumber": 565,
+  "runAttempt": 1,
+  "at": "2026-11-04T20:40:57.522Z",
+  "anchor": {
+   "runId": "41907277526",
+   "runNumber": 564,
+   "runAttempt": 1,
+   "at": "2026-11-04T20:30:55Z",
+   "cmd": "lab-postopen",
+   "runOutcome": "success",
+   "incomplete": false,
+   "openSaveIncidents": 0,
+   "pairVerified": true,
+   "anchorSchema": 2,
+   "runnerExit": 0,
+   "lastPair": "ok",
+   "problems": []
+  },
+  "checked": [],
+  "lost": [],
+  "recovered": [],
+  "unresolved": [],
+  "ok": true,
+  "reason": "لا تشغيل سابق فقد حالته"
+ },
+ "saveIncidents": {
+  "open": [],
+  "errors": []
+ },
+ "runPair": {
+  "status": "ok",
+  "problems": []
+ },
+ "freeze": {
+  "ok": true,
+  "changed": [],
+  "labVersion": "lab-0.4",
+  "why": null
+ },
+ "closeBuyLivePx": {
+  "SPY": 767.51,
+  "VOO": 705.42
+ },
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
+ "learn": {
+  "weights": {
+   "S1": 0.275,
+   "T1": 0.15,
+   "TM1": 0.15,
+   "O1": 0.275,
+   "CHEAP": 0.15
+  },
+  "budgets": {
+   "S1": 3540.53,
+   "T1": 1931.2,
+   "TM1": 1931.2,
+   "O1": 3540.53,
+   "CHEAP": 1931.2
+  }
+ },
+ "sent": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 8,
+   "cid": "o1-20261104-SPY-B-r76751",
+   "status": "submitted",
+   "id": "860a12e0-1407-4ccf-8650-be998f89086b",
+   "sentAt": "2026-11-04T20:41:06.180Z",
+   "acceptedAt": "2026-11-04T20:41:06.33425628Z",
+   "prePx": 767.51
+  },
+  {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 2,
+   "cid": "ln1-o1-20261104-SPY-B-r76751",
+   "status": "submitted",
+   "id": "b9362e43-f132-4a44-8a46-b56e95700911",
+   "sentAt": "2026-11-04T20:41:06.375Z",
+   "acceptedAt": "2026-11-04T20:41:06.530170375Z",
+   "prePx": 767.51
+  }
+ ],
+ "labStatus": {
+  "lastCompletedDay": "2026-11-03",
+  "dailyWritten": [
+   "2026-11-03"
+  ]
+ }
+}
