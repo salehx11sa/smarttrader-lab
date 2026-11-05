@@ -3436,5 +3436,45 @@
    "intents": [],
    "crosses": []
   }
+ ],
+ "2026-11-05": [
+  {
+   "at": "2026-11-05T00:20:59.043Z",
+   "runId": "41940520678",
+   "runStartedAt": "2026-11-05T00:20:05.028Z",
+   "intents": [
+    {
+     "book": "TM1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 10,
+     "ref": 766.81,
+     "reason": "TM1: اليوم الرابع من الشهر (2026-11-05)",
+     "tif": "opg",
+     "exit": true
+    },
+    {
+     "book": "O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 8,
+     "ref": 766.81,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    },
+    {
+     "book": "LEARN.O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 2,
+     "ref": 766.81,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    }
+   ],
+   "crosses": []
+  }
  ]
 }
