@@ -390,6 +390,45 @@
    "late": false,
    "at": "2026-11-04T14:37:02.951Z",
    "result": "submitted"
+  },
+  "o1-20261105-SPY-S-R1": {
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261105-SPY-S",
+   "origStatus": "expired",
+   "origQty": 8,
+   "origFilled": 0,
+   "qty": 8,
+   "prePx": 761.39,
+   "late": false,
+   "at": "2026-11-05T14:37:42.606Z",
+   "result": "submitted"
+  },
+  "ln1-o1-20261105-SPY-S-R1": {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261105-SPY-S",
+   "origStatus": "expired",
+   "origQty": 2,
+   "origFilled": 0,
+   "qty": 2,
+   "prePx": 761.39,
+   "late": false,
+   "at": "2026-11-05T14:37:42.831Z",
+   "result": "submitted"
+  },
+  "tm1-20261105-SPY-S-R1": {
+   "book": "TM1",
+   "sym": "SPY",
+   "origCid": "tm1-20261105-SPY-S",
+   "origStatus": "expired",
+   "origQty": 10,
+   "origFilled": 0,
+   "qty": 10,
+   "prePx": 761.39,
+   "late": false,
+   "at": "2026-11-05T14:37:43.044Z",
+   "result": "submitted"
   }
  }
 }
