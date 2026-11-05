@@ -1,0 +1,111 @@
+{
+ "player": "O1",
+ "name": "الليلي",
+ "date": "2026-11-05",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12974.87,
+ "cash": 7110.87,
+ "dayPnl": -59.98,
+ "totalPnl": -25.13,
+ "totalReturnPct": -0.193,
+ "drawdownPct": 0.51,
+ "maxDrawdownPct": 0.51,
+ "positions": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "qty": 8,
+   "avgCost": 734.82,
+   "close": 733,
+   "value": 5864,
+   "entryDate": "2026-11-05"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "o1-20261105-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 8,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "o1-20261105-SPY-S-R1",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  },
+  {
+   "cid": "o1-20261105-SPY-B-r73477",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 2,
+   "price": 761.11,
+   "cid": "o1-20261105-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 761.39,
+   "slipVsRefPct": -0.037,
+   "auctionPrice": 765.47,
+   "slipVsAuctionPct": -0.57,
+   "fallbackExit": true
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 6,
+   "price": 761.14,
+   "cid": "o1-20261105-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 761.39,
+   "slipVsRefPct": -0.033,
+   "auctionPrice": 765.47,
+   "slipVsAuctionPct": -0.566,
+   "fallbackExit": true
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 8,
+   "price": 734.82,
+   "cid": "o1-20261105-SPY-B-r73477",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 734.77,
+   "slipVsRefPct": 0.007,
+   "auctionPrice": 733,
+   "slipVsAuctionPct": 0.248,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 13,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12408.2
+ }
+}
