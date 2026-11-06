@@ -3539,5 +3539,35 @@
    "intents": [],
    "crosses": []
   }
+ ],
+ "2026-11-06": [
+  {
+   "at": "2026-11-06T00:10:27.184Z",
+   "runId": "42134647242",
+   "runStartedAt": "2026-11-06T00:08:51.477Z",
+   "intents": [
+    {
+     "book": "O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 8,
+     "ref": 733,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    },
+    {
+     "book": "LEARN.O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 2,
+     "ref": 733,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    }
+   ],
+   "crosses": []
+  }
  ]
 }
