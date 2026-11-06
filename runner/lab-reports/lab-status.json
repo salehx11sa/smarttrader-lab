@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-06T19:12:07.748Z",
+ "at": "2026-11-06T20:03:55.034Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -38,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12408.2,
-   "equityNow": 12502.7,
+   "equityNow": 12485.87,
    "totalReturnPct": -4.552,
    "maxDrawdownPct": 5.06,
    "drawdownPct": 5.06,
@@ -80,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12372.82,
-   "equityNow": 12461.77,
+   "equityNow": 12446.47,
    "totalReturnPct": -4.824,
    "maxDrawdownPct": 5.24,
    "drawdownPct": 5.24,
@@ -164,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12815.57,
-   "equityNow": 12839.88,
+   "equityNow": 12836.82,
    "totalReturnPct": -1.419,
    "maxDrawdownPct": 1.42,
    "drawdownPct": 1.42,
@@ -225,7 +225,7 @@
  },
  "fallbackExits": [
   {
-   "at": "2026-11-06T19:12:07.736Z",
+   "at": "2026-11-06T20:03:55.017Z",
    "book": "O1",
    "sym": "SPY",
    "origCid": "o1-20261106-SPY-S",
@@ -239,7 +239,7 @@
    "fallbackFilled": 8
   },
   {
-   "at": "2026-11-06T19:12:07.736Z",
+   "at": "2026-11-06T20:03:55.017Z",
    "book": "LEARN.O1",
    "sym": "SPY",
    "origCid": "ln1-o1-20261106-SPY-S",
