@@ -148,56 +148,6 @@
   }
  ],
  "lots": {
-  "S1|DFTX|1791552608476": {
-   "date": "2026-10-09",
-   "sec": 114,
-   "ageSec": null,
-   "by": "stop",
-   "result": "resolved",
-   "breach": true,
-   "source": "lab-protect",
-   "at": "2026-10-09T13:32:34.016Z"
-  },
-  "LEARN.S1|DNTH|1791552604778": {
-   "date": "2026-10-09",
-   "sec": 149,
-   "ageSec": null,
-   "by": "stop",
-   "result": "resolved",
-   "breach": true,
-   "source": "lab-protect",
-   "at": "2026-10-09T13:32:34.016Z"
-  },
-  "S1|DNTH|1791552616338": {
-   "date": "2026-10-09",
-   "sec": 138,
-   "ageSec": null,
-   "by": "stop",
-   "result": "resolved",
-   "breach": true,
-   "source": "lab-protect",
-   "at": "2026-10-09T13:32:34.016Z"
-  },
-  "LEARN.CHEAP|LAC|1791552613956": {
-   "date": "2026-10-09",
-   "sec": 140,
-   "ageSec": null,
-   "by": "stop",
-   "result": "resolved",
-   "breach": true,
-   "source": "lab-protect",
-   "at": "2026-10-09T13:32:34.016Z"
-  },
-  "LEARN.CHEAP|QUBT|1791552629284": {
-   "date": "2026-10-09",
-   "sec": 31,
-   "ageSec": null,
-   "by": "stop",
-   "result": "resolved",
-   "breach": false,
-   "source": "lab-protect",
-   "at": "2026-10-09T13:32:34.016Z"
-  },
   "LEARN.S1|CNH|1791811819031": {
    "date": "2026-10-12",
    "sec": 35,
