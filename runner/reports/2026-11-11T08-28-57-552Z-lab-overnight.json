@@ -1,0 +1,803 @@
+{
+ "tool": "SmartTrader-PaperLab",
+ "version": "lab-0.12b",
+ "rulesVersion": "lab-0.4",
+ "at": "2026-11-11T08:28:14.987Z",
+ "cmd": "lab-overnight",
+ "trading": true,
+ "entries": true,
+ "halt": false,
+ "runnerMode": "lab",
+ "labStart": "2026-10-07",
+ "labEnd": "2027-01-07",
+ "approvedPath": {
+  "approved": "github-actions",
+  "thisRun": "github-actions",
+  "ok": true
+ },
+ "steps": [
+  "lab-overnight: 0 أمر/تحقق، 0 تقاطع داخلي، ليوم 2026-11-11"
+ ],
+ "warnings": [],
+ "errors": [],
+ "orders": [],
+ "wouldSend": [],
+ "intents": [],
+ "crossesCreated": [],
+ "skipped": [
+  {
+   "book": "REF",
+   "why": "متقاعد منذ 2026-10-12 (حل محله REF2 بأمر إغلاق)"
+  },
+  {
+   "book": "S1",
+   "why": "protection-sla-breach منذ 2026-10-22T13:32:09.662Z — دخول OPG الجديد معلّق لهذا الدفتر حتى lab-clear-flags (الحماية والخروج مستمران)"
+  },
+  {
+   "book": "CHEAP",
+   "why": "protection-sla-breach منذ 2026-10-22T13:32:09.662Z — دخول OPG الجديد معلّق لهذا الدفتر حتى lab-clear-flags (الحماية والخروج مستمران)"
+  },
+  {
+   "book": "LEARN.S1",
+   "why": "protection-sla-breach منذ 2026-10-22T13:32:09.662Z — دخول OPG الجديد معلّق لهذا الدفتر حتى lab-clear-flags (الحماية والخروج مستمران)"
+  },
+  {
+   "book": "LEARN.CHEAP",
+   "why": "protection-sla-breach منذ 2026-10-22T13:32:09.662Z — دخول OPG الجديد معلّق لهذا الدفتر حتى lab-clear-flags (الحماية والخروج مستمران)"
+  }
+ ],
+ "runEnv": {
+  "path": "github-actions",
+  "githubRunId": "42987254968",
+  "githubRunAttempt": "1",
+  "githubWorkflow": "smarttrader-lab",
+  "githubEvent": "schedule",
+  "githubRepository": "salehx11sa/smarttrader-lab",
+  "githubRunNumber": "696",
+  "githubSchedule": "53 1 * * 1-5",
+  "triggerSource": null,
+  "triggerEntryLock": null,
+  "entryLock": null,
+  "startedAt": "2026-11-11T08:28:14.987Z"
+ },
+ "account": {
+  "paper": true,
+  "masked": "****LZPM",
+  "status": "ACTIVE",
+  "cash": "64007.36",
+  "equity": "99250.45",
+  "clock": {
+   "is_open": false,
+   "next_close": "2026-11-11T16:00:00-05:00",
+   "next_open": "2026-11-11T09:30:00-05:00",
+   "timestamp": "2026-11-11T03:28:15.223639292-05:00"
+  }
+ },
+ "window": {
+  "nyNow": "2026-11-11 03:28",
+  "target": "2026-11-11",
+  "prev": "2026-11-10",
+  "inWindow": true,
+  "late": false,
+  "preWindow": false,
+  "why": null,
+  "sendFrom": "2026-11-10 19:05",
+  "sendUntil": "2026-11-11 09:15",
+  "note": "إرسال OPG من 19:05 حتى 09:15 نيويورك فقط: Alpaca ترفض OPG بين 09:28 و19:00 وتصف ما بعد 19:00 لمزاد الافتتاح التالي (الوثائق الرسمية)"
+ },
+ "crossLedger": {
+  "ok": true,
+  "state": "valid",
+  "rows": 4,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 4,
+   "head": "edaaee186500"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "crossLedgerInitial": {
+  "ok": true,
+  "state": "valid",
+  "rows": 4,
+  "format": "chain",
+  "why": null,
+  "proof": null,
+  "files": {
+   "ledger": true,
+   "backup": true,
+   "anchor": true
+  },
+  "anchor": {
+   "count": 4,
+   "head": "edaaee186500"
+  },
+  "evidence": null,
+  "warn": null
+ },
+ "feedUsed": "sip",
+ "legacy": {
+  "effectiveBaseline": {
+   "AMD": 0,
+   "CAT": 0,
+   "MSFT": 3,
+   "NVDA": 0
+  },
+  "sold": {
+   "CAT": 1,
+   "AMD": 1,
+   "NVDA": 3
+  },
+  "invalid": {},
+  "documentedOrders": 4,
+  "documentedFills": 4
+ },
+ "recon": {
+  "rows": [
+   {
+    "sym": "AMD",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "CAT",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "CNH",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "DFTX",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "DNTH",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "GRND",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "HELP",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "LAC",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "MDXG",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "MFA",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "MSFT",
+    "lab": 0,
+    "baseline": 3,
+    "broker": 3,
+    "diff": 0
+   },
+   {
+    "sym": "NVDA",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "NXH",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "QUBT",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "SPY",
+    "lab": 28,
+    "baseline": 0,
+    "broker": 28,
+    "diff": 0
+   },
+   {
+    "sym": "VEEE",
+    "lab": 0,
+    "baseline": 0,
+    "broker": 0,
+    "diff": 0
+   },
+   {
+    "sym": "VOO",
+    "lab": 18,
+    "baseline": 0,
+    "broker": 18,
+    "diff": 0
+   }
+  ],
+  "ok": true,
+  "labMismatch": {},
+  "unexplainedForeign": [],
+  "baselineDrift": [],
+  "baselineDeficit": []
+ },
+ "foreignActivity": {
+  "ordersToday": [],
+  "openBuys": [],
+  "fillsToday": [],
+  "unknownFillsToday": [],
+  "legacyExcusedToday": [],
+  "any": false
+ },
+ "settlement": {
+  "proven": true,
+  "settledCash": 56519.81,
+  "cash": 64007.36,
+  "unsettledProceeds": 7487.55,
+  "reasons": [],
+  "pendingReserveAll": 0
+ },
+ "universes": {
+  "U-LIQ": {
+   "ok": true,
+   "stats": {
+    "withBars": 2661,
+    "stale": 26,
+    "eligible": 1971,
+    "signals": 29,
+    "lastDay": "2026-11-10"
+   },
+   "top": [
+    {
+     "sym": "FRSH",
+     "rank": -0.2284129876521206,
+     "close": 11.88,
+     "atr": 0.6227554537561099,
+     "rsi2": 0.228
+    },
+    {
+     "sym": "GTLB",
+     "rank": -0.6775212517933653,
+     "close": 46.66,
+     "atr": 2.7557034665830895,
+     "rsi2": 0.678
+    },
+    {
+     "sym": "SHEL",
+     "rank": -0.7845186927037702,
+     "close": 97.27,
+     "atr": 2.137251865815135,
+     "rsi2": 0.785
+    },
+    {
+     "sym": "EQNR",
+     "rank": -1.4034944161069802,
+     "close": 40.68,
+     "atr": 1.5302456002591078,
+     "rsi2": 1.403
+    },
+    {
+     "sym": "BFH",
+     "rank": -1.6329730834589924,
+     "close": 96.7,
+     "atr": 4.407986117604581,
+     "rsi2": 1.633
+    },
+    {
+     "sym": "WK",
+     "rank": -1.900129188766556,
+     "close": 67.16,
+     "atr": 4.124399300251827,
+     "rsi2": 1.9
+    },
+    {
+     "sym": "HALO",
+     "rank": -2.7964347706604684,
+     "close": 102.98,
+     "atr": 4.859069930788233,
+     "rsi2": 2.796
+    },
+    {
+     "sym": "ASAN",
+     "rank": -3.497030279318153,
+     "close": 9.59,
+     "atr": 0.631845143937019,
+     "rsi2": 3.497
+    }
+   ]
+  },
+  "U-LOW": {
+   "ok": true,
+   "stats": {
+    "withBars": 2343,
+    "stale": 33,
+    "eligible": 702,
+    "signals": 56,
+    "lastDay": "2026-11-10"
+   },
+   "top": [
+    {
+     "sym": "LAND",
+     "rank": -0.12437287849171241,
+     "close": 6.88,
+     "atr": 0.30878923433249106,
+     "rsi2": 0.124
+    },
+    {
+     "sym": "WTI",
+     "rank": -0.16607639025359333,
+     "close": 2.89,
+     "atr": 0.2225635412067946,
+     "rsi2": 0.166
+    },
+    {
+     "sym": "FRSH",
+     "rank": -0.2284129876521206,
+     "close": 11.88,
+     "atr": 0.6227554537561099,
+     "rsi2": 0.228
+    },
+    {
+     "sym": "VRRM",
+     "rank": -0.5016017659498999,
+     "close": 2.06,
+     "atr": 0.2208325428999327,
+     "rsi2": 0.502
+    },
+    {
+     "sym": "NABL",
+     "rank": -1.088497487606702,
+     "close": 4.66,
+     "atr": 0.2275894656391653,
+     "rsi2": 1.088
+    },
+    {
+     "sym": "XLAB",
+     "rank": -1.287223200066947,
+     "close": 1.04,
+     "atr": 0.5483134536619136,
+     "rsi2": 1.287
+    },
+    {
+     "sym": "RES",
+     "rank": -1.3137456090583726,
+     "close": 5.22,
+     "atr": 0.3268351449570374,
+     "rsi2": 1.314
+    },
+    {
+     "sym": "AIXI",
+     "rank": -1.4671533320157124,
+     "close": 2.08,
+     "atr": 0.4654520799642757,
+     "rsi2": 1.467
+    }
+   ]
+  }
+ },
+ "continuity": {
+  "tool": "state_guard 7.2.19-dev",
+  "runId": "42987254968",
+  "runNumber": 696,
+  "runAttempt": 1,
+  "at": "2026-11-11T08:28:11.440Z",
+  "anchor": {
+   "runId": "42952016643",
+   "runNumber": 695,
+   "runAttempt": 1,
+   "at": "2026-11-11T03:21:01Z",
+   "cmd": "lab-overnight",
+   "runOutcome": "success",
+   "incomplete": false,
+   "openSaveIncidents": 0,
+   "pairVerified": true,
+   "anchorSchema": 2,
+   "runnerExit": 0,
+   "lastPair": "ok",
+   "problems": []
+  },
+  "checked": [],
+  "lost": [],
+  "recovered": [],
+  "unresolved": [],
+  "ok": true,
+  "reason": "لا تشغيل سابق فقد حالته"
+ },
+ "saveIncidents": {
+  "open": [],
+  "errors": []
+ },
+ "runPair": {
+  "status": "ok",
+  "problems": []
+ },
+ "freeze": {
+  "ok": true,
+  "changed": [],
+  "labVersion": "lab-0.4",
+  "why": null
+ },
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
+ "players": {
+  "REF": {
+   "equityNow": 13000,
+   "killed": null,
+   "maxDrawdownPct": 0,
+   "tradesClosed": 0
+  },
+  "REF2": {
+   "equityNow": 12768.74,
+   "killed": null,
+   "maxDrawdownPct": 5.06,
+   "tradesClosed": 0
+  },
+  "S1": {
+   "equityNow": 12963.76,
+   "killed": null,
+   "maxDrawdownPct": 0.72,
+   "tradesClosed": 4
+  },
+  "T1": {
+   "equityNow": 12706.42,
+   "killed": null,
+   "maxDrawdownPct": 5.24,
+   "tradesClosed": 0
+  },
+  "TM1": {
+   "equityNow": 12998.87,
+   "killed": null,
+   "maxDrawdownPct": 0.7,
+   "tradesClosed": 1
+  },
+  "O1": {
+   "equityNow": 13002.82,
+   "killed": null,
+   "maxDrawdownPct": 0.62,
+   "tradesClosed": 15
+  },
+  "CHEAP": {
+   "equityNow": 12937.28,
+   "killed": null,
+   "maxDrawdownPct": 0.49,
+   "tradesClosed": 2
+  },
+  "LEARN": {
+   "equityNow": 12903.55,
+   "killed": null,
+   "maxDrawdownPct": 1.42,
+   "tradesClosed": 28
+  }
+ },
+ "learn": {
+  "weights": {
+   "S1": 0.275,
+   "T1": 0.15,
+   "TM1": 0.15,
+   "O1": 0.275,
+   "CHEAP": 0.15
+  },
+  "budgets": {
+   "S1": 3540.53,
+   "T1": 1931.2,
+   "TM1": 1931.2,
+   "O1": 3540.53,
+   "CHEAP": 1931.2
+  },
+  "equityBase": 12874.68
+ },
+ "playerCash": {
+  "REF": {
+   "cash": 13000,
+   "unsettledProceeds": 0,
+   "settledCash": 13000,
+   "pendingReserve": 0,
+   "spendable": 13000,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 13000,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "REF2": {
+   "cash": 276.74,
+   "unsettledProceeds": 0,
+   "settledCash": 276.74,
+   "pendingReserve": 0,
+   "spendable": 276.74,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 276.74,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "S1": {
+   "cash": 12963.76,
+   "unsettledProceeds": 0,
+   "settledCash": 12963.76,
+   "pendingReserve": 0,
+   "spendable": 12963.76,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 12963.76,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "T1": {
+   "cash": 1377.82,
+   "unsettledProceeds": 0,
+   "settledCash": 1377.82,
+   "pendingReserve": 0,
+   "spendable": 1377.82,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 1377.82,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "TM1": {
+   "cash": 12998.87,
+   "unsettledProceeds": 0,
+   "settledCash": 12998.87,
+   "pendingReserve": 0,
+   "spendable": 12998.87,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 12998.87,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "O1": {
+   "cash": 6960.9,
+   "unsettledProceeds": 5989.35,
+   "settledCash": 971.55,
+   "pendingReserve": 0,
+   "spendable": 971.55,
+   "unknownPending": [],
+   "unsettled": [
+    {
+     "sym": "SPY",
+     "tradeDate": "2026-11-10",
+     "settleDate": "2026-11-12",
+     "proceeds": 2993.52
+    },
+    {
+     "sym": "SPY",
+     "tradeDate": "2026-11-10",
+     "settleDate": "2026-11-12",
+     "proceeds": 2246.88
+    },
+    {
+     "sym": "SPY",
+     "tradeDate": "2026-11-10",
+     "settleDate": "2026-11-12",
+     "proceeds": 748.95
+    }
+   ],
+   "proof": {
+    "proven": true,
+    "settledCash": 971.55,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "CHEAP": {
+   "cash": 12937.28,
+   "unsettledProceeds": 0,
+   "settledCash": 12937.28,
+   "pendingReserve": 0,
+   "spendable": 12937.28,
+   "unknownPending": [],
+   "unsettled": [],
+   "proof": {
+    "proven": true,
+    "settledCash": 12937.28,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  },
+  "LEARN": {
+   "cash": 9127.35,
+   "unsettledProceeds": 1498.2,
+   "settledCash": 7629.15,
+   "pendingReserve": 0,
+   "spendable": 7629.15,
+   "unknownPending": [],
+   "unsettled": [
+    {
+     "sym": "SPY",
+     "tradeDate": "2026-11-10",
+     "settleDate": "2026-11-12",
+     "proceeds": 1498.2
+    }
+   ],
+   "proof": {
+    "proven": true,
+    "settledCash": 7629.15,
+    "reasons": [],
+    "agreesWithBook": true
+   },
+   "proven": true
+  }
+ },
+ "protectBlocks": [],
+ "protectSla": {
+  "enabled": true,
+  "flag": "protection-sla-breach",
+  "active": true,
+  "corrupt": false,
+  "blocksNewEntriesFor": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "books": [
+   "S1",
+   "CHEAP",
+   "LEARN.S1",
+   "LEARN.CHEAP"
+  ],
+  "targetSec": 60,
+  "upperSec": 90,
+  "since": "2026-10-22T13:32:09.662Z",
+  "cases": [
+   {
+    "book": "S1",
+    "sym": "GRND",
+    "fillAt": "2026-10-22T13:30:03.206Z",
+    "resolvedAt": "2026-10-22T13:31:33.991Z",
+    "sec": 91,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   },
+   {
+    "book": "LEARN.CHEAP",
+    "sym": "MDXG",
+    "fillAt": "2026-10-22T13:30:16.620Z",
+    "resolvedAt": "2026-10-22T13:31:49.437Z",
+    "sec": 93,
+    "ageSec": null,
+    "result": "resolved",
+    "by": "stop",
+    "source": "lab-protect"
+   }
+  ],
+  "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
+ },
+ "t1": {
+  "T1": {
+   "decision": "in",
+   "close": 755.72,
+   "sma": 728.264,
+   "months": 10,
+   "monthEnd": "2026-10-30",
+   "monthsUsed": [
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09",
+    "2026-10"
+   ]
+  },
+  "LEARN.T1": {
+   "decision": "in",
+   "close": 755.72,
+   "sma": 728.264,
+   "months": 10,
+   "monthEnd": "2026-10-30",
+   "monthsUsed": [
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09",
+    "2026-10"
+   ]
+  }
+ },
+ "tm1": {
+  "TM1": {
+   "buyDay": false,
+   "lastUnknown": false,
+   "tradingDayOfMonth": 8
+  },
+  "LEARN.TM1": {
+   "buyDay": false,
+   "lastUnknown": false,
+   "tradingDayOfMonth": 8
+  }
+ },
+ "sent": [],
+ "status": "planned",
+ "protection": [],
+ "protectionLatency": [],
+ "labStatus": {
+  "lastCompletedDay": "2026-11-10",
+  "dailyWritten": [
+   "2026-11-10"
+  ]
+ }
+}
