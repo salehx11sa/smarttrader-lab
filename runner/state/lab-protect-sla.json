@@ -148,16 +148,6 @@
   }
  ],
  "lots": {
-  "LEARN.S1|CNH|1791811819031": {
-   "date": "2026-10-12",
-   "sec": 35,
-   "ageSec": null,
-   "by": "stop",
-   "result": "resolved",
-   "breach": false,
-   "source": "lab-protect",
-   "at": "2026-10-12T13:32:39.234Z"
-  },
   "LEARN.CHEAP|VEEE|1791898209795": {
    "date": "2026-10-13",
    "sec": 716,
