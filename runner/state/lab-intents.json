@@ -3901,5 +3901,25 @@
    "intents": [],
    "crosses": []
   }
+ ],
+ "2026-11-12": [
+  {
+   "at": "2026-11-12T00:56:18.935Z",
+   "runId": "43130771282",
+   "runStartedAt": "2026-11-12T00:55:05.304Z",
+   "intents": [
+    {
+     "book": "LEARN.O1",
+     "sym": "SPY",
+     "side": "sell",
+     "qty": 2,
+     "ref": 759.81,
+     "reason": "O1: بيع عند الافتتاح",
+     "tif": "opg",
+     "exit": true
+    }
+   ],
+   "crosses": []
+  }
  ]
 }
