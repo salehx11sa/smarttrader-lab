@@ -1,0 +1,23 @@
+{
+ "player": "O1",
+ "name": "الليلي",
+ "date": "2026-11-12",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 13008.02,
+ "cash": 13008.02,
+ "dayPnl": 0,
+ "totalPnl": 8.02,
+ "totalReturnPct": 0.062,
+ "drawdownPct": 0.25,
+ "maxDrawdownPct": 0.62,
+ "positions": [],
+ "orders": [],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 16,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12804.74
+ }
+}

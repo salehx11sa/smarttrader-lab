@@ -1,0 +1,23 @@
+{
+ "player": "TM1",
+ "name": "الموسمي",
+ "date": "2026-11-12",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12998.87,
+ "cash": 12998.87,
+ "dayPnl": 0,
+ "totalPnl": -1.13,
+ "totalReturnPct": -0.009,
+ "drawdownPct": 0.44,
+ "maxDrawdownPct": 0.7,
+ "positions": [],
+ "orders": [],
+ "fills": [],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 1,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12804.74
+ }
+}
