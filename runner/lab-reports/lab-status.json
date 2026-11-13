@@ -1,15 +1,18 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-12T23:45:14.417Z",
- "cmd": "lab-status",
+ "at": "2026-11-13T00:16:27.963Z",
+ "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-11-12",
  "daysElapsed": 27,
  "trading": true,
  "halt": false,
- "entryGates": null,
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
  "flags": [],
  "players": [
   {
@@ -38,7 +41,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12804.74,
-   "equityNow": 12849.73,
+   "equityNow": 12858.74,
    "totalReturnPct": -1.502,
    "maxDrawdownPct": 5.06,
    "drawdownPct": 2.03,
@@ -80,7 +83,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12734.62,
-   "equityNow": 12775.12,
+   "equityNow": 12783.5,
    "totalReturnPct": -2.041,
    "maxDrawdownPct": 5.24,
    "drawdownPct": 2.46,
@@ -164,7 +167,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12902.62,
-   "equityNow": 12916.12,
+   "equityNow": 12918.91,
    "totalReturnPct": -0.749,
    "maxDrawdownPct": 1.42,
    "drawdownPct": 0.75,
