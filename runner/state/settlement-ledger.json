@@ -1,57 +1,8 @@
 {
  "v": 1,
- "at": "2026-11-13T03:34:08.482Z",
- "today": "2026-11-12",
+ "at": "2026-11-13T08:49:45.764Z",
+ "today": "2026-11-13",
  "unsettled": [
-  {
-   "id": "20261110093008299::c3ab7677-ccbf-4abb-91eb-1e7d9d76bfca",
-   "symbol": "SPY",
-   "tradeDate": "2026-11-10",
-   "settleDate": "2026-11-12",
-   "proceeds": 2993.52
-  },
-  {
-   "id": "20261110093702925::d92db057-7e0a-481d-b558-94a316656e90",
-   "symbol": "SPY",
-   "tradeDate": "2026-11-10",
-   "settleDate": "2026-11-12",
-   "proceeds": 1498.2
-  },
-  {
-   "id": "20261110093703789::5ff6d786-249f-4def-a024-859a3ca73f00",
-   "symbol": "SPY",
-   "tradeDate": "2026-11-10",
-   "settleDate": "2026-11-12",
-   "proceeds": 2246.88
-  },
-  {
-   "id": "20261110093704230::4df08d47-0c6b-442e-bb3e-400ed9ef3f81",
-   "symbol": "SPY",
-   "tradeDate": "2026-11-10",
-   "settleDate": "2026-11-12",
-   "proceeds": 748.95
-  },
-  {
-   "id": "20261111093706957::b576f7a8-95e2-48ae-b437-7f63038c39dc",
-   "symbol": "SPY",
-   "tradeDate": "2026-11-11",
-   "settleDate": "2026-11-12",
-   "proceeds": 6047.12
-  },
-  {
-   "id": "20261111093707614::94004eb4-02cb-40a7-a8c5-8f405e636e8a",
-   "symbol": "SPY",
-   "tradeDate": "2026-11-11",
-   "settleDate": "2026-11-12",
-   "proceeds": 755.96
-  },
-  {
-   "id": "20261111093709005::37f503e0-5d34-4532-b16d-eb177af6a608",
-   "symbol": "SPY",
-   "tradeDate": "2026-11-11",
-   "settleDate": "2026-11-12",
-   "proceeds": 755.91
-  },
   {
    "id": "20261112093023310::241c1f3b-6dcc-45d4-9e12-73474c29187e",
    "symbol": "SPY",
