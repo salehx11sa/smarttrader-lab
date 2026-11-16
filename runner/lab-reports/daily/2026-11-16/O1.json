@@ -1,0 +1,112 @@
+{
+ "player": "O1",
+ "name": "الليلي",
+ "date": "2026-11-16",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12977.79,
+ "cash": 7058.19,
+ "dayPnl": -45.64,
+ "totalPnl": -22.21,
+ "totalReturnPct": -0.171,
+ "drawdownPct": 0.48,
+ "maxDrawdownPct": 0.62,
+ "positions": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "qty": 8,
+   "avgCost": 739.025,
+   "close": 739.95,
+   "value": 5919.6,
+   "entryDate": "2026-11-16"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "o1-20261116-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 8,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "o1-20261116-SPY-S-R1",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  },
+  {
+   "cid": "o1-20261116-SPY-B-r73905",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 8,
+   "price": 747.74,
+   "cid": "o1-20261116-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 747.92,
+   "slipVsRefPct": -0.024,
+   "auctionPrice": 749.66,
+   "slipVsAuctionPct": -0.256,
+   "fallbackExit": true
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 1,
+   "price": 739.06,
+   "cid": "o1-20261116-SPY-B-r73905",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 739.05,
+   "slipVsRefPct": 0.001,
+   "auctionPrice": 739.95,
+   "slipVsAuctionPct": -0.12,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 7,
+   "price": 739.02,
+   "cid": "o1-20261116-SPY-B-r73905",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 739.05,
+   "slipVsRefPct": -0.004,
+   "auctionPrice": 739.95,
+   "slipVsAuctionPct": -0.126,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 17,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12521.42
+ }
+}
