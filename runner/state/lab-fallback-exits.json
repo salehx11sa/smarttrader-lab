@@ -572,6 +572,32 @@
    "late": false,
    "at": "2026-11-16T14:37:09.102Z",
    "result": "submitted"
+  },
+  "o1-20261117-SPY-S-R1": {
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261117-SPY-S",
+   "origStatus": "expired",
+   "origQty": 8,
+   "origFilled": 0,
+   "qty": 8,
+   "prePx": 737.73,
+   "late": false,
+   "at": "2026-11-17T14:36:59.359Z",
+   "result": "submitted"
+  },
+  "ln1-o1-20261117-SPY-S-R1": {
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261117-SPY-S",
+   "origStatus": "expired",
+   "origQty": 2,
+   "origFilled": 0,
+   "qty": 2,
+   "prePx": 737.73,
+   "late": false,
+   "at": "2026-11-17T14:36:59.394Z",
+   "result": "submitted"
   }
  }
 }
