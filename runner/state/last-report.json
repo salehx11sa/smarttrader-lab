@@ -1,10 +1,10 @@
 {
- "runId": "44100448183",
+ "runId": "44103546003",
  "runAttempt": "1",
- "cmd": "lab-overnight",
- "reportFile": "2026-11-17T14-12-31-233Z-lab-overnight.json",
- "reportSha256": "50cf858ef53b70f1a21b4676faf5b33df79607bf787720f367a9917e60cf58d5",
+ "cmd": "lab-protect",
+ "reportFile": "2026-11-17T14-31-20-418Z-lab-protect.json",
+ "reportSha256": "6fc82806aae62854c5b24cf0ca89cc85d43adcc289a0be4c35c9fb162020d0c5",
  "recorded": true,
  "exitCode": 0,
- "at": "2026-11-17T14:12:31.235Z"
+ "at": "2026-11-17T14:31:20.421Z"
 }
