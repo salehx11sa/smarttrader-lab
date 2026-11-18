@@ -1,0 +1,61 @@
+{
+ "player": "O1",
+ "name": "الليلي",
+ "date": "2026-11-18",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 12956.11,
+ "cash": 7114.51,
+ "dayPnl": -2.96,
+ "totalPnl": -43.89,
+ "totalReturnPct": -0.338,
+ "drawdownPct": 0.65,
+ "maxDrawdownPct": 0.65,
+ "positions": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "qty": 8,
+   "avgCost": 730.57,
+   "close": 730.2,
+   "value": 5841.6,
+   "entryDate": "2026-11-18"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "o1-20261118-SPY-B-r73060",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 8,
+   "price": 730.57,
+   "cid": "o1-20261118-SPY-B-r73060",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 730.6,
+   "slipVsRefPct": -0.004,
+   "auctionPrice": 730.2,
+   "slipVsAuctionPct": 0.051,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  }
+ ],
+ "tradesClosedToday": 0,
+ "tradesClosedTotal": 18,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12360.32
+ }
+}
