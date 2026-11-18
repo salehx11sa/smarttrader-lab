@@ -1,18 +1,15 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-18T14:12:24.422Z",
- "cmd": "lab-overnight",
+ "at": "2026-11-18T14:37:03.485Z",
+ "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-11-17",
  "daysElapsed": 30,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -41,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12394.16,
-   "equityNow": 12423.73,
+   "equityNow": 12394.34,
    "totalReturnPct": -4.66,
    "maxDrawdownPct": 5.17,
    "drawdownPct": 5.17,
@@ -83,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12364.42,
-   "equityNow": 12390.03,
+   "equityNow": 12364.42,
    "totalReturnPct": -4.889,
    "maxDrawdownPct": 5.3,
    "drawdownPct": 5.3,
@@ -167,11 +164,11 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12819.29,
-   "equityNow": 12827.83,
+   "equityNow": 12819.2,
    "totalReturnPct": -1.39,
    "maxDrawdownPct": 1.42,
    "drawdownPct": 1.39,
-   "tradesClosed": 33,
+   "tradesClosed": 34,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
@@ -226,7 +223,27 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": null,
+ "fallbackExits": [
+  {
+   "at": "2026-11-18T14:37:00.119Z",
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261118-SPY-S",
+   "origStatus": "expired",
+   "origQty": 2,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 2,
+   "openSellQty": 0,
+   "brokerFree": 20,
+   "late": false,
+   "prePx": 732.44,
+   "qty": 2,
+   "fallbackCid": "ln1-o1-20261118-SPY-S-R1",
+   "id": "382c27e0-ef5e-4151-a006-f822a1289568",
+   "statusAtSubmit": "pending_new"
+  }
+ ],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
@@ -424,11 +441,16 @@
   ],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
- "protectPass": null,
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
  "reconPending": {
   "active": [],
   "resolvedCount": 1
  },
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
- "protectAt": "2026-11-18T14:32:18.316Z"
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }
