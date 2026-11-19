@@ -1,0 +1,111 @@
+{
+ "player": "O1",
+ "name": "الليلي",
+ "date": "2026-11-19",
+ "labVersion": "lab-0.12b",
+ "startEquity": 13000,
+ "equity": 13016.19,
+ "cash": 7289.23,
+ "dayPnl": 60.08,
+ "totalPnl": 16.19,
+ "totalReturnPct": 0.125,
+ "drawdownPct": 0.19,
+ "maxDrawdownPct": 0.65,
+ "positions": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "qty": 8,
+   "avgCost": 716.56,
+   "close": 715.87,
+   "value": 5726.96,
+   "entryDate": "2026-11-19"
+  }
+ ],
+ "orders": [
+  {
+   "cid": "o1-20261119-SPY-S",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "opg",
+   "qty": 8,
+   "filled": 0,
+   "status": "expired"
+  },
+  {
+   "cid": "o1-20261119-SPY-S-R1",
+   "sym": "SPY",
+   "side": "sell",
+   "type": "market",
+   "tif": "day",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  },
+  {
+   "cid": "o1-20261119-SPY-B-r71644",
+   "sym": "SPY",
+   "side": "buy",
+   "type": "market",
+   "tif": "day",
+   "qty": 8,
+   "filled": 8,
+   "status": "filled"
+  }
+ ],
+ "fills": [
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 7,
+   "price": 738.41,
+   "cid": "o1-20261119-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 738.47,
+   "slipVsRefPct": -0.008,
+   "auctionPrice": 737.46,
+   "slipVsAuctionPct": 0.129,
+   "fallbackExit": true
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "sell",
+   "qty": 1,
+   "price": 738.33,
+   "cid": "o1-20261119-SPY-S-R1",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 738.47,
+   "slipVsRefPct": -0.019,
+   "auctionPrice": 737.46,
+   "slipVsAuctionPct": 0.118,
+   "fallbackExit": true
+  },
+  {
+   "book": "O1",
+   "sym": "SPY",
+   "side": "buy",
+   "qty": 8,
+   "price": 716.56,
+   "cid": "o1-20261119-SPY-B-r71644",
+   "kind": "fill",
+   "tif": "day",
+   "expectedRef": 716.44,
+   "slipVsRefPct": 0.017,
+   "auctionPrice": 715.87,
+   "slipVsAuctionPct": 0.096,
+   "closeBuy": true,
+   "measure": "slipVsRefPct = التنفيذ مقابل سعر ما قبل الإرسال • slipVsAuctionPct = مقابل الإغلاق الرسمي (يشمل حركة السوق بين وقت الإرسال الفعلي والإغلاق، ليس كله انزلاقًا)"
+  }
+ ],
+ "tradesClosedToday": 1,
+ "tradesClosedTotal": 19,
+ "killed": null,
+ "vsRef": {
+  "refEquity": 12120.92
+ }
+}
