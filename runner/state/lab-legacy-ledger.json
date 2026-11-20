@@ -83,6 +83,16 @@
    "orderId": "4e4bfe29-9294-46a1-a86e-437af5ad0f3f",
    "fees": null,
    "feesNote": "رسوم الأسهم في Alpaca الورقي لا تظهر في نشاط التعبئة"
+  },
+  "20261120114310005::017eabd8-420f-4dea-847b-38ff5546c2f0": {
+   "sym": "MSFT",
+   "qty": 3,
+   "price": 490.11,
+   "proceeds": 1470.33,
+   "at": "2026-11-20T16:43:10.005591Z",
+   "orderId": "8ddbd5b1-05fd-4f9a-9173-08c41f25fb6f",
+   "fees": null,
+   "feesNote": "رسوم الأسهم في Alpaca الورقي لا تظهر في نشاط التعبئة"
   }
  }
 }
