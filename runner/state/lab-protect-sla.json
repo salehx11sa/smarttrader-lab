@@ -147,36 +147,5 @@
    ]
   }
  ],
- "lots": {
-  "S1|GRND|1792675803206": {
-   "date": "2026-10-22",
-   "sec": 91,
-   "ageSec": null,
-   "by": "stop",
-   "result": "resolved",
-   "breach": true,
-   "source": "lab-protect",
-   "at": "2026-10-22T13:32:09.661Z"
-  },
-  "LEARN.S1|GRND|1792675810329": {
-   "date": "2026-10-22",
-   "sec": 84,
-   "ageSec": null,
-   "by": "stop",
-   "result": "resolved",
-   "breach": false,
-   "source": "lab-protect",
-   "at": "2026-10-22T13:32:09.661Z"
-  },
-  "LEARN.CHEAP|MDXG|1792675816620": {
-   "date": "2026-10-22",
-   "sec": 93,
-   "ageSec": null,
-   "by": "stop",
-   "result": "resolved",
-   "breach": true,
-   "source": "lab-protect",
-   "at": "2026-10-22T13:32:09.661Z"
-  }
- }
+ "lots": {}
 }
