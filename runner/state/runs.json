@@ -12493,5 +12493,20 @@
   "lab": true,
   "labStatus": "planned",
   "ordersSent": 0
+ },
+ {
+  "cmd": "lab-overnight",
+  "start": "2026-11-24T07:03:59.162Z",
+  "startedAt": "2026-11-24T07:03:59.162Z",
+  "at": "2026-11-24T07:04:34.836Z",
+  "githubRunId": "45345084547",
+  "githubRunAttempt": "1",
+  "githubEvent": "schedule",
+  "githubSchedule": "41 23 * * 1-5",
+  "reportFile": "2026-11-24T07-04-34-834Z-lab-overnight.json",
+  "reportSha256": "da3df587aac4b1f9867efba593357ba5817f4c85eca424fb6650aad200e0768b",
+  "lab": true,
+  "labStatus": "planned",
+  "ordersSent": 0
  }
 ]
