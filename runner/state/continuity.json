@@ -1,14 +1,14 @@
 {
  "tool": "state_guard 7.2.19-dev",
- "runId": "45441264235",
- "runNumber": 966,
+ "runId": "45467610688",
+ "runNumber": 968,
  "runAttempt": 1,
- "at": "2026-11-24T16:47:55.912Z",
+ "at": "2026-11-24T19:12:03.088Z",
  "anchor": {
-  "runId": "45423047681",
-  "runNumber": 965,
+  "runId": "45441264235",
+  "runNumber": 966,
   "runAttempt": 1,
-  "at": "2026-11-24T15:14:01Z",
+  "at": "2026-11-24T16:47:58Z",
   "cmd": "lab-postopen",
   "runOutcome": "success",
   "incomplete": false,
@@ -19,10 +19,59 @@
   "lastPair": "ok",
   "problems": []
  },
- "checked": [],
- "lost": [],
- "recovered": [],
+ "checked": [
+  {
+   "id": 45460146667,
+   "number": 967,
+   "attempt": 1,
+   "runStep": {
+    "conclusion": "success",
+    "started": true
+   },
+   "saveStep": "failure",
+   "state": "عمل المنفّذ (success) ولم تُحفظ حالته"
+  }
+ ],
+ "lost": [
+  {
+   "id": 45460146667,
+   "attempt": 1
+  }
+ ],
+ "recovered": [
+  {
+   "id": 45460146667,
+   "number": 967,
+   "attempt": 1,
+   "artifact": "report-45460146667-1",
+   "identity": "last-run.json",
+   "legacyName": false,
+   "changed": [
+    "runs.json",
+    "settlement-ledger.json"
+   ],
+   "absentOptional": [],
+   "restoredReports": [
+    "2026-11-24T18-30-03-814Z-lab-postopen.json"
+   ],
+   "manifest": "evidence/restore-manifest-45460146667-1-by-45467610688-1.json",
+   "evidence": {
+    "copied": 0,
+    "same": 0,
+    "distinctRecords": [],
+    "conflicts": []
+   },
+   "reports": {
+    "copied": 1,
+    "same": 962,
+    "keptLocal": 0,
+    "conflicts": []
+   },
+   "openIncidents": [],
+   "artifactAnchorIncomplete": false
+  }
+ ],
  "unresolved": [],
  "ok": true,
- "reason": "لا تشغيل سابق فقد حالته"
+ "reason": "استُعيدت حالة 1 وحدة لم تُحفظ"
 }
