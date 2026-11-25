@@ -1,18 +1,15 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-25T14:12:42.807Z",
- "cmd": "lab-overnight",
+ "at": "2026-11-25T14:37:01.259Z",
+ "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-11-24",
  "daysElapsed": 35,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -41,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12169.52,
-   "equityNow": 11928.14,
+   "equityNow": 11837.6,
    "totalReturnPct": -6.388,
    "maxDrawdownPct": 10.35,
    "drawdownPct": 6.89,
@@ -83,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12159.52,
-   "equityNow": 11939.62,
+   "equityNow": 11861.02,
    "totalReturnPct": -6.465,
    "maxDrawdownPct": 10.2,
    "drawdownPct": 6.87,
@@ -125,7 +122,7 @@
    "name": "الليلي",
    "retired": null,
    "equityClose": 12924.65,
-   "equityNow": 12807.37,
+   "equityNow": 12765.45,
    "totalReturnPct": -0.58,
    "maxDrawdownPct": 0.89,
    "drawdownPct": 0.89,
@@ -167,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12822.7,
-   "equityNow": 12749.4,
+   "equityNow": 12723.2,
    "totalReturnPct": -1.364,
    "maxDrawdownPct": 2.34,
    "drawdownPct": 1.36,
@@ -226,7 +223,46 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": null,
+ "fallbackExits": [
+  {
+   "at": "2026-11-25T14:36:58.045Z",
+   "book": "O1",
+   "sym": "SPY",
+   "origCid": "o1-20261125-SPY-S",
+   "origStatus": "expired",
+   "origQty": 8,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 8,
+   "openSellQty": 0,
+   "brokerFree": 28,
+   "late": false,
+   "prePx": 698.61,
+   "qty": 8,
+   "fallbackCid": "o1-20261125-SPY-S-R1",
+   "id": "84a7a619-6c0c-4cd8-bfa7-a12f241a4985",
+   "statusAtSubmit": "pending_new"
+  },
+  {
+   "at": "2026-11-25T14:36:58.061Z",
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261125-SPY-S",
+   "origStatus": "expired",
+   "origQty": 2,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 2,
+   "openSellQty": 0,
+   "brokerFree": 20,
+   "late": false,
+   "prePx": 698.61,
+   "qty": 2,
+   "fallbackCid": "ln1-o1-20261125-SPY-S-R1",
+   "id": "d6545b36-dcb2-4459-8f54-62a6d16bb6de",
+   "statusAtSubmit": "pending_new"
+  }
+ ],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
@@ -424,11 +460,16 @@
   ],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
- "protectPass": null,
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
  "reconPending": {
   "active": [],
   "resolvedCount": 1
  },
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
- "protectAt": "2026-11-25T14:32:17.856Z"
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }
