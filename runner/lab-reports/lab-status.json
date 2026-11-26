@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-26T03:39:42.304Z",
+ "at": "2026-11-26T05:25:04.375Z",
  "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -342,7 +342,7 @@
  },
  "settlement": {
   "proven": true,
-  "settledCash": 56508.96
+  "settledCash": 64362.48
  },
  "crossesTotal": 4,
  "crossLedger": {
