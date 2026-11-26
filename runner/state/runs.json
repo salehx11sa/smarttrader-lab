@@ -13333,5 +13333,20 @@
   "lab": true,
   "labStatus": "planned",
   "ordersSent": 0
+ },
+ {
+  "cmd": "lab-protect",
+  "start": "2026-11-26T14:28:57.134Z",
+  "startedAt": "2026-11-26T14:28:57.134Z",
+  "at": "2026-11-26T14:28:58.191Z",
+  "githubRunId": "45839411860",
+  "githubRunAttempt": "1",
+  "githubEvent": "workflow_dispatch",
+  "githubSchedule": null,
+  "reportFile": "2026-11-26T14-28-58-189Z-lab-protect.json",
+  "reportSha256": "eeed90dd33d64d49f8cb2f96093debb1dfa64881f71cfa6224f02f4a8dda54c9",
+  "lab": true,
+  "labStatus": "outside-window",
+  "ordersSent": 0
  }
 ]
