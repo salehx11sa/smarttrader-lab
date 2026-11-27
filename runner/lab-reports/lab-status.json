@@ -1,15 +1,18 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-26T23:48:01.214Z",
- "cmd": "lab-status",
+ "at": "2026-11-27T00:50:54.807Z",
+ "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-11-25",
  "daysElapsed": 36,
  "trading": true,
  "halt": false,
- "entryGates": null,
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
  "flags": [],
  "players": [
   {
@@ -327,8 +330,8 @@
   },
   {
    "id": "CHEAP-rsi5",
-   "totalReturnPct": 3.052,
-   "maxDrawdownPct": 3.191,
+   "totalReturnPct": 0.301,
+   "maxDrawdownPct": 3.613,
    "tradesClosed": 24
   }
  ],

@@ -719,9 +719,9 @@
    "base": "CHEAP",
    "virtual": true,
    "noOrders": true,
-   "equity": 13396.82,
-   "totalReturnPct": 3.052,
-   "maxDrawdownPct": 3.191,
+   "equity": 13039.19,
+   "totalReturnPct": 0.301,
+   "maxDrawdownPct": 3.613,
    "tradesClosed": 24,
    "openPositions": [
     "STLA",
@@ -812,22 +812,22 @@
      "exitDate": "2026-10-29"
     },
     {
-     "sym": "TAL",
-     "entry": 10.39,
-     "exit": 9.8,
-     "qty": 98,
-     "pnl": -57.82,
-     "reason": "time",
+     "sym": "IEP",
+     "entry": 5.69,
+     "exit": 5.2,
+     "qty": 260,
+     "pnl": -127.4,
+     "reason": "stop",
      "exitDate": "2026-10-29"
     },
     {
-     "sym": "MDXG",
-     "entry": 3.7,
-     "exit": 3.62,
-     "qty": 205,
-     "pnl": -16.4,
+     "sym": "TAL",
+     "entry": 10.35,
+     "exit": 10.21,
+     "qty": 100,
+     "pnl": -14,
      "reason": "time",
-     "exitDate": "2026-10-29"
+     "exitDate": "2026-10-30"
     },
     {
      "sym": "GLAS",
@@ -839,29 +839,29 @@
      "exitDate": "2026-10-30"
     },
     {
-     "sym": "IEP",
-     "entry": 5.3,
-     "exit": 5.35,
-     "qty": 234,
-     "pnl": 11.7,
+     "sym": "AMCX",
+     "entry": 7.52,
+     "exit": 8.59,
+     "qty": 92,
+     "pnl": 98.44,
      "reason": "time",
      "exitDate": "2026-11-05"
     },
     {
-     "sym": "AMCX",
-     "entry": 7.52,
-     "exit": 8.59,
-     "qty": 93,
-     "pnl": 99.51,
+     "sym": "IEP",
+     "entry": 5.2,
+     "exit": 5.16,
+     "qty": 228,
+     "pnl": -9.12,
      "reason": "time",
-     "exitDate": "2026-11-05"
+     "exitDate": "2026-11-06"
     },
     {
      "sym": "BILI",
      "entry": 12.825,
      "exit": 14.48,
-     "qty": 105,
-     "pnl": 173.78,
+     "qty": 104,
+     "pnl": 172.12,
      "reason": "time",
      "exitDate": "2026-11-06"
     },
@@ -869,8 +869,8 @@
      "sym": "UGP",
      "entry": 5.82,
      "exit": 5.53,
-     "qty": 127,
-     "pnl": -36.83,
+     "qty": 126,
+     "pnl": -36.54,
      "reason": "time",
      "exitDate": "2026-11-06"
     },
@@ -884,20 +884,11 @@
      "exitDate": "2026-11-12"
     },
     {
-     "sym": "GRNT",
-     "entry": 4.8,
-     "exit": 6.33,
-     "qty": 179,
-     "pnl": 273.87,
-     "reason": "time",
-     "exitDate": "2026-11-12"
-    },
-    {
      "sym": "SPRY",
      "entry": 2.66,
      "exit": 3.86,
-     "qty": 140,
-     "pnl": 168,
+     "qty": 139,
+     "pnl": 166.8,
      "reason": "time",
      "exitDate": "2026-11-13"
     },
@@ -911,20 +902,20 @@
      "exitDate": "2026-11-13"
     },
     {
+     "sym": "TBLA",
+     "entry": 2.18,
+     "exit": 2.14,
+     "qty": 223,
+     "pnl": -8.92,
+     "reason": "time",
+     "exitDate": "2026-11-13"
+    },
+    {
      "sym": "VRRM",
      "entry": 2.03,
      "exit": 1.71,
-     "qty": 209,
-     "pnl": -66.88,
-     "reason": "time",
-     "exitDate": "2026-11-19"
-    },
-    {
-     "sym": "ABR",
-     "entry": 1.37,
-     "exit": 1.15,
-     "qty": 224,
-     "pnl": -49.28,
+     "qty": 203,
+     "pnl": -64.96,
      "reason": "time",
      "exitDate": "2026-11-19"
     },
@@ -932,8 +923,17 @@
      "sym": "AIXI",
      "entry": 1.89,
      "exit": 1.71,
-     "qty": 100,
-     "pnl": -18,
+     "qty": 97,
+     "pnl": -17.46,
+     "reason": "time",
+     "exitDate": "2026-11-20"
+    },
+    {
+     "sym": "ABR",
+     "entry": 1.31,
+     "exit": 1.1,
+     "qty": 224,
+     "pnl": -47.04,
      "reason": "time",
      "exitDate": "2026-11-20"
     },
@@ -941,8 +941,8 @@
      "sym": "NXH",
      "entry": 1.25,
      "exit": 1.02,
-     "qty": 263,
-     "pnl": -60.49,
+     "qty": 256,
+     "pnl": -58.88,
      "reason": "time",
      "exitDate": "2026-11-20"
     }
