@@ -1,18 +1,15 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-27T14:12:41.295Z",
- "cmd": "lab-overnight",
+ "at": "2026-11-27T14:37:01.661Z",
+ "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
  "lastCompletedDay": "2026-11-25",
  "daysElapsed": 36,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -41,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12136.4,
-   "equityNow": 12311.54,
+   "equityNow": 12249.8,
    "totalReturnPct": -6.643,
    "maxDrawdownPct": 10.35,
    "drawdownPct": 7.14,
@@ -83,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12128.32,
-   "equityNow": 12288.22,
+   "equityNow": 12231.52,
    "totalReturnPct": -6.705,
    "maxDrawdownPct": 10.2,
    "drawdownPct": 7.11,
@@ -167,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12781.4,
-   "equityNow": 12834.7,
+   "equityNow": 12815.8,
    "totalReturnPct": -1.682,
    "maxDrawdownPct": 2.34,
    "drawdownPct": 1.68,
@@ -226,7 +223,27 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": null,
+ "fallbackExits": [
+  {
+   "at": "2026-11-27T14:36:58.479Z",
+   "book": "LEARN.O1",
+   "sym": "SPY",
+   "origCid": "ln1-o1-20261127-SPY-S",
+   "origStatus": "expired",
+   "origQty": 2,
+   "origFilled": 0,
+   "result": "submitted",
+   "positionQty": 2,
+   "openSellQty": 0,
+   "brokerFree": 20,
+   "late": false,
+   "prePx": 723.51,
+   "qty": 2,
+   "fallbackCid": "ln1-o1-20261127-SPY-S-R1",
+   "id": "a4935a85-00ec-48ae-8b35-614821367c47",
+   "statusAtSubmit": "pending_new"
+  }
+ ],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
@@ -424,11 +441,16 @@
   ],
   "note": "protection-sla-breach يمنع دخول OPG الجديد لـS1 وCHEAP وLEARN.S1 وLEARN.CHEAP فقط؛ الحماية والخروج مستمران وبقية الدفاتر لا تتأثر. يُرفع بـlab-clear-flags فقط."
  },
- "protectPass": null,
+ "protectPass": {
+  "status": "complete",
+  "rounds": 1,
+  "exits": [],
+  "failed": [],
+  "note": "خروج الحماية يُتتبع حتى التعبئة؛ لا يُعد منتهيًا قبل زوال الكمية"
+ },
  "reconPending": {
   "active": [],
   "resolvedCount": 1
  },
- "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط.",
- "protectAt": "2026-11-27T14:30:44.308Z"
+ "successRule": "النجاح = عائد أعلى من الحكَم REF2 منذ T0 + أقصى هبوط منذ T0 ليس أسوأ منه + 20 صفقة مغلقة على الأقل (للاعبين النشطين). الحكم النهائي عند 2027-01-07 فقط."
 }
