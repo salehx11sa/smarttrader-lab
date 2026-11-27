@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-27T17:51:03.504Z",
+ "at": "2026-11-27T18:29:59.287Z",
  "cmd": "lab-postopen",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -9,10 +9,7 @@
  "daysElapsed": 36,
  "trading": true,
  "halt": false,
- "entryGates": {
-  "ok": true,
-  "why": []
- },
+ "entryGates": null,
  "flags": [],
  "players": [
   {
@@ -41,7 +38,7 @@
    "name": "الحَكَم",
    "retired": null,
    "equityClose": 12136.4,
-   "equityNow": 12282.47,
+   "equityNow": 12327.38,
    "totalReturnPct": -6.643,
    "maxDrawdownPct": 10.35,
    "drawdownPct": 7.14,
@@ -83,7 +80,7 @@
    "name": "الصبور",
    "retired": null,
    "equityClose": 12128.32,
-   "equityNow": 12262.72,
+   "equityNow": 12301.34,
    "totalReturnPct": -6.705,
    "maxDrawdownPct": 10.2,
    "drawdownPct": 7.11,
@@ -125,7 +122,7 @@
    "name": "الليلي",
    "retired": null,
    "equityClose": 12766.41,
-   "equityNow": 12764.73,
+   "equityNow": 12785.33,
    "totalReturnPct": -1.797,
    "maxDrawdownPct": 2.11,
    "drawdownPct": 2.11,
@@ -167,7 +164,7 @@
    "name": "المتعلّم",
    "retired": null,
    "equityClose": 12781.4,
-   "equityNow": 12821.68,
+   "equityNow": 12834.55,
    "totalReturnPct": -1.682,
    "maxDrawdownPct": 2.34,
    "drawdownPct": 1.68,
@@ -226,22 +223,7 @@
   },
   "note": "الحَكَم القديم (opg) متقاعد؛ سجله محفوظ كما هو"
  },
- "fallbackExits": [
-  {
-   "at": "2026-11-27T17:51:03.396Z",
-   "book": "LEARN.O1",
-   "sym": "SPY",
-   "origCid": "ln1-o1-20261127-SPY-S",
-   "origStatus": "expired",
-   "origQty": 2,
-   "origFilled": 0,
-   "result": "exists",
-   "fallbackCid": "ln1-o1-20261127-SPY-S-R1",
-   "fallbackStatus": "filled",
-   "fallbackQty": 2,
-   "fallbackFilled": 2
-  }
- ],
+ "fallbackExits": [],
  "refH": {
   "id": "REF-H",
   "label": "REF-H (افتراضي، حسابي فقط)",
