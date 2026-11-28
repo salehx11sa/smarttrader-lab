@@ -1,7 +1,7 @@
 {
  "tool": "SmartTrader-PaperLab-Status",
  "version": "lab-0.12b",
- "at": "2026-11-27T23:42:37.166Z",
+ "at": "2026-11-28T00:16:32.498Z",
  "cmd": "lab-overnight",
  "labStart": "2026-10-07",
  "labEnd": "2027-01-07",
@@ -9,7 +9,10 @@
  "daysElapsed": 37,
  "trading": true,
  "halt": false,
- "entryGates": null,
+ "entryGates": {
+  "ok": true,
+  "why": []
+ },
  "flags": [],
  "players": [
   {
@@ -126,7 +129,7 @@
    "totalReturnPct": -1.646,
    "maxDrawdownPct": 2.11,
    "drawdownPct": 1.96,
-   "tradesClosed": 22,
+   "tradesClosed": 23,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
@@ -168,7 +171,7 @@
    "totalReturnPct": -1.269,
    "maxDrawdownPct": 2.34,
    "drawdownPct": 1.27,
-   "tradesClosed": 40,
+   "tradesClosed": 41,
    "killed": null,
    "sinceT0": {
     "t0": "2026-10-15",
@@ -341,7 +344,7 @@
   "proven": true,
   "settledCash": 57103.62
  },
- "crossesTotal": 4,
+ "crossesTotal": 6,
  "crossLedger": {
   "ok": true,
   "state": "valid"
